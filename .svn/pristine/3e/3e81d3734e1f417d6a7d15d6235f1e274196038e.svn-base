@@ -1,0 +1,195 @@
+package com.os.drewel.activity
+
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import com.os.drewel.R
+import com.os.drewel.adapter.MyOrderProductItemAdapter
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Data
+import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Product
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.utill.Utills
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_my_order_detail.*
+import kotlinx.android.synthetic.main.my_order_detail.*
+import java.util.*
+import kotlin.collections.ArrayList
+
+class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
+
+
+    private var orderId = ""
+
+    private var myOrderDetailResponse: Data? = null
+
+    private var myOrderDetailDisposable: CompositeDisposable = CompositeDisposable()
+
+    private var myOrderProductList: List<Product> = ArrayList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.my_order_detail)
+        initView()
+    }
+
+    private fun initView() {
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+
+        orderId = intent.getStringExtra(AppIntentExtraKeys.ORDER_ID)
+
+        setClickListener()
+
+        if (isNetworkAvailable())
+            callGetMyOrderDetailApi()
+    }
+
+    private fun setClickListener() {
+        order_detail_btn_cancel.setOnClickListener(this)
+    }
+
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.order_detail_btn_cancel -> {
+                if (isNetworkAvailable())
+                    callCancelOrderApi()
+            }
+
+        }
+    }
+
+    private fun callCancelOrderApi() {
+        order_detail_btn_cancel.isEnabled = false
+        setProgressState(View.VISIBLE, View.VISIBLE)
+        val cancelOrderRequest = HashMap<String, String>()
+        cancelOrderRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        cancelOrderRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        cancelOrderRequest["order_id"] = orderId
+
+        val cancelOrderObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).cancelOrder(cancelOrderRequest)
+
+        val disposable = cancelOrderObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+                    order_detail_btn_cancel.isEnabled = true
+                    setProgressState(View.GONE, View.VISIBLE)
+                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    if (result.response!!.status!!) {
+                        order_detail_btn_cancel.visibility = View.GONE
+                    }
+                }, { error ->
+                    order_detail_btn_cancel.isEnabled = true
+                    setProgressState(View.GONE, View.VISIBLE)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+        myOrderDetailDisposable.add(disposable)
+
+    }
+
+    private fun callGetMyOrderDetailApi() {
+        setProgressState(View.VISIBLE, View.GONE)
+        val getMyOrderDetailRequest = HashMap<String, String>()
+        getMyOrderDetailRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        getMyOrderDetailRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        getMyOrderDetailRequest["order_id"] = orderId
+
+        val getProductObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getMyOrderDetail(getMyOrderDetailRequest)
+
+        val disposable = getProductObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+
+                    if (result.response!!.status!!) {
+                        setProgressState(View.GONE, View.VISIBLE)
+                        myOrderDetailResponse = result.response!!.data
+                        setOrderDetailData()
+                    } else {
+                        setProgressState(View.GONE, View.GONE)
+                    }
+                }, { error ->
+                    setProgressState(View.GONE, View.GONE)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+        myOrderDetailDisposable.add(disposable)
+    }
+
+    private fun setOrderDetailData() {
+
+        myOrderProductList = myOrderDetailResponse!!.products!!
+        val myOrderProductItemAdapter = MyOrderProductItemAdapter(this, myOrderProductList)
+        order_detail_recyl_products.layoutManager = LinearLayoutManager(this)
+        order_detail_recyl_products.adapter = myOrderProductItemAdapter
+
+        order_detail_txt_address_line.text = myOrderDetailResponse!!.order!!.deliveryAddress
+        order_detail_txt_delivery_time_line1.text = Utills.getUtillsInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
+
+        val deliveryTime = getString(R.string.from) + " " + Utills.getUtillsInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryStartTime!!, "HH:mm:ss", "h:m a") + " " + getString(R.string.to) + " " + Utills.getUtillsInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryEndTime!!, "HH:mm:ss", "h:m a")
+
+        order_detail_txt_delivery_time_line2.text = deliveryTime
+
+        order_detail_txt_payment_type.text = myOrderDetailResponse?.order?.paymentMode
+
+        order_detail_txt_subtotal.text = myOrderDetailResponse?.order?.netAmount
+        order_detail_txt_delivery_fee.text = myOrderDetailResponse?.order?.deliveryCharges
+
+        order_detail_txt_total_amount.text = myOrderDetailResponse?.order?.totalAmount
+        order_detail_txt_order_status.text = myOrderDetailResponse?.order?.orderDeliveryStatus
+        if (showCancelButton())
+            order_detail_btn_cancel.visibility = View.VISIBLE
+        else
+            order_detail_btn_cancel.visibility = View.GONE
+    }
+
+
+    private fun showCancelButton(): Boolean {
+        if (myOrderDetailResponse?.order?.isCancelled.equals("1"))
+            return false
+
+        if (myOrderDetailResponse?.deliveryBoy != null)
+            return false
+
+        if (myOrderDetailResponse?.order?.cancelledBefore!!.toInt() <= Utills.getUtillsInstance().getHourDifferenceBetweenTwoDate(myOrderDetailResponse?.order?.orderDate!!))
+            return false
+
+        return true
+    }
+
+
+    private fun setProgressState(progressVisibility: Int, viewVisibility: Int) {
+        progressBar.visibility = progressVisibility
+        contentLayout.visibility = viewVisibility
+    }
+
+    override fun onStop() {
+        super.onStop()
+        myOrderDetailDisposable.dispose()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+}

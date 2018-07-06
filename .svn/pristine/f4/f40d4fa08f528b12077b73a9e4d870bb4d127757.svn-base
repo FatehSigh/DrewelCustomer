@@ -1,0 +1,334 @@
+package com.os.drewel.activity
+
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.location.places.ui.PlaceAutocomplete
+import com.google.android.gms.maps.model.LatLng
+import com.os.drewel.R
+import com.os.drewel.adapter.DeliveryListAdapter
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.AppRequestCodes
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.content_set_delivery_address_activity.*
+import kotlinx.android.synthetic.main.delivery_address_activity.*
+
+
+/**
+ * Created by monikab on 3/23/2018.
+ */
+class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
+
+    private var disposable: Disposable? = null
+
+    private var deliverListAdapter: DeliveryListAdapter? = null
+    private var addressList: MutableList<Address> = mutableListOf()
+
+    private lateinit var itemClickDisposable: Disposable
+
+    private val defaultAddressClickSubject = PublishSubject.create<Int>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.delivery_address_activity)
+
+        initView()
+    }
+
+    private fun initView() {
+
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        /* when user click on adapter row*/
+        clickOfAdapterItem()
+
+        setClickListeners()
+
+        callGetAddressApi()
+    }
+
+
+    private fun clickOfAdapterItem() {
+        itemClickDisposable = defaultAddressClickSubject.subscribe({ addressPostion ->
+            callSetDefaultAddressApi(addressPostion)
+        }
+        )
+    }
+
+    private fun setAdapter() {
+        if (deliverListAdapter == null) {
+            deliverListAdapter = DeliveryListAdapter(this, addressList)
+
+            deliverListAdapter!!.defaultAddressClickSubject = defaultAddressClickSubject
+
+            deliveryAddressRecyclerView.layoutManager = LinearLayoutManager(this)
+            deliveryAddressRecyclerView.adapter = deliverListAdapter
+
+
+        } else {
+            deliveryAddressRecyclerView.adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun setClickListeners() {
+
+        searchDeliveryAddress.setOnClickListener(this)
+        deliveryAddressDoneBt.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View) {
+
+        when (view.id) {
+
+            R.id.searchDeliveryAddress -> {
+                try {
+                    val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(this)
+                    startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
+                } catch (e: GooglePlayServicesRepairableException) {
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                } catch (e: GooglePlayServicesNotAvailableException) {
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            R.id.deliveryAddressDoneBt -> {
+                val intent = Intent(this, HomeActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                RESULT_OK -> {
+
+                    val place = PlaceAutocomplete.getPlace(this, data)
+                    Log.i("onActivityResult", "Place: " + place.name)
+                    Log.i("onActivityResult", "Place: " + place.address)
+                    Log.i("onActivityResult", "Place: " + place.latLng)
+
+                    if (isNetworkAvailable())
+                        callAddAddressApi(place.name.toString(), place.address.toString(), place.latLng.latitude, place.latLng.longitude, "")
+                }
+                PlaceAutocomplete.RESULT_ERROR -> {
+
+                    val status = PlaceAutocomplete.getStatus(this, data)
+                    Log.i("onActivityResult", status.statusMessage)
+                    Toast.makeText(this, status.statusMessage, Toast.LENGTH_SHORT).show()
+                }
+                RESULT_CANCELED -> // The user canceled the operation.
+                    Log.e("onActivityResult", "canceled")
+            }
+        } else if (requestCode == AppRequestCodes.DELIVER_ADDRESS_REQUEST_CODE) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    if (data != null) {
+                        val address = data.getStringExtra(AppIntentExtraKeys.ADDRESS)
+                        val name = data.getStringExtra(AppIntentExtraKeys.ADDRESS_NAME)
+                        val latLang: LatLng = data.getParcelableExtra(AppIntentExtraKeys.LATLNG)
+                        val postalCode = data.getStringExtra(AppIntentExtraKeys.POSTAL_CODE)
+                        if (isNetworkAvailable())
+                            callAddAddressApi(name, address, latLang.latitude, latLang.longitude, postalCode)
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.delivery_address_menu, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+
+        if (id == R.id.action_map) {
+            val intent = Intent(this, DeliveryMapAddressActivity::class.java)
+            startActivityForResult(intent, AppRequestCodes.DELIVER_ADDRESS_REQUEST_CODE)
+            return true
+        } else if (id == android.R.id.home) {
+            finish()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun callAddAddressApi(name: String, address: String, latitude: Double, longitude: Double, postalCode: String) {
+
+        // setProgressState(View.GONE, true)
+
+        val addDeliveryAddressRequest = HashMap<String, String>()
+        addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        addDeliveryAddressRequest["address"] = address
+        addDeliveryAddressRequest["name"] = name
+        addDeliveryAddressRequest["latitude"] = latitude.toString()
+        addDeliveryAddressRequest["longitude"] = longitude.toString()
+        addDeliveryAddressRequest["is_default"] = "1"
+        addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        addDeliveryAddressRequest["zip_code"] = postalCode
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).addAddress(addDeliveryAddressRequest)
+
+        disposable = signUpObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+
+                    if (result.response!!.status!!) {
+                        if (addressList.isNotEmpty()) {
+                            addressList[deliverListAdapter!!.defualtAddressPos].isDefault = "0"
+                            deliverListAdapter!!.notifyItemChanged(deliverListAdapter!!.defualtAddressPos)
+                        }
+                        val addressObj = Address()
+                        addressObj.isDefault = "1"
+                        addressObj.id = result.response!!.data!!.addressId
+                        addressObj.name = name
+                        addressObj.latitude = latitude.toString()
+                        addressObj.longitude = longitude.toString()
+                        addressObj.address = address
+
+                        addressList.add(0, addressObj)
+
+                        saveDefaultAddressToPref(result.response!!.data!!.addressId!!, address, name, latitude.toString(), longitude.toString())
+                        setAdapter()
+                        setDoneButtonVisibility(View.VISIBLE)
+                    } else
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+
+
+                }, { error ->
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+    private fun saveDefaultAddressToPref(id: String, address: String, name: String, latitude: String, longitude: String) {
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID, id)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS, address)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME, name)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE, latitude)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE, longitude)
+
+    }
+
+
+    private fun callGetAddressApi() {
+
+        // setProgressState(View.GONE, true)
+
+        val addDeliveryAddressRequest = HashMap<String, String>()
+        addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getAddressList(addDeliveryAddressRequest)
+
+        disposable = signUpObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    //setProgressState(View.GONE, true)
+                    if (result.response!!.status!!) {
+                        addressList = result.response!!.data!!.address!!
+                        if (addressList.isEmpty())
+                            setDoneButtonVisibility(View.GONE)
+                        else
+                            setDoneButtonVisibility(View.VISIBLE)
+
+                        setAdapter()
+                    } else
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+
+                }, { error ->
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+    private fun callSetDefaultAddressApi(addressPosition: Int) {
+
+        // setProgressState(View.GONE, true)
+
+        val setDefaultDeliveryAddressRequest = HashMap<String, String>()
+        setDefaultDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        setDefaultDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        setDefaultDeliveryAddressRequest["address_id"] = addressList[addressPosition].id!!
+
+        val defaultAddressObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).setDefaultAddress(setDefaultDeliveryAddressRequest)
+
+        disposable = defaultAddressObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    // setProgressState(View.GONE, true)
+                    if (result.response!!.status!!) {
+
+                        addressList[deliverListAdapter!!.defualtAddressPos].isDefault = "0"
+                        deliverListAdapter!!.notifyItemChanged(deliverListAdapter!!.defualtAddressPos)
+
+                        addressList[addressPosition].isDefault = "1"
+                        deliverListAdapter!!.notifyItemChanged(addressPosition)
+
+                        saveDefaultAddressToPref(addressList[addressPosition].id!!, addressList[addressPosition].address!!, addressList[addressPosition].name!!, addressList[addressPosition].latitude!!, addressList[addressPosition].longitude!!)
+
+
+                    } else
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+
+                }, { error ->
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        itemClickDisposable.dispose()
+        if (disposable != null) {
+            disposable!!.dispose()
+        }
+    }
+
+
+    private fun setDoneButtonVisibility(visibility: Int) {
+        deliveryAddressDoneBt.visibility = visibility
+    }
+
+
+}

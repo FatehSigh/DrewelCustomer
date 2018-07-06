@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_tint.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\349fee9a9041a094d7e9c65b89feeb07\\res\\color\\common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\349fee9a9041a094d7e9c65b89feeb07\\res\\color\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.30.0.aar\\5da2b2ed8e1f52749dff4907dbeb680e\\res\\color\\com_facebook_button_text_color.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\color\\design_error.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\349fee9a9041a094d7e9c65b89feeb07\\res\\color\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-share-4.30.0.aar\\700884f988914be3896c3cdd7e5e4c23\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\color\\abc_secondary_text_material_light.xml"
+    }
+]

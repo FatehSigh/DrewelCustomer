@@ -1,0 +1,70 @@
+package com.os.drewel.apicall.responsemodel.productdetailresponsemodel
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+class ProductDetail {
+
+    @SerializedName("brand_name")
+    @Expose
+    var brandName: String? = null
+    @SerializedName("brand_id")
+    @Expose
+    var brandId: String? = null
+    @SerializedName("brand_logo")
+    @Expose
+    var brandLogo: String? = null
+    @SerializedName("product_id")
+    @Expose
+    var productId: String? = null
+    @SerializedName("product_name")
+    @Expose
+    var productName: String? = null
+    @SerializedName("price")
+    @Expose
+    var price: String? = null
+    @SerializedName("avg_price")
+    @Expose
+    var avgPrice: String? = null
+    @SerializedName("offer_price")
+    @Expose
+    var offerPrice: String? = null
+    @SerializedName("offer_expires_on")
+    @Expose
+    var offerExpiresOn: String? = null
+    @SerializedName("weight")
+    @Expose
+    var weight: String? = null
+    @SerializedName("weight_in")
+    @Expose
+    var weightIn: String? = null
+    @SerializedName("quantity")
+    @Expose
+    var quantity: String? = null
+    @SerializedName("product_description")
+    @Expose
+    var productDescription: String? = null
+    @SerializedName("ProductImage")
+    @Expose
+    var productImage: List<String>? = null
+    @SerializedName("Category")
+    @Expose
+    var category: List<Category>? = null
+
+
+    @SerializedName("avg_rating")
+    @Expose
+    var avgRating: String? = null
+
+
+    @SerializedName("out_of_stock")
+    @Expose
+    var outOfStock: Int? = null
+    @SerializedName("is_offer")
+    @Expose
+    var isOffer: Int? = null
+    @SerializedName("is_wishlist")
+    @Expose
+    var isWishlist: Int? = null
+
+}

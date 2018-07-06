@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:elevation="3dp">
+
+
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp">
+
+            <LinearLayout
+                android:id="@+id/rl_deliveryAddressType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/deliverAddressTypeName"
+                    style="@style/ProductTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="House"
+                    android:textColor="@color/colorPrimary" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/deliverAddressTitle"
+                    style="@style/ProductTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_toEndOf="@+id/deliverAddressTypeName"
+
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="Sheikh Mohammed Bin "
+                    android:textColor="@color/zedblack" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/deliverAddressDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:src="@mipmap/delete" />
+
+            </LinearLayout>
+
+            <!--  <android.support.v7.widget.AppCompatTextView
+                  android:id="@+id/deliverAddressTitle"
+                  style="@style/ProductTitleTextStyle"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/rl_deliveryAddressType"
+                  android:layout_toStartOf="@+id/deliverAddressCheckBox"
+                  android:singleLine="true"
+                  android:text="Sheikh Mohammed Bin Zayed Rd- Dubai" />
+  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_deliveryAddressType"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/deliverAddressDesc"
+                    style="@style/LightBlackTextColorStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="Sheikh Mohammed Bin Zayed Rd- Dubai United Kingdom" />
+
+                <CheckBox
+                    android:id="@+id/deliverAddressCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toEndOf="@+id/deliverAddressTitle"
+                    android:button="@drawable/custom_checkbox"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="@dimen/_2sdp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

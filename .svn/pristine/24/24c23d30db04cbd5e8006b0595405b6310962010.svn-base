@@ -1,0 +1,30 @@
+package com.os.drewel.apicall.responsemodel.deliverychargesresponsemodel
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+class Data {
+
+    @SerializedName("delivery_charge")
+    @Expose
+    var deliveryCharge: String? = null
+    @SerializedName("same_day_delivery_charge")
+    @Expose
+    var sameDayDeliveryCharge: String? = null
+    @SerializedName("expedite_delivery_charges")
+    @Expose
+    var expediteDeliveryCharges: String? = null
+    @SerializedName("delivery_start_time")
+    @Expose
+    var deliveryStartTime: String? = null
+    @SerializedName("delivery_end_time")
+    @Expose
+    var deliveryEndTime: String? = null
+    @SerializedName("delivery_slots")
+    @Expose
+    var deliverySlots: String? = null
+    @SerializedName("delivery_slot_duration")
+    @Expose
+    var deliverySlotDuration: String? = null
+
+}

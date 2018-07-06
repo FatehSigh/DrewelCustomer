@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_tooltip_exit.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\pop_win_content_fade_in.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\material-wheel-view-v0.0.1.aar\\e0fc0196ef36ebc9bd2dfd102396d7fc\\res\\anim\\pop_win_content_fade_in.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\pop_win_content_fade_out.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\material-wheel-view-v0.0.1.aar\\e0fc0196ef36ebc9bd2dfd102396d7fc\\res\\anim\\pop_win_content_fade_out.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_tooltip_enter.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    }
+]

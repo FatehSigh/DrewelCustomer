@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/popup"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/clearFilterBt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:text="@string/clear_all"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonOrangeColor"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/tv_brand_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/rounded_corner"
+            android:drawableEnd="@mipmap/arrowdown"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/brand_name"
+            android:textColor="@color/lightblack"
+            android:textSize="@dimen/_12sdp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_tv_brand_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="@dimen/_5sdp"
+            android:visibility="gone" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/violet" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/BoldBlackText10Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/price_range" />
+
+        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            android:id="@+id/rsbAge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_26sdp"
+            app:bar_highlight_color="@color/black"
+            app:bar_color="@color/lightblack"
+            app:left_thumb_color="@color/white_1"
+            app:left_thumb_color_pressed="@color/colorPrimary"
+            app:max_value="100"
+            app:min_value="1"
+            app:right_thumb_color="@color/white_1"
+            app:right_thumb_color_pressed="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_min_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/lightblack"
+                android:textSize="@dimen/_10sdp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_max_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:textColor="@color/lightblack"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/_10sdp" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/violet" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_star_rating"
+            style="@style/BoldBlackText10Style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/star_rating" />
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.MaterialRatingBar.RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/_41sdp"
+            android:minHeight="@dimen/_18sdp"
+            android:numStars="5"
+            android:padding="@dimen/_3sdp"
+            app:mrb_progressTint="@color/colorPrimary"
+            app:mrb_secondaryProgressTint="@color/black" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_gravity="end">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/applyFilterBt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@string/apply"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/cancelFilterBt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

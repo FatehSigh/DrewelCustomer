@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/buttonOrangeColor"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                style="@style/ToolbarTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/choose_a_slot" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:background="@color/violet"
+            android:id="@+id/deliver_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/BlackTextColorStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/deliver_now" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/txt_delivery_charges"
+                style="@style/ButtonTextStyle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/colorPrimary"
+                android:text="@string/deliver_now" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_below="@+id/deliver_now"
+            android:id="@+id/txt_available"
+            android:gravity="center"
+
+            style="@style/BlackTextColorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/available_delivery_slots" />
+
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_available"
+            app:selectedDateBackground="@color/white"
+            app:selectorColor="@color/colorPrimary"
+            app:sizeBottomText="14sp"
+            app:sizeMiddleText="20sp"
+            app:textColorNormal="@color/grey_color_txt"
+            app:textColorSelected="@color/colorPrimary" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/calendarView"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:background="@color/violet_1" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_slots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txt_submit"
+            android:layout_below="@+id/view2" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_submit"
+            style="@style/ButtonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@color/buttonOrangeColor"
+            android:gravity="center"
+            android:text="@string/choose_time_slot"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_18sdp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/violet_1">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar" />
+
+    <TextView
+        android:id="@+id/loyaltyPointHintTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:text="@string/loyalty_point"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout" />
+
+    <TextView
+        android:id="@+id/loyaltyPointTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@+id/loyaltyPointHintTv" />
+
+
+    <ImageView
+        android:padding="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/arrow"
+        app:layout_constraintTop_toTopOf="@+id/loyaltyPointHintTv"
+        app:layout_constraintBottom_toBottomOf="@+id/loyaltyPointTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:tint="@color/black"/>
+
+    <TextView
+        android:id="@+id/transactionsTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@color/white"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/transactions"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@+id/loyaltyPointTv" />
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/loyaltyPointTransactionRv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transactionsTv" />
+
+    <TextView
+        android:visibility="gone"
+        android:background="@color/white"
+        android:id="@+id/noTransactionAlertTv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transactionsTv"
+        android:textSize="@dimen/_15sdp"
+        android:text="@string/no_transaction"/>
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        layout="@layout/progress_dialog_loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+</android.support.constraint.ConstraintLayout>

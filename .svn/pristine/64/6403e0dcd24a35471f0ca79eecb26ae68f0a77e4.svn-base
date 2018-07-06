@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_1"
+    android:theme="@style/CheckOutActivityTheme"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nameHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/name"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv" />
+
+        <View
+            android:id="@+id/viewName"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/phoneNoHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/phone_number"
+            app:layout_constraintEnd_toStartOf="@+id/phoneNoTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewName" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/phoneNoTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/phoneNoHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/viewName" />
+
+        <View
+            android:id="@+id/viewPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNoTv" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryAddressHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/delivery_address"
+            app:layout_constraintEnd_toStartOf="@+id/deliveryAddressTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPhoneNumber" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryAddressTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/deliveryAddressHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/viewPhoneNumber" />
+
+        <View
+            android:id="@+id/viewDeliveryAddress"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/deliveryAddressTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/addDetailHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/add_detail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDeliveryAddress" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/chooseDeliveryTypeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@mipmap/arrowdown"
+            android:hint="@string/choose_delivery_type"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addDetailHintTv" />
+
+        <View
+            android:id="@+id/viewDeliveryType"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/chooseDeliveryTypeTv" />
+
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/LoyaltyPointEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:hint="@string/add_loyalty_point"
+            android:inputType="number"
+            android:maxLength="10"
+            android:paddingBottom="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:textColorHint="@color/violet_1"
+            app:backgroundTint="@color/violet_1"
+            app:layout_constraintEnd_toStartOf="@+id/applyLoyaltyPointTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDeliveryType" />
+
+        <TextView
+            android:id="@+id/applyLoyaltyPointTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/LoyaltyPointEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/LoyaltyPointEditText"
+            app:layout_constraintTop_toTopOf="@+id/LoyaltyPointEditText" />
+
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/CouponCodeEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:hint="@string/add_coupon"
+            android:inputType="text"
+            android:maxLength="10"
+            android:paddingBottom="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            app:backgroundTint="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/LoyaltyPointEditText"
+            app:layout_constraintEnd_toStartOf="@+id/applyCouponCodeTv"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/applyCouponCodeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/CouponCodeEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/CouponCodeEditText"
+            app:layout_constraintTop_toTopOf="@+id/CouponCodeEditText" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/couponCodeRv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/applyCouponCodeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/paymentDetailHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/choose_payment_detail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/couponCodeRv" />
+
+        <RadioGroup
+            android:id="@+id/paymentMethodRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:theme="@style/RadioButtonTheme"
+            app:layout_constraintTop_toBottomOf="@+id/paymentDetailHintTv">
+
+            <RadioButton
+                android:id="@+id/cashRadioBt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layoutDirection="rtl"
+                android:text="@string/cash"
+                android:textAlignment="textStart"
+                android:textColor="@color/violet_1" />
+
+            <RadioButton
+                android:id="@+id/cardRadioBt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:text="@string/cc"
+                android:textAlignment="textStart"
+                android:textColor="@color/violet_1" />
+
+            <RadioButton
+                android:id="@+id/walletRadioBt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:text="@string/wallet"
+                android:textAlignment="textStart"
+                android:textColor="@color/violet_1" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/viewPaymentDetail"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/paymentMethodRadioGroup" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/totalItemHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/total_item"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPaymentDetail" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/quantityHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/quantity"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalItemHintTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/quantityTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/totalItemHintTv" />
+
+        <View
+            android:id="@+id/viewItemCount"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/violet_1"
+            app:layout_constraintTop_toBottomOf="@+id/quantityTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/paymentSummaryHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/payment_summary"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewItemCount" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/subTotalHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/sub_total"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentSummaryHintTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/subTotalTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/paymentSummaryHintTv" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/discountHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/discount"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subTotalTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/discountTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/subTotalTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryChargesHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/delivery_charges"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/discountTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryChargesTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/discountTv" />
+
+        <View
+            android:id="@+id/viewAmount"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/orange_1"
+            app:layout_constraintTop_toBottomOf="@+id/deliveryChargesTv" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/grandTotalHintTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_15sdp"
+            android:text="@string/grand_total"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintEnd_toStartOf="@+id/nameTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewAmount" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/grandTotalTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="@dimen/_15sdp"
+            android:text="5"
+            android:textColor="@color/orange_1"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nameHintTv"
+            app:layout_constraintTop_toBottomOf="@+id/viewAmount" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/confirmOrderBt"
+            style="@style/ButtonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/buttonOrangeColor"
+            android:text="@string/confirm_order"
+            app:layout_constraintTop_toBottomOf="@+id/grandTotalTv" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.ProductActivity">
+
+    <item
+        android:visible="false"
+        android:id="@+id/menu_filter"
+        android:title="@string/filter"
+        android:icon="@mipmap/filter"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_whishlist"
+        android:title="@string/wishlist"
+        android:icon="@mipmap/wishlisttop"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_carts"
+        android:title="@string/my_cart"
+        app:actionLayout="@layout/action_bar_notifitcation_icon"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,0 +1,4 @@
+package com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel
+
+class DeliveryBoy {
+}

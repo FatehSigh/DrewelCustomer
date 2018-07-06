@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
+        android:id="@+id/walletTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/wallet"
+        app:elevation="@dimen/_5sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/walletTv"
+        android:id="@+id/loyaltyPointsTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/loyalty_point"
+        app:elevation="@dimen/_5sdp" />
+
+  
+
+</android.support.constraint.ConstraintLayout>

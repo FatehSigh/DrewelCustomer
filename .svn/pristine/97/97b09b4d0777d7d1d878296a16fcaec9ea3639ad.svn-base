@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e07257</color>
+    <color name="colorPrimaryDark">#e07257</color>   <!--status bar-->
+    <color name="colorAccent">#ffffff</color>
+
+
+    <color name="orange_1">#ff7300</color>
+    <color name="light_grey_2">#cfcece</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="buttonOrangeColor">#e07257</color>
+
+    <color name="buttonUnselectedColor">#a3a7ab</color>
+
+    <color name="fbButtonBlueColor">#3b5999</color>
+
+    <color name="colororange">#e07257</color>
+    <color name="lightblack">#7b7676</color>
+    <color name="violet">#ece9e9</color>
+
+
+    <color name="violet_1">#989898</color>
+    <color name="violet_2">#615555</color>
+    <color name="violet_3">#a3a3a3</color>
+
+    <array name="array_dot_active">
+        <item>@color/colororange</item>
+        <item>@color/colororange</item>
+        <item>@color/colororange</item>
+        <item>@color/colororange</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/violet</item>
+        <item>@color/violet</item>
+        <item>@color/violet</item>
+        <item>@color/violet</item>
+    </array>
+
+
+    <color name="grey_1">#e9e9e9</color>
+    <color name="grey_2">#ebebeb</color>
+    <color name="violet_4">#d7d3d3</color>
+    <color name="white_1">#F7F7F7</color>
+    <color name="colororange_2">#efc3b8</color>
+    <color name="colorRed">#eb011c</color>
+
+    <color name="grey_color_txt">#919191</color>
+    <color name="blue_txt">#81c9c4</color>
+    <color name="purple_bg">#98739c</color>
+    <color name="white_light">#fffffa</color>
+    <color name="light_yellow_bg">#f9f1c0</color>
+
+    <color name="tab_layout_divider">#b22b44</color>
+
+    <color name="cancel_btn_txt">#d23e59</color>
+</resources>

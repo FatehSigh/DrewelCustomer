@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/buttonOrangeColor"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:paddingStart="@dimen/_40sdp"
+            android:paddingEnd="@dimen/_40sdp"
+            android:text="@string/otp_description"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="20">
+
+            <EditText
+                android:id="@+id/otp_tv_otp_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="@color/white"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:hint="@string/_dash"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:nextFocusDown="@+id/otp_tv_otp_2"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/_20sdp" />
+
+            <EditText
+                android:id="@+id/otp_tv_otp_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="@color/white"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:hint="@string/_dash"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:nextFocusDown="@+id/otp_tv_otp_3"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/_20sdp" />
+
+            <EditText
+                android:id="@+id/otp_tv_otp_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="@color/white"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:hint="@string/_dash"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:nextFocusDown="@+id/otp_tv_otp_4"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/_20sdp" />
+
+            <EditText
+                android:id="@+id/otp_tv_otp_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:backgroundTint="@color/white"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:hint="@string/_dash"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+
+                android:longClickable="false"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/_20sdp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/verifyOTPButton"
+            style="@style/ButtonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/button_black_alpha_background"
+            android:text="@string/verify"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextLayout" />
+
+
+        <LinearLayout
+            android:id="@+id/resendOTPLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/resendOTPTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend_otp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

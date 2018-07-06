@@ -1,0 +1,12 @@
+package com.os.drewel.constant
+
+/**
+ * Created by monikab on 3/23/2018.
+ */
+object AppRequestCodes {
+
+    val PLACE_AUTOCOMPLETE_REQUEST_CODE =1;
+    val DELIVER_ADDRESS_REQUEST_CODE =2;
+    val CAMERA_REQUEST_CODE =3;
+    val GALARY_REQUEST_CODE =4;
+}

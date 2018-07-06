@@ -1,0 +1,256 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-mn\\values-mn.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,218,318,431,518,624,736,818,900,982,1091,1195,1292,1400,1501,1604,1763,1860",
+                        "endColumns": "112,99,112,86,105,111,81,81,81,108,103,96,107,100,102,158,96,80",
+                        "endOffsets": "213,313,426,513,619,731,813,895,977,1086,1190,1287,1395,1496,1599,1758,1855,1936"
+                    },
+                    "to": {
+                        "startLines": "78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,119",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "5005,5118,5218,5331,5418,5524,5636,5718,5800,5882,5991,6095,6192,6300,6401,6504,6663,10170",
+                        "endColumns": "112,99,112,86,105,111,81,81,81,108,103,96,107,100,102,158,96,80",
+                        "endOffsets": "5113,5213,5326,5413,5519,5631,5713,5795,5877,5986,6090,6187,6295,6396,6499,6658,6755,10246"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\e3d6b9db71b9823853b7777015615d18\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "208",
+                        "endOffsets": "455"
+                    },
+                    "to": {
+                        "startLines": "103",
+                        "startColumns": "4",
+                        "startOffsets": "7926",
+                        "endColumns": "208",
+                        "endOffsets": "8130"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\android.joda-2.9.9.4.aar\\361be259fc20e04eaf927a058c3029cd\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,78,79,80",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,362,627,891,1152,1409,1673,1936,2202,2444,2692,2942,3192,3449,3711,3975,4224,4481,4742,5005,5130,5255",
+                        "endLines": "5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,78,79,80",
+                        "endColumns": "14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,124,124,150",
+                        "endOffsets": "357,622,886,1147,1404,1668,1931,2197,2439,2687,2937,3187,3444,3706,3970,4219,4476,4737,5000,5125,5250,5401"
+                    },
+                    "to": {
+                        "startLines": "2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,114,115,116",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,362,627,891,1152,1409,1673,1936,2202,2444,2692,2942,3192,3449,3711,3975,4224,4481,4742,9568,9693,9818",
+                        "endLines": "5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,114,115,116",
+                        "endColumns": "14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,124,124,150",
+                        "endOffsets": "357,622,886,1147,1404,1668,1931,2197,2439,2687,2937,3187,3444,3706,3970,4219,4476,4737,5000,9688,9813,9964"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-15.0.2.aar\\3fcabb66e8b0861aeee7d328df1121e0\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "205",
+                        "endColumns": "99",
+                        "endOffsets": "304"
+                    },
+                    "to": {
+                        "startLines": "113",
+                        "startColumns": "4",
+                        "startOffsets": "9464",
+                        "endColumns": "103",
+                        "endOffsets": "9563"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\349fee9a9041a094d7e9c65b89feeb07\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "245,353,542,672,777,973,1097,1252,1387,1590,1695,1894,2021,2221,2415,2502,2590",
+                        "endColumns": "107,188,129,104,195,123,154,134,202,104,198,126,199,193,86,87,101",
+                        "endOffsets": "352,541,671,776,972,1096,1251,1386,1589,1694,1893,2020,2220,2414,2501,2589,2691"
+                    },
+                    "to": {
+                        "startLines": "95,96,97,98,99,100,101,102,104,105,106,107,108,109,110,111,112",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "6760,6872,7061,7195,7304,7500,7628,7787,8135,8338,8447,8646,8777,8977,9175,9266,9358",
+                        "endColumns": "111,188,133,108,195,127,158,138,202,108,198,130,199,197,90,91,105",
+                        "endOffsets": "6867,7056,7190,7299,7495,7623,7782,7921,8333,8442,8641,8772,8972,9170,9261,9353,9459"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4,5",
+                        "startColumns": "0,0",
+                        "startOffsets": "193,296",
+                        "endColumns": "102,89",
+                        "endOffsets": "295,385"
+                    },
+                    "to": {
+                        "startLines": "117,118",
+                        "startColumns": "4,4",
+                        "startOffsets": "9969,10076",
+                        "endColumns": "106,93",
+                        "endOffsets": "10071,10165"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "120",
+                        "startColumns": "4",
+                        "startOffsets": "10251",
+                        "endColumns": "100",
+                        "endOffsets": "10347"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\values-mn\\values-mn.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,218,318,431,518,624,736,818,900,982,1091,1195,1292,1400,1501,1604,1763,1860",
+                        "endColumns": "112,99,112,86,105,111,81,81,81,108,103,96,107,100,102,158,96,80",
+                        "endOffsets": "213,313,426,513,619,731,813,895,977,1086,1190,1287,1395,1496,1599,1758,1855,1936"
+                    },
+                    "to": {
+                        "startLines": "78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,119",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "5005,5118,5218,5331,5418,5524,5636,5718,5800,5882,5991,6095,6192,6300,6401,6504,6663,10170",
+                        "endColumns": "112,99,112,86,105,111,81,81,81,108,103,96,107,100,102,158,96,80",
+                        "endOffsets": "5113,5213,5326,5413,5519,5631,5713,5795,5877,5986,6090,6187,6295,6396,6499,6658,6755,10246"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-15.0.1.aar\\e3d6b9db71b9823853b7777015615d18\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "208",
+                        "endOffsets": "455"
+                    },
+                    "to": {
+                        "startLines": "103",
+                        "startColumns": "4",
+                        "startOffsets": "7926",
+                        "endColumns": "208",
+                        "endOffsets": "8130"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\android.joda-2.9.9.4.aar\\361be259fc20e04eaf927a058c3029cd\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,78,79,80",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,362,627,891,1152,1409,1673,1936,2202,2444,2692,2942,3192,3449,3711,3975,4224,4481,4742,5005,5130,5255",
+                        "endLines": "5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,78,79,80",
+                        "endColumns": "14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,124,124,150",
+                        "endOffsets": "357,622,886,1147,1404,1668,1931,2197,2439,2687,2937,3187,3444,3706,3970,4219,4476,4737,5000,5125,5250,5401"
+                    },
+                    "to": {
+                        "startLines": "2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,114,115,116",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,362,627,891,1152,1409,1673,1936,2202,2444,2692,2942,3192,3449,3711,3975,4224,4481,4742,9568,9693,9818",
+                        "endLines": "5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,114,115,116",
+                        "endColumns": "14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,124,124,150",
+                        "endOffsets": "357,622,886,1147,1404,1668,1931,2197,2439,2687,2937,3187,3444,3706,3970,4219,4476,4737,5000,9688,9813,9964"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-15.0.2.aar\\3fcabb66e8b0861aeee7d328df1121e0\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "205",
+                        "endColumns": "99",
+                        "endOffsets": "304"
+                    },
+                    "to": {
+                        "startLines": "113",
+                        "startColumns": "4",
+                        "startOffsets": "9464",
+                        "endColumns": "103",
+                        "endOffsets": "9563"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-15.0.1.aar\\349fee9a9041a094d7e9c65b89feeb07\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "245,353,542,672,777,973,1097,1252,1387,1590,1695,1894,2021,2221,2415,2502,2590",
+                        "endColumns": "107,188,129,104,195,123,154,134,202,104,198,126,199,193,86,87,101",
+                        "endOffsets": "352,541,671,776,972,1096,1251,1386,1589,1694,1893,2020,2220,2414,2501,2589,2691"
+                    },
+                    "to": {
+                        "startLines": "95,96,97,98,99,100,101,102,104,105,106,107,108,109,110,111,112",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "6760,6872,7061,7195,7304,7500,7628,7787,8135,8338,8447,8646,8777,8977,9175,9266,9358",
+                        "endColumns": "111,188,133,108,195,127,158,138,202,108,198,130,199,197,90,91,105",
+                        "endOffsets": "6867,7056,7190,7299,7495,7623,7782,7921,8333,8442,8641,8772,8972,9170,9261,9353,9459"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\values-mn\\values.xml",
+                    "from": {
+                        "startLines": "4,5",
+                        "startColumns": "0,0",
+                        "startOffsets": "193,296",
+                        "endColumns": "102,89",
+                        "endOffsets": "295,385"
+                    },
+                    "to": {
+                        "startLines": "117,118",
+                        "startColumns": "4,4",
+                        "startOffsets": "9969,10076",
+                        "endColumns": "106,93",
+                        "endOffsets": "10071,10165"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\values-mn\\values-mn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "120",
+                        "startColumns": "4",
+                        "startOffsets": "10251",
+                        "endColumns": "100",
+                        "endOffsets": "10347"
+                    }
+                }
+            ]
+        }
+    ]
+}

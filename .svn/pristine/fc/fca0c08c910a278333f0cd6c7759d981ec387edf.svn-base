@@ -1,0 +1,55 @@
+package com.os.drewel.adapter
+
+import android.content.Context
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.os.drewel.R
+import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Product
+import com.os.drewel.application.DrewelApplication
+import kotlinx.android.synthetic.main.my_order_product_item.view.*
+import java.text.NumberFormat
+
+/**
+ * Created by sharukhb on 3/13/2018.
+ */
+
+class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemList: List<Product>) : RecyclerView.Adapter<MyOrderProductItemAdapter.MyOrderItemHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyOrderItemHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.my_order_product_item, parent, false)
+
+        return MyOrderItemHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MyOrderItemHolder, position: Int) {
+        ImageLoader.getInstance().displayImage(myOrderIemList[position].productImage, holder.itemView.productImageIv, DrewelApplication.getInstance().options)
+
+        holder.itemView.tv_product_title.text = myOrderIemList[position].productName
+        holder.itemView.tv_product_quantity.text = mContext.getString(R.string.quantity_colon)+" " +myOrderIemList[position].quantity
+
+      /*  val cartItem = myOrderIemList[position]
+        val price = cartItem.productPrice!!.toFloat()
+        val quantity = cartItem.quantity!!.toInt()
+        val totalAmount = price * quantity*/
+
+        holder.itemView.tv_product_amount.text = mContext.getString(R.string.price_colon)+" " +NumberFormat.getInstance().format(myOrderIemList[position].productPrice!!.toFloat())+" "+mContext.getString(R.string.omr)
+
+    }
+
+
+    override fun getItemCount(): Int {
+        return myOrderIemList.size;
+    }
+
+
+    inner class MyOrderItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+
+
+
+}
+
+

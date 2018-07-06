@@ -1,0 +1,90 @@
+package com.os.drewel.firebase
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
+import android.os.Bundle
+import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import com.os.drewel.R
+import com.os.drewel.activity.HomeActivity
+import com.os.drewel.activity.WelcomeActivity
+
+
+/**
+ * Created by monikab on 2/23/2018.
+ */
+class DrewelFirebaseMessagingService : FirebaseMessagingService() {
+
+
+    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+        //  super.onMessageReceived(remoteMessage)
+        genrateNotification()
+    }
+
+    private fun genrateNotification() {
+        val largeIcon = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round);
+        val notificationManager = getSystemService(
+                Context.NOTIFICATION_SERVICE) as NotificationManager
+        val mBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText("Hello")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setLargeIcon(largeIcon)
+                .setStyle(NotificationCompat.BigTextStyle().bigText("Much longer text that cannot fit one line..."))
+                .setContentIntent(setNotificationIntent())
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBuilder.setSmallIcon(R.mipmap.ic_launcher_white)
+            mBuilder.setColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        } else
+            mBuilder.setSmallIcon(R.mipmap.ic_launcher)
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create the NotificationChannel
+            val name = getString(R.string.default_notification_channel_name)
+            val description = getString(R.string.default_notification_channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val mChannel = NotificationChannel(getString(R.string.default_notification_channel_id), name, importance)
+            mChannel.description = description
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+
+            notificationManager.createNotificationChannel(mChannel)
+        }
+        val id = (System.currentTimeMillis() * (Math.random() * 100).toInt()).toInt()
+        notificationManager.notify(id, mBuilder.build())
+    }
+
+
+    private fun setNotificationIntent(): PendingIntent {
+        val notificationIntent: Intent
+        val parentIntent: Intent
+        parentIntent = Intent(this, HomeActivity::class.java)
+        notificationIntent = Intent(this, WelcomeActivity::class.java)
+        parentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+        /* create stack builder if you want to open parent activty on notification click*/
+        val stackBuilder = TaskStackBuilder.create(this)
+        stackBuilder.addParentStack(HomeActivity::class.java)
+        val notification_bundle = Bundle()
+
+        notificationIntent.putExtras(notification_bundle)
+        /* add all notification to stack*/
+        stackBuilder.addNextIntent(parentIntent)
+        stackBuilder.addNextIntent(notificationIntent)
+        /* get pending intent from stack builder*/
+        val resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT)
+        return resultPendingIntent
+    }
+
+}

@@ -1,0 +1,792 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\b7c2e9c9331d84b8839326e3651da474\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:design:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\da3976a6ebb6959a6e0f9b0aef9c8591\AndroidManifest.xml:17:1-22:12
+MERGED from [com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-appcompat-v7-2.1.1.aar\7005464f0afcb8f023b5597eb9e483ce\AndroidManifest.xml:2:1-8:12
+MERGED from [com.github.amarjain07:StickyScrollView:1.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\StickyScrollView-1.0.2.aar\38b24461775e6eeb46979429ed64725b\AndroidManifest.xml:2:1-17:12
+MERGED from [me.zhanghai.android.materialratingbar:library:1.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\library-1.2.0.aar\f3e11167def95a506c02201aa34aff71\AndroidManifest.xml:6:1-16:12
+MERGED from [com.crystal:crystalrangeseekbar:1.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\crystalrangeseekbar-1.1.1.aar\5c69a79bb14d9d24b01a21727d7d845b\AndroidManifest.xml:2:1-17:12
+MERGED from [com.github.BlackBoxVision:material-wheel-view:v0.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\material-wheel-view-v0.0.1.aar\e0fc0196ef36ebc9bd2dfd102396d7fc\AndroidManifest.xml:2:1-16:12
+MERGED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:2:1-23:12
+MERGED from [com.facebook.android:facebook-android-sdk:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.30.0.aar\9216f4ff6eaa4b32df07dea96a857dfa\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-login:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-login-4.30.0.aar\d11efc547625fb5e494707638a83ceea\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-share:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-share-4.30.0.aar\700884f988914be3896c3cdd7e5e4c23\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:21:1-36:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\038d5e3db05b3cdef98c2c64e37352ff\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customtabs:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\customtabs-27.1.1.aar\99ac64ecf265f0b27b00df1f32b5f6f6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\ba92576320c581feff8c0f8007df27d1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\ca9e367f5dd6dfd033e66f6a46ffdd8e\AndroidManifest.xml:2:1-11:12
+MERGED from [com.jakewharton.rxbinding2:rxbinding:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-2.1.1.aar\fdf3f8f5ae61225d1255c16fe050da0d\AndroidManifest.xml:2:1-8:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.1.aar\cc78b3e8428224001d691eaad1fcae33\AndroidManifest.xml:15:1-21:12
+MERGED from [com.intuit.sdp:sdp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\sdp-android-1.0.4.aar\644f181900a45f8dc50e4ce27819678b\AndroidManifest.xml:2:1-11:12
+MERGED from [com.intuit.ssp:ssp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\ssp-android-1.0.4.aar\5ace810afa436325d79d60a7fc170e81\AndroidManifest.xml:2:1-11:12
+MERGED from [net.danlew:android.joda:2.9.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\android.joda-2.9.9.4.aar\361be259fc20e04eaf927a058c3029cd\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:17:1-37:12
+MERGED from [com.google.firebase:firebase-core:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-core-15.0.2.aar\39ca5656476071b760316cdf52f0221a\AndroidManifest.xml:2:1-9:12
+MERGED from [com.blankj:utilcode:1.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\utilcode-1.9.4.aar\6fe4d92c2117dedc64021d920f20b53a\AndroidManifest.xml:2:1-10:12
+MERGED from [com.romandanylyk:pageindicatorview:0.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\pageindicatorview-0.2.0.aar\663a18864939694d1b4848657ece43ed\AndroidManifest.xml:2:1-12:12
+MERGED from [com.google.android.gms:play-services-places:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-15.0.1.aar\9b34f87b03fbaef7904f8b3e2994d5f2\AndroidManifest.xml:17:1-24:12
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\circleimageview-2.1.0.aar\f0987afff0fa984fdb5a1491c3cc050f\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\a1f4bf5fceae21254d41cb2b3b904ced\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\2625d0d5fff44091e7db51773cda9ce1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.android:facebook-places:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-places-4.30.0.aar\90abc0a0973e5ab731d957972bbafe27\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-applinks:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.30.0.aar\3db090b8f761db6721285e00a81f11bb\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-messenger:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.30.0.aar\2c4767612d1bfdc93ca2c1f738228575\AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:21:1-45:12
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:17:1-34:12
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:17:1-55:12
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:17:1-41:12
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:17:1-65:12
+MERGED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:17:1-32:12
+MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-interop-15.0.0.aar\675a9ed10336cbeeabb007e05636b2a6\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\9990f5257233182712522e31dbe3d495\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-15.0.0.aar\b4c24f48ec09446c29097703dbcf6193\AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-placereport-15.0.1.aar\e7454b9772e1c5cdaa9e70d5c24e1184\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-stats:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-stats-15.0.1.aar\cc984b2a26fe6e7507eee3f6c8b7350c\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\a2bdc847726bfe4fd6353d5231e5620c\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\c5adf9be95959275ca20cf2fd3b0fe32\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\61c7301e1e42004aa3013b93112d966a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\899223f395ad4655125bcb175876455c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\ac5c828f690fd592faf0eb715b50f55a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\1932be2f76e0c2e04de95f2eebd3eb26\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\2e35ed118c53365f35692a940a938dca\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0e99407252faf175ac913d01ca1a7f11\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\06a82b7bff926e273b3826da33a175b0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.jakewharton.timber:timber:4.4.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\401391ca642c89933f1b5aeb042f4788\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\8e9ce94ee059359493b70dd5280f7e99\AndroidManifest.xml:17:1-24:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\03771a570dbd68cfe76c9e507296bb6f\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\9ee1828ff73736ba850b13d073d7ea55\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\786f3fa2f367283784220feee9ea8d8a\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\39d0a3ed3147d4e6347d2191a891bd93\AndroidManifest.xml:17:1-22:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+	package
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:3:5-28
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:1-154:12
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:5:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:6:22-76
+uses-permission#android.permission.INTERNET
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:7:5-67
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:24:5-67
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:8:5-80
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:9:22-78
+application
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:11:5-152:19
+MERGED from [com.github.amarjain07:StickyScrollView:1.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\StickyScrollView-1.0.2.aar\38b24461775e6eeb46979429ed64725b\AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.amarjain07:StickyScrollView:1.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\StickyScrollView-1.0.2.aar\38b24461775e6eeb46979429ed64725b\AndroidManifest.xml:11:5-15:19
+MERGED from [com.crystal:crystalrangeseekbar:1.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\crystalrangeseekbar-1.1.1.aar\5c69a79bb14d9d24b01a21727d7d845b\AndroidManifest.xml:11:5-15:19
+MERGED from [com.crystal:crystalrangeseekbar:1.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\crystalrangeseekbar-1.1.1.aar\5c69a79bb14d9d24b01a21727d7d845b\AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.BlackBoxVision:material-wheel-view:v0.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\material-wheel-view-v0.0.1.aar\e0fc0196ef36ebc9bd2dfd102396d7fc\AndroidManifest.xml:11:5-14:38
+MERGED from [com.github.BlackBoxVision:material-wheel-view:v0.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\material-wheel-view-v0.0.1.aar\e0fc0196ef36ebc9bd2dfd102396d7fc\AndroidManifest.xml:11:5-14:38
+MERGED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:11:5-21:19
+MERGED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:11:5-21:19
+MERGED from [com.facebook.android:facebook-android-sdk:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.30.0.aar\9216f4ff6eaa4b32df07dea96a857dfa\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-android-sdk:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.30.0.aar\9216f4ff6eaa4b32df07dea96a857dfa\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-login-4.30.0.aar\d11efc547625fb5e494707638a83ceea\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-login-4.30.0.aar\d11efc547625fb5e494707638a83ceea\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-share:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-share-4.30.0.aar\700884f988914be3896c3cdd7e5e4c23\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-share:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-share-4.30.0.aar\700884f988914be3896c3cdd7e5e4c23\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:28:5-34:19
+MERGED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:28:5-34:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\ca9e367f5dd6dfd033e66f6a46ffdd8e\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\ca9e367f5dd6dfd033e66f6a46ffdd8e\AndroidManifest.xml:9:5-20
+MERGED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-core:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-core-15.0.2.aar\39ca5656476071b760316cdf52f0221a\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-core:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-core-15.0.2.aar\39ca5656476071b760316cdf52f0221a\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-places:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-15.0.1.aar\9b34f87b03fbaef7904f8b3e2994d5f2\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-15.0.1.aar\9b34f87b03fbaef7904f8b3e2994d5f2\AndroidManifest.xml:22:5-20
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\circleimageview-2.1.0.aar\f0987afff0fa984fdb5a1491c3cc050f\AndroidManifest.xml:9:5-20
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\circleimageview-2.1.0.aar\f0987afff0fa984fdb5a1491c3cc050f\AndroidManifest.xml:9:5-20
+MERGED from [com.facebook.android:facebook-places:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-places-4.30.0.aar\90abc0a0973e5ab731d957972bbafe27\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-places:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-places-4.30.0.aar\90abc0a0973e5ab731d957972bbafe27\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-applinks:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.30.0.aar\3db090b8f761db6721285e00a81f11bb\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-applinks:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.30.0.aar\3db090b8f761db6721285e00a81f11bb\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-messenger:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.30.0.aar\2c4767612d1bfdc93ca2c1f738228575\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-messenger:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.30.0.aar\2c4767612d1bfdc93ca2c1f738228575\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:28:5-43:19
+MERGED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:28:5-43:19
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:26:5-32:19
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:26:5-32:19
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:28:5-53:19
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:28:5-53:19
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:28:5-39:19
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:28:5-39:19
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:34:5-63:19
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:34:5-63:19
+MERGED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:30:5-20
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:30:5-20
+MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-interop-15.0.0.aar\675a9ed10336cbeeabb007e05636b2a6\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-interop-15.0.0.aar\675a9ed10336cbeeabb007e05636b2a6\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\9990f5257233182712522e31dbe3d495\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\9990f5257233182712522e31dbe3d495\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-15.0.0.aar\b4c24f48ec09446c29097703dbcf6193\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-15.0.0.aar\b4c24f48ec09446c29097703dbcf6193\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-placereport-15.0.1.aar\e7454b9772e1c5cdaa9e70d5c24e1184\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-placereport-15.0.1.aar\e7454b9772e1c5cdaa9e70d5c24e1184\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-stats:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-stats-15.0.1.aar\cc984b2a26fe6e7507eee3f6c8b7350c\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-stats-15.0.1.aar\cc984b2a26fe6e7507eee3f6c8b7350c\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\a2bdc847726bfe4fd6353d5231e5620c\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\a2bdc847726bfe4fd6353d5231e5620c\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:22:5-26:19
+MERGED from [com.jakewharton.timber:timber:4.4.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\401391ca642c89933f1b5aeb042f4788\AndroidManifest.xml:8:5-20
+MERGED from [com.jakewharton.timber:timber:4.4.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\401391ca642c89933f1b5aeb042f4788\AndroidManifest.xml:8:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\8e9ce94ee059359493b70dd5280f7e99\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\8e9ce94ee059359493b70dd5280f7e99\AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:15:9-41
+	android:roundIcon
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:16:9-54
+	android:icon
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:14:9-43
+	android:allowBackup
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:13:9-35
+	android:theme
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:18:9-40
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:12:9-54
+activity#com.os.drewel.activity.SplashActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:19:9-28:20
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:22:13-49
+	android:label
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:21:13-45
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:20:13-52
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:23:13-27:29
+action#android.intent.action.MAIN
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:24:17-69
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:24:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:26:27-74
+activity#com.os.drewel.activity.BaseActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:30:9-32:52
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:32:13-49
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:31:13-50
+activity#com.os.drewel.activity.WelcomeActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:33:9-35:52
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:35:13-49
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:34:13-53
+activity#com.os.drewel.activity.SignUpActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:36:9-40:47
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:38:13-49
+	android:launchMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:40:13-44
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:39:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:37:13-52
+activity#com.os.drewel.activity.LoginActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:41:9-45:47
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:43:13-49
+	android:launchMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:45:13-44
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:44:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:42:13-51
+activity#com.os.drewel.activity.HomeActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:47:9-50:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:49:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:50:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:48:13-50
+activity#com.os.drewel.activity.ForgotPasswordActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:52:9-55:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:54:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:55:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:53:13-60
+activity#com.os.drewel.activity.OTPVerificationActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:56:9-58:52
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:58:13-49
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:57:13-61
+activity#com.os.drewel.activity.ProductActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:60:9-63:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:62:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:63:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:61:13-53
+activity#com.os.drewel.activity.BrandWiseProductActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:65:9-68:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:67:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:68:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:66:13-62
+activity#com.os.drewel.activity.ProductDetailActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:70:9-73:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:72:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:73:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:71:13-59
+activity#com.os.drewel.activity.DeliveryMapAddressActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:75:9-78:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:77:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:78:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:76:13-64
+activity#com.os.drewel.activity.DeliveryAddressActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:80:9-83:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:82:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:83:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:81:13-61
+activity#com.os.drewel.activity.WishListActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:85:9-88:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:87:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:88:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:86:13-54
+activity#com.os.drewel.activity.SearchSuggestionActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:89:9-91:52
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:91:13-49
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:90:13-62
+activity#com.os.drewel.activity.SearchWiseProductActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:92:9-95:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:94:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:95:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:93:13-63
+activity#com.os.drewel.activity.ProductBaseActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:96:9-99:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:98:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:99:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:97:13-57
+activity#com.os.drewel.activity.CartActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:100:9-103:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:102:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:103:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:101:13-50
+activity#com.os.drewel.activity.DeliveryDetailActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:104:9-106:52
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:106:13-49
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:105:13-60
+activity#com.os.drewel.activity.CheckOutActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:108:9-110:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:109:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:110:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:108:19-60
+activity#com.os.drewel.activity.ChangePasswordActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:111:9-113:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:112:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:113:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:111:19-66
+activity#com.os.drewel.activity.ProfileActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:114:9-116:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:115:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:116:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:114:19-59
+activity#com.os.drewel.activity.AboutAppActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:117:9-119:57
+	android:screenOrientation
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:118:13-49
+	android:windowSoftInputMode
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:119:13-54
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:117:19-60
+activity#com.os.drewel.activity.NotificationActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:120:9-67
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:120:19-64
+activity#com.os.drewel.activity.MyOrderDetailActivity
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:121:9-68
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:121:19-65
+service#com.os.drewel.firebase.DrewelFirebaseInstanceIDService
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:123:9-127:19
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:123:18-74
+intent-filter#action:name:com.google.firebase.INSTANCE_ID_EVENT
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:124:13-126:29
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:125:17-80
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:125:25-77
+service#com.os.drewel.firebase.DrewelFirebaseMessagingService
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:129:9-133:19
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:129:18-73
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:130:13-132:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:131:17-78
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:131:25-75
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:135:9-137:55
+	android:value
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:137:13-52
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:136:13-58
+meta-data#com.google.firebase.messaging.default_notification_channel_id
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:139:9-141:71
+	android:value
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:141:13-68
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:140:13-89
+meta-data#com.google.android.geo.API_KEY
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:143:9-145:71
+	android:value
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:145:13-68
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:144:13-58
+provider#com.facebook.FacebookContentProvider
+ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:148:9-151:39
+	android:authorities
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:150:13-91
+	android:exported
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:151:13-36
+	android:name
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml:149:13-64
+uses-sdk
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\b7c2e9c9331d84b8839326e3651da474\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\b7c2e9c9331d84b8839326e3651da474\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\da3976a6ebb6959a6e0f9b0aef9c8591\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\da3976a6ebb6959a6e0f9b0aef9c8591\AndroidManifest.xml:20:5-44
+MERGED from [com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-appcompat-v7-2.1.1.aar\7005464f0afcb8f023b5597eb9e483ce\AndroidManifest.xml:6:5-44
+MERGED from [com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-appcompat-v7-2.1.1.aar\7005464f0afcb8f023b5597eb9e483ce\AndroidManifest.xml:6:5-44
+MERGED from [com.github.amarjain07:StickyScrollView:1.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\StickyScrollView-1.0.2.aar\38b24461775e6eeb46979429ed64725b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.amarjain07:StickyScrollView:1.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\StickyScrollView-1.0.2.aar\38b24461775e6eeb46979429ed64725b\AndroidManifest.xml:7:5-9:41
+MERGED from [me.zhanghai.android.materialratingbar:library:1.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\library-1.2.0.aar\f3e11167def95a506c02201aa34aff71\AndroidManifest.xml:12:5-14:41
+MERGED from [me.zhanghai.android.materialratingbar:library:1.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\library-1.2.0.aar\f3e11167def95a506c02201aa34aff71\AndroidManifest.xml:12:5-14:41
+MERGED from [com.crystal:crystalrangeseekbar:1.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\crystalrangeseekbar-1.1.1.aar\5c69a79bb14d9d24b01a21727d7d845b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.crystal:crystalrangeseekbar:1.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\crystalrangeseekbar-1.1.1.aar\5c69a79bb14d9d24b01a21727d7d845b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.BlackBoxVision:material-wheel-view:v0.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\material-wheel-view-v0.0.1.aar\e0fc0196ef36ebc9bd2dfd102396d7fc\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.BlackBoxVision:material-wheel-view:v0.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\material-wheel-view-v0.0.1.aar\e0fc0196ef36ebc9bd2dfd102396d7fc\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.android:facebook-android-sdk:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.30.0.aar\9216f4ff6eaa4b32df07dea96a857dfa\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-android-sdk:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.30.0.aar\9216f4ff6eaa4b32df07dea96a857dfa\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-login-4.30.0.aar\d11efc547625fb5e494707638a83ceea\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-login-4.30.0.aar\d11efc547625fb5e494707638a83ceea\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-share:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-share-4.30.0.aar\700884f988914be3896c3cdd7e5e4c23\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-share:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-share-4.30.0.aar\700884f988914be3896c3cdd7e5e4c23\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:24:5-26:41
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\038d5e3db05b3cdef98c2c64e37352ff\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\038d5e3db05b3cdef98c2c64e37352ff\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customtabs:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\customtabs-27.1.1.aar\99ac64ecf265f0b27b00df1f32b5f6f6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customtabs:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\customtabs-27.1.1.aar\99ac64ecf265f0b27b00df1f32b5f6f6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\ba92576320c581feff8c0f8007df27d1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\ba92576320c581feff8c0f8007df27d1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\ca9e367f5dd6dfd033e66f6a46ffdd8e\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.0.aar\ca9e367f5dd6dfd033e66f6a46ffdd8e\AndroidManifest.xml:5:5-7:41
+MERGED from [com.jakewharton.rxbinding2:rxbinding:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-2.1.1.aar\fdf3f8f5ae61225d1255c16fe050da0d\AndroidManifest.xml:6:5-44
+MERGED from [com.jakewharton.rxbinding2:rxbinding:2.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxbinding-2.1.1.aar\fdf3f8f5ae61225d1255c16fe050da0d\AndroidManifest.xml:6:5-44
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.1.aar\cc78b3e8428224001d691eaad1fcae33\AndroidManifest.xml:19:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.1.aar\cc78b3e8428224001d691eaad1fcae33\AndroidManifest.xml:19:5-43
+MERGED from [com.intuit.sdp:sdp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\sdp-android-1.0.4.aar\644f181900a45f8dc50e4ce27819678b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.intuit.sdp:sdp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\sdp-android-1.0.4.aar\644f181900a45f8dc50e4ce27819678b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.intuit.ssp:ssp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\ssp-android-1.0.4.aar\5ace810afa436325d79d60a7fc170e81\AndroidManifest.xml:7:5-9:41
+MERGED from [com.intuit.ssp:ssp-android:1.0.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\ssp-android-1.0.4.aar\5ace810afa436325d79d60a7fc170e81\AndroidManifest.xml:7:5-9:41
+MERGED from [net.danlew:android.joda:2.9.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\android.joda-2.9.9.4.aar\361be259fc20e04eaf927a058c3029cd\AndroidManifest.xml:5:5-43
+MERGED from [net.danlew:android.joda:2.9.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\android.joda-2.9.9.4.aar\361be259fc20e04eaf927a058c3029cd\AndroidManifest.xml:5:5-43
+MERGED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-core:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-core-15.0.2.aar\39ca5656476071b760316cdf52f0221a\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-core:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-core-15.0.2.aar\39ca5656476071b760316cdf52f0221a\AndroidManifest.xml:5:5-44
+MERGED from [com.blankj:utilcode:1.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\utilcode-1.9.4.aar\6fe4d92c2117dedc64021d920f20b53a\AndroidManifest.xml:8:5-44
+MERGED from [com.blankj:utilcode:1.9.4] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\utilcode-1.9.4.aar\6fe4d92c2117dedc64021d920f20b53a\AndroidManifest.xml:8:5-44
+MERGED from [com.romandanylyk:pageindicatorview:0.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\pageindicatorview-0.2.0.aar\663a18864939694d1b4848657ece43ed\AndroidManifest.xml:8:5-10:41
+MERGED from [com.romandanylyk:pageindicatorview:0.2.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\pageindicatorview-0.2.0.aar\663a18864939694d1b4848657ece43ed\AndroidManifest.xml:8:5-10:41
+MERGED from [com.google.android.gms:play-services-places:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-15.0.1.aar\9b34f87b03fbaef7904f8b3e2994d5f2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-15.0.1.aar\9b34f87b03fbaef7904f8b3e2994d5f2\AndroidManifest.xml:20:5-44
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\circleimageview-2.1.0.aar\f0987afff0fa984fdb5a1491c3cc050f\AndroidManifest.xml:5:5-7:41
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\circleimageview-2.1.0.aar\f0987afff0fa984fdb5a1491c3cc050f\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\a1f4bf5fceae21254d41cb2b3b904ced\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\a1f4bf5fceae21254d41cb2b3b904ced\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\2625d0d5fff44091e7db51773cda9ce1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\2625d0d5fff44091e7db51773cda9ce1\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.android:facebook-places:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-places-4.30.0.aar\90abc0a0973e5ab731d957972bbafe27\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-places:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-places-4.30.0.aar\90abc0a0973e5ab731d957972bbafe27\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-applinks:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.30.0.aar\3db090b8f761db6721285e00a81f11bb\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-applinks:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.30.0.aar\3db090b8f761db6721285e00a81f11bb\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-messenger:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.30.0.aar\2c4767612d1bfdc93ca2c1f738228575\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-messenger:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.30.0.aar\2c4767612d1bfdc93ca2c1f738228575\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:24:5-26:41
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-interop-15.0.0.aar\675a9ed10336cbeeabb007e05636b2a6\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-interop-15.0.0.aar\675a9ed10336cbeeabb007e05636b2a6\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\9990f5257233182712522e31dbe3d495\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\9990f5257233182712522e31dbe3d495\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-15.0.0.aar\b4c24f48ec09446c29097703dbcf6193\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-15.0.0.aar\b4c24f48ec09446c29097703dbcf6193\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-placereport-15.0.1.aar\e7454b9772e1c5cdaa9e70d5c24e1184\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-places-placereport-15.0.1.aar\e7454b9772e1c5cdaa9e70d5c24e1184\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-stats-15.0.1.aar\cc984b2a26fe6e7507eee3f6c8b7350c\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-stats-15.0.1.aar\cc984b2a26fe6e7507eee3f6c8b7350c\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\a2bdc847726bfe4fd6353d5231e5620c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\a2bdc847726bfe4fd6353d5231e5620c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\c5adf9be95959275ca20cf2fd3b0fe32\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\c5adf9be95959275ca20cf2fd3b0fe32\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\61c7301e1e42004aa3013b93112d966a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\61c7301e1e42004aa3013b93112d966a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\899223f395ad4655125bcb175876455c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\899223f395ad4655125bcb175876455c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\ac5c828f690fd592faf0eb715b50f55a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\ac5c828f690fd592faf0eb715b50f55a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\1932be2f76e0c2e04de95f2eebd3eb26\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\1932be2f76e0c2e04de95f2eebd3eb26\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\2e35ed118c53365f35692a940a938dca\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\2e35ed118c53365f35692a940a938dca\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0e99407252faf175ac913d01ca1a7f11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0e99407252faf175ac913d01ca1a7f11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\06a82b7bff926e273b3826da33a175b0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\06a82b7bff926e273b3826da33a175b0\AndroidManifest.xml:20:5-44
+MERGED from [com.jakewharton.timber:timber:4.4.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\401391ca642c89933f1b5aeb042f4788\AndroidManifest.xml:6:5-43
+MERGED from [com.jakewharton.timber:timber:4.4.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\timber-4.4.0.aar\401391ca642c89933f1b5aeb042f4788\AndroidManifest.xml:6:5-43
+MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\8e9ce94ee059359493b70dd5280f7e99\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-15.0.2.aar\8e9ce94ee059359493b70dd5280f7e99\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\03771a570dbd68cfe76c9e507296bb6f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\03771a570dbd68cfe76c9e507296bb6f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\9ee1828ff73736ba850b13d073d7ea55\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\9ee1828ff73736ba850b13d073d7ea55\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\786f3fa2f367283784220feee9ea8d8a\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\786f3fa2f367283784220feee9ea8d8a\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\39d0a3ed3147d4e6347d2191a891bd93\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\39d0a3ed3147d4e6347d2191a891bd93\AndroidManifest.xml:20:5-44
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		ADDED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Monika_backup\order managment\Drewel\app\src\main\AndroidManifest.xml
+provider#android.support.v4.content.FileProvider
+ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:14:13-80
+	android:exported
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:13:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:17:13-19:53
+	android:resource
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:19:17-50
+	android:name
+		ADDED from [com.github.jkwiecien:EasyImage:2.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\EasyImage-2.0.2.aar\54401e6ff87b2be4e6e0de58cc4ef050\AndroidManifest.xml:18:17-67
+activity#com.facebook.FacebookActivity
+ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:29:9-32:66
+	android:configChanges
+		ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:31:13-96
+	android:theme
+		ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:32:13-63
+	android:name
+		ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:30:13-57
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-common-4.30.0.aar\5da2b2ed8e1f52749dff4907dbeb680e\AndroidManifest.xml:33:19-68
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:28:9-34:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-messaging-15.0.2.aar\3fcabb66e8b0861aeee7d328df1121e0\AndroidManifest.xml:29:13-82
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:4.30.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\facebook-core-4.30.0.aar\dd895db3801a54f1a14d8565b38cf738\AndroidManifest.xml:40:13-70
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:23:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:24:5-68
+	android:name
+		ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:24:22-65
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:27:9-31:19
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:35:9-39:19
+MERGED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:35:9-39:19
+	android:name
+		ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:27:18-89
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:28:13-30:85
+	android:value
+		ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-measurement-connector-impl:15.0.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-measurement-connector-impl-15.0.0.aar\c9af718259e4c2c2d30aa10fbb39e22c\AndroidManifest.xml:29:17-139
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:26:5-110
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:26:5-110
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:26:5-110
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:29:9-33:20
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:29:9-33:20
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:30:13-85
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:34:9-42:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:36:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:37:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:38:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:35:13-100
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:39:13-41:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:40:17-79
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:40:25-76
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:44:9-47:40
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:35:9-38:40
+MERGED from [com.google.firebase:firebase-analytics-impl:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-15.0.2.aar\bc62ad4a1c74be53a6ad7b14096674aa\AndroidManifest.xml:35:9-38:40
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:46:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:45:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:48:9-52:72
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:50:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:51:13-37
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:52:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:15.0.2] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-analytics-15.0.2.aar\44ee48c111af6ca3f9a6215324c3f75a\AndroidManifest.xml:49:13-87
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:26:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:26:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:29:9-63
+permission#com.os.drewel.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:29:9-63
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:32:22-76
+uses-permission#com.os.drewel.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:32:22-76
+meta-data#com.google.firebase.components:com.google.firebase.iid.Registrar
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:36:13-38:85
+	android:value
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:38:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:37:17-96
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:41:9-50:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:43:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:44:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:42:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:${applicationId}
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:45:13-49:29
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:com.os.drewel
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:45:13-49:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:46:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:46:25-78
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:48:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:48:27-58
+category#com.os.drewel
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:48:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:48:27-58
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:56:9-62:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:58:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:15.1.0] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-iid-15.1.0.aar\807645aba46cc52619ed2f6c8aa53ff8\AndroidManifest.xml:57:13-77
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:8:9-12:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:10:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:11:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:12:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\firebase-common-15.0.1.aar\7439d3fc8ff87acc96563c685ea47508\AndroidManifest.xml:9:13-77
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\af40fd1210d685ebccccc151348bba9f\AndroidManifest.xml:28:9-32
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\349fee9a9041a094d7e9c65b89feeb07\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\monikab\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\e3d6b9db71b9823853b7777015615d18\AndroidManifest.xml:24:13-58

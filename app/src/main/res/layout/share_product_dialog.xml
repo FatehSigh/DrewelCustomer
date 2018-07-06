@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_10sdp">
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/shareWithWhatsappBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/twitter"
+        android:text="@string/twitter"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/shareWithFacebookBt"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/shareWithFacebookBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/facebook_icon"
+        android:text="@string/facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shareWithWhatsappBt"/>
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/shareWithGmailBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/gmail"
+        android:text="@string/gmail"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/shareWithWhatsappBt"
+        app:layout_constraintEnd_toEndOf="@+id/shareWithWhatsappBt"
+        app:layout_constraintTop_toBottomOf="@+id/shareWithWhatsappBt"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/shareWithMessageBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/message"
+        android:text="@string/messaging"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/shareWithFacebookBt"
+        app:layout_constraintStart_toStartOf="@+id/shareWithFacebookBt"
+        app:layout_constraintTop_toTopOf="@+id/shareWithGmailBt"/>
+
+</android.support.constraint.ConstraintLayout>

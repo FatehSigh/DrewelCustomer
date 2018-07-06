@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_actionbar.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\menu_actionbar.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\product_list_menu.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\product_list_menu.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\bottom_home.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\bottom_home.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\delivery_address_menu.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\delivery_address_menu.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\change_language_menu.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\change_language_menu.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\product_details_menu.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\product_details_menu.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\menu\\activity_main_drawer.xml"
+    }
+]

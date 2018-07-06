@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:selectedDateBackground="@color/white"
+        app:selectorColor="@color/colorPrimary"
+        app:sizeBottomText="14sp"
+        app:sizeMiddleText="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:textColorNormal="@color/grey_color_txt"
+        app:textColorSelected="@color/colorPrimary" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@color/violet_1"
+        android:layout_below="@+id/calendarView"
+    />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_slots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_submit"
+      android:layout_below="@+id/view2"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_submit"
+        style="@style/ButtonTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/buttonOrangeColor"
+        android:gravity="center"
+        android:text="@string/choose_time_slot"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</RelativeLayout>

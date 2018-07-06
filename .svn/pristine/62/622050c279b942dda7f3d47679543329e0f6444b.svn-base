@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_cancel_black_24dp.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_cancel_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_keyboard_arrow_down_black_24dp.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_keyboard_arrow_down_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\mrb_star_border_icon_black_36dp.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\library-1.2.0.aar\\f3e11167def95a506c02201aa34aff71\\res\\drawable-anydpi-v21\\mrb_star_border_icon_black_36dp.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\mrb_star_icon_black_36dp.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\library-1.2.0.aar\\f3e11167def95a506c02201aa34aff71\\res\\drawable-anydpi-v21\\mrb_star_icon_black_36dp.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\ic_clear_black_24dp.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_clear_black_24dp.xml"
+    }
+]

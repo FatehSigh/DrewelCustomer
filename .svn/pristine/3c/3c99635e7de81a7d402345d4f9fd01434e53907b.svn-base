@@ -1,0 +1,618 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\time_slot_layout.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\time_slot_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_set_delivery_address_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_set_delivery_address_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_about_app.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_about_app.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_smart_device_dialog_fragment.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.30.0.aar\\5da2b2ed8e1f52749dff4907dbeb680e\\res\\layout\\com_facebook_smart_device_dialog_fragment.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_tooltip.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_applied_coupon_code_item.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\layout_applied_coupon_code_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_welcome_view_pager.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\fragment_welcome_view_pager.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\search_suggestion_layout.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\search_suggestion_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_products.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_products.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\product_detail_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\product_detail_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_checkout.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_checkout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\search_suggestion_item.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\search_suggestion_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_brand_wise_product.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_brand_wise_product.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\child_filter_brand_name.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\child_filter_brand_name.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_login_fragment.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.30.0.aar\\5da2b2ed8e1f52749dff4907dbeb680e\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_notifiaction.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_notifiaction.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\category_row_selector.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\category_row_selector.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_my_cart.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_my_cart.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_change_password.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_change_password.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\category_fragment.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\category_fragment.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar_include.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_item_prediction.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\layout\\place_autocomplete_item_prediction.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_my_cart.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_my_cart.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\progress_dialog_loading.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\progress_dialog_loading.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\wish_list_product_item_.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\wish_list_product_item_.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_delivery_details_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_delivery_details_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\profile_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\profile_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_splash.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_icon.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_navigation_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_item_powered_by_google.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\layout\\place_autocomplete_item_powered_by_google.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\product_list_all_child.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\product_list_all_child.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\delivery_address_item.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\delivery_address_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\similar_product_child.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\similar_product_child.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_discount.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\layout_discount.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_activity_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.30.0.aar\\5da2b2ed8e1f52749dff4907dbeb680e\\res\\layout\\com_facebook_activity_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\nav_header_main.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\nav_header_main.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\constraint__overlap_example.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\constraint__overlap_example.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\child_my_cart.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\child_my_cart.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_large.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\setting_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\setting_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\sp_example.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\ssp-android-1.0.4.aar\\5ace810afa436325d79d60a7fc170e81\\res\\layout\\sp_example.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_product.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_product.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_order_product_item.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\my_order_product_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_activity_otp_verification.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_activity_otp_verification.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_welcome.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_welcome.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\delivery_details_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\delivery_details_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_forgot_password.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_forgot_password.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_small.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_white_small.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dp_example.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\sdp-android-1.0.4.aar\\644f181900a45f8dc50e4ce27819678b\\res\\layout\\dp_example.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_checkout.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_checkout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\home_product_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\home_product_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\sdp_example.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\sdp-android-1.0.4.aar\\644f181900a45f8dc50e4ce27819678b\\res\\layout\\sdp_example.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_order_detail.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\my_order_detail.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_date_picker_inverted.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\material-wheel-view-v0.0.1.aar\\e0fc0196ef36ebc9bd2dfd102396d7fc\\res\\layout\\layout_date_picker_inverted.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_activity_signup.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_activity_signup.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_product.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\layout_product.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\browser_actions_context_menu_row.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\customtabs-27.1.1.aar\\99ac64ecf265f0b27b00df1f32b5f6f6\\res\\layout\\browser_actions_context_menu_row.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_my_order_item.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\layout_my_order_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_wishlist.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_wishlist.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\app_toolbar.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\app_toolbar.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_row_selector.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\notification_row_selector.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\child_product_layout.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\child_product_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_delivery_address_info.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_delivery_address_info.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ssp_example.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\ssp-android-1.0.4.aar\\5ace810afa436325d79d60a7fc170e81\\res\\layout\\ssp_example.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_date_picker.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\material-wheel-view-v0.0.1.aar\\e0fc0196ef36ebc9bd2dfd102396d7fc\\res\\layout\\layout_date_picker.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_activity_change_password.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_activity_change_password.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_round.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_products.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\filter_products.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_order.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\my_order.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\delivery_map_address_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\delivery_map_address_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\brand_row_selector.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\brand_row_selector.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\discounts_row.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\discounts_row.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_brand_wise_products.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_brand_wise_products.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\delivery_address_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\delivery_address_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_activity_forgot_password.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_activity_forgot_password.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_wish_list.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_wish_list.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_signup.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\activity_signup.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\share_product_dialog.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\share_product_dialog.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_setting_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_setting_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_device_auth_dialog_fragment.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.30.0.aar\\5da2b2ed8e1f52749dff4907dbeb680e\\res\\layout\\com_facebook_device_auth_dialog_fragment.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\0e99407252faf175ac913d01ca1a7f11\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\app_bar_main.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\app_bar_main.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\da3976a6ebb6959a6e0f9b0aef9c8591\\res\\layout\\design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\06a82b7bff926e273b3826da33a175b0\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\otp_verification.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\otp_verification.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_current_order.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\my_current_order.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_product_details_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\layout_product_details_activity.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_tooltip_bubble.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.30.0.aar\\d11efc547625fb5e494707638a83ceea\\res\\layout\\com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_small.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\action_bar_notifitcation_icon.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\action_bar_notifitcation_icon.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_fragment.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\layout\\place_autocomplete_fragment.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_main.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_main.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_large.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.30.0.aar\\2c4767612d1bfdc93ca2c1f738228575\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\sort_product.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\sort_product.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_progress.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-places-15.0.1.aar\\9b34f87b03fbaef7904f8b3e2994d5f2\\res\\layout\\place_autocomplete_progress.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\browser_actions_context_menu_page.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\customtabs-27.1.1.aar\\99ac64ecf265f0b27b00df1f32b5f6f6\\res\\layout\\browser_actions_context_menu_page.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_my_order_detail.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_my_order_detail.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\038d5e3db05b3cdef98c2c64e37352ff\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_profile_activity.xml",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\src\\main\\res\\layout\\content_profile_activity.xml"
+    }
+]

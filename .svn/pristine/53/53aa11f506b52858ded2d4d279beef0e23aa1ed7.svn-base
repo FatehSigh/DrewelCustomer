@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_launcher_background.png",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_cancel_black_24dp.png",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_cancel_black_24dp.png"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_clear_black_24dp.png",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_clear_black_24dp.png"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\mrb_star_icon_black_36dp.png",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\library-1.2.0.aar\\f3e11167def95a506c02201aa34aff71\\res\\drawable-ldpi-v4\\mrb_star_icon_black_36dp.png"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_keyboard_arrow_down_black_24dp.png",
+        "source": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_keyboard_arrow_down_black_24dp.png"
+    },
+    {
+        "merged": "D:\\Monika_backup\\order managment\\Drewel\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\mrb_star_border_icon_black_36dp.png",
+        "source": "C:\\Users\\monikab\\.gradle\\caches\\transforms-1\\files-1.1\\library-1.2.0.aar\\f3e11167def95a506c02201aa34aff71\\res\\drawable-ldpi-v4\\mrb_star_border_icon_black_36dp.png"
+    }
+]

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchSuggestionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_25sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="Milk Product"
+        android:elevation="@dimen/_10sdp"
+        android:textColor="@color/black"/>
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/searchSuggestionText"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/violet_1"/>
+
+</android.support.constraint.ConstraintLayout>

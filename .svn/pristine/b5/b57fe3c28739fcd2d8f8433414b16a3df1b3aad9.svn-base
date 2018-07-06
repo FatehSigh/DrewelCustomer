@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/buttonOrangeColor"
+    android:padding="@dimen/_15sdp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ImageView
+        android:id="@+id/loginLogoIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/oldPasswordTextLayout"
+        style="@style/LoginEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogoIv">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/oldPasswordEditText"
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/old_password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            app:backgroundTint="@color/white" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/newPasswordTextLayout"
+        style="@style/LoginEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/oldPasswordTextLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/newPasswordEditText"
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            app:backgroundTint="@color/white" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/confirmPasswordTextLayout"
+        style="@style/LoginEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/newPasswordTextLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/confirmPasswordEditText"
+            style="@style/LoginEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            app:backgroundTint="@color/white" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/changePasswordButton"
+        style="@style/ButtonTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/submit"
+        android:background="@drawable/button_black_alpha_background"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextLayout" />
+
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        layout="@layout/progress_dialog_loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+
+</android.support.constraint.ConstraintLayout>
+

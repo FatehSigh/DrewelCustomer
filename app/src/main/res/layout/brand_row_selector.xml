@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/productNumberTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:checked="true"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_8sdp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/brandNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/babybel"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        android:padding="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_bold_1" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/productRv"
+        app:layout_constraintTop_toBottomOf="@+id/brandNameTv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>

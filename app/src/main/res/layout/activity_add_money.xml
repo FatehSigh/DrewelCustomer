@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            tools:contentInsetStart="0dp"
+            tools:popupTheme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/toolbarTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/add_money"
+                style="@style/ToolbarTitleStyle" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/violet"
+            android:gravity="center_vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/blc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_bold_1"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/balance"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_blc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/blc"
+                android:fontFamily="@font/roboto_bold_1"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_10sdp"
+                android:text="$ 500.00"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_11sdp" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:background="@color/violet"
+                android:padding="@dimen/_10sdp"
+                android:src="@mipmap/moneygrey"
+                android:textColor="@color/colorPrimary" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_new_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_new"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:id="@+id/rl_addmoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_add_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/tv_have_promocode"
+                    android:background="@null"
+                    android:hint="@string/amount_dollar">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_profile_first_name"
+                        style="@style/EditTextHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_regular_0"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_have_promocode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_regular_0"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/have_a_promocode"
+                    android:textColor="@color/grey_color_txt"
+                    android:textSize="@dimen/_10sdp" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/rl_addmoney"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/light_grey_2" />
+
+            <Button
+                android:id="@+id/btn_accept_order"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_below="@+id/view"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@string/search"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:text="@string/add_money"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- <TextView
+         android:id="@+id/tv_have_promo_code"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:imeOptions="actionNext"
+         android:layout_alignParentEnd="true"
+         android:inputType="number"
+         android:layout_toRightOf="@+id/til_add_money"
+         android:text="@string/have_a_promo_code" />-->
+
+</LinearLayout>

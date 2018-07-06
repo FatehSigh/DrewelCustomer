@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    cardview:cardElevation="@dimen/_5sdp"
+    app:cardCornerRadius="0dp"
+    android:layoutDirection="ltr">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/discountImageIv"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/couponCodeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/discountImageIv"
+            android:text="wewe"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/expireDateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/discountImageIv"
+            android:text="wewe"
+            app:layout_constraintTop_toBottomOf="@+id/couponCodeTv"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/_12sdp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/offerDescriptionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/expireDateTv"
+            app:layout_constraintStart_toEndOf="@+id/discountImageIv"
+            android:text="wewe"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textColor="@color/violet_1"
+            android:textSize="@dimen/_12sdp"/>
+
+        <ImageView
+            android:id="@+id/activeOfferImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/offericon"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/discountPercentageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/activeOfferImage"
+            app:layout_constraintEnd_toEndOf="@+id/activeOfferImage"
+            app:layout_constraintStart_toStartOf="@+id/activeOfferImage"
+            android:paddingBottom="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:text="25%"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</android.support.v7.widget.CardView>

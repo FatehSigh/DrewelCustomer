@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_time"
+        android:background="@drawable/timeslot_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatCheckedTextView
+            android:layout_alignParentStart="true"
+            android:id="@+id/txt_timeslot"
+            style="@style/LightBlackTextColorStyle"
+            android:layout_toStartOf="@+id/txt_fare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timeslot_background"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_selector" />
+
+        <android.support.v7.widget.AppCompatCheckedTextView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/txt_fare"
+            style="@style/LightBlackTextColorStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timeslot_background"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_selector" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/grey_color_txt" />
+</LinearLayout>

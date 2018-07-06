@@ -1,0 +1,18 @@
+package com.os.drewel.apicall.responsemodel.categoryresponsemodel
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+class Data : Serializable {
+
+    @SerializedName("category")
+    @Expose
+    var category: List<Category>? = null
+
+
+    @SerializedName("home")
+    @Expose
+    var homeBanner: List<Home>? = null
+
+}

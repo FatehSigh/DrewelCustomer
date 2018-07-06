@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/select_delivery_time"
+    android:paddingStart="@dimen/_15sdp"
+    android:paddingEnd="@dimen/_15sdp"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:textSize="@dimen/_15sdp"
+    android:id="@+id/titleTv"/>
+    <io.blackbox_vision.wheelview.view.WheelView
+        app:layout_constraintTop_toBottomOf="@+id/titleTv"
+        android:id="@+id/timeSlotWheelView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_160sdp"
+        app:canLoop="true"
+        app:centerTextColor="@color/orange_1"
+        app:drawItemCount="11"
+        app:lineColor="@color/white"
+        app:textSize="@dimen/_15sdp"
+        app:topBottomTextColor="@color/violet_1" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/setDeliveryTimeBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/orange_1"
+        android:text="@string/set_delivery_time"
+        app:layout_constraintTop_toBottomOf="@+id/timeSlotWheelView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingEnd="@dimen/_15sdp"
+        android:paddingStart="@dimen/_15sdp" />
+
+
+</android.support.constraint.ConstraintLayout>

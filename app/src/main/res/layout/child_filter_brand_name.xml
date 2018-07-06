@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="5dip"
+    android:paddingTop="5dip">
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/brandNameCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:buttonTint="@color/colorPrimary"
+        android:checked="false"
+        android:scaleType="centerInside"
+        android:text="Sub-category"/>
+    <!--  style="@style/radionbutton"-->
+
+    <android.support.v7.widget.AppCompatTextView
+        android:visibility="gone"
+        android:id="@+id/brandProductsTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="end"
+        android:text="10" />
+
+
+</LinearLayout>

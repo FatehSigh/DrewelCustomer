@@ -1,0 +1,367 @@
+package com.os.drewel.activity
+
+import android.content.Intent
+import android.graphics.Bitmap
+import android.os.Bundle
+import android.support.v7.widget.AppCompatImageButton
+import android.support.v7.widget.AppCompatTextView
+import android.support.v7.widget.LinearLayoutManager
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.RelativeLayout
+import android.widget.Toast
+import com.facebook.CallbackManager
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.nostra13.universalimageloader.core.assist.FailReason
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener
+import com.os.drewel.R
+import com.os.drewel.adapter.SimilarProductAdapter
+import com.os.drewel.adapter.SlidingImageAdapter
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetail
+import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.dialog.ShareBottomSheetDialog
+import com.os.drewel.rxbus.CartRxJavaBus
+import com.os.drewel.utill.EqualSpacingItemDecoration
+import com.os.drewel.rxbus.SampleRxJavaBus
+import com.os.drewel.utill.Utills
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.layout_product_details_activity.*
+import kotlinx.android.synthetic.main.product_detail_activity.*
+import java.text.NumberFormat
+
+
+/**
+ * Created by monikab on 3/20/2018.
+ */
+class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
+
+    var disposable: Disposable? = null
+    var productId = ""
+    var productDetailResponse = ProductDetailResponse()
+    val productAdapter = SimilarProductAdapter(this)
+    var shareDialog: ShareBottomSheetDialog? = null
+    var productImagePath = ""
+    var callbackManager = CallbackManager.Factory.create()
+    lateinit var productDetail: ProductDetail
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.product_detail_activity)
+        intiView()
+    }
+
+    private fun intiView() {
+        driveActivityName=this.javaClass.name
+        shareDialog = ShareBottomSheetDialog(this, callbackManager)
+        shareDialog!!.activity = this
+        setSupportActionBar(toolbar)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+
+        if (intent.hasExtra(AppIntentExtraKeys.PRODUCT_ID))
+            productId = intent.getStringExtra(AppIntentExtraKeys.PRODUCT_ID)
+
+        /* set click listeners for button*/
+        setClickListener()
+
+        /*dynamically set height of viewpager*/
+        setHeightOfViewPager()
+
+
+        if (isNetworkAvailable()) {
+            progressBar.visibility=View.VISIBLE
+            callProductDetailAPi()
+        }
+    }
+
+
+    private fun setHeightOfViewPager() {
+
+        val displaymetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displaymetrics)
+        val width = displaymetrics.widthPixels
+
+        val linearPram = RelativeLayout.LayoutParams(width, width)
+        productImagePager.layoutParams = linearPram
+    }
+
+    private fun setClickListener() {
+        imv_share_product.setOnClickListener(this)
+        addToWishList.setOnClickListener(this)
+        notifyMeBt.setOnClickListener(this)
+        addToCart.setOnClickListener(this)
+    }
+
+    /* on click of buttons*/
+    override fun onClick(view: View) {
+
+        when (view.id) {
+            R.id.imv_share_product -> {
+                if (shareDialog!!.shareImagePath.isNotEmpty())
+                    shareDialog!!.show()
+                else {
+                    if(isNetworkAvailable())
+                    saveProductImage()
+                }
+            }
+            R.id.addToWishList -> {
+
+                if (isNetworkAvailable())
+                    callAddToWishListApi(if (productDetail.isWishlist == 0) "1" else "2")
+
+            }
+            R.id.notifyMeBt->
+            {
+                callNotifyMeApi(notifyMeBt)
+            }
+
+            R.id.addToCart->{
+                addToCartApi(addToCart)
+            }
+        }
+    }
+
+    /* call api to get detail of product*/
+    private fun callProductDetailAPi() {
+        setProgressState(View.VISIBLE, View.INVISIBLE)
+        val productDetailRequest = HashMap<String, String>()
+        productDetailRequest.put("language", DrewelApplication.getInstance().getLanguage())
+        productDetailRequest.put("user_id", pref!!.getPreferenceStringData(pref!!.KEY_USER_ID))
+        productDetailRequest.put("product_id", productId)
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getProductDetail(productDetailRequest)
+        disposable = signUpObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    setProgressState(View.GONE, View.VISIBLE)
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,this)
+                    if (result.response!!.status!!) {
+                        productDetailResponse = result
+                        setData()
+                    } else
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                }, { error ->
+                    setProgressState(View.GONE, View.GONE)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+    /* after getting response from api set data to fields*/
+    private fun setData() {
+
+        productDetail = productDetailResponse.response!!.data!!.product!!
+
+        if (productDetail != null) {
+
+            /* mange product out of stock*/
+
+            if (productDetail.outOfStock == 1) {
+
+                outOfStockTv.visibility = View.VISIBLE
+                notifyMeBt.visibility = View.VISIBLE
+                addToCart.visibility = View.GONE
+            } else {
+                outOfStockTv.visibility = View.GONE
+                notifyMeBt.visibility = View.GONE
+                addToCart.visibility = View.VISIBLE
+            }
+
+
+            productImagePager.adapter = SlidingImageAdapter(this, productDetail.productImage!!)
+            pageIndicatorView.setViewPager(productImagePager)
+
+            tv_product_title.text = productDetail.productName
+            tv_product_desc.text = productDetail.productDescription
+            val amount = NumberFormat.getInstance().format(productDetail.avgPrice!!.toDouble()) + " " + getString(R.string.omr)
+            tv_product_amount.text = amount
+            val weight = getString(R.string.weight) + " - " + productDetail.weight + " " + productDetail.weightIn
+            tv_product_weight.text = weight
+            addToWishList.text = if (productDetail.isWishlist == 0) getString(R.string.add_to_wish_list) else getString(R.string.added_to_wish_list)
+
+            /* tv_rating.text = productDetail.avgRating
+             ratingBar.rating = productDetail.avgRating!!.toFloat()*/
+
+            val brand = getString(R.string.brand) + " - " + productDetail.brandName
+
+            tv_product_brand.text = brand
+            if(productDetailResponse.response!!.data!!.relatedProducts!!.isNotEmpty()) {
+                val llm = LinearLayoutManager(this)
+                llm.orientation = LinearLayoutManager.HORIZONTAL
+                similarProductRecyclerView.layoutManager = llm
+                similarProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(16, EqualSpacingItemDecoration.HORIZONTAL))
+                similarProductRecyclerView.adapter = productAdapter
+                productAdapter.productList = productDetailResponse.response!!.data!!.relatedProducts!!
+                productAdapter.notifyDataSetChanged()
+            }else{
+                similarProductTv.visibility=View.GONE
+                similarProductRecyclerView.visibility=View.GONE
+            }
+            shareDialog!!.productPrice = amount
+            shareDialog!!.productTitle = productDetail.productName!!
+            shareDialog!!.shareImageURL = productDetailResponse.response!!.data!!.product!!.productImage!![0]
+            saveProductImage()
+        }
+
+
+    }
+
+
+    fun saveProductImage() {
+
+        ImageLoader.getInstance().loadImage(productDetailResponse.response!!.data!!.product!!.productImage!![0], object : ImageLoadingListener {
+            override fun onLoadingComplete(p0: String?, p1: View?, p2: Bitmap?) {
+
+                shareDialog!!.shareImagePath = Utills.getUtillsInstance().saveBitmapToExternalStorage(p2, "share")
+            }
+
+            override fun onLoadingStarted(p0: String?, p1: View?) {
+
+            }
+
+            override fun onLoadingCancelled(p0: String?, p1: View?) {
+            }
+
+            override fun onLoadingFailed(p0: String?, p1: View?, p2: FailReason?) {
+
+            }
+
+        })
+
+    }
+
+    /* handle progress dialog visibility*/
+    private fun setProgressState(visibility: Int, viewVisibility: Int) {
+        progressBar.visibility = visibility
+        detailLayout.visibility = viewVisibility
+    }
+
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        /* stop api calling when user press back button*/
+        if (disposable != null)
+            disposable!!.dispose()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+    private fun callAddToWishListApi(flag: String) {
+        addToWishList.isEnabled = false
+        val addToWhishListRequest = HashMap<String, String>()
+        addToWhishListRequest.put("user_id", pref!!.getPreferenceStringData(pref!!.KEY_USER_ID))
+        addToWhishListRequest.put("language", DrewelApplication.getInstance().getLanguage())
+        addToWhishListRequest.put("product_id", productId)
+        addToWhishListRequest.put("flag", flag)
+        val defaultAddressObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).addWishlist(addToWhishListRequest)
+
+        defaultAddressObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    addToWishList.isEnabled = true
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,this)
+                    if (result.response!!.status!!) {
+
+                        productDetail.isWishlist = if (flag == "2") 0 else 1
+                        addToWishList.text = if (flag == "2") getString(R.string.add_to_wish_list) else getString(R.string.added_to_wish_list)
+
+                        SampleRxJavaBus.getInstance().objectPublishSubject.onNext(if (flag == "2") 0 else 1)
+
+                    } else
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+
+                }, { error ->
+                    addToWishList.isEnabled = true
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+
+    private fun callNotifyMeApi(notifyMeButton: AppCompatTextView) {
+        notifyMeButton.isEnabled = false
+        val notifyMeRequest = HashMap<String, String>()
+        notifyMeRequest.put("user_id", pref!!.getPreferenceStringData(pref!!.KEY_USER_ID))
+        notifyMeRequest.put("language", DrewelApplication.getInstance().getLanguage())
+        notifyMeRequest.put("product_id", productDetail.productId!!)
+        val notifyMeObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).productNotify(notifyMeRequest)
+
+        notifyMeObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,this)
+                    notifyMeButton.isEnabled = true
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    /* if (result.response!!.status!!) {
+
+                         productList[position].isWishlist = if (flag.equals("2")) 0 else 1
+
+                         notifyItemChanged(position)
+
+                     }*/
+
+                }, { error ->
+                    notifyMeButton.isEnabled = true
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+    private fun addToCartApi( addToCartButton: AppCompatTextView) {
+        addToCartButton.isEnabled = false
+        val removeFromWhishListRequest = java.util.HashMap<String, String>()
+        removeFromWhishListRequest.put("user_id", pref!!.getPreferenceStringData(pref!!.KEY_USER_ID))
+        removeFromWhishListRequest.put("language", DrewelApplication.getInstance().getLanguage())
+        removeFromWhishListRequest.put("product_id", productDetail.productId!!)
+        removeFromWhishListRequest.put("cart_id", pref!!.getPreferenceStringData(pref!!.KEY_CART_ID))
+        removeFromWhishListRequest.put("quantity", "1")
+        removeFromWhishListRequest.put("price", productDetail.avgPrice!!)
+        val defaultAddressObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).addToCart(removeFromWhishListRequest)
+
+        defaultAddressObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,this)
+                    addToCartButton.isEnabled = true
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+
+                    if (result.response!!.status!!) {
+                        pref!!.setPreferenceStringData(pref!!.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
+                        CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
+                    }
+                }, { error ->
+                    addToCartButton.isEnabled = true
+                    // setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+}

@@ -1,0 +1,72 @@
+package com.os.drewel.adapter
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.os.drewel.R
+import com.os.drewel.activity.ProductActivity
+import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Category
+import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppIntentExtraKeys
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.category_row_selector.view.*
+import kotlinx.android.synthetic.main.delivery_address_item.view.*
+
+/**
+ * Created by sharukhb on 3/13/2018.
+ */
+
+class DeliveryListAdapter(val mContext: Context?, val addressList: List<Address>) : RecyclerView.Adapter<DeliveryListAdapter.DeliveryListHolder>() {
+
+    public lateinit var defaultAddressClickSubject : PublishSubject<Int>
+        public  var  defualtAddressPos=-1
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveryListHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.delivery_address_item, parent, false)
+
+        return DeliveryListHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: DeliveryListHolder, position: Int) {
+
+        holder.itemView.deliverAddressTitle.text=addressList[position].name
+        holder.itemView.deliverAddressDesc.text=addressList[position].address
+
+        holder.itemView.deliverAddressCheckBox.isChecked = addressList[position].isDefault.equals("1")
+
+        if(addressList[position].isDefault.equals("1"))
+            defualtAddressPos=position
+
+        holder.itemView.setOnClickListener( View.OnClickListener {
+
+            defaultAddressClickSubject.onNext(holder.layoutPosition)
+        })
+
+        holder.itemView.deliverAddressCheckBox.setOnClickListener( View.OnClickListener {
+
+            defaultAddressClickSubject.onNext(holder.layoutPosition)
+        })
+    }
+
+
+    override fun getItemCount(): Int {
+        return addressList.size;
+    }
+
+
+    class DeliveryListHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+    }
+
+
+
+
+
+}

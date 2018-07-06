@@ -1,0 +1,121 @@
+package com.os.drewel.activity
+
+import android.Manifest
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.os.drewel.R
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+import android.content.pm.PackageManager
+import android.content.pm.PackageInfo
+import android.support.v4.app.ActivityCompat
+import android.util.Base64
+import com.google.firebase.iid.FirebaseInstanceId
+import com.os.drewel.prefrences.Prefs
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
+
+/**
+ * Created by monikab on 2/21/2018.
+ */
+class SplashActivity : BaseActivity() {
+
+    //private var disposable: Disposable? = null
+    private lateinit var disposable: Disposable
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+        getKeyHash()
+        getFirebaseRefreshToken()
+        checkRequestPermission()
+
+    }
+
+    private fun getKeyHash() {
+        try {
+            val packageName = getApplicationContext().getPackageName()
+            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+
+        } catch (e: NoSuchAlgorithmException) {
+
+        }
+
+    }
+
+
+    private fun callNextActivity() {
+        //   var compositeDisposable: CompositeDisposable? = CompositeDisposable()
+
+        disposable = Observable.timer(3000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            val prefs=Prefs.getInstance(this)
+                            if(prefs.getPreferenceStringData(prefs.KEY_USER_ID).isEmpty())
+                            startActivity(Intent(this, WelcomeActivity::class.java))
+
+                            else if(prefs.getPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS).isEmpty())
+                                startActivity(Intent(this, DeliveryAddressActivity::class.java))
+                            else
+                            startActivity(Intent(this, HomeActivity::class.java))
+
+                            finish()},
+                        { error -> Log.e("TAG", "{$error.message}") },
+                        { Log.d("TAG", "completed") })
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
+    }
+
+
+    private fun checkRequestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+
+
+        } else {
+            callNextActivity()
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                callNextActivity()
+            } else {
+
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+
+    private fun getFirebaseRefreshToken() {
+        val firebaseToken = FirebaseInstanceId.getInstance().token
+        if (firebaseToken != null) {
+            pref!!.setPreferenceStringData(pref!!.KEY_DEVICE_ID, firebaseToken)
+        }
+    }
+
+
+}

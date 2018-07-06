@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
+        android:id="@+id/howItsWorkTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/how_it_work"
+        app:elevation="@dimen/_5sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/howItsWorkTv"
+        android:id="@+id/termsOfUseTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/terms_of_use"
+        app:elevation="@dimen/_5sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/termsOfUseTv"
+        android:id="@+id/privacyPolicyTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/privacy_policy"
+        app:elevation="@dimen/_5sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/privacyPolicyTv"
+        android:id="@+id/FAQTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableEnd="@mipmap/arrow"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/faq"
+        app:elevation="@dimen/_5sdp" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/FAQTv"
+        android:id="@+id/versionHintTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/app_version"
+        app:elevation="@dimen/_5sdp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/FAQTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/versionTv"
+        style="@style/BlackTextColorStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawablePadding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        app:elevation="@dimen/_5sdp" />
+
+</android.support.constraint.ConstraintLayout>

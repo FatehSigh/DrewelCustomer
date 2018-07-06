@@ -1,0 +1,40 @@
+package com.os.drewel.activity
+
+import android.os.Bundle
+import android.view.MenuItem
+import com.os.drewel.R
+import kotlinx.android.synthetic.main.app_toolbar.*
+
+
+class AboutAppActivity : BaseActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_about_app)
+        initView()
+    }
+
+        /* set toolbar and back button*/
+    private fun initView() {
+        toolbarTitleTv.text = getString(R.string.about_app)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            /* finish activity if user tap on action bar back button*/
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+}
+
+

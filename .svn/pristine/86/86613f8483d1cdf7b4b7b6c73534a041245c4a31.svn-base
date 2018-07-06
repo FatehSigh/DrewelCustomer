@@ -1,0 +1,212 @@
+package com.os.drewel.apicall
+
+import com.os.drewel.apicall.requestmodel.CheckOutRequest
+import com.os.drewel.apicall.requestmodel.SignUpRequest
+import com.os.drewel.apicall.responsemodel.addaddressresponsemodel.AddAddressResponse
+import com.os.drewel.apicall.responsemodel.addtocartresponsemodel.AddToCartResponse
+import com.os.drewel.apicall.responsemodel.applycouponresponsemodel.ApplyCouponResponse
+import com.os.drewel.apicall.responsemodel.applyloyaltypointresponsemodel.ApplyLoyaltyPointResponse
+import com.os.drewel.apicall.responsemodel.baseresponsemodel.BaseResponse
+import com.os.drewel.apicall.responsemodel.brandnameresponsemodel.BrandNameListResponse
+import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.CartDetailResponse
+import com.os.drewel.apicall.responsemodel.categoryresponsemodel.CategoryListResponse
+import com.os.drewel.apicall.responsemodel.checkoutresponsemodel.CheckOutResponse
+import com.os.drewel.apicall.responsemodel.couponresponsemodel.CouponListResponse
+import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.AddressListResponse
+import com.os.drewel.apicall.responsemodel.deliverychargesresponsemodel.DeliveryChangesResponse
+import com.os.drewel.apicall.responsemodel.loginresponsemodel.LoginResponse
+import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.MyOrderDetailResponse
+import com.os.drewel.apicall.responsemodel.myorderresponsemodel.MyOrderResponse
+import com.os.drewel.apicall.responsemodel.notificationresponsemodel.NotificationResponse
+import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
+import com.os.drewel.apicall.responsemodel.productlistresponsemodel.ProductListResponse
+import com.os.drewel.apicall.responsemodel.profileresponsemodel.ProfileResponse
+import com.os.drewel.apicall.responsemodel.resendOtpresponsemodel.ResendOTPResponse
+import com.os.drewel.apicall.responsemodel.searchproductresponsemodel.SearchProductResponse
+import com.os.drewel.apicall.responsemodel.searchsuggestionresponsemodel.SearchSuggestionResponse
+import com.os.drewel.apicall.responsemodel.wishlistresponsemodel.WishlistResponse
+import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
+
+/**
+ * Created by monikab on 3/13/2018.
+ */
+interface DrewelApi {
+
+    companion object {
+        val BASE_URL = "http://192.168.1.92/drewel/web_services/"
+
+      //  val BASE_URL = "https://56.octallabs.com/drewel/web_services/"
+    }
+
+    @Headers("Content-Type: application/json")
+    @POST("signup")
+    fun signup(@Body signupRequest: SignUpRequest): Observable<LoginResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("login")
+    fun login(@Body loginRequest: MutableMap<String, String>): Observable<LoginResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("social_login")
+    fun socialLogin(@Body socialLoginRequest: Map<String, String>): Observable<LoginResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("otp_verification")
+    fun otpVerification(@Body otpVerificationRequest: Map<String, String>): Observable<LoginResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("resend_otp")
+    fun resendOtpVerification(@Body otpVerificationRequest: Map<String, String>): Observable<ResendOTPResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("forgot_password")
+    fun forgotPassword(@Body forgotPasswordRequest: Map<String, String>): Observable<BaseResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("change_password")
+    fun changePassword(@Body changePasswordRequest: Map<String, String>): Observable<BaseResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("profile")
+    fun profile(@Body profileRequest: Map<String, String>): Observable<ProfileResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("get_notifications")
+    fun getNotifications(@Body getNotificationRequest: Map<String, String>): Observable<NotificationResponse>
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST("category_list")
+    fun getCategory(@Body categoryRequest: Map<String, String>): Observable<CategoryListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("product_list_by_category")
+    fun getProduct(@Body productRequest: Map<String, @JvmSuppressWildcards Any>/*, @Query("brands_id[]") brandAry:JSONArray*/): Observable<ProductListResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("product_detail")
+    fun getProductDetail(@Body productDetailRequest: Map<String, String>): Observable<ProductDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("add_address")
+    fun addAddress(@Body addAddressRequest: Map<String, String>): Observable<AddAddressResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("address_list")
+    fun getAddressList(@Body addressListRequest: Map<String, String>): Observable<AddressListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("set_default_address")
+    fun setDefaultAddress(@Body setDefaultAddress: Map<String, String>): Observable<BaseResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("add_wishlist")
+    fun addWishlist(@Body addToWishList: Map<String, String>): Observable<BaseResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("get_wishlist")
+    fun getWishlist(@Body wishListRequest: Map<String, String>): Observable<WishlistResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("brands_list")
+    fun getBrandsList(@Body brandListRequest: Map<String, String>): Observable<BrandNameListResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("auto_suggestions")
+    fun getSearchSuggestion(@Body brandListRequest: Map<String, String>): Observable<SearchSuggestionResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("product_list_by_search")
+    fun getSearchProduct(@Body productRequest: Map<String,  String>): Observable<SearchProductResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("add_to_cart")
+    fun addToCart(@Body addToCartRequest: Map<String, String>): Observable<AddToCartResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("product_notify")
+    fun productNotify(@Body notifyMeRequest: Map<String, String>): Observable<BaseResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("get_cart")
+    fun getCartDetail(@Body cartRequest: Map<String, String>): Observable<CartDetailResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("logout")
+    fun logout(@Body logoutRequest: Map<String, String>): Observable<BaseResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("notification_status")
+    fun notificationOnOff(@Body notificationOnOffRequest: Map<String, String>): Observable<BaseResponse>
+
+
+    @Multipart
+    @POST("edit_profile")
+    fun editProfile(@Part("data")requestBody: RequestBody, @Part file : MultipartBody.Part? ): Observable<ProfileResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("coupons_list")
+    fun getDiscountList(@Body discountListRequest: Map<String, String>): Observable<CouponListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("update_cart")
+    fun updateCart(@Body cartRequest: Map<String, String>): Observable<AddToCartResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("delete_cart_product")
+    fun deleteCartProduct(@Body cartRequest: Map<String, String>): Observable<AddToCartResponse>
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST("apply_coupon")
+    fun applyCoupon(@Body applyCouponRequest: Map<String, String>): Observable<ApplyCouponResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("apply_loyalty_point")
+    fun applyLoyaltyPoint(@Body applyCouponRequest: Map<String, String>): Observable<ApplyLoyaltyPointResponse>
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST("get_delivery_charges")
+    fun getDeliveryCharges(@Body getDeliveryChargesRequest: Map<String, String>): Observable<DeliveryChangesResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("cart_checkout")
+    fun checkout(@Body checkOutRequest:CheckOutRequest): Observable<CheckOutResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("order_list")
+    fun getMyOrders(@Body myOrderRequest:Map<String, String>): Observable<MyOrderResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("get_order_detail")
+    fun getMyOrderDetail(@Body myOrderDetailRequest:Map<String, String>): Observable<MyOrderDetailResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("order_cancel")
+    fun cancelOrder(@Body cancelOrderRequest:Map<String, String>): Observable<BaseResponse>
+
+
+}

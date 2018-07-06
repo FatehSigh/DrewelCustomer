@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/grey_1"
+    android:orientation="vertical"
+    tools:showIn="@layout/request_product_activity">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchDeliveryAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="@dimen/_25sdp"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingTop="@dimen/_25sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/not_finding_your_favourite_products"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_22sdp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/violet_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchDelivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchDeliveryAddress"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:gravity="center_horizontal"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/type_in_each_product_you_need_and_we_ll_try_to_arrange_it_in_your_order"
+        android:textColor="@color/violet_2"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/violet_1" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_product_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchDelivery"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@android:color/transparent"
+        android:gravity="start"
+        android:hint="Enter Product Name"
+        android:maxLines="5"
+        android:paddingStart="@dimen/_20sdp"
+
+        android:paddingTop="@dimen/_25sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_5sdp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_product_title"
+        android:layout_marginStart="@dimen/_28sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:background="@color/violet_1" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_request"
+        style="@style/ButtonTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/buttonOrangeColor"
+        android:gravity="center"
+        android:text="@string/request"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="visible" />
+
+
+</RelativeLayout>

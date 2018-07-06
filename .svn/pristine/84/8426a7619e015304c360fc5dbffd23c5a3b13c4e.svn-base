@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "209881296273",
+    "firebase_url": "https://drewel-5a2d3.firebaseio.com",
+    "project_id": "drewel-5a2d3",
+    "storage_bucket": "drewel-5a2d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209881296273:android:45ca60b1d1e0c14e",
+        "android_client_info": {
+          "package_name": "com.os.drewel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbWNBqFpi-wp88j0cPminqVWJ5qEuL3dw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

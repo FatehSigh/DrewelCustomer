@@ -1,0 +1,180 @@
+package com.os.drewel.adapter
+
+import android.content.Context
+import android.graphics.PorterDuff
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.os.drewel.R
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Cart
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.prefrences.Prefs
+import com.os.drewel.rxbus.CartRxJavaBus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.child_my_cart.view.*
+import java.text.NumberFormat
+import java.util.*
+
+/**
+ * Created by sharukhb on 3/13/2018.
+ */
+
+class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>) : RecyclerView.Adapter<CartItemAdapter.CartItemHolder>() {
+
+     lateinit var cartItemClickSubject: PublishSubject<String>
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.child_my_cart, parent, false)
+
+        return CartItemHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: CartItemHolder, position: Int) {
+        ImageLoader.getInstance().displayImage(cartIemList[position].productImage, holder.itemView.productImageIv, DrewelApplication.getInstance().options)
+        holder.itemView.tv_product_title.text = cartIemList[position].productName
+        holder.itemView.productQuantityTv.text = cartIemList[position].quantity
+
+        val cartItem = cartIemList[position]
+        val price = cartItem.productPrice!!.toFloat()
+        val quantity = cartItem.quantity!!.toInt()
+        val totalAmount = price * quantity
+
+        holder.itemView.tv_product_amount.text = NumberFormat.getInstance().format(totalAmount)
+        if (quantity == 1) {
+            holder.itemView.removeProductQuantityBt.background.setColorFilter(ContextCompat.getColor(mContext, R.color.violet_1), PorterDuff.Mode.SRC_ATOP)
+            holder.itemView.removeProductQuantityBt.isEnabled = false
+        } else {
+            holder.itemView.removeProductQuantityBt.isEnabled = true
+            holder.itemView.removeProductQuantityBt.background.setColorFilter(ContextCompat.getColor(mContext, R.color.colororange), PorterDuff.Mode.SRC_ATOP)
+        }
+    }
+
+
+    override fun getItemCount(): Int {
+        return cartIemList.size;
+    }
+
+
+    inner class CartItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        init {
+            itemView.addProductQuantityBt.setOnClickListener(this)
+            itemView.removeProductQuantityBt.setOnClickListener(this)
+            itemView.imv_product_delete.setOnClickListener(this)
+        }
+
+
+        override fun onClick(view: View) {
+            when (view.id) {
+                R.id.addProductQuantityBt -> {
+                    val quantity = cartIemList[adapterPosition].quantity!!.toInt() + 1
+                    val price = cartIemList[adapterPosition].productPrice!!.toFloat() * quantity
+
+                    callUpdateCartApi(adapterPosition, quantity.toString(), price.toString())
+                }
+                R.id.removeProductQuantityBt -> {
+                    if (cartIemList[adapterPosition].quantity!!.toInt() > 1) {
+                        val quantity = cartIemList[adapterPosition].quantity!!.toInt() - 1
+                        val price = cartIemList[adapterPosition].productPrice!!.toFloat() * quantity
+                        callUpdateCartApi(adapterPosition, quantity.toString(), price.toString())
+                    }
+                }
+
+                R.id.imv_product_delete -> {
+                    callDeleteProductFromCartApi(adapterPosition)
+                }
+            }
+        }
+    }
+
+
+    private fun callUpdateCartApi(position: Int, quantity: String, price: String) {
+
+        val pref = Prefs.getInstance(mContext)
+
+        val updateCartRequest = HashMap<String, String>()
+        updateCartRequest["cart_id"] = pref.getPreferenceStringData(pref.KEY_CART_ID)
+        updateCartRequest["user_id"] = pref.getPreferenceStringData(pref.KEY_USER_ID)
+        updateCartRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        updateCartRequest["product_id"] = cartIemList[position].productId!!
+        updateCartRequest["quantity"] = quantity
+        updateCartRequest["price"] = price
+
+        val updateCartObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).updateCart(updateCartRequest)
+        updateCartObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
+
+                    if (result.response!!.status!!) {
+                        cartIemList[position].quantity = quantity
+                        notifyItemChanged(position)
+                        cartItemClickSubject.onNext(quantity)
+                        pref.setPreferenceStringData(pref.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
+                        CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
+
+                    } else {
+                        notifyItemChanged(position)
+                        Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    }
+                }, { error ->
+                    notifyItemChanged(position)
+                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+    private fun callDeleteProductFromCartApi(position: Int) {
+
+        val pref = Prefs.getInstance(mContext)
+
+        val deleteProductRequest = HashMap<String, String>()
+        deleteProductRequest["cart_id"] = pref.getPreferenceStringData(pref.KEY_CART_ID)
+        deleteProductRequest["user_id"] = pref.getPreferenceStringData(pref.KEY_USER_ID)
+        deleteProductRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        deleteProductRequest["product_id"] = cartIemList[position].productId!!
+
+        val deleteCartProductObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).deleteCartProduct(deleteProductRequest)
+        deleteCartProductObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
+
+                    if (result.response!!.status!!) {
+
+                        cartIemList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, cartIemList.size)
+                        cartItemClickSubject.onNext("")
+
+                        pref.setPreferenceStringData(pref.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
+
+                        CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
+
+                    } else {
+                        notifyItemChanged(position)
+                        Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    }
+                }, { error ->
+                    notifyItemChanged(position)
+                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+
+}
+
+

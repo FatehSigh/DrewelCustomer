@@ -1,0 +1,49 @@
+package com.os.drewel.utill
+
+import android.content.Context
+import android.content.pm.PackageManager
+
+/**
+ * Created by hemendrag on 1/20/2016.
+ */
+object ShareAppConstant {
+
+    /**
+     * PlayStore fprwarding link URL
+     */
+    var playStoreURL = "market://details?id="
+    var SDCARD_PATH = "sdcard/TrackMySafari/"
+    var dummyTextShare = "Track My Safari !"
+    var NO_INTERNET_CONNECTION = "No Internet Connected"
+    var INTENT_TYPE = "image/*"
+
+    /**
+     * Packages name of application at which the data to be shared
+     */
+    var PACKAGE_FACEBOOK_KATANA = "com.facebook.katana"
+    var PACKAGE_GOOGLE_PLUS = "com.google.android.apps.plus"
+    var PACKAGE_WHATSAPP = "com.whatsapp"
+    var PACKAGE_GMAIL = "com.google.android.gm"
+
+
+
+    /**
+     * Setectting app is installed or not in the device
+     * @param appPackageName
+     * @param context
+     * @return
+     */
+
+    fun isAppInstalled(appPackageName: String, context: Context): Boolean {
+        val pm = context.packageManager
+        var app_installed: Boolean
+        try {
+            pm.getPackageInfo(appPackageName, PackageManager.GET_ACTIVITIES)
+            app_installed = true
+        } catch (e: PackageManager.NameNotFoundException) {
+            app_installed = false
+        }
+        return app_installed
+    }
+
+}

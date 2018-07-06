@@ -1,0 +1,259 @@
+package com.os.drewel.fragment
+
+import android.content.ActivityNotFoundException
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.os.drewel.R
+import com.os.drewel.activity.*
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.prefrences.Prefs.Companion.prefs
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_setting_activity.*
+
+/**
+ * Created by sharukhb on 3/13/2018.
+ */
+
+class SettingFragment : BaseFragment(), View.OnClickListener {
+
+    private var logoutDisposable: Disposable? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        return inflater.inflate(R.layout.setting_activity, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        /* set click listeners of buttons*/
+        setClickListeners()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        tv_profile_name.text = pref!!.getPreferenceStringData(pref!!.KEY_FIRST_NAME) + " " + pref!!.getPreferenceStringData(pref!!.KEY_LAST_NAME)
+        tv_profile_email.text = pref!!.getPreferenceStringData(pref!!.KEY_EMAIL)
+        ImageLoader.getInstance().displayImage(pref!!.getPreferenceStringData(pref!!.KEY_PHOTO), imv_profile_img, DrewelApplication.getInstance().options)
+
+    }
+
+    private fun setClickListeners() {
+        tv_sign_out.setOnClickListener(this)
+        tv_change_password.setOnClickListener(this)
+        tv_change_language.setOnClickListener(this)
+        tv_delivery_address.setOnClickListener(this)
+        contactUsTv.setOnClickListener(this)
+        rel_profile.setOnClickListener(this)
+        tv_about_app.setOnClickListener(this)
+        tv_notifications.setOnClickListener(this)
+        switch_off_on_notification.isChecked = !pref!!.getPreferenceStringData(pref!!.KEY_NOTIFICATION_STATUS).equals("off")
+
+        switch_off_on_notification.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener(
+                { compoundButton: CompoundButton, b: Boolean ->
+                    if(isNetworkAvailable()) {
+                        switch_off_on_notification.isEnabled=false
+                        if (b)
+                            callNotificationOnOffAPI("on")
+                        else
+                            callNotificationOnOffAPI("off")
+                    }
+                }
+        ))
+    }
+
+
+    /* show logout confirmation popup to user*/
+    private fun showLogoutDialog() {
+
+        val logoutAlertDialog = AlertDialog.Builder(this.context!!, R.style.DeliveryTypeTheme).create()
+
+        logoutAlertDialog.setTitle(getString(R.string.app_name))
+        logoutAlertDialog.setMessage(getString(R.string.want_to_logout))
+
+
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+
+            logoutAlertDialog.dismiss()
+
+            callLogoutAPI()
+
+        })
+
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+
+            logoutAlertDialog.dismiss()
+
+        })
+
+        logoutAlertDialog.show()
+    }
+
+    /* show change language confirmation popup to user*/
+    private fun showChangeLanguageDialog() {
+
+        val changeLanguageAlertDialog = AlertDialog.Builder(this.context!!, R.style.DeliveryTypeTheme).create()
+
+        changeLanguageAlertDialog.setTitle(getString(R.string.app_name))
+        changeLanguageAlertDialog.setMessage(getString(R.string.choose_language))
+
+
+        changeLanguageAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.english), DialogInterface.OnClickListener { dialog, id ->
+
+            changeLanguageAlertDialog.dismiss()
+
+        })
+
+        changeLanguageAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.arabic), DialogInterface.OnClickListener { dialog, id ->
+
+            changeLanguageAlertDialog.dismiss()
+
+        })
+
+        changeLanguageAlertDialog.show()
+    }
+
+    override fun onClick(view: View) {
+
+        when (view.id) {
+            R.id.tv_sign_out -> {
+                if (isNetworkAvailable())
+                    showLogoutDialog()
+            }
+
+            R.id.tv_change_password -> {
+                val intent = Intent(activity, ChangePasswordActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.tv_change_language -> {
+                showChangeLanguageDialog()
+            }
+
+            R.id.tv_delivery_address -> {
+                val intent = Intent(activity, DeliveryAddressActivity::class.java)
+                startActivity(intent)
+
+            }
+
+            R.id.contactUsTv -> {
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "support.drewel@gmail.com"))
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Drewel")
+                    //intent.putExtra(Intent.EXTRA_TEXT, "your_text");
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+
+                }
+
+            }
+
+            R.id.rel_profile -> {
+                val intent = Intent(activity, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.tv_about_app -> {
+                val intent = Intent(activity, AboutAppActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.tv_notifications -> {
+                val intent = Intent(activity, NotificationActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+
+    private fun callLogoutAPI() {
+        setProgressState(View.VISIBLE, false)
+        val logoutRequest = HashMap<String, String>()
+        logoutRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        logoutRequest["language"] = DrewelApplication.getInstance().getLanguage()
+
+        val logoutObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).logout(logoutRequest)
+        logoutDisposable = logoutObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    // DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,context!!)
+                    setProgressState(View.GONE, true)
+                    Toast.makeText(activity, result.response!!.message, Toast.LENGTH_LONG).show()
+                    if (result.response!!.status!!) {
+
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_USER_ID, "")
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_FIRST_NAME, "")
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_LAST_NAME, "")
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_EMAIL, "")
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_PHOTO, "")
+                        prefs!!.setPreferenceStringData(prefs!!.KEY_ROLE_ID, "")
+
+                        val intent = Intent(activity, WelcomeActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                        activity!!.finish()
+                    }
+                }, { error ->
+                    setProgressState(View.GONE, true)
+                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                })
+    }
+
+
+    private fun callNotificationOnOffAPI(status: String) {
+        setProgressState(View.VISIBLE, false)
+        val notificationStatusRequest = HashMap<String, String>()
+        notificationStatusRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        notificationStatusRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        notificationStatusRequest["is_notification"] = status
+
+        val notificationStatusObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).notificationOnOff(notificationStatusRequest)
+        logoutDisposable = notificationStatusObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,context!!)
+                    switch_off_on_notification.isEnabled=true
+                    setProgressState(View.GONE, true)
+
+                    Toast.makeText(activity, result.response!!.message, Toast.LENGTH_LONG).show()
+                    if (result.response!!.status!!) {
+                            pref!!.setPreferenceStringData(pref!!.KEY_NOTIFICATION_STATUS,status)
+                    }
+                }, { error ->
+                    switch_off_on_notification.isEnabled=true
+                    setProgressState(View.GONE, true)
+                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                })
+    }
+
+    private fun setProgressState(progressVisibility: Int, enable: Boolean) {
+        progressBar.visibility = progressVisibility
+        settingsOptionLL.isEnabled = enable
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        /* if user navigate to another activity then stop calling logout api and hide progressbar*/
+        setProgressState(View.GONE, true)
+
+        if (logoutDisposable != null)
+            logoutDisposable!!.dispose()
+
+    }
+
+}

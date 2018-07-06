@@ -1,0 +1,70 @@
+package com.os.drewel.adapter
+
+import android.content.Context
+import android.content.Intent
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.os.drewel.R
+import com.os.drewel.activity.MyOrderDetailActivity
+import com.os.drewel.apicall.responsemodel.myorderresponsemodel.Order
+import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.utill.Utills
+import kotlinx.android.synthetic.main.layout_my_order_item.view.*
+
+
+/**
+ * Created by monikab on 3/13/2018.
+ */
+
+class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderList: List<Order>) : RecyclerView.Adapter<MyCurrentOrderAdapter.MyCurrentOrderHolder>() {
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCurrentOrderHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_my_order_item, parent, false)
+
+        return MyCurrentOrderHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MyCurrentOrderHolder, position: Int) {
+
+        val order = myCurrentOrderList[position]
+        holder.itemView.order_item_txt_order_id.text = order.orderId
+        holder.itemView.order_item_txt_order_delivery_date.text = Utills.getUtillsInstance().convertTimeFormat(order.deliveryDate!!,"yyyy-MM-dd","MMM dd, yyyy")
+        if (mContext != null) {
+            val deliveryTime = mContext.getString(R.string.from)+" " +Utills.getUtillsInstance().convertTimeFormat(order.deliveryStartTime!!,"HH:mm:ss","h:m a")+" "+mContext.getString(R.string.to)+" " +Utills.getUtillsInstance().convertTimeFormat(order.deliveryEndTime!!,"HH:mm:ss","h:m a")
+            holder.itemView.order_item_txt_order_delivery_time.text=deliveryTime
+
+        }
+        holder.itemView.order_item_txt_no_of_items.text = order.totalQuantity
+        holder.itemView.order_item_txt_order_amount.text = order.totalAmount
+        holder.itemView.order_item_txt_payment_method.text = order.paymentMode
+        holder.itemView.order_item_txt_order_status.text = order.orderDeliveryStatus
+
+    }
+
+
+    override fun getItemCount(): Int {
+        return myCurrentOrderList.size
+    }
+
+
+    inner class MyCurrentOrderHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+        override fun onClick(v: View) {
+            when (v.id){
+                R.id.myOrderItemCardView -> {
+                    val intent = Intent(mContext, MyOrderDetailActivity::class.java)
+                    intent.putExtra(AppIntentExtraKeys.ORDER_ID, myCurrentOrderList[adapterPosition].orderId)
+                    mContext?.startActivity(intent)
+                }
+
+           }
+        }
+    }
+
+}

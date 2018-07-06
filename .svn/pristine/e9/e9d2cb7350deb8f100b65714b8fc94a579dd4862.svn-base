@@ -1,0 +1,98 @@
+package com.os.drewel.activity
+
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import com.os.drewel.R
+import com.os.drewel.adapter.NotificationAdapter
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.notificationresponsemodel.Notification
+import com.os.drewel.application.DrewelApplication
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_notifiaction.*
+import kotlinx.android.synthetic.main.app_toolbar.*
+
+
+class NotificationActivity : BaseActivity() {
+
+    var notificationAdapter: NotificationAdapter? = null
+    var notificationList: List<Notification> = ArrayList()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_notifiaction)
+
+        initView()
+        if(isNetworkAvailable())
+        getNotificationApi()
+
+    }
+
+    private fun setAdapter() {
+        if (notificationAdapter == null) {
+            notificationAdapter = NotificationAdapter(this,notificationList)
+            notificationRv.layoutManager = LinearLayoutManager(this)
+            notificationRv.adapter = notificationAdapter
+        }
+    }
+
+
+    private fun initView() {
+        toolbarTitleTv.text = getString(R.string.notification)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private var disposable: Disposable?=null
+
+    private fun getNotificationApi() {
+        setProgressState(View.VISIBLE, false)
+        val notificationRequest = HashMap<String, String>()
+        notificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        notificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getNotifications(notificationRequest)
+        disposable = signUpObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    setProgressState(View.GONE, true)
+                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    if (result.response!!.status!!) {
+                        notificationList = result.response!!.data!!.notifications!!
+                        setAdapter()
+                    }
+                }, { error ->
+                    setProgressState(View.GONE, true)
+                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("TAG", "{$error.message}")
+                }
+                )
+    }
+
+    private fun setProgressState(visibility: Int, enableButton: Boolean) {
+        progressBar.visibility = visibility
+        notificationRv.isEnabled = enableButton
+    }
+
+}
+
+
