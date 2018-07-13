@@ -279,7 +279,7 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
     private fun geoLocationAddressAPI(latLng: LatLng) {
 
         Observable.fromCallable {
-            val geocoder = Geocoder(this, Locale.getDefault())
+            val geocoder = Geocoder(this, Locale.ENGLISH)
             geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
         }.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,7 +1,9 @@
 package com.os.drewel.application
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.support.multidex.MultiDex
@@ -24,6 +26,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -136,13 +140,34 @@ class DrewelApplication : MultiDexApplication() {
 //        if (lang == null) {
 //            lang = Constants.LANGUAGE_ENGLISH
 //        }
-        val myLocale = Locale(lang)
-        val res = mContext.resources
-        val dm = res.displayMetrics
-        val conf = res.configuration
-        conf.locale = myLocale
-        conf.setLayoutDirection(myLocale)
-        res.updateConfiguration(conf, dm)
+//        val myLocale = Locale(lang)
+//        val res = mContext.resources
+//        val dm = res.displayMetrics
+//        val conf = res.configuration
+//        conf.locale = myLocale
+//        conf.setLayoutDirection(myLocale)
+//        res.updateConfiguration(conf, dm)
+
+        val locale = Locale(lang, "US")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        baseContext.resources.updateConfiguration(config,
+                baseContext.resources.displayMetrics)
+    }
+
+    public fun getStringByLocal(context: Activity, value: String): String {
+        var configuration = Configuration(context.getResources().getConfiguration());
+        configuration.setLocale(Locale("en"))
+        return context.createConfigurationContext(configuration).getResources().getString(R.string.call);
+    }
+
+    fun convertToEnglish(float: Float): String {
+        val nf = NumberFormat.getNumberInstance(Locale.US)
+        val formatter = nf as DecimalFormat
+        formatter.applyPattern("#.###")
+        val fString = formatter.format(float)
+        return fString
     }
 
 

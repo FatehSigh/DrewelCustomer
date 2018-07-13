@@ -29,7 +29,12 @@
         <item name="android:textSize">@dimen/_15sdp</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
-
+    <style name="DeletetTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_15sdp</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_medium_0</item>
+    </style>
 
     <style name="ButtonTextStyle">
         <item name="android:textStyle">bold</item>

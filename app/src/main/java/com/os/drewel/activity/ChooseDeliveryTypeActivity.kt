@@ -57,7 +57,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
         deliveryChargesResponse = intent.getParcelableExtra("Data")
-        txt_delivery_charges.setText("OMR " + deliveryChargesResponse!!.expediteDeliveryCharges)
+        txt_delivery_charges.setText(getString(R.string.omr) + " " + deliveryChargesResponse!!.expediteDeliveryCharges)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
@@ -161,7 +161,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
 //          endCalendar.time = startCalendar.time
             val endtime = Calendar.getInstance()
             val startTime = Calendar.getInstance()
-            val format = SimpleDateFormat("HH:mm:ss")
+            val format = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
             try {
                 endtime.time = format.parse(deliveryChargesResponse!!.deliveryEndTime)
                 startTime.time = format.parse(deliveryChargesResponse!!.deliveryStartTime)
@@ -192,9 +192,9 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                 timeSlotModel.isCheck = false
                 timeSlotModel.slot = "$slotStartTime - $slotEndTime"
                 if (isToday)
-                    timeSlotModel.fare = "OMR " + deliveryChargesResponse!!.sameDayDeliveryCharge!!
+                    timeSlotModel.fare = getString(R.string.omr) + " " + deliveryChargesResponse!!.sameDayDeliveryCharge!!
                 else
-                    timeSlotModel.fare = "OMR " + deliveryChargesResponse!!.deliveryCharge!!
+                    timeSlotModel.fare = getString(R.string.omr) + " " + deliveryChargesResponse!!.deliveryCharge!!
                 if (isToday) {
                     Log.e("strt", strt.toString())
                     Log.e("end", end.toString())
@@ -221,7 +221,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                 Log.d("timeSlotList", timeSlotList.toString())
             }
 
-            deliveryDate = SimpleDateFormat("yyyy-MM-dd").format(startCalendar.time)
+            deliveryDate = SimpleDateFormat("yyyy-MM-dd", Locale(Constants.LANGUAGE_ENGLISH)).format(startCalendar.time)
 
             if (timeSlotList.isNotEmpty()) {
                 timeSlotAdapter = TimeSlotAdapter(timeSlotList, object : OnClick {
@@ -302,7 +302,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                     Log.d("DATE", "$slotStartTime - $slotEndTime")
                 }
 
-                deliveryDate = SimpleDateFormat("yyyy-MM-dd").format(startCalendar.time)
+                deliveryDate = SimpleDateFormat("yyyy-MM-dd", Locale(Constants.LANGUAGE_ENGLISH)).format(startCalendar.time)
 
                 if (timeSlotList.isNotEmpty()) {
                     timeSlotAdapter = TimeSlotAdapter(timeSlotList, object : OnClick {

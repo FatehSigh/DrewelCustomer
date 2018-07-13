@@ -1,7 +1,10 @@
 package com.os.drewel.activity
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
@@ -38,23 +41,29 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
 
 
     private fun initView() {
-        driveActivityName = this.javaClass.name
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         supportActionBar!!.setDisplayShowHomeEnabled(false)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setHomeAsUpIndicator(R.mipmap.logo)
+        driveActivityName = this.javaClass.name
         navigationView!!.setOnNavigationItemSelectedListener(this)
         removeShiftMode(navigationView)
         if (isLanguageChange) {
             navigationView.selectedItemId = R.id.navigation_more
             isLanguageChange = false
+        } else if (intent != null) {
+            if (intent.getIntExtra("FROM", 0).equals(1)) {
+                setFragment(MyOrderFragment())
+            } else
+                setFragment(CategoryFragment())
         } else
             setFragment(CategoryFragment())
+
         addressTv.setOnClickListener(this)
         callUnreadNotifApi()
     }
-
 
     private fun setFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -112,6 +121,7 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                 setFragment(CategoryFragment())
                 return true
             }
+
             R.id.navigation_search -> {
                 setTitle(getString(R.string.offers))
                 setFragment(DiscountFragment())
@@ -122,14 +132,14 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                 setTitle(getString(R.string.myorder))
                 setFragment(MyOrderFragment())
                 return true
-
             }
+
             R.id.navigation_request -> {
-                setTitle(getString(R.string.request))
+                setTitle(getString(R.string.requests))
                 setFragment(RequestFragment())
                 return true
-
             }
+
             R.id.navigation_more -> {
                 setTitle(getString(R.string.setting))
                 setFragment(SettingFragment())

@@ -74,10 +74,10 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
             recyclerView!!.adapter = myadapter
         } else
             myadapter!!.notifyDataSetChanged()
-        if (android.os.Build.VERSION.SDK_INT < 21) {
+        /*if (android.os.Build.VERSION.SDK_INT < 21) {
             ViewCompat.setNestedScrollingEnabled(recyclerView, false)
         } else
-            recyclerView.isNestedScrollingEnabled = false
+            recyclerView.isNestedScrollingEnabled = false*/
     }
 
 
@@ -126,10 +126,10 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setProgressState(visibility: Int, enableButton: Boolean) {
-        if (visibility==View.VISIBLE)
-            app_bar.visibility=View.GONE
+        if (visibility == View.VISIBLE)
+            app_bar.visibility = View.GONE
         else
-            app_bar.visibility=View.VISIBLE
+            app_bar.visibility = View.VISIBLE
         progressBar.visibility = visibility
         search_product.isEnabled = enableButton
     }

@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/DrewelCustomer.iml" filepath="$PROJECT_DIR$/DrewelCustomer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/horizontalcalendar/horizontalcalendar.iml" filepath="$PROJECT_DIR$/horizontalcalendar/horizontalcalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swipelayout/swipelayout.iml" filepath="$PROJECT_DIR$/swipelayout/swipelayout.iml" />
     </modules>
   </component>
 </project>

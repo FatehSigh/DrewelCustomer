@@ -11,6 +11,11 @@ import com.os.drewel.R
 import com.os.drewel.activity.HomeActivity
 import kotlinx.android.synthetic.main.my_order.*
 import java.util.ArrayList
+import android.os.Build
+import android.support.design.widget.TabLayout
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.Constants
+
 
 /**
  * Created by monikab on 2/21/2018.
@@ -37,14 +42,20 @@ class MyOrderFragment : Fragment() {
         activity.menu!!.findItem(R.id.menu_carts).isVisible = true
         activity.menu!!.findItem(R.id.menu_whishlist).isVisible = true
     }
+
     private fun setupViewPager() {
         val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFrag(CurrentOrderFragment(), resources.getString(R.string.current_orders))
         adapter.addFrag(CompletedOrderFragment(), resources.getString(R.string.previous_order))
         viewpager.adapter = adapter
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC))
+            if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR)
+//                viewpager.setCurrentItem(adapter.getCount())
+            }
     }
 
-    private  inner class ViewPagerAdapter (manager: FragmentManager) : FragmentStatePagerAdapter(manager) {
+    private inner class ViewPagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(manager) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 

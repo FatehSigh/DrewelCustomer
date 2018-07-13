@@ -14,25 +14,30 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.notificationresponsemodel.Notification
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
-import com.os.drewel.delegate.OnClick
 import com.os.drewel.firebase.DrewelFirebaseMessagingService
 import com.os.drewel.prefrences.Prefs
-import com.os.drewel.utill.BadgeIntentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_notifiaction.*
-import kotlinx.android.synthetic.main.app_toolbar.*
 import me.leolin.shortcutbadger.ShortcutBadger
+import android.content.DialogInterface
+import android.graphics.Color
+import android.support.v7.app.AlertDialog
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
+import com.os.drewel.delegate.OnClick
+import com.os.drewel.utill.SwipeHelper
+import kotlinx.android.synthetic.main.activity_notifiaction.*
 
 
 class NotificationActivity : BaseActivity() {
 
+
     private val defaultAddressClickSubject = PublishSubject.create<Int>()
     private lateinit var itemClickDisposable: Disposable
     private var notificationAdapter: NotificationAdapter? = null
-    private var notificationList: List<Notification> = ArrayList()
+    private var notificationList: MutableList<Notification> = ArrayList()
     var position: Int = 0
     var unread: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +51,7 @@ class NotificationActivity : BaseActivity() {
 
     private fun clickOfAdapterItem() {
         itemClickDisposable = defaultAddressClickSubject.subscribe { position ->
+
             this.position = position
             var intent: Intent? = null
             if (notificationList[position].type.equals(DrewelFirebaseMessagingService.NotificationType.general)) {
@@ -53,7 +59,6 @@ class NotificationActivity : BaseActivity() {
                 callReadNotificationApi()
                 return@subscribe
             }
-
             if (notificationList[position].type.equals(DrewelFirebaseMessagingService.NotificationType.pendingCart)) {
                 intent = Intent(this, CartActivity::class.java)
             } else if (notificationList[position].type.equals(DrewelFirebaseMessagingService.NotificationType.orderPlaced)) {
@@ -83,12 +88,43 @@ class NotificationActivity : BaseActivity() {
 
     private var notificationId = ""
     private fun setAdapter() {
-        if (notificationAdapter == null) {
-            notificationAdapter = NotificationAdapter(this, notificationList)
-            notificationAdapter!!.defaultAddressClickSubject = defaultAddressClickSubject
-            notificationRv.layoutManager = LinearLayoutManager(this)
-            notificationRv.adapter = notificationAdapter
+        notificationAdapter = NotificationAdapter(this, notificationList)
+        notificationAdapter!!.defaultAddressClickSubject = defaultAddressClickSubject
+        notificationRv.layoutManager = LinearLayoutManager(this)
+        notificationRv.adapter = notificationAdapter
+
+
+        val swipeHelper = object : SwipeHelper(this, notificationRv) {
+            override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder, underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
+                underlayButtons.add(SwipeHelper.UnderlayButton(
+                        getString(R.string.delete),
+                        0,
+                        Color.parseColor("#eb011c"),
+                        UnderlayButtonClickListener {
+//                            Log.e("Position on delete", it.toString())
+                            showLogoutDialog(getString(R.string.delete_notificaions), it, false)
+                        }
+                ))
+
+//                underlayButtons.add(SwipeHelper.UnderlayButton(
+//                        "Transfer",
+//                        0,
+//                        Color.parseColor("#FF9502"),
+//                        UnderlayButtonClickListener {
+//                            // TODO: OnTransfer
+//                        }
+//                ))
+//                underlayButtons.add(SwipeHelper.UnderlayButton(
+//                        "Unshare",
+//                        0,
+//                        Color.parseColor("#C7C7CB"),
+//                        UnderlayButtonClickListener {
+//                            // TODO: OnUnshare
+//                        }
+//                ))
+            }
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -102,11 +138,14 @@ class NotificationActivity : BaseActivity() {
     }
 
     private fun initView() {
-        toolbarTitleTv.text = getString(R.string.notification)
+        toolbarTitleTv.text = getString(R.string.notifications)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+        txt_clearall.setOnClickListener {
+            showLogoutDialog(getString(R.string.delete_all_notifications), 0, true)
+        }
         if (intent.getIntExtra(AppIntentExtraKeys.FROM, 0) == 1) {
             FROM = 1
             notificationId = intent.getStringExtra(AppIntentExtraKeys.NOTIFICATION_ID)
@@ -117,7 +156,7 @@ class NotificationActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     private fun callReadNotificationApi() {
-//        setProgressState(View.VISIBLE, View.GONE)
+//      setProgressState(View.VISIBLE, View.GONE)
         val readNotificationRequest = java.util.HashMap<String, String>()
         readNotificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         readNotificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -135,8 +174,56 @@ class NotificationActivity : BaseActivity() {
                     unread -= 1
                     Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
                     ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
+                }, { error ->
+                    Log.e("TAG", "{$error.message}")
+                })
+    }
+
+    private fun callDeleteNotificationApi(position: Int, clearAll: Boolean) {
+        setProgressState(View.VISIBLE, false)
+//        setProgressState(View.VISIBLE, View.GONE)
+        val readNotificationRequest = java.util.HashMap<String, String>()
+        readNotificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        readNotificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        if (!clearAll)
+            readNotificationRequest["notification_id"] = notificationList[position].id!!
+        val cancelOrderObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).deleteNotification(readNotificationRequest)
+        cancelOrderObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    setProgressState(View.GONE, true)
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+//                    if (FROM!=1){
+                    if (clearAll) {
+                        notificationList = ArrayList()
+                        notificationAdapter = NotificationAdapter(this, notificationList)
+                        notificationAdapter!!.defaultAddressClickSubject = defaultAddressClickSubject
+                        notificationRv.layoutManager = LinearLayoutManager(this)
+                        notificationRv.adapter = notificationAdapter
+                        unread = 0
+                        txt_clearall.visibility = View.GONE
+                    } else {
+                        notificationList.removeAt(position)
+                        notificationAdapter!!.notifyDataSetChanged()
+                        unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+                        unread -= 1
+                        try {
+                            if (notificationList.isEmpty())
+                                txt_clearall.visibility = View.GONE
+                            else
+                                txt_clearall.visibility = View.VISIBLE
+                        } catch (e: Exception) {
+
+                        }
+
+
+                    }
+
+                    Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
+                    ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
 
                 }, { error ->
+                    setProgressState(View.GONE, true)
                     Log.e("TAG", "{$error.message}")
                 })
     }
@@ -178,14 +265,25 @@ class NotificationActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-
                     if (result.response!!.status!!) {
-                        notificationList = result.response!!.data!!.notifications!!
+                        notificationList = (result.response!!.data!!.notifications as MutableList<Notification>?)!!
                         setAdapter()
-                    } else
+                        try {
+                            if (notificationList.isEmpty())
+                                txt_clearall.visibility = View.GONE
+                            else
+                                txt_clearall.visibility = View.VISIBLE
+                        } catch (e: Exception) {
+
+                        }
+                    } else {
+                        txt_clearall.visibility = View.GONE
                         Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    }
+
 
                 }, { error ->
+                    txt_clearall.visibility = View.GONE
                     setProgressState(View.GONE, true)
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     Log.e("TAG", "{$error.message}")
@@ -197,6 +295,23 @@ class NotificationActivity : BaseActivity() {
         progressBar.visibility = visibility
         notificationRv.isEnabled = enableButton
     }
+
+    /* show logout confirmation popup to user*/
+    private fun showLogoutDialog(message: String, position: Int, clearAll: Boolean) {
+        val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+        logoutAlertDialog.setTitle(getString(R.string.app_name))
+        logoutAlertDialog.setMessage(message)
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+            logoutAlertDialog.dismiss()
+            callDeleteNotificationApi(position, clearAll)
+        })
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+            logoutAlertDialog.dismiss()
+            notificationAdapter!!.notifyDataSetChanged()
+        })
+        logoutAlertDialog.show()
+    }
+
 
 }
 

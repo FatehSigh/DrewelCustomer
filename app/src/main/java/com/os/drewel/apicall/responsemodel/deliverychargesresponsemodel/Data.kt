@@ -19,6 +19,9 @@ class Data() : Parcelable {
     @Expose
     var last_paid: String? = null
 
+    @SerializedName("payment_mode")
+    @Expose
+    var payment_mode: String? = null
 
     @SerializedName("same_day_delivery_charge")
     @Expose
@@ -41,6 +44,9 @@ class Data() : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         deliveryCharge = parcel.readString()
+        is_edited = parcel.readString()
+        last_paid = parcel.readString()
+        payment_mode = parcel.readString()
         sameDayDeliveryCharge = parcel.readString()
         expediteDeliveryCharges = parcel.readString()
         deliveryStartTime = parcel.readString()
@@ -51,6 +57,9 @@ class Data() : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(deliveryCharge)
+        parcel.writeString(is_edited)
+        parcel.writeString(last_paid)
+        parcel.writeString(payment_mode)
         parcel.writeString(sameDayDeliveryCharge)
         parcel.writeString(expediteDeliveryCharges)
         parcel.writeString(deliveryStartTime)
@@ -72,5 +81,6 @@ class Data() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 
 }

@@ -243,6 +243,11 @@ interface DrewelApi {
     fun readNotification(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
 
     @Headers("Content-Type: application/json")
+    @POST("delete_notification")
+    fun deleteNotification(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
+
+
+    @Headers("Content-Type: application/json")
     @POST("product_request")
     fun requestProduct(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
 

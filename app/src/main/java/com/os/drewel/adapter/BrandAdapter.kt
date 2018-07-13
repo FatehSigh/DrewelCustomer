@@ -42,7 +42,6 @@ class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : 
             val bundle = Bundle()
             bundle.putSerializable(AppIntentExtraKeys.BRAND_WISE_PRODUCT, brandList[pos])
             intent.putExtras(bundle)
-
             mContext.startActivity(intent)
 
         }

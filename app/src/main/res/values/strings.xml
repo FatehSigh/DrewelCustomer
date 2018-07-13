@@ -61,6 +61,7 @@
     <string name="home">Home</string>
     <string name="myorder">My Orders</string>
     <string name="request">Request</string>
+    <string name="requests">Requests</string>
     <string name="more">More</string>
     <string name="kraft_singles">Kraft Singles</string>
     <string name="discount_off">(40% off )</string>
@@ -88,7 +89,7 @@
     <string name="payment_summary">Payment Summary</string>
     <string name="sub_total">Sub Total</string>
     <string name="order_charge">Order Delivery Charge</string>
-    <string name="grand_total">Grand Total</string>
+    <string name="grand_total">Total Amount</string>
     <string name="proceed_to_checkout">Proceed to Checkout</string>
     <string name="continue_shopping">Continue Shopping</string>
     <string name="plus">+</string>
@@ -133,12 +134,12 @@
     <string name="apartment_no">Apartment No</string>
     <string name="additional_directions">Additional Directions</string>
     <string name="save">Save</string>
-    <string name="set_delivery_address">Set Delivery Address</string>
+    <string name="set_delivery_address">Select Your Address</string>
     <string name="search_address">Search Address</string>
     <string name="done">Done</string>
     <string name="address_search_hint">Search Building Name / Villa Area</string>
     <string name="enter_address_or_move_pin">Please enter your address or move pin</string>
-
+    <string name="set_delivery_location">Select Your Location</string>
 
     <string name="error_fetching_address">Problem fetching address, please try again.</string>
 
@@ -172,8 +173,8 @@
     <string name="order_summary">Order Summary</string>
     <string name="add_detail">Add Details</string>
     <string name="choose_delivery_type">Choose Delivery Type</string>
-    <string name="add_coupon">Add Coupon Code</string>
-    <string name="add_loyalty_point">Add Loyalty Point</string>
+    <string name="add_coupon">Coupon Code</string>
+    <string name="add_loyalty_point">Loyalty Points</string>
     <string name="choose_payment_detail">Choose Payment Details</string>
     <string name="cash">Cash on delivery</string>
     <string name="cc">Credit Card</string>
@@ -192,7 +193,7 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="english">English</string>
-    <string name="arabic">Arabic</string>
+    <string name="arabic">عربي</string>
     <string name="choose_language">Choose your Preferred  Language</string>
     <string name="map">Map</string>
     <string name="how_it_work">How it works</string>
@@ -287,7 +288,7 @@
     <string name="add_money">Add Money</string>
     <string name="balance">Balance</string>
     <string name="have_a_promocode">Have a promocode?</string>
-    <string name="amount_dollar">Amount($)</string>
+    <string name="amount_dollar">Amount(OMR)</string>
     <string name="way_no">Way No.</string>
     <string name="enter_way">Please enter way no.</string>
     <string name="choose_delivery_time_slot">Choose delivery time slot</string>
@@ -302,7 +303,7 @@
     <string name="add_photo">Add Photo</string>
     <string name="want_to_edit">Are you sure you want to edit this order?</string>
     <string name="last_paid">Already Paid</string>
-    <string name="amount_will_be_transfered">OMR will be transfered  to your  wallet.</string>
+    <string name="amount_will_be_transfered">OMR will be transferred  to your  wallet.</string>
     <string name="cant_delete_default_address">Default address can\'t be deleted. Please select any other address as your default address to delete this address.</string>
     <string name="change">Change</string>
     <string name="delete">Delete</string>
@@ -313,6 +314,11 @@
     <string name="switch_to_map_view">Switch to Map view</string>
     <string name="want_to_defaultaddress">Are you sure you want to add this place as your delivery address?</string>
     <string name="transaction_id">TRANSACTION ID:</string>
+    <string name="clearall">Clear All</string>
+    <string name="delete_all_notifications">Are you sure you want to delete all notifications?</string>
+    <string name="delete_notificaions">Are you sure you want to delete this notification?</string>
+    <string name="reply">Reply:</string>
+    <string name="enter_the_product_name">Enter the product name</string>
 
 
     <string-array name="array_numbers_dummy">

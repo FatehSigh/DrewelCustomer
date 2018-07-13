@@ -23,7 +23,7 @@ class ExampleUnitTest {
 
         val checkOutActivity=CheckOutActivity()
 
-        checkOutActivity.deliveryTimeSlots(Calendar.getInstance())
+//        checkOutActivity.deliveryTimeSlots(Calendar.getInstance())
 
     }
 

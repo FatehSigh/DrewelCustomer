@@ -1,5 +1,6 @@
 package com.os.drewel.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -33,7 +34,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.content_checkout.*
+import java.text.DateFormat
 import java.text.DecimalFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -72,29 +75,32 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     }
 
     private fun getDataFromIntent() {
-        nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
-                ?: "") ?: ""
-        phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
-                ?: "") ?: ""
-        deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
-                ?: "") ?: ""
-        checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
-                ?: "") ?: ""
-        delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
-                ?: "") ?: ""
-        Log.e("delivery_address_type", delivery_address_type)
-
+        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
+            nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
+                    ?: "") ?: ""
+            phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
+                    ?: "") ?: ""
+            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
+                    ?: "") ?: ""
+            checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
+                    ?: "") ?: ""
+            delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
+                    ?: "") ?: ""
+            Log.e("delivery_address_type", delivery_address_type)
+            checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
+                    ?: "") ?: ""
+        }
         quantityTv.text = orderItemQuantity
-        subTotalTv.text = orderNetPrice + " " + getString(R.string.omr)
-        grandTotalTv.text = orderNetPrice + " " + getString(R.string.omr)
+        subTotalTv.text = orderNetPrice.toString() + " " + getString(R.string.omr)
+        subTotalTvValue = orderNetPrice.toFloat()
+        grandTotalTv.text = orderNetPrice.toString() + " " + getString(R.string.omr)
         checkoutRequest.delivery_address_type = delivery_address_type
         checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
         checkoutRequest.quantity = orderItemQuantity
-        checkoutRequest.amount = orderNetPrice
+        checkoutRequest.amount = orderNetPrice.toString()
         checkoutRequest.deliverTo = nameTv.text.toString()
         checkoutRequest.deliverMobile = phoneNoTv.text.toString()
-        checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
-                ?: "") ?: ""
+
         if (delivery_address_type.isNotEmpty()) {
             if (delivery_address_type.equals("1")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.apartment))
@@ -106,24 +112,26 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         }
     }
 
+
     override fun onResume() {
         super.onResume()
-        nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
-                ?: "") ?: ""
-        phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
-                ?: "") ?: ""
-        deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
-                ?: "") ?: ""
-        checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
-                ?: "") ?: ""
-        delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
-                ?: "") ?: ""
-        Log.e("delivery_address_type", delivery_address_type)
-
+        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
+            nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
+                    ?: "") ?: ""
+            phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
+                    ?: "") ?: ""
+            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
+                    ?: "") ?: ""
+            checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
+                    ?: "") ?: ""
+            delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
+                    ?: "") ?: ""
+            Log.e("delivery_address_type", delivery_address_type)
+            checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
+                    ?: "") ?: ""
+        }
         checkoutRequest.deliverTo = nameTv.text.toString()
         checkoutRequest.deliverMobile = phoneNoTv.text.toString()
-        checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
-                ?: "") ?: ""
         if (delivery_address_type.isNotEmpty()) {
             if (delivery_address_type.equals("1")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.apartment))
@@ -142,10 +150,10 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         deliveryAddressTv_change.setOnClickListener(this)
         chooseDeliveryTypeTv.setOnClickListener(this)
-        applyCouponCodeTv.setOnClickListener(this)
+        applyCoupanCodeTv.setOnClickListener(this)
         applyLoyaltyPointTv.setOnClickListener(this)
         confirmOrderBt.setOnClickListener(this)
-        CouponCodeEditText.setOnClickListener(this)
+//        CouponCodeEditText.setOnClickListener(this)
         paymentMethodRadioGroup.setOnCheckedChangeListener({ group: RadioGroup, checkedId: Int ->
             when (checkedId) {
                 R.id.cashRadioBt -> {
@@ -183,46 +191,75 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 startActivity(Intent(this, DeliveryAddressActivity::class.java).putExtra("TYPE", 2))
 //                showDeliveryTypeDialog()
             }
-            R.id.applyCouponCodeTv -> {
-                KeyboardUtils.hideSoftInput(this)
-                val couponCode = CouponCodeEditText.text.toString().trim()
-                if (appliedCouponCodes.contains(couponCode)) {
-                    Toast.makeText(this, getString(R.string.coupon_already_applied), Toast.LENGTH_LONG).show()
-                } else if (couponCode.isNotBlank()) {
-                    if (isNetworkAvailable())
-                        callApplyCouponCodeApi(couponCode)
-                }
-
+            R.id.applyCoupanCodeTv -> {
+//                KeyboardUtils.hideSoftInput(this)
+//                val couponCode = CouponCodeEditText.text.toString().trim()
+//                if (appliedCouponCodes.contains(couponCode)) {
+//                    Toast.makeText(this, getString(R.string.coupon_already_applied), Toast.LENGTH_LONG).show()
+//                } else if (couponCode.isNotBlank()) {
+//                    if (isNetworkAvailable())
+//                        callApplyCouponCodeApi(couponCode)
+//                }
+                val intent = Intent(this, CouponCodeActivity::class.java)
+                startActivityForResult(intent, AppRequestCodes.APPLY_COUPON_CODE)
             }
 
             R.id.applyLoyaltyPointTv -> {
                 KeyboardUtils.hideSoftInput(this)
-                val loyaltyPoint = LoyaltyPointEditText.text.toString().trim()
-                if (loyaltyPoint.isNotBlank()) {
-                    if (applyLoyaltyPointTv.text == getString(R.string.apply)) {
-                        if (isNetworkAvailable())
-                            callApplyLoyaltyPointApi(loyaltyPoint)
-                    } else {
-                        //setCouponCodeEdibility(true)
-                        LoyaltyPointEditText.setText("")
-                        LoyaltyPointEditText.isEnabled = true
-                        applyLoyaltyPointTv.text = getString(R.string.apply)
-                        setLoyaltyPointDiscount(0.0)
-                    }
+                if (applyLoyaltyPointTv.text.equals(getString(R.string.remove))) {
+                    applyLoyaltyPointTv.text = getString(R.string.apply)
+                    LoyaltyPointEditText.text = getString(R.string.add_loyalty_point)
+//                    discountTv.setText("0" + " " + getString(R.string.omr))
+//                    discountTvValue = 0f
+                    loyaltyPoints = ""
+                    setLoyaltyPointDiscount(0.0)
+                    setGrandTotal()
+                } else {
+                    callApplyLoyaltyPointApi("")
                 }
+
+
+//                val loyaltyPoint = LoyaltyPointEditText.text.toString().trim()
+//                if (loyaltyPoint.isNotBlank()) {
+//                    if (applyLoyaltyPointTv.text == getString(R.string.apply)) {
+//                        if (isNetworkAvailable())
+//                            callApplyLoyaltyPointApi(loyaltyPoint)
+//                    } else {
+//                        //setCouponCodeEdibility(true)
+//                        LoyaltyPointEditText.setText("")
+//                        LoyaltyPointEditText.isEnabled = true
+//                        applyLoyaltyPointTv.text = getString(R.string.apply)
+//                        setLoyaltyPointDiscount(0.0)
+//                    }
+//                }
 
             }
             R.id.CouponCodeEditText -> {
-                val intent = Intent(this, CouponCodeActivity::class.java)
-                startActivityForResult(intent, AppRequestCodes.APPLY_COUPON_CODE)
+//                val intent = Intent(this, CouponCodeActivity::class.java)
+//                startActivityForResult(intent, AppRequestCodes.APPLY_COUPON_CODE)
             }
 
             R.id.confirmOrderBt -> {
                 KeyboardUtils.hideSoftInput(this)
 
                 if (isValidateCheckoutRequest()) {
-                    checkoutRequest.deliveryEndTime = deliveryTimeSlotEndTime
-                    checkoutRequest.deliveryStartTime = deliveryTimeSlotStartTime
+
+                    val sdf = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
+                    val sdfdate = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    var date: Date? = null
+                    try {
+//                        date = sdf.parse(dateOfBirth)
+                        checkoutRequest.deliveryEndTime = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(sdf.parse(deliveryTimeSlotEndTime))
+                        checkoutRequest.deliveryStartTime = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(sdf.parse(deliveryTimeSlotStartTime))
+                        checkoutRequest.deliveryDate = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(sdfdate.parse(deliveryDate))
+                    } catch (e: ParseException) {
+                        // handle exception here !
+                    }
+
+
+//                    val myString = DateFormat.getDateInstance(DateFormat.SHORT).format(date)
+//                    checkoutRequest.deliveryEndTime = deliveryTimeSlotEndTime
+//                    checkoutRequest.deliveryStartTime = deliveryTimeSlotStartTime
                     checkoutRequest.userId = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
                     checkoutRequest.language = DrewelApplication.getInstance().getLanguage()
                     checkoutRequest.cartId = pref!!.getPreferenceStringData(pref!!.KEY_CART_ID)
@@ -230,9 +267,9 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                     checkoutRequest.deliveryLongitude = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
                     deliveryDate
                     checkoutRequest.deliveryAddress = deliveryAddressTv.text.toString()
-                    checkoutRequest.deliveryDate = deliveryDate
-                    checkoutRequest.loyaltyPoints = if (isApplied) LoyaltyPointEditText.text.toString() else ""
-                    checkoutRequest.deliveryCharges = deliveryChargesTv.text.toString().split(" ")[0]
+//                    checkoutRequest.deliveryDate = deliveryDate
+                    checkoutRequest.loyaltyPoints = loyaltyPoints
+                    checkoutRequest.deliveryCharges = deliveryChargesValue.toString()
                     checkoutRequest.transactionId = ""
                     val list: MutableList<String> = ArrayList()
                     list.addAll(appliedCouponCodes)
@@ -265,17 +302,20 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             Log.e("cor deliveryType", checkoutRequest.deliveryType)
             if (checkoutRequest.deliveryType.equals(Constants.DELIVERY_NOW)) {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse?.expediteDeliveryCharges?.toDouble()) + " " + getString(R.string.omr)
+                    deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.expediteDeliveryCharges!!.toFloat()).toFloat()
+                deliveryChargesTv.text = deliveryChargesValue.toString() + getString(R.string.omr)
                 chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
                 setGrandTotal()
             } else if (checkoutRequest.deliveryType.equals(Constants.SAME_DAY_DELIVERY)) {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse!!.sameDayDeliveryCharge!!.toDouble()) + " " + getString(R.string.omr)
+                    deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.sameDayDeliveryCharge!!.toFloat()).toFloat()
+                deliveryChargesTv.text = deliveryChargesValue.toString() + getString(R.string.omr)
                 chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
                 setGrandTotal()
             } else {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse!!.deliveryCharge!!.toDouble()) + " " + getString(R.string.omr)
+                    deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.deliveryCharge!!.toFloat()).toFloat()
+                deliveryChargesTv.text = deliveryChargesValue.toString() + getString(R.string.omr)
                 chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
                 setGrandTotal()
             }
@@ -296,167 +336,105 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     }
 
 
-    private fun showDeliveryTypeDialog() {
-        if (deliveryTypeAlertDialog == null) {
-            deliveryTypeAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
-
-            deliveryTypeAlertDialog!!.setTitle(getString(R.string.choose_delivery_type))
-
-
-            deliveryTypeAlertDialog!!.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.deliver_now), { dialog, id ->
-
-                chooseDeliveryTypeTv.text = getString(R.string.deliver_now)
-                if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse?.deliveryCharge?.toDouble()) + " " + getString(R.string.omr)
-
-                setGrandTotal()
-
-                checkoutRequest.deliveryType = Constants.DELIVERY_NOW
-
-                /* get time slot for delivery now*/
-                val startCalendar = Calendar.getInstance()
-                if (startCalendar.get(Calendar.MINUTE) < 30) {
-                    startCalendar.set(Calendar.MINUTE, 0)
-                } else {
-                    startCalendar.add(Calendar.MINUTE, 30) // overstep hour and clear minutes
-                    startCalendar.clear(Calendar.MINUTE)
-                }
-                val slotTime = SimpleDateFormat("HH:mm:ss")
-                deliveryTimeSlotStartTime = slotTime.format(startCalendar.time)
-                startCalendar.add(Calendar.MINUTE, 60)
-                deliveryTimeSlotEndTime = slotTime.format(startCalendar.time)
-
-                deliveryDate = SimpleDateFormat("yyyy-MM-dd").format(startCalendar.time)
-
-            })
-
-            deliveryTypeAlertDialog!!.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.same_day_delivery), DialogInterface.OnClickListener { dialog, id ->
-                chooseDeliveryTypeTv.text = getString(R.string.same_day_delivery)
-                deliveryTimeSlots(Calendar.getInstance())
-                if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse!!.sameDayDeliveryCharge!!.toDouble()) + " " + getString(R.string.omr)
-                setGrandTotal()
-                checkoutRequest.deliveryType = Constants.SAME_DAY_DELIVERY
-            })
-
-            deliveryTypeAlertDialog!!.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.next_day_delivery), DialogInterface.OnClickListener { dialog, id ->
-                chooseDeliveryTypeTv.text = getString(R.string.next_day_delivery)
-                val calender = Calendar.getInstance()
-                calender.add(Calendar.DAY_OF_MONTH, 1)
-                calender.set(Calendar.HOUR_OF_DAY, 0)
-                calender.set(Calendar.MINUTE, 0)
-                deliveryTimeSlots(calender)
-                if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
-                    deliveryChargesTv.text = DecimalFormat("#.##").format(deliveryChargesResponse!!.expediteDeliveryCharges!!.toDouble()) + " " + getString(R.string.omr)
-                setGrandTotal()
-                checkoutRequest.deliveryType = Constants.NEXT_DAY_DELIVERY.toString()
-            })
-        }
-        deliveryTypeAlertDialog!!.show()
-    }
-
+    var discountTvValue = 0f
+    var subTotalTvValue = 0f
+    var deliveryChargesValue = 0f
     private fun setGrandTotal() {
-        val discount = discountTv.text.toString().split(" ")[0].toFloat()
-        val subTotal = subTotalTv.text.split(" ")[0].toFloat()
-        val deliverCharge = deliveryChargesTv.text.toString().split(" ")[0].toFloat()
-        val discountedAmount = (subTotal - discount)
+        var discount = 0f
+        var subTotal = 0f
+        var deliverCharge = 0f
+        discount = discountTvValue
+        subTotal = subTotalTvValue
+        deliverCharge = deliveryChargesValue
 
+//        discount = discountTv.text.toString().split(" ")[0].toFloat()
+//        subTotal = subTotalTv.text.split(" ")[0].toFloat()
+//        deliverCharge = deliveryChargesTv.text.toString().split(" ")[0].toFloat()
+
+        val discountedAmount = (subTotal - discount)
         val grandTotal = if (discountedAmount > 0)
             discountedAmount + deliverCharge
         else
             deliverCharge
-
         if (deliveryChargesResponse!!.is_edited == "1") {
-            if (deliveryChargesResponse!!.last_paid!!.isNotEmpty() ) {
+            if (deliveryChargesResponse!!.payment_mode!!.isNotEmpty() && !deliveryChargesResponse!!.payment_mode!!.equals(Constants.PAYMENT_TYPE_COD)) {
                 ll_lastpaid.visibility = View.VISIBLE
                 last_paidTv.setText(deliveryChargesResponse!!.last_paid + " " + getString(R.string.omr))
                 if (deliveryChargesResponse!!.last_paid!!.toDouble() > grandTotal.toDouble()) {
                     var diffAmount = deliveryChargesResponse!!.last_paid!!.toDouble() - grandTotal.toDouble()
-                    if (diffAmount != 0.0) {
+                    if (DrewelApplication.getInstance().convertToEnglish(diffAmount.toFloat()).toFloat() > 0) {
                         last_instruction.visibility = View.VISIBLE
-                        last_instruction.setText("(" + DecimalFormat("#.##").format(diffAmount).toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
-
+                        last_instruction.setText("(" + DecimalFormat("#.###").format(diffAmount).toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
                     } else
                         last_instruction.visibility = View.GONE
                     grandTotalTv.text = "0 " + getString(R.string.omr)
-//                    last_instruction.visibility = View.VISIBLE
+//                  last_instruction.visibility = View.VISIBLE
                     cardRadioBt.isChecked = true
                     cashRadioBt.isEnabled = false
-                    walletRadioBt.isEnabled = false
+                    walletRadioBt.isEnabled = true
                 } else {
                     var diffAmount = grandTotal.toDouble() - deliveryChargesResponse!!.last_paid!!.toDouble()
                     Log.e("diff Amount", diffAmount.toString())
 //                                    last_instruction.setText("(" + diffAmount.toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
-                    grandTotalTv.text = DecimalFormat("#.##").format(diffAmount).toString() + " " + getString(R.string.omr)
+                    grandTotalTv.text = DecimalFormat("#.###").format(diffAmount).toString() + " " + getString(R.string.omr)
                     last_instruction.visibility = View.GONE
                     cardRadioBt.isChecked = true
                 }
             } else {
                 last_instruction.visibility = View.GONE
                 if (grandTotal > 0) {
-                    grandTotalTv.text = DecimalFormat("#.##").format(grandTotal) + " " + getString(R.string.omr)
+                    grandTotalTv.text = DecimalFormat("#.###").format(grandTotal) + " " + getString(R.string.omr)
                 } else
                     grandTotalTv.text = "0 " + getString(R.string.omr)
             }
         } else {
             last_instruction.visibility = View.GONE
             if (grandTotal > 0) {
-                grandTotalTv.text = DecimalFormat("#.##").format(grandTotal) + " " + getString(R.string.omr)
+                grandTotalTv.text = DecimalFormat("#.###").format(grandTotal) + " " + getString(R.string.omr)
             } else
                 grandTotalTv.text = "0 " + getString(R.string.omr)
         }
-
-
-//        if (grandTotal > 0) {
-//            grandTotalTv.text = DecimalFormat("#.##").format(grandTotal) + " " + getString(R.string.omr)
-//            if (deliveryChargesResponse!!.is_edited == "1") {
-//                if (deliveryChargesResponse!!.last_paid!!.isNotEmpty()) {
-//                    rl_lastpaid.visibility = View.VISIBLE
-//                    if (deliveryChargesResponse!!.last_paid!!.toDouble() > grandTotal) {
-//                        var diffAmount = deliveryChargesResponse!!.last_paid!!.toDouble() - grandTotal
-//                        if (diffAmount > 0) {
-//                            last_instruction.visibility = View.VISIBLE
-//                            last_instruction.setText("(" + DecimalFormat("#.##").format(diffAmount).toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
-//                            grandTotalTv.text = DecimalFormat("#.##").format(diffAmount) + " " + getString(R.string.omr)
-//                            grandTotalTv.text = "0 " + getString(R.string.omr)
-//                        } else {
-//                            var diffAmount = grandTotal - deliveryChargesResponse!!.last_paid!!.toDouble()
-//                            last_instruction.visibility = View.GONE
-//                            grandTotalTv.text = DecimalFormat("#.##").format(diffAmount) + " " + getString(R.string.omr)
-//                        }
-//                    }
-//                } else
-//                    rl_lastpaid.visibility = View.GONE
-//            } else
-//                rl_lastpaid.visibility = View.GONE
-//        } else
-//            grandTotalTv.text = "0 " + getString(R.string.omr)
     }
 
     private fun setDiscount(newDiscount: Double) {
-
-        val previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
-
+//        discountTvValue=newDiscount.toFloat()
+        var previousDiscount = 0f
+//        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC)) {
+//            previousDiscount = discountTv.text.toString().split(" ")[1].toFloat()
+//        } else
+//        previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+        previousDiscount = discountTvValue
         val totalDiscount = (newDiscount + previousDiscount)
-
-        discountTv.text = DecimalFormat("#.##").format(totalDiscount) + " " + getString(R.string.omr)
+        discountTvValue = totalDiscount.toFloat()
+        discountTv.text = DrewelApplication.getInstance().convertToEnglish(totalDiscount.toFloat()) + " " + getString(R.string.omr)
 
     }
 
 
     private fun removeDiscount(newDiscount: Double) {
-
-        val previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
-
+//        var previousDiscount = 0f
+//
+//        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC)) {
+//            previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+//        } else
+//            previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+//        val previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+        val previousDiscount = discountTvValue
         val totalDiscount = (previousDiscount - newDiscount)
-
-        discountTv.text = DecimalFormat("#.##").format(totalDiscount) + " " + getString(R.string.omr)
+        discountTvValue = totalDiscount.toFloat()
+        discountTv.text = DrewelApplication.getInstance().convertToEnglish(totalDiscount.toFloat()) + " " + getString(R.string.omr)
     }
 
     /*remove previous loyalty point discount from total discount*/
     private fun setLoyaltyPointDiscount(loyaltyPointsDiscount: Double) {
-        val previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
-
+//        var previousDiscount = 0f
+//
+//        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC)) {
+//            previousDiscount = discountTv.text.toString().split(" ")[1].toFloat()
+//        } else
+//            previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+//        val previousDiscount = discountTv.text.toString().split(" ")[0].toFloat()
+        val previousDiscount = discountTvValue
         var totalDiscount = (loyaltyPointsDiscount + previousDiscount) - previousLoyaltyPointDiscount
 
         if (totalDiscount < 0)
@@ -464,7 +442,8 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 
         previousLoyaltyPointDiscount = loyaltyPointsDiscount
 
-        discountTv.text = DecimalFormat("#.##").format(totalDiscount) + " " + getString(R.string.omr)
+        discountTvValue = totalDiscount.toFloat()
+        discountTv.text = DrewelApplication.getInstance().convertToEnglish(totalDiscount.toFloat()) + " " + getString(R.string.omr)
     }
 
     /* when user click on remove coupon button adapter then deduct discount from previously applied discount*/
@@ -476,84 +455,6 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         appliedCouponCodeAdapter?.notifyItemRangeRemoved(0, appliedCouponCodesAllInfo.size)
         //setLoyaltyPointEdibility(true)
         // CouponCodeEditText.setText("")
-    }
-
-
-    fun deliveryTimeSlots(startCalendar: Calendar) {
-        try {
-            timeSlotList.clear()
-            if (startCalendar[Calendar.HOUR_OF_DAY] < 23) {
-                if (startCalendar.get(Calendar.MINUTE) < 30) {
-                    startCalendar.set(Calendar.MINUTE, 0)
-                } else {
-                    startCalendar.add(Calendar.MINUTE, 30) // overstep hour and clear minutes
-                    startCalendar.clear(Calendar.MINUTE)
-                }
-
-                if (startCalendar[Calendar.HOUR_OF_DAY] < 9/*deliveryChargesResponse!!.deliveryStartTime!!.toInt()*/) {
-                    startCalendar.set(Calendar.HOUR_OF_DAY, 9/*deliveryChargesResponse!!.deliveryStartTime!!.toInt()*/)
-                }
-
-                val endCalendar = Calendar.getInstance()
-                endCalendar.time = startCalendar.time
-
-                // if you want dates for whole next day, uncomment next line
-                //endCalendar.add(Calendar.DAY_OF_YEAR, 1);
-
-                /* we want 9Am to 11 PM*/
-                endCalendar.add(Calendar.HOUR_OF_DAY, 24 - startCalendar.get(Calendar.HOUR_OF_DAY) - 1)
-
-                endCalendar.clear(Calendar.MINUTE)
-                endCalendar.clear(Calendar.SECOND)
-                endCalendar.clear(Calendar.MILLISECOND)
-
-                val slotTime = SimpleDateFormat("hh:mm a", Locale.getDefault())
-
-                while (endCalendar.after(startCalendar)) {
-                    val slotStartTime = slotTime.format(startCalendar.time)
-                    startCalendar.add(Calendar.MINUTE, 60)
-                    val slotEndTime = slotTime.format(startCalendar.time)
-                    timeSlotList.add("$slotStartTime - $slotEndTime")
-
-                    Log.d("DATE", "$slotStartTime - $slotEndTime")
-                }
-
-                deliveryDate = SimpleDateFormat("yyyy-MM-dd").format(startCalendar.time)
-
-                if (timeSlotList.isNotEmpty()) {
-                    val timeSlotBottomSheetDialog = TimeSlotBottomSheetDialog(this, timeSlotList)
-                    timeSlotBottomSheetDialog.show()
-
-                    if (deliverySlotSelect != null)
-                        deliverySlotSelect!!.dispose()
-
-                    /* when user click on set delivery slot button from dialog then selected result will come here*/
-                    deliverySlotSelect = timeSlotBottomSheetDialog.deliverySlotSelect.subscribe(
-                            { result ->
-
-                                selectedTimeSlot = result
-
-                                val timeSlotAry = selectedTimeSlot.split("-")
-
-                                deliveryTimeSlotStartTime = Utils.getInstance().convertTimeFormat(timeSlotAry[0], "hh:mm a", "HH:mm:ss")
-                                deliveryTimeSlotEndTime = Utils.getInstance().convertTimeFormat(timeSlotAry[0], "hh:mm a", "HH:mm:ss")
-
-
-                            }, { error ->
-                        error.printStackTrace()
-                    })
-                } else {
-                    Toast.makeText(this, getString(R.string.no_time_slot_available_today), Toast.LENGTH_SHORT).show()
-                    chooseDeliveryTypeTv.text = ""
-                }
-            } else {
-                Toast.makeText(this, getString(R.string.no_time_slot_available_today), Toast.LENGTH_SHORT).show()
-                chooseDeliveryTypeTv.text = ""
-            }
-        } catch (e: Exception) {
-            Log.d("error", e.message)
-        }
-
     }
 
 
@@ -629,13 +530,13 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                     if (result.response!!.status!!) {
                         deliveryChargesResponse = result.response!!.data
                         if (result.response!!.data!!.is_edited == "1") {
-                            if (result.response!!.data!!.last_paid!!.isNotEmpty()) {
+                            if (deliveryChargesResponse!!.payment_mode!!.isNotEmpty() && !deliveryChargesResponse!!.payment_mode!!.equals(Constants.PAYMENT_TYPE_COD)) {
                                 ll_lastpaid.visibility = View.VISIBLE
                                 last_paidTv.setText(result.response!!.data!!.last_paid + " " + getString(R.string.omr))
                                 if (result.response!!.data!!.last_paid!!.toDouble() > orderNetPrice.toDouble()) {
                                     var diffAmount = result.response!!.data!!.last_paid!!.toDouble() - orderNetPrice.toDouble()
                                     if (diffAmount != 0.0) {
-                                        last_instruction.setText("(" + DecimalFormat("#.##").format(diffAmount).toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
+                                        last_instruction.setText("(" + DecimalFormat("#.###").format(diffAmount).toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
                                         last_instruction.visibility = View.VISIBLE
                                     } else {
                                         last_instruction.visibility = View.GONE
@@ -644,18 +545,18 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 
                                     cardRadioBt.isChecked = true
                                     cashRadioBt.isEnabled = false
-                                    walletRadioBt.isEnabled = false
+                                    walletRadioBt.isEnabled = true
                                 } else {
                                     var diffAmount = orderNetPrice.toDouble() - result.response!!.data!!.last_paid!!.toDouble()
 //                                    last_instruction.setText("(" + diffAmount.toString() + " " + getString(R.string.amount_will_be_transfered) + ")")
-                                    grandTotalTv.text = DecimalFormat("#.##").format(diffAmount).toString() + " " + getString(R.string.omr)
+                                    grandTotalTv.text = DecimalFormat("#.###").format(diffAmount).toString() + " " + getString(R.string.omr)
                                     last_instruction.visibility = View.GONE
                                     cardRadioBt.isChecked = true
                                     cashRadioBt.isEnabled = false
-                                    walletRadioBt.isEnabled = false
+                                    walletRadioBt.isEnabled = true
                                 }
                             }
-                        } else{
+                        } else {
                             last_instruction.visibility = View.GONE
                             ll_lastpaid.visibility = View.GONE
                         }
@@ -671,6 +572,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 ))
     }
 
+    var loyaltyPoints: String = ""
     private fun callApplyLoyaltyPointApi(loyaltyCode: String) {
 
         applyLoyaltyPointTv.isEnabled = false
@@ -695,8 +597,9 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 
                     if (result.response!!.status!!) {
                         setLoyaltyPointDiscount(result.response!!.data!!.discount.toString().toDouble())
+                        loyaltyPoints = result.response!!.data!!.loyalty_points.toString()
                         setGrandTotal()
-                        LoyaltyPointEditText.isEnabled = false
+                        LoyaltyPointEditText.text = result.response!!.data!!.loyalty_points.toString() + " " + getString(R.string.add_loyalty_point)
                         applyLoyaltyPointTv.text = getString(R.string.remove)
                         // setCouponCodeEdibility(false)
                     } else {
@@ -757,10 +660,13 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                                 ?: "")
                         pref!!.setPreferenceStringData(pref!!.KEY_CART_ID, "")
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext("0")
+
                         val intent = Intent(this, HomeActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.putExtra("FROM",1)
                         startActivity(intent)
-                        finish()
+
+
                     }
                 }, { error ->
                     confirmOrderBt.isEnabled = true

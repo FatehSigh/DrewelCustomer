@@ -101,6 +101,11 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         /*dynamically set height of viewpager*/
         setHeightOfViewPager()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         if (isNetworkAvailable()) {
             progressBar.visibility = View.VISIBLE
             callProductDetailAPi()

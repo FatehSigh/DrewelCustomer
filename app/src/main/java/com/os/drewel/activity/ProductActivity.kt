@@ -49,7 +49,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
     private var categoryId = ""
     private var disposable: Disposable? = null
     private var brandList: List<Brand> = ArrayList()
-    private var brandNameList: List<com.os.drewel.apicall.responsemodel.brandnameresponsemodel.Brand> = ArrayList()
+    private var brandNameList: List<Brand> = ArrayList()
     private var filterPopupWindow: PopupWindow? = null
 
     private lateinit var popupWindowView: View
@@ -119,14 +119,12 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         linearLayout.dividerDrawable = drawable
     }
 
-
     private fun setAdapter() {
         /*if (brandAdapter == null) {*/
         brandAdapter = BrandAdapter(this, brandList)
         brandRecyclerView.layoutManager = LinearLayoutManager(this)
         brandRecyclerView.adapter = brandAdapter
         /* } else {
-
              brandAdapter!!.notifyDataSetChanged()
          }*/
     }
@@ -162,7 +160,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                         searchProductView.visibility=View.VISIBLE*/
                         productResponse = result.response!!.data!!
                         brandList = result.response!!.data!!.brands!!
-                        brandNameList = result.response!!.data!!.brandsNameList!!
+                        brandNameList = result.response!!.data!!.brands!!
                         setAdapter()
                         /* change brands filter*/
                         if (filterPopupWindow != null && !isFilterApplied) {
@@ -212,9 +210,14 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             selectedMaxPriceRange = ""
             selectedMinPriceRange = ""
             selectedRating = ""
+            popupWindowView.ratingBar.rating = 0f
+            setAdapterOfBrandName()
+            setMinMaxRangeOfPrice()
+
             if (tab != null) {
                 subCategoryId = subCategoryList[tab.position].id!!
             }
+
             if (isNetworkAvailable())
                 callGetProductApi()
         }, 200)

@@ -58,7 +58,7 @@
         android:layout_marginEnd="@dimen/_8sdp"
         android:background="@android:color/transparent"
         android:gravity="start"
-        android:hint="Enter Product Name"
+        android:hint="@string/enter_the_product_name"
         android:maxLines="5"
         android:paddingStart="@dimen/_20sdp"
 

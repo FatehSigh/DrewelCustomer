@@ -30,7 +30,6 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_row_selector, parent, false)
-
         return CategoryHolder(view)
     }
 

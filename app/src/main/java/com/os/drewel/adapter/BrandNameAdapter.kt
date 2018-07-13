@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 
 import com.os.drewel.R
-import com.os.drewel.apicall.responsemodel.brandnameresponsemodel.Brand
 import kotlinx.android.synthetic.main.child_filter_brand_name.view.*
 import java.util.ArrayList
-
+import com.os.drewel.apicall.responsemodel.productlistresponsemodel.Brand
 
 /**
  * Created by sharukhb on 3/13/2018.

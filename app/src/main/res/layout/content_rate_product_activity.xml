@@ -142,7 +142,7 @@
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/search_background"
-                android:gravity="left"
+                android:gravity="start"
                 android:hint="@string/write_your_comment"
                 android:maxLines="10"
                 android:padding="@dimen/_15sdp"

@@ -9,4 +9,7 @@ class Data {
     @Expose
     var discount: Double? = null
 
+    @SerializedName("loyalty_points")
+    @Expose
+    var loyalty_points: Double? = null
 }

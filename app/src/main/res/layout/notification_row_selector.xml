@@ -1,35 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_main"
-    android:layout_width="match_parent"
-    android:background="@color/colorPrimary_verylight"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<!--<com.os.drewel.utill.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/swipe"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--app:dragFromEdge="right">-->
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/img_delete"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
 
-        <TextView
-            android:id="@+id/notification_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!--<android.support.v7.widget.AppCompatTextView-->
+            <!--android:background="@color/cancel_btn_txt"-->
+            <!--android:padding="@dimen/_15sdp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:fontFamily="@font/roboto_medium_0"-->
+            <!--android:text="@string/delete"-->
+            <!--android:textColor="@color/white_light"-->
+            <!--android:textSize="@dimen/_15sdp"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/notification_tv" />-->
 
-        <TextView
-            android:id="@+id/notification_time_tv"
-            android:layout_width="wrap_content"
+    <!--</FrameLayout>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="true">-->
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ll_main"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="1dp"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/notification_tv" />
-    </android.support.constraint.ConstraintLayout>
+            android:background="@color/colorPrimary_verylight"
+            android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/grey_1" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/cl_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp">
 
-</LinearLayout>
+                <TextView
+                    android:gravity="start"
+                    android:id="@+id/notification_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="start"
+                    android:id="@+id/notification_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@+id/notification_tv" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey_1" />
+
+        </LinearLayout>
+
+    <!--</FrameLayout>-->
+<!--</com.os.drewel.utill.SwipeRevealLayout>-->
+
+
+

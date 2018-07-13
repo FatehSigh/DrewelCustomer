@@ -91,6 +91,7 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun callRequestProductApi() {
+        progressBar.visibility = View.VISIBLE
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -99,6 +100,7 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
         compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    progressBar.visibility = View.GONE
                     if (result.response!!.status!!) {
                         Toast.makeText(this, result.response!!.message!!, Toast.LENGTH_LONG).show()
                         val intent2 = Intent()
@@ -106,8 +108,10 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
                         sendBroadcast(intent2)
                         finish()
                     } else {
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
                     }
                 }, { error ->
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     Log.e("TAG", "{$error.message}")
                 }
@@ -115,6 +119,7 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun calleditRequestProductApi() {
+        progressBar.visibility = View.VISIBLE
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -124,6 +129,7 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
         compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    progressBar.visibility = View.GONE
                     if (result.response!!.status!!) {
                         Toast.makeText(this, result.response!!.message!!, Toast.LENGTH_LONG).show()
                         couponList!!.product_name = et_product_title.text.toString()
@@ -132,8 +138,10 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
                         setResult(Activity.RESULT_OK, intent)
                         finish()
                     } else {
+                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
                     }
                 }, { error ->
+                    progressBar.visibility = View.GONE
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     Log.e("TAG", "{$error.message}")
                 }

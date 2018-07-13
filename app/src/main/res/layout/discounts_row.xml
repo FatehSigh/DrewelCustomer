@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     cardview:cardElevation="@dimen/_5sdp"
     app:cardCornerRadius="0dp"
-    android:layoutDirection="ltr">
+  >
 
 
     <android.support.constraint.ConstraintLayout
@@ -49,16 +49,17 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/offerDescriptionTv"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/expireDateTv"
-            app:layout_constraintStart_toEndOf="@+id/discountImageIv"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="wewe"
             android:paddingStart="@dimen/_8sdp"
             android:paddingEnd="@dimen/_5sdp"
+            android:text="wewe"
             android:textColor="@color/violet_1"
-            android:textSize="@dimen/_12sdp"/>
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/discountImageIv"
+            app:layout_constraintTop_toBottomOf="@+id/expireDateTv" />
 
         <ImageView
             android:id="@+id/activeOfferImage"
@@ -87,7 +88,7 @@
             android:paddingBottom="@dimen/_2sdp"
             android:paddingTop="@dimen/_2sdp"
             android:textColor="@color/colorRed"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="@string/redeemed"/>
 
     </android.support.constraint.ConstraintLayout>

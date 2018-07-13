@@ -205,13 +205,28 @@ class Utils private constructor() {
     }
 
 
-    fun convertTimeFormat(time: String, fromFormat: String, toFormat: String): String {
+       fun convertTimeFormat(time: String, fromFormat: String, toFormat: String): String {
         var timea = ""
         try {
             val sdf = SimpleDateFormat(fromFormat,Locale.getDefault())
             val dateObj = sdf.parse(time)
             println(dateObj)
             timea = SimpleDateFormat(toFormat,Locale.getDefault()).format(dateObj)
+            return timea
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return timea
+    }
+
+    fun convertTimeFormatEnglish(time: String, fromFormat: String, toFormat: String): String {
+        var timea = ""
+        try {
+            val sdf = SimpleDateFormat(fromFormat,Locale(Constants.LANGUAGE_ENGLISH))
+            val dateObj = sdf.parse(time)
+            println(dateObj)
+            timea = SimpleDateFormat(toFormat,Locale(Constants.LANGUAGE_ENGLISH)).format(dateObj)
             return timea
         } catch (e: ParseException) {
             e.printStackTrace()

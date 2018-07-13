@@ -56,7 +56,7 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
             startTimer(couponList[position], holder)
         holder.itemView.txt_date.text = expireDate
         holder.itemView.txt_title.text = couponList[position].product_name
-        holder.itemView.txt_reply.text = "Reply: " + couponList[position].reply
+        holder.itemView.txt_reply.text = mContext!!.getString(R.string.reply) + couponList[position].reply
 
         holder.itemView.txt_edit.setOnClickListener {
             if (onClickItem != null)
@@ -87,6 +87,8 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
         Log.e("time=", TimeUnit.MILLISECONDS.toMinutes(time).toString() + ", min2=" + min2 + " actualTime==" + TimeUnit.MILLISECONDS.toMinutes(actualTime) + " position=" + holder.adapterPosition)
 
         if (TimeUnit.MILLISECONDS.toMillis(time) < TimeUnit.MINUTES.toMillis(10)) {
+            if (couponList[holder.adapterPosition].reply!!.isNotEmpty())
+                return
             holder.itemView.txt_edit.visibility = View.VISIBLE
             holder.itemView.txt_delete.visibility = View.VISIBLE
             holder.timer = object : CountDownTimer(actualTime, 1000) {

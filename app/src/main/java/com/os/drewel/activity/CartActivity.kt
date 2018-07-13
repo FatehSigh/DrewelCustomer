@@ -15,14 +15,15 @@ import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Cart
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.rxbus.CartRxJavaBus
+import com.os.drewel.utill.DateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_my_cart.*
-import kotlinx.android.synthetic.main.content_delivery_details_activity.*
 import kotlinx.android.synthetic.main.content_my_cart.*
 import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
 
 /**
@@ -146,7 +147,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-
+var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Data?=null
 
     private fun callGetProductApi() {
         setProgressState(View.VISIBLE, View.GONE)
@@ -163,7 +164,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
 
                     if (result.response!!.status!!) {
-
+                        cartResponse=result.response!!.data!!
                         noItemAvailableTv.visibility = View.GONE
                         setProgressState(View.GONE, View.VISIBLE)
                         cartProductList = result.response!!.data!!.cart!!
@@ -212,37 +213,52 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         }
         tv_amount_total.text = DecimalFormat("#.###").format(totalAmount) + " " + getString(R.string.omr)
         orderItemQuantity = totalItemQuantity.toString()
-        orderNetPrice = DecimalFormat("#.###").format(totalAmount)
+        productQuantityTv.text = totalItemQuantity.toString()
+        val nf = NumberFormat.getNumberInstance(Locale.US)
+        val formatter = nf as DecimalFormat
+        formatter.applyPattern("#.###")
+        val fString = formatter.format(totalAmount)
+//        return convertNumbersToEnglish(fString)
+        orderNetPrice = fString
+//        orderNetPrice = DecimalFormat("#.###").format((totalAmount))
     }
 
+    fun nFormate(d: Float): String {
+        val nf = NumberFormat.getInstance(Locale.ENGLISH)
+//        nf.maximumFractionDigits = 10
+        return nf.format(d)
+    }
 
     private fun setProgressState(progressVisibility: Int, viewVisibility: Int) {
         progressBar.visibility = progressVisibility
         contentLayout.visibility = viewVisibility
     }
 
+
     override fun onClick(view: View) {
         when (view.id) {
             R.id.continueShoppingBt -> {
-
                 finish()
             }
             R.id.checkoutBt -> {
                 if (cartItemAdapter?.isAnyProductOutOfStock!!) {
                     Toast.makeText(this, getString(R.string.remove_item_which_are_out_of_stock), Toast.LENGTH_SHORT).show()
 
-                } else if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
-                    val intent = Intent(this, DeliveryDetailActivity::class.java)
-
-                    startActivity(intent)
                 } else {
-                    val intent = Intent(this, CheckOutActivity::class.java)
+                    if (cartResponse!=null && cartResponse!!.is_edited!!.isNotEmpty() && cartResponse!!.is_edited!!.equals("1")){
 
-                    intent.putExtra(AppIntentExtraKeys.ADDRESS, pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS))
-                    intent.putExtra(AppIntentExtraKeys.NAME, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME))
-                    intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER))
-                    intent.putExtra(AppIntentExtraKeys.LANDMARK, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK))
-                    startActivity(intent)
+                    }
+                    if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
+                        val intent = Intent(this, DeliveryDetailActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, CheckOutActivity::class.java)
+                        intent.putExtra(AppIntentExtraKeys.ADDRESS, pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS))
+                        intent.putExtra(AppIntentExtraKeys.NAME, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME))
+                        intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER))
+                        intent.putExtra(AppIntentExtraKeys.LANDMARK, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK))
+                        startActivity(intent)
+                    }
                 }
             }
         }

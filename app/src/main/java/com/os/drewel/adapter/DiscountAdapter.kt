@@ -9,20 +9,22 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
 import com.os.drewel.apicall.responsemodel.couponresponsemodel.Coupon
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.utill.DateUtils
 import com.os.drewel.utill.Utils
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.discounts_row.view.*
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DiscountAdapter(val mContext: Context?, private val couponList: List<Coupon>) : RecyclerView.Adapter<DiscountAdapter.DiscountHolder>() {
 
 
-     var applyCouponCodeClickSubject: PublishSubject<Int> = PublishSubject.create<Int>()
+    var applyCouponCodeClickSubject: PublishSubject<Int> = PublishSubject.create<Int>()
     var isFromCheckout = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.discounts_row, parent, false)
-
         return DiscountHolder(view)
     }
 
@@ -34,12 +36,22 @@ class DiscountAdapter(val mContext: Context?, private val couponList: List<Coupo
         holder.itemView.expireDateTv.text = expireDate
 
         holder.itemView.offerDescriptionTv.text = couponList[position].couponDescription
-        holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())
+        if (couponList[position].discountType.equals("Percent"))
+        holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())+" %"
+        else
+            holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())+" "+mContext!!.getString(R.string.omr)
         holder.itemView.couponCodeTv.text = couponList[position].couponCode
-
-        holder.itemView.isRedeemTv.setOnClickListener({
-            applyCouponCodeClickSubject.onNext(holder.layoutPosition)
-        })
+        if (isFromCheckout) {
+            holder.itemView.isRedeemTv.visibility = View.VISIBLE
+            if (couponList[position].isUsed == 0) {
+                holder.itemView.isRedeemTv.text = mContext!!.getString(R.string.apply)
+                holder.itemView.isRedeemTv.setOnClickListener({
+                    applyCouponCodeClickSubject.onNext(holder.layoutPosition)
+                })
+            } else {
+                holder.itemView.isRedeemTv.text = mContext!!.getString(R.string.redeemed)
+            }
+        } else holder.itemView.isRedeemTv.visibility = View.GONE
 
     }
 
@@ -47,6 +59,6 @@ class DiscountAdapter(val mContext: Context?, private val couponList: List<Coupo
         return couponList.size
     }
 
-     class DiscountHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class DiscountHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 }

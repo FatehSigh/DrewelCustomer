@@ -54,13 +54,12 @@
             android:textColorHint="@color/green"
             android:textSize="@dimen/_12sdp"
             app:backgroundTint="@color/violet_1"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <RelativeLayout
-            android:layout_toEndOf="@+id/cantfind_address"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cantfind_address"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatTextView
@@ -73,11 +72,15 @@
                 android:textColor="@color/green"
                 android:textColorHint="@color/green"
                 android:textSize="@dimen/_12sdp"
-                app:backgroundTint="@color/violet_1"
-               />
+                app:backgroundTint="@color/violet_1" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/mMapView"
+                android:background="@color/green" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -23,6 +23,7 @@
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/nameTv"
             android:layout_width="0dp"
+            android:gravity="end"
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
@@ -50,6 +51,7 @@
             android:id="@+id/phoneNoTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="end"
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +72,6 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp"
             android:text="@string/delivery_address"
-            app:layout_constraintEnd_toStartOf="@+id/rl_deliveryAddressTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewPhoneNumber" />
 
@@ -83,54 +84,60 @@
             app:layout_constraintTop_toBottomOf="@+id/viewPhoneNumber">
 
             <LinearLayout
+                android:layout_alignParentEnd="true"
                 android:id="@+id/ll"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/deliveryAddressTv_dropdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/deliveryAddressTv"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:fontFamily="@font/roboto_regular_0"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/deliveryAddressTv_change"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/deliveryAddressTv"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/roboto_bold_1"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
+                    android:gravity="center_vertical|end"
+                    android:padding="@dimen/_10sdp"
                     android:text="@string/change"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/deliveryAddressTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/black" />
         </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryAddressTv_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deliveryAddressHintTv"
+            android:drawablePadding="@dimen/_10sdp"
+            android:fontFamily="@font/roboto_regular_0"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+
+            android:paddingEnd="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deliveryAddressHintTv" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/deliveryAddressTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deliveryAddressTv_dropdown"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deliveryAddressTv_dropdown" />
 
         <View
             android:id="@+id/viewDeliveryAddress"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/violet_1"
-            app:layout_constraintTop_toBottomOf="@+id/rl_deliveryAddressTv" />
+            app:layout_constraintTop_toBottomOf="@+id/deliveryAddressTv" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/addDetailHintTv"
@@ -169,23 +176,22 @@
             app:layout_constraintTop_toBottomOf="@+id/chooseDeliveryTypeTv" />
 
 
-        <android.support.design.widget.TextInputEditText
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/LoyaltyPointEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:gravity="center_vertical"
             android:hint="@string/add_loyalty_point"
-            android:inputType="number"
-            android:maxLength="10"
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingBottom="@dimen/_12sdp"
             android:textColorHint="@color/violet_1"
             app:backgroundTint="@color/violet_1"
             app:layout_constraintEnd_toStartOf="@+id/applyLoyaltyPointTv"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewDeliveryType" />
 
@@ -205,6 +211,16 @@
             app:layout_constraintStart_toEndOf="@+id/LoyaltyPointEditText"
             app:layout_constraintTop_toTopOf="@+id/LoyaltyPointEditText" />
 
+        <View
+            android:id="@+id/viewLoyaltyPoints"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:background="@color/violet_1"
+            app:layout_constraintEnd_toEndOf="@id/LoyaltyPointEditText"
+            app:layout_constraintStart_toStartOf="@id/LoyaltyPointEditText"
+            app:layout_constraintTop_toBottomOf="@+id/LoyaltyPointEditText" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/CouponCodeEditText"
@@ -213,16 +229,35 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:gravity="center_vertical"
             android:hint="@string/add_coupon"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLength="10"
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:textColorHint="@color/violet_1"
             app:backgroundTint="@color/violet_1"
-            app:layout_constraintEnd_toStartOf="@+id/applyCouponCodeTv"
+            app:layout_constraintEnd_toStartOf="@+id/applyCoupanCodeTv"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LoyaltyPointEditText" />
+
+        <TextView
+            android:id="@+id/applyCoupanCodeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_15sdp"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/CouponCodeEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/CouponCodeEditText"
+            app:layout_constraintTop_toTopOf="@+id/CouponCodeEditText" />
 
         <View
             android:id="@+id/countryCodeView"
@@ -439,7 +474,6 @@
             android:paddingStart="@dimen/_15sdp"
             android:paddingTop="@dimen/_5sdp"
             android:paddingEnd="@dimen/_15sdp"
-            android:paddingBottom="@dimen/_10sdp"
             android:text="@string/delivery_charges"
             app:layout_constraintEnd_toStartOf="@+id/nameTv"
             app:layout_constraintStart_toStartOf="parent"
@@ -453,7 +487,6 @@
             android:paddingStart="@dimen/_15sdp"
             android:paddingTop="@dimen/_5sdp"
             android:paddingEnd="@dimen/_15sdp"
-            android:paddingBottom="@dimen/_10sdp"
             android:text="@string/zero_omr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nameHintTv"
@@ -461,9 +494,9 @@
 
         <LinearLayout
             android:id="@+id/ll_lastpaid"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/deliveryChargesTv">
 
             <android.support.v7.widget.AppCompatTextView
@@ -474,7 +507,6 @@
                 android:paddingStart="@dimen/_15sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_15sdp"
-                android:paddingBottom="@dimen/_10sdp"
                 android:text="@string/last_paid"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/last_paid" />
@@ -488,7 +520,6 @@
                 android:paddingStart="@dimen/_15sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_15sdp"
-                android:paddingBottom="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nameHintTv"
                 app:layout_constraintTop_toBottomOf="@+id/last_paid" />
@@ -528,6 +559,7 @@
             android:id="@+id/viewAmount"
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/orange_1"
             app:layout_constraintTop_toBottomOf="@+id/rl_lastpaid" />
 

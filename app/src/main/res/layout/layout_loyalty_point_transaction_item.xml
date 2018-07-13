@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -17,6 +18,7 @@
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:src="@mipmap/ic_launcher"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -52,14 +54,15 @@
 
         <TextView
             android:id="@+id/amountTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="14dp"
             android:paddingStart="@dimen/_10sdp"
             android:text="200"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="10dp" />
     </android.support.constraint.ConstraintLayout>
 
     <View

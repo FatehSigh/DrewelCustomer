@@ -93,7 +93,6 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
         if (!(order.order_date).isNullOrEmpty() && !(order.server_time).isNullOrEmpty()) {
             val time = dateDifference(order.order_date!!, order.server_time!!)
 //            if (time > 0) {
-
             var min2 = TimeUnit.MINUTES.toMillis(10)
             var actualTime = min2 - TimeUnit.MILLISECONDS.toMillis(time)
             Log.e("time=", TimeUnit.MILLISECONDS.toMinutes(time).toString() + ", min2=" + min2 + " actualTime==" + TimeUnit.MILLISECONDS.toMinutes(actualTime) + " position=" + holder.adapterPosition)
@@ -101,9 +100,10 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                 if (myCurrentOrderList[holder.adapterPosition].is_edited!!.isNotEmpty()) {
                     if (myCurrentOrderList[holder.adapterPosition].is_edited == "1") {
                         holder.itemView.btn_edit.visibility = View.GONE
-                    } /*else
-                    startTimer(myCurrentOrderList[position], holder)*/
-                }
+                    } else
+                        holder.itemView.btn_edit.visibility = View.VISIBLE
+                } else
+                    holder.itemView.btn_edit.visibility = View.VISIBLE
                 holder.itemView.btn_delete.visibility = View.VISIBLE
                 var millisUntil: Long? = 0
                 holder.timer = object : CountDownTimer(actualTime, 1000) {
