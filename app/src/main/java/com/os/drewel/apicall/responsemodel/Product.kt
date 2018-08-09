@@ -12,6 +12,15 @@ class Product : Serializable {
     @SerializedName("product_name")
     @Expose
     var productName: String? = null
+
+    @SerializedName("ar_product_name")
+    @Expose
+    var ar_product_name: String? = null
+
+    @SerializedName("ar_product_description")
+    @Expose
+    var ar_product_description: String? = null
+
     @SerializedName("price")
     @Expose
     var price: String? = null

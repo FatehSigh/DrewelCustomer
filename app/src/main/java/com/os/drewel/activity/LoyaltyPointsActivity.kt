@@ -14,6 +14,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.loyaltypointresponsemodel.LoyaltyPoint
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -107,15 +108,15 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
 
                     if (result.response!!.status!!) {
                         loyaltyPointsTransaction = result.response!!.data!!.loyaltyPoints!!
-                        loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble())
+                        loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble())+" "+ getString(R.string.omr)
                         setAdapter()
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                         noTransactionAlertTv.visibility = View.VISIBLE
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

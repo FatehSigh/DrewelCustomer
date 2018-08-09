@@ -75,7 +75,8 @@
                     android:text="- 50 OMR"
                     android:textSize="@dimen/_10sdp"
                     card_view:layout_constraintEnd_toEndOf="parent"
-                    tools:layout_editor_absoluteY="0dp" />
+                    tools:layout_editor_absoluteY="0dp"
+                    tools:ignore="MissingConstraints" />
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -86,7 +87,7 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_product_categories"
+                    android:id="@+id/tv_from_order"
                     style="@style/LightBlackTextColorStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -97,7 +98,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_product_quantity"
+                android:id="@+id/tv_time"
                 style="@style/OrangeTextColorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

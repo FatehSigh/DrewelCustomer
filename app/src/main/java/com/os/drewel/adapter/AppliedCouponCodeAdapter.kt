@@ -28,7 +28,7 @@ class AppliedCouponCodeAdapter(val mContext: Context, private val appliedCouponC
 
         holder.itemView.couponCodeTv.text = appliedCouponCodesAllInfo[position].couponCode
 
-        holder.itemView.discountTv.text = appliedCouponCodesAllInfo[position].discountAmount
+        holder.itemView.discountTv.text =String.format("%.3f", appliedCouponCodesAllInfo[position].discountAmount!!.toDouble())+" "+mContext.getString(R.string.omr)
     }
 
 

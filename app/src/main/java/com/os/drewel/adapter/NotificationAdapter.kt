@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.os.drewel.R
 import com.os.drewel.apicall.responsemodel.notificationresponsemodel.Notification
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.Constants
 import com.os.drewel.delegate.OnClick
 import com.os.drewel.utill.Utils
 import io.reactivex.subjects.PublishSubject
@@ -34,7 +36,10 @@ class NotificationAdapter(val mContext: Activity?, private var notificationList:
         else
             holder.itemView.ll_main.setBackgroundColor(mContext!!.getResources().getColor(R.color.white))
 
-        holder.itemView.notification_tv.text = notificationList[position].message
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC))
+            holder.itemView.notification_tv.text = notificationList[position].message_arabic
+        else
+            holder.itemView.notification_tv.text = notificationList[position].message
         try {
             val startdate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(notificationList[position].created!!)
             holder.itemView.notification_time_tv.setText(SimpleDateFormat("dd MMM ''yy  |  h:mm a ").format(startdate))

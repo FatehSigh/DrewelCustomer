@@ -21,6 +21,7 @@ import com.os.drewel.application.DrewelApplication
 import com.os.drewel.fragment.*
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.utill.BadgeIntentService
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.home_product_activity.*
@@ -97,7 +98,7 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                     }
                 }, { error ->
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

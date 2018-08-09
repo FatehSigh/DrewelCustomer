@@ -115,11 +115,11 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
                         setAdapter()
 
                     } else
-                        Toast.makeText(context, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(context, result.response!!.message!!)
 
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(context, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

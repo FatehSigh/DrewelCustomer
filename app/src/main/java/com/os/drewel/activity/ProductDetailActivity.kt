@@ -30,6 +30,7 @@ import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDet
 //import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.dialog.ShareBottomSheetDialog
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
@@ -57,7 +58,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
     var shareDialog: ShareBottomSheetDialog? = null
     //  var productImagePath = ""
     private var callbackManager = CallbackManager.Factory.create()
-    private lateinit var productDetail: ProductDetail
+    private  var productDetail: ProductDetail=ProductDetail()
 
     private var productImageBitmap: Bitmap? = null
     private var notificationId = ""
@@ -113,7 +114,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
     }
 
     private fun callReadNotificationApi() {
-//        setProgressState(View.VISIBLE, View.GONE)
+//      setProgressState(View.VISIBLE, View.GONE)
         val readNotificationRequest = java.util.HashMap<String, String>()
         readNotificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         readNotificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -139,7 +140,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         windowManager.defaultDisplay.getMetrics(displaymetrics)
         val width = displaymetrics.widthPixels
 
-        val linearPram = RelativeLayout.LayoutParams(width, width)
+        val linearPram = RelativeLayout.LayoutParams(width, width-200)
         productImagePager.layoutParams = linearPram
     }
 
@@ -181,6 +182,8 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     addToCartApi(addToCart)
             }
             R.id.txt_write_your_review -> {
+                if(!isNetworkAvailable())
+                    return
                 var intent = Intent(this@ProductDetailActivity, RateProductActivity::class.java)
                 intent.putExtra("DATA", productDetail)
                 intent.putExtra("CATEGORY", tv_product_categories.text)
@@ -189,6 +192,8 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 startActivityForResult(intent, 1000)
             }
             R.id.addProductQuantityBt -> {
+                if(!isNetworkAvailable())
+                    return
                 val quantity = productDetail.cartQuantity!!.toInt() + 1
                 val price = if (productDetail.offerPrice.isNullOrEmpty())
                     productDetail.avgPrice!!.toDouble() * quantity
@@ -198,6 +203,8 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 callUpdateCartApi(quantity.toString(), price.toString())
             }
             R.id.removeProductQuantityBt -> {
+                if(!isNetworkAvailable())
+                    return
                 if (productDetail.cartQuantity!!.toInt() > 1) {
                     val quantity = productDetail.cartQuantity!!.toInt() - 1
                     val price = if (productDetail.offerPrice.isNullOrEmpty())
@@ -245,12 +252,12 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
 
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     addProductQuantityBt.isEnabled = true
                     removeProductQuantityBt.isEnabled = true
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -287,14 +294,14 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
                     } else {
 //                      notifyItemChanged(position)
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     addProductQuantityBt.isEnabled = true
                     removeProductQuantityBt.isEnabled = true
                     addProductQuantityBt.isEnabled = true
 //                    notifyItemChanged(position)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -317,10 +324,10 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         productDetailResponse = result
                         setData()
                     } else
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                 }, { error ->
                     setProgressState(View.GONE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -352,20 +359,28 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         productQuantityTv.setText(productDetail.cartQuantity!!.toString())
         productImagePager.adapter = SlidingImageAdapter(this, productDetail.productImage!!)
         pageIndicatorView.setViewPager(productImagePager)
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            tv_product_title.text = productDetail.productName
+            tv_product_desc.text = productDetail.productDescription
+            txt_toolbar.text = productDetail.productName
+        }else
+        {
+            tv_product_title.text = productDetail.ar_product_name
+            tv_product_desc.text = productDetail.ar_product_description
+            txt_toolbar.text = productDetail.ar_product_name
+        }
 
-        tv_product_title.text = productDetail.productName
-        tv_product_desc.text = productDetail.productDescription
-        txt_toolbar.text = productDetail.productName
+
         var amount = ""
 
         if (!productDetail.offerPrice.isNullOrEmpty()) {
             original_price_layout.visibility = View.VISIBLE
             tv_offer_expire_on.visibility = View.VISIBLE
             if (!productDetail.avgPrice.isNullOrEmpty()) {
-                amount = NumberFormat.getInstance().format(productDetail.avgPrice!!.toDouble()) + " " + getString(R.string.omr)
+                amount = String.format("%.3f", productDetail.avgPrice!!.toDouble()) + " " + getString(R.string.omr)
                 tv_original_amount.text = amount
             }
-            amount = NumberFormat.getInstance().format(productDetail.offerPrice!!.toDouble()) + " " + getString(R.string.omr)
+            amount = String.format("%.3f", productDetail.offerPrice!!.toDouble()) + " " + getString(R.string.omr)
             tv_product_amount.text = amount
             val offerExpireDate = getString(R.string.offer_expire_on) + " " + Utils.getInstance().convertTimeFormatAndTimeZone(productDetail.offerExpiresOn
                     ?: "", "yyyy-MM-dd", "dd MMM yyyy")
@@ -374,12 +389,21 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             tv_offer_expire_on.visibility = View.GONE
             original_price_layout.visibility = View.GONE
             if (!productDetail.avgPrice.isNullOrEmpty()) {
-                amount = NumberFormat.getInstance().format(productDetail.avgPrice!!.toDouble()) + " " + getString(R.string.omr)
+                amount = String.format("%.3f", productDetail.avgPrice!!.toDouble()) + " " + getString(R.string.omr)
                 tv_product_amount.text = amount
             }
         }
+        var weight: String = ""
+        if (productDetail.weightIn!!.equals("Ml"))
+            weight = getString(R.string.weight) + " - " + productDetail.weight + " " + getString(R.string.Ml)
+        else if (productDetail.weightIn!!.equals("Kg"))
+            weight = getString(R.string.weight) + " - " + productDetail.weight + " " + getString(R.string.Kg)
+        else if (productDetail.weightIn!!.equals("Lt"))
+            weight = getString(R.string.weight) + " - " + productDetail.weight + " " + getString(R.string.Lt)
+        else if (productDetail.weightIn!!.equals("Gm"))
+            weight = getString(R.string.weight) + " - " + productDetail.weight + " " + getString(R.string.Gm)
 
-        val weight = getString(R.string.weight) + " - " + productDetail.weight + " " + productDetail.weightIn
+//        val weight = getString(R.string.weight) + " - " + productDetail.weight + " " + productDetail.weightIn
         tv_product_weight.text = weight
         addToWishList.text = if (productDetail.isWishlist == 0) getString(R.string.add_to_wish_list) else getString(R.string.added_to_wish_list)
 
@@ -387,10 +411,18 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         ratingBar.rating = productDetail.avgRating?.toFloat() ?: 0.0F
 
         val brand = getString(R.string.brand) + " - " + productDetail.brandName
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            val brand = getString(R.string.brand) + " - " + productDetail.brandName
+            tv_product_brand.text = brand
+        }else
+        {
+            val brand = getString(R.string.brand) + " - " + productDetail.ar_brand_name
+            tv_product_brand.text = brand
+        }
 
         showProductCategory()
 
-        tv_product_brand.text = brand
+
         if (productDetailResponse.response!!.data!!.relatedProducts!!.isNotEmpty()) {
             val llm = LinearLayoutManager(this)
             llm.orientation = LinearLayoutManager.HORIZONTAL
@@ -403,8 +435,15 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             similarProductTv.visibility = View.GONE
             similarProductRecyclerView.visibility = View.GONE
         }
+
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            shareDialog!!.productTitle = productDetail.productName!!
+        }else
+        {
+            shareDialog!!.productTitle = productDetail.ar_product_name!!
+        }
         shareDialog!!.productPrice = amount
-        shareDialog!!.productTitle = productDetail.productName!!
+
         shareDialog!!.shareImageURL = productDetailResponse.response!!.data!!.product!!.productImage!![0]
         saveProductImage()
     }
@@ -417,7 +456,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             category += if (i == productDetail.category!!.size - 1) {
                 productDetail.category!![i].categoryName!!
             } else
-                productDetail.category!![i].categoryName!! + ", "
+                productDetail.category!![i].ar_category_name!! + ", "
         }
         tv_product_categories.text = category
 
@@ -428,7 +467,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 subCategory += if (i == productDetail.subCategory!!.size - 1) {
                     productDetail.subCategory!![i].categoryName!!
                 } else
-                    productDetail.subCategory!![i].categoryName!! + ", "
+                    productDetail.subCategory!![i].ar_category_name!! + ", "
             }
             tv_product_sub_categories.text = subCategory
         }
@@ -508,11 +547,11 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         SampleRxJavaBus.getInstance().objectPublishSubject.onNext(if (flag == "2") 0 else 1)
 
                     } else
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
 
                 }, { error ->
                     addToWishList.isEnabled = true
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -533,7 +572,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     notifyMeButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     /* if (result.response!!.status!!) {
 
                          productList[position].isWishlist = if (flag.equals("2")) 0 else 1
@@ -545,7 +584,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 }, { error ->
                     notifyMeButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -578,7 +617,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     rl_add_sub.visibility = View.VISIBLE
                     addToCart.visibility = View.GONE
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         productDetail.cartQuantity = 1
@@ -588,7 +627,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 }, { error ->
                     addToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

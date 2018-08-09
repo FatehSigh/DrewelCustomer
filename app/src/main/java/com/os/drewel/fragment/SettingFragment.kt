@@ -293,7 +293,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                 .subscribe({ result ->
                     // DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,context!!)
                     setProgressState(View.GONE, true)
-                    Toast.makeText(activity, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         prefs!!.setPreferenceStringData(prefs!!.KEY_USER_ID, "")
@@ -310,7 +310,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 })
     }
@@ -331,14 +331,14 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                     switch_off_on_notification.isEnabled = true
                     setProgressState(View.GONE, true)
 
-                    Toast.makeText(activity, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     if (result.response!!.status!!) {
                         pref!!.setPreferenceStringData(pref!!.KEY_NOTIFICATION_STATUS, status)
                     }
                 }, { error ->
                     switch_off_on_notification.isEnabled = true
                     setProgressState(View.GONE, true)
-                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 })
     }

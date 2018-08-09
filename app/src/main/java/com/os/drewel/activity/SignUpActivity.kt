@@ -96,7 +96,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                         setProgressState(View.VISIBLE, false)
                         callSignUpApi()
                     } else
-                        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
                 }
                 // startActivity(Intent(this, MainActivity::class.java))
@@ -161,7 +161,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     /* hide progress bar*/
                     setProgressState(View.GONE, true)
 
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         val intent = Intent(this, OTPVerificationActivity::class.java)
@@ -171,11 +171,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

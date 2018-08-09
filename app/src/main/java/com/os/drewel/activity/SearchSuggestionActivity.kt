@@ -74,9 +74,9 @@ class SearchSuggestionActivity : BaseActivity() {
         /* handle api call when user type fast to search product.*/
         RxTextView.textChangeEvents(search_product)
                 .debounce(400, TimeUnit.MILLISECONDS)
-               // Better store the value in a constant like Constant.DEBOUNCE_SEARCH_REQUEST_TIMEOUT
+                // Better store the value in a constant like Constant.DEBOUNCE_SEARCH_REQUEST_TIMEOUT
                 .map {
-                    if(it.text().toString().trim().isEmpty()){
+                    if (it.text().toString().trim().isEmpty()) {
                         clearSearchResult()
                     }
                     it.text().toString().trim()
@@ -85,11 +85,11 @@ class SearchSuggestionActivity : BaseActivity() {
                     it.length > 0
                 }
                 .flatMap {
-                    getSearch(it) .subscribeOn(Schedulers.io())
+                    getSearch(it).subscribeOn(Schedulers.io())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,this)
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     Log.d("result", result.toString())
                     if (result.response!!.status == true) {
                         searchSuggestionList = result.response!!.data!!.suggestions!!
@@ -97,33 +97,33 @@ class SearchSuggestionActivity : BaseActivity() {
                         setSearchAdapter()
                     } else {
                         searchSuggestionRecyclerView.visibility = View.INVISIBLE
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }
-                 , { error ->
+                        , { error ->
                     //Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     Log.e("TAG", "{$error.message}")
                 }
                 )
     }
 
-    private fun clearSearchResult(){
-      runOnUiThread({
-          searchSuggestionList= ArrayList()
-              setSearchAdapter()
+    private fun clearSearchResult() {
+        runOnUiThread({
+            searchSuggestionList = ArrayList()
+            setSearchAdapter()
 
-      })
+        })
     }
 
     private fun setSearchAdapter() {
         if (searchSuggestionAdapter == null) {
             searchSuggestionRecyclerView.layoutManager = LinearLayoutManager(this)
-            searchSuggestionAdapter = SearchSuggestionAdapter(this,searchSuggestionList)
+            searchSuggestionAdapter = SearchSuggestionAdapter(this, searchSuggestionList)
             searchSuggestionRecyclerView.adapter = searchSuggestionAdapter
 
         } else
-            searchSuggestionAdapter?.searchSuggestionList=searchSuggestionList
-            searchSuggestionRecyclerView.adapter.notifyDataSetChanged()
+            searchSuggestionAdapter?.searchSuggestionList = searchSuggestionList
+        searchSuggestionRecyclerView.adapter.notifyDataSetChanged()
 
     }
 

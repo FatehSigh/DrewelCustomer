@@ -65,10 +65,10 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
                     if (result.response!!.status!!) {
                         callMyCurrentOrderApi()
                     } else {
-                        Toast.makeText(activity, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     }
                 }, { error ->
-                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -140,7 +140,7 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         super.onDestroy()
     }
 
-    private fun setProgressState(visibility: Int) {
+    private fun setProgressState(visibility: Int) { if (isAdded)
         progressBar.visibility = visibility
     }
 

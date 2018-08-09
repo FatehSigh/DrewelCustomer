@@ -16,6 +16,7 @@ import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.DateUtils
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -179,12 +180,13 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext("0")
                         noItemAvailableTv.visibility = View.VISIBLE
                         setProgressState(View.GONE, View.GONE)
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
+//                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
 
                     }
                 }, { error ->
                     setProgressState(View.GONE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -211,13 +213,13 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
             totalItemQuantity += quantity
             totalAmount += price * quantity
         }
-        tv_amount_total.text = DecimalFormat("#.###").format(totalAmount) + " " + getString(R.string.omr)
+        tv_amount_total.text = String.format("%.3f",totalAmount)  + " " + getString(R.string.omr)
         orderItemQuantity = totalItemQuantity.toString()
         productQuantityTv.text = totalItemQuantity.toString()
         val nf = NumberFormat.getNumberInstance(Locale.US)
         val formatter = nf as DecimalFormat
         formatter.applyPattern("#.###")
-        val fString = formatter.format(totalAmount)
+        val fString =/*String.format("%.3f",totalAmount)*/ formatter.format(totalAmount)
 //        return convertNumbersToEnglish(fString)
         orderNetPrice = fString
 //        orderNetPrice = DecimalFormat("#.###").format((totalAmount))
@@ -242,7 +244,7 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
             }
             R.id.checkoutBt -> {
                 if (cartItemAdapter?.isAnyProductOutOfStock!!) {
-                    Toast.makeText(this, getString(R.string.remove_item_which_are_out_of_stock), Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this,getString(R.string.remove_item_which_are_out_of_stock))
 
                 } else {
                     if (cartResponse!=null && cartResponse!!.is_edited!!.isNotEmpty() && cartResponse!!.is_edited!!.equals("1")){

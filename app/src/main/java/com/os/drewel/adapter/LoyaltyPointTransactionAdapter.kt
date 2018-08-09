@@ -26,7 +26,7 @@ class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTra
     override fun onBindViewHolder(holder: LoyaltyPointTransactionHolder, position: Int) {
 
         ImageLoader.getInstance().displayImage(loyaltyPointsTransaction[position].img, holder.itemView.userImageIv, DrewelApplication.getInstance().options)
-        holder.itemView.amountTv.text = NumberFormat.getInstance().format(loyaltyPointsTransaction[position].loyaltyPoints!!.toFloat())
+        holder.itemView.amountTv.text = NumberFormat.getInstance().format(loyaltyPointsTransaction[position].loyaltyPoints!!.toFloat())+" "+ mContext.getString(R.string.omr)
         val earnedStr = StringBuffer()
         when {
             loyaltyPointsTransaction[position].type.toString() == "Credit" -> {

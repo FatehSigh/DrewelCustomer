@@ -30,6 +30,7 @@ import com.os.drewel.apicall.responsemodel.saveaddressresponsemodel.Response
 import com.os.drewel.apicall.responsemodel.searchproductresponsemodel.SearchProductResponse
 import com.os.drewel.apicall.responsemodel.searchsuggestionresponsemodel.SearchSuggestionResponse
 import com.os.drewel.apicall.responsemodel.unreadnotificationresponsemodel.UnreadNotificationResponse
+import com.os.drewel.apicall.responsemodel.walletTransactionResponseModel.TransactionResponse
 import com.os.drewel.apicall.responsemodel.wishlistresponsemodel.WishlistResponse
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -41,7 +42,7 @@ import retrofit2.http.*
  */
 interface DrewelApi {
     companion object {
-        //        const val BASE_URL = "http://192.168.1.92/drewel/web_services/";
+//        const val BASE_URL = "http://192.168.1.92/drewel/web_services/";
         const val BASE_URL = "https://56.octallabs.com/drewel/web_services/"
         const val HOW_ITS_WORK_URL = "https://56.octallabs.com/drewel/how-it-works"
         const val TERMS_OF_USE_URL = "https://56.octallabs.com/drewel/terms-of-use"
@@ -246,6 +247,10 @@ interface DrewelApi {
     @POST("delete_notification")
     fun deleteNotification(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
 
+    @Headers("Content-Type: application/json")
+    @POST("clear_order")
+    fun clear_order(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
+
 
     @Headers("Content-Type: application/json")
     @POST("product_request")
@@ -274,5 +279,9 @@ interface DrewelApi {
     @Headers("Content-Type: application/json")
     @POST("order_address_save")
     fun order_address_save(@Body addressListRequest: Map<String, String>): Observable<com.os.drewel.apicall.responsemodel.saveaddressresponsemodel.AddressListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("wallet_list")
+    fun getTransactions(@Body getNotificationRequest: Map<String, String>): Observable<TransactionResponse>
 
 }

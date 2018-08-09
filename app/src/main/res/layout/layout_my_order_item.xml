@@ -38,7 +38,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@+id/btn_reorder"
                         android:orientation="horizontal">
 
                         <TextView
@@ -104,19 +103,23 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintEnd_toEndOf="parent" />
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/btn_reorder"
+                            android:layout_width="@dimen/_21sdp"
+                            android:layout_height="@dimen/_21sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:background="@drawable/reorder_background_active"
+                            android:fontFamily="@font/roboto_medium_0"
+                            android:text="@string/reorder"
+                            android:src="@mipmap/reorder"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_12sdp"
+                            android:visibility="gone" />
                     </LinearLayout>
-                    ?
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/btn_reorder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/reorder_background_active"
-                        android:fontFamily="@font/roboto_medium_0"
-                        android:text="@string/reorder"
-                        android:textColor="@color/green"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone" />
+
+
                 </RelativeLayout>
 
                 <LinearLayout

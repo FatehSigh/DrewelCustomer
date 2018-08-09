@@ -165,14 +165,14 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     order_detail_btn_cancel.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this, result.response!!.message!!)
                     if (result.response!!.status!!) {
                         order_detail_btn_cancel.visibility = View.GONE
                     }
                 }, { error ->
                     order_detail_btn_cancel.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -199,7 +199,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     reorderTv.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this, result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         pref!!.setPreferenceStringData(pref!!.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
@@ -209,7 +209,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                 }, { error ->
                     reorderTv.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -241,7 +241,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -264,17 +264,36 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
 
         order_detail_txt_payment_type.text = myOrderDetailResponse?.order?.paymentMode
 
-        order_detail_txt_subtotal.text = NumberFormat.getInstance().format(myOrderDetailResponse?.order?.netAmount!!.toDouble()) + " " + getString(R.string.omr)
-        order_detail_txt_delivery_fee.text = NumberFormat.getInstance().format(myOrderDetailResponse?.order?.deliveryCharges!!.toDouble()) + " " + getString(R.string.omr)
+        order_detail_txt_subtotal.text = String.format("%.3f", myOrderDetailResponse?.order?.netAmount!!.toDouble()) + " " + getString(R.string.omr)
+        order_detail_txt_delivery_fee.text = String.format("%.3f", myOrderDetailResponse?.order?.deliveryCharges!!.toDouble()) + " " + getString(R.string.omr)
 
-        order_detail_txt_total_amount.text = NumberFormat.getInstance().format(myOrderDetailResponse?.order?.totalAmount!!.toDouble()) + " " + getString(R.string.omr)
+        order_detail_txt_total_amount.text = String.format("%.3f", myOrderDetailResponse?.order?.totalAmount!!.toDouble()) + " " + getString(R.string.omr)
 
         val totalDiscount = myOrderDetailResponse?.order?.loyaltyDiscount!!.toDouble() + myOrderDetailResponse?.order?.couponDiscount!!.toDouble()
 
-        order_detail_txt_discount.text = NumberFormat.getInstance().format(totalDiscount) + " " + getString(R.string.omr)
+        order_detail_txt_discount.text = String.format("%.3f", totalDiscount.toDouble()) + " " + getString(R.string.omr)
 
         order_detail_txt_order_status.text = myOrderDetailResponse?.order?.orderDeliveryStatus
-        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals(getString(R.string.pending)))
+
+        if (myOrderDetailResponse?.order?.paymentMode.equals("COD"))
+            order_detail_txt_payment_type.text = getString(R.string.COD)
+        else
+            order_detail_txt_payment_type.text = myOrderDetailResponse?.order?.paymentMode
+
+        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Cancelled"))
+            order_detail_txt_order_status.text = getString(R.string.Cancelled)
+        else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Not Cancelled"))
+            order_detail_txt_order_status.text = getString(R.string.NotCancelled)
+        else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Pending"))
+            order_detail_txt_order_status.text = getString(R.string.Pending)
+        else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Under Packaging"))
+            order_detail_txt_order_status.text = getString(R.string.UnderPackaging)
+        else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Ready To Deliver"))
+            order_detail_txt_order_status.text = getString(R.string.ReadyToDeliver)
+        else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Delivered"))
+            order_detail_txt_order_status.text = getString(R.string.delivered)
+
+        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Pending"))
             reorderTv.visibility = GONE
         if (showCancelButton())
             order_detail_btn_cancel.visibility = View.VISIBLE
@@ -288,7 +307,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
             order_detail_btn_track_order.visibility = View.GONE
             order_detail_txt_order_call_captain.visibility = View.GONE
         }
-
+        order_detail_txt_order_call_captain.setOnClickListener(this)
 
         if (myOrderDetailResponse!!.deliveryBoy != null) {
             order_detail_lyt_delivery_boy.visibility = View.VISIBLE
@@ -306,8 +325,6 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
 
         if (myOrderDetailResponse?.deliveryBoy != null)
             return true
-
-
         return false
     }
 

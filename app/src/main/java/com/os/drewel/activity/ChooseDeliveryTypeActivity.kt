@@ -57,13 +57,13 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
         deliveryChargesResponse = intent.getParcelableExtra("Data")
-        txt_delivery_charges.setText(getString(R.string.omr) + " " + deliveryChargesResponse!!.expediteDeliveryCharges)
+        txt_delivery_charges.setText(getString(R.string.omr) + " " + String.format("%.3f", deliveryChargesResponse!!.expediteDeliveryCharges!!.toDouble()))
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         txt_submit.setOnClickListener(this)
-        deliver_now.setOnClickListener(this)
+        txt_delivery_charges.setOnClickListener(this)
         val startDate = Calendar.getInstance()
         startDate.add(Calendar.DATE, 0)
         /* ends after 1 month from now */
@@ -113,7 +113,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
         when (view.id) {
             R.id.txt_submit -> {
                 if (deliveryType.isEmpty() || deliveryDate.isEmpty() || deliveryTimeSlotStartTime.isEmpty() || deliveryTimeSlotEndTime.isEmpty()) {
-                    Toast.makeText(this, "Please select Time Slot.", Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, getString(R.string.choose_delivery_time_slot_validation))
                 } else {
                     val intent = Intent()
                     intent.putExtra("deliveryDate", deliveryDate)
@@ -124,7 +124,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                     finish()
                 }
             }
-            R.id.deliver_now -> {
+            R.id.txt_delivery_charges -> {
                 val startCalendar = Calendar.getInstance()
                 if (startCalendar.get(Calendar.MINUTE) < 30) {
                     startCalendar.set(Calendar.MINUTE, 0)
@@ -191,16 +191,25 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                 var timeSlotModel = TimeSlotModel()
                 timeSlotModel.isCheck = false
                 timeSlotModel.slot = "$slotStartTime - $slotEndTime"
-                if (isToday)
-                    timeSlotModel.fare = getString(R.string.omr) + " " + deliveryChargesResponse!!.sameDayDeliveryCharge!!
-                else
-                    timeSlotModel.fare = getString(R.string.omr) + " " + deliveryChargesResponse!!.deliveryCharge!!
+                if (isToday) {
+                    timeSlotModel.fare =  String.format("%.3f", deliveryChargesResponse!!.sameDayDeliveryCharge!!.toDouble())+" "+getString(R.string.omr)
+                    timeSlotModel.deliverType = Constants.SAME_DAY_DELIVERY
+                } else {
+                    timeSlotModel.fare =  String.format("%.3f", deliveryChargesResponse!!.deliveryCharge!!.toDouble())+" "+getString(R.string.omr)
+                    timeSlotModel.deliverType = Constants.NEXT_DAY_DELIVERY
+                }
                 if (isToday) {
                     Log.e("strt", strt.toString())
                     Log.e("end", end.toString())
                     if (strt.after(Calendar.getInstance().time)) {
                         timeSlotList.add(timeSlotModel)
                     } else {
+                        if (strt.before(Calendar.getInstance().time) && end.after(Calendar.getInstance().time)) {
+                            timeSlotModel.fare =String.format("%.3f", deliveryChargesResponse!!.expediteDeliveryCharges!!.toDouble())+" "+getString(R.string.omr)
+                            timeSlotModel.deliverType = Constants.DELIVERY_NOW
+                            timeSlotList.add(timeSlotModel)
+
+                        }
 //                        if (end.before(Calendar.getInstance().time)) {
 //                            var remaining = (amount * 100) / 75
 //                            val date1 = strt
@@ -231,10 +240,13 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                         }
                         timeSlotAdapter!!.notifyDataSetChanged()
                         selectedTimeSlot = timeSlotList[position].slot
-                        if (isToday)
-                            deliveryType = Constants.SAME_DAY_DELIVERY
-                        else
-                            deliveryType = Constants.NEXT_DAY_DELIVERY
+                        deliveryType = timeSlotList[position].deliverType
+//                        if (isToday){
+//                            deliveryType = Constants.SAME_DAY_DELIVERY
+//                        }
+//
+//                        else
+//                            deliveryType = Constants.NEXT_DAY_DELIVERY
                         val timeSlotAry = selectedTimeSlot.split("-")
                         deliveryTimeSlotStartTime = Utils.getInstance().convertTimeFormat(timeSlotAry[0], "hh:mm a", "HH:mm:ss")
                         deliveryTimeSlotEndTime = Utils.getInstance().convertTimeFormat(timeSlotAry[1], "hh:mm a", "HH:mm:ss")
@@ -249,7 +261,8 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                     deliverySlotSelect!!.dispose()
 
             } else {
-                Toast.makeText(this, getString(R.string.no_time_slot_available_today), Toast.LENGTH_SHORT).show()
+                Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
+
 //                    chooseDeliveryTypeTv.text = ""
             }
 //            } else {
@@ -330,11 +343,11 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                         deliverySlotSelect!!.dispose()
 
                 } else {
-                    Toast.makeText(this, getString(R.string.no_time_slot_available_today), Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
 //                    chooseDeliveryTypeTv.text = ""
                 }
             } else {
-                Toast.makeText(this, getString(R.string.no_time_slot_available_today), Toast.LENGTH_SHORT).show()
+                Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
 //                chooseDeliveryTypeTv.text = ""
             }
         } catch (e: Exception) {

@@ -123,11 +123,12 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                     if (NetworkUtils.isConnected())
                         otpVerificationAPI(otp_tv_otp_1.text.toString() + otp_tv_otp_2.text.toString() + otp_tv_otp_3.text.toString() + otp_tv_otp_4.text.toString())
                     else
-                        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
 
                 } else {
-                    Toast.makeText(this, getString(R.string.incomplete_otp), Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.incomplete_otp))
+
                 }
 
             }
@@ -136,7 +137,7 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                 if (NetworkUtils.isConnected()) {
                     resendOtpVerificationAPI()
                 } else
-                    Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
             }
 
@@ -159,7 +160,7 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
 
 //                        val prefs = Prefs.getInstance(this)
@@ -191,7 +192,7 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -214,7 +215,7 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                         resendOTPLayout.isEnabled = false
                         setTimerForOTP()
@@ -226,7 +227,7 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

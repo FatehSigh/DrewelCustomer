@@ -69,8 +69,7 @@
                     android:id="@+id/PhoneNumberEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:maxLength="10"
+                    android:inputType="number"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
@@ -324,7 +323,37 @@
                     android:theme="@style/EditTextHint"
                     app:backgroundTint="@color/violet_1" />
             </android.support.design.widget.TextInputLayout>
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/fulladdressTextLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/delivery_address"-->
+                <!--android:theme="@style/TextInputHint">-->
 
+                <android.support.v7.widget.AppCompatTextView
+                    android:visibility="gone"
+                    android:id="@+id/fulladdressEditText"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:hint="@string/delivery_address"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:textColorHint="@color/grey_color_txt"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:theme="@style/EditTextHint"
+                    app:backgroundTint="@color/violet_1" />
+            <View
+                android:visibility="gone"
+                android:id="@+id/view_fulladdress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grey_color_txt"/>
+            <!--</android.support.design.widget.TextInputLayout>-->
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/saveDeliveryDetailBt"
                 style="@style/ButtonTextStyle"

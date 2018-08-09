@@ -9,6 +9,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
 import com.os.drewel.apicall.responsemodel.couponresponsemodel.Coupon
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.Constants
 import com.os.drewel.utill.DateUtils
 import com.os.drewel.utill.Utils
 import io.reactivex.subjects.PublishSubject
@@ -35,11 +36,17 @@ class DiscountAdapter(val mContext: Context?, private val couponList: List<Coupo
 
         holder.itemView.expireDateTv.text = expireDate
 
-        holder.itemView.offerDescriptionTv.text = couponList[position].couponDescription
+
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            holder.itemView.offerDescriptionTv.text = couponList[position].couponDescription
+        }else {
+            holder.itemView.offerDescriptionTv.text = couponList[position].ar_coupon_description
+        }
+
         if (couponList[position].discountType.equals("Percent"))
         holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())+" %"
         else
-            holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())+" "+mContext!!.getString(R.string.omr)
+            holder.itemView.discountPercentageTv.text = String.format("%.3f",couponList[position].discount!!.toDouble()) +" "+mContext!!.getString(R.string.omr)
         holder.itemView.couponCodeTv.text = couponList[position].couponCode
         if (isFromCheckout) {
             holder.itemView.isRedeemTv.visibility = View.VISIBLE

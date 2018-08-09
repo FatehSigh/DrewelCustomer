@@ -29,7 +29,7 @@ open class BaseFragment : Fragment() {
         if (NetworkUtils.isConnected()) {
             return true
         }
-            Toast.makeText(context, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+        com.os.drewel.utill.Utils.getInstance().showToast(context,getString(R.string.error_network_connection))
             return false
 
     }

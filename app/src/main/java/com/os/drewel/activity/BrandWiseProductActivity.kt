@@ -51,7 +51,7 @@ class BrandWiseProductActivity : ProductBaseActivity() {
             productAdapter = ProductAdapter(this)
             productAdapter!!.productList = productList
             brandWiseProductRecyclerView.layoutManager = GridLayoutManager(this, 2)
-            brandWiseProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(16, EqualSpacingItemDecoration.GRID))
+            brandWiseProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(10, EqualSpacingItemDecoration.GRID))
             brandWiseProductRecyclerView.adapter = productAdapter
 
         } else {

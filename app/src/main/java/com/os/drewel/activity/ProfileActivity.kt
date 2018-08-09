@@ -103,7 +103,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                         val intent = Intent(this, OTPVerificationActivityProfile::class.java)
                         intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, edt_profile_mobile_number.text.toString().trim())
@@ -117,7 +117,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -159,11 +159,11 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                         profileResponseData = result.response!!.data
                         setProfileData()
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -187,7 +187,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                         prefs!!.setPreferenceStringData(prefs!!.KEY_FIRST_NAME, result.response!!.data!!.firstName!!)
                         prefs!!.setPreferenceStringData(prefs!!.KEY_MOBILE, result.response!!.data!!.mobileNumber!!)
@@ -210,7 +210,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -261,7 +261,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                         if (txt_verify.text.toString().equals(getString(R.string.verified))) {
                             if (isNetworkAvailable())
                                 callEditProfiledApi()
-                        } else Toast.makeText(this, getString(R.string.verify_otp), Toast.LENGTH_LONG).show()
+                        } else com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.verify_otp))
+
                     } else {
                         txt_verify.visibility = View.GONE
                         if (isNetworkAvailable())
@@ -281,6 +282,13 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             return false
         }
         profile_til_first_name.isErrorEnabled = false
+
+        if (TextUtils.isEmpty(edt_profile_last_name.text.toString().trim())) {
+            profile_til_last_name.error = getString(R.string.please_enter_lastname)
+            profile_til_last_name.requestFocus()
+            return false
+        }
+        profile_til_last_name.isErrorEnabled = false
 
         if (TextUtils.isEmpty(edt_profile_mobile_number.text.toString().trim())) {
             profile_til_mobile_number.error = getString(R.string.enter_phone_number)

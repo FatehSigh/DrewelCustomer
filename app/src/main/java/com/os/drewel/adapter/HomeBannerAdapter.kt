@@ -24,7 +24,6 @@ class HomeBannerAdapter(val mContext: Context?, private val homeBannerList: List
     override fun onBindViewHolder(holder: HomeBannerHolder, position: Int) {
 
         ImageLoader.getInstance().displayImage(homeBannerList[position].img, holder.itemView.offerIv, DrewelApplication.getInstance().options)
-
 //        val viewWidthToBitmapWidthRatio = holder.itemView.offerIv.getWidth() as Double / bitmap.getWidth() as Double
 //        holder.itemView.offerIv.getLayoutParams().height = bitmap.getHeight() * viewWidthToBitmapWidthRatio
     }

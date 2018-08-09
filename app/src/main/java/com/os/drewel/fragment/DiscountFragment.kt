@@ -112,11 +112,11 @@ class DiscountFragment : BaseFragment() {
                         setAdapter()
 
                     } else
-                        Toast.makeText(context, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
 
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

@@ -2,6 +2,7 @@
 package com.os.drewel.apicall.responsemodel.searchproductresponsemodel;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.os.drewel.apicall.responsemodel.Product;

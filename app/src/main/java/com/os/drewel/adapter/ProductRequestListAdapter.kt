@@ -171,14 +171,14 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
                     itemView.txt_delete.isEnabled = true
                     progressDialog?.dismiss()
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                     }
                 }, { error ->
                     itemView.txt_delete.isEnabled = true
                     progressDialog?.dismiss()
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

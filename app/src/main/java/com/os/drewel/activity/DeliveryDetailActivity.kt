@@ -1,5 +1,6 @@
 package com.os.drewel.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,11 +15,19 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v4.widget.ImageViewCompat
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlaceAutocomplete
+import com.google.android.gms.maps.model.LatLng
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -43,20 +52,58 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         if (intent != null)
-            if (intent.getIntExtra("TYPE", 0) == 2) {
-                from = 2
+            from = intent.getIntExtra("TYPE", 0)
+        if (from==3) {
+            fulladdressEditText.visibility = View.VISIBLE
+            view_fulladdress.visibility = View.VISIBLE
+        }
 //                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 //                supportActionBar!!.setDisplayShowHomeEnabled(false)
-            }
         saveDeliveryDetailBt.setOnClickListener(this)
         addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
         setSelector(APARTMENT)
+        fulladdressEditText.setOnClickListener(this)
         rl_house.setOnClickListener(this)
         rl_apartment.setOnClickListener(this)
         rl_office.setOnClickListener(this)
     }
+var place:Place?=null
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    place = PlaceAutocomplete.getPlace(this, data)
+                    Log.i("onActivityResult", "Place: " + place!!.name)
+                    Log.i("onActivityResult", "Place: " + place!!.address)
+                    Log.i("onActivityResult", "Place: " + place!!.latLng)
+                    val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                    logoutAlertDialog.setTitle(getString(R.string.app_name))
+                    logoutAlertDialog.setMessage(getString(R.string.want_to_defaultaddress))
+                    logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+                        logoutAlertDialog.dismiss()
+//                        if (isNetworkAvailable())
+//                            callAddAddressApi(place.name.toString(), place.address.toString(), place.latLng.latitude, place.latLng.longitude, "", ",", "", "", "", "")
+
+                    })
+                    logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+                        logoutAlertDialog.dismiss()
+                    })
+                    logoutAlertDialog.show()
 
 
+                }
+                PlaceAutocomplete.RESULT_ERROR -> {
+
+                    val status = PlaceAutocomplete.getStatus(this, data)
+                    Log.i("onActivityResult", status.statusMessage)
+                    Utils.getInstance().showToast(this,status.statusMessage!!)
+                }
+                RESULT_CANCELED -> // The user canceled the operation.
+                    Log.e("onActivityResult", "canceled")
+            }
+        }
+    }
     override fun onClick(view: View) {
         when (view.id) {
             R.id.saveDeliveryDetailBt -> {
@@ -90,6 +137,17 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
 
                 }
             }
+            R.id.fulladdressEditText->{
+                                try {
+                    val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(this)
+                    startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
+                } catch (e: GooglePlayServicesRepairableException) {
+                    Utils.getInstance().showToast(this, e.message!!)
+                } catch (e: GooglePlayServicesNotAvailableException) {
+                    Utils.getInstance().showToast(this, e.message!!)
+                }
+            }
             R.id.rl_apartment -> {
                 setSelector(APARTMENT)
                 ApartmentNumEditText.requestFocus()
@@ -113,14 +171,31 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private fun callAddAddressApi(address: String, delivery_address_type: String, mobile_number: String, landmark: String, name: String) {
+        progressBar.visibility = View.VISIBLE
+        saveDeliveryDetailBt.isEnabled = false
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+//        if (from==3){
+//            addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
+//            addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
+//            addDeliveryAddressRequest["address"] = address
+//            addDeliveryAddressRequest["name"] = name
+//            addDeliveryAddressRequest["is_default"] = "1"
+//            addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+//            addDeliveryAddressRequest["zip_code"] =
+//        }else{
+//            addDeliveryAddressRequest["address_id"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID)
+//            addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
+//            addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
+//        }
+
         addDeliveryAddressRequest["address_id"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID)
+        addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
+        addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
         addDeliveryAddressRequest["delivery_address"] = address
         addDeliveryAddressRequest["deliver_to"] = name
         addDeliveryAddressRequest["delivery_address_type"] = delivery_address_type
-        addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
-        addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
+
         addDeliveryAddressRequest["delivery_landmark"] = landmark
         addDeliveryAddressRequest["cart_id"] = pref!!.getPreferenceStringData(pref!!.KEY_CART_ID)
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -129,14 +204,18 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
         compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    progressBar.visibility = View.GONE
+                    saveDeliveryDetailBt.isEnabled = true
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     if (result.response!!.status!!) {
                         saveDefaultAddressToPref(address, name, mobile_number, address, landmark, delivery_address_type)
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    progressBar.visibility = View.GONE
+                    saveDeliveryDetailBt.isEnabled = true
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

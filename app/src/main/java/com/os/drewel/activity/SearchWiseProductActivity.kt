@@ -91,13 +91,13 @@ class SearchWiseProductActivity : ProductBaseActivity() {
 
 
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                         brandWiseProductRecyclerView.visibility = View.GONE
 
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -107,8 +107,8 @@ class SearchWiseProductActivity : ProductBaseActivity() {
         if (productAdapter == null) {
             productAdapter = ProductAdapter(this)
             productAdapter!!.productList = productList
-            brandWiseProductRecyclerView.layoutManager = GridLayoutManager(this, 2)
-            brandWiseProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(16, EqualSpacingItemDecoration.GRID))
+            brandWiseProductRecyclerView.layoutManager = GridLayoutManager(this,2 )
+            brandWiseProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(10, EqualSpacingItemDecoration.GRID))
             brandWiseProductRecyclerView.adapter = productAdapter
 
         } else {

@@ -22,6 +22,7 @@ import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -87,7 +88,7 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
             logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                 logoutAlertDialog.dismiss()
                 if (addressList.isNotEmpty() && addressList[addressPosition].isDefault.equals("1")) {
-                    Toast.makeText(this, getString(R.string.cant_delete_default_address), Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, getString(R.string.cant_delete_default_address))
                 } else
                     callDeleteAddressApi(addressPosition)
             })
@@ -121,14 +122,16 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.searchDeliveryAddress -> {
+//                startActivity(Intent(this,DeliveryDetailActivity::class.java).putExtra("TYPE", 3))
+
                 try {
                     val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
                             .build(this)
                     startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
                 } catch (e: GooglePlayServicesRepairableException) {
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this, e.message!!)
                 } catch (e: GooglePlayServicesNotAvailableException) {
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this, e.message!!)
                 }
             }
             R.id.deliveryAddressDoneBt -> {
@@ -180,7 +183,7 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
 
                     val status = PlaceAutocomplete.getStatus(this, data)
                     Log.i("onActivityResult", status.statusMessage)
-                    Toast.makeText(this, status.statusMessage, Toast.LENGTH_SHORT).show()
+                    Utils.getInstance().showToast(this,status.statusMessage!!)
                 }
                 RESULT_CANCELED -> // The user canceled the operation.
                     Log.e("onActivityResult", "canceled")
@@ -243,12 +246,12 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         if (isNetworkAvailable())
                             callAddAddressApi(name, address, latitude, longitude, postalCode, ",", "", "", "", "")
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     }
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -289,12 +292,12 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         setAdapter()
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     }
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -334,11 +337,11 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         setAdapter()
                     } else {
                         setDoneButtonVisibility(View.GONE, View.GONE)
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     setDoneButtonVisibility(View.GONE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -370,10 +373,10 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                                 ?: "", addressList[addressPosition].delivery_address_type
                                 ?: "", addressList[addressPosition].zip_code ?: "")
                     } else
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -395,10 +398,10 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         addressList.removeAt(addressPosition)
                         deliverListAdapter!!.notifyItemRemoved(addressPosition)
                     } else
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

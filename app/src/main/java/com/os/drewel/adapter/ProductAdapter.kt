@@ -28,6 +28,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.rxbus.SampleRxJavaBus
@@ -57,30 +58,42 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
         val linearPram = LinearLayout.LayoutParams(imageViewHeight, LinearLayout.LayoutParams.WRAP_CONTENT)
         holder.itemView.productListRootLL.layoutParams = linearPram
 
-        val relativePram = RelativeLayout.LayoutParams(imageViewHeight, imageViewHeight)
-        holder.itemView.imv_product.layoutParams = relativePram
+//        val relativePram = RelativeLayout.LayoutParams(imageViewHeight, imageViewHeight)
+//        holder.itemView.imv_product.layoutParams = relativePram
 
         ImageLoader.getInstance().displayImage(productList[position].productImage, holder.itemView.imv_product, DrewelApplication.getInstance().options)
-        holder.itemView.tv_product_title.text = productList[position].productName
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            holder.itemView.tv_product_title.text = productList[position].productName
+        }else {
+            holder.itemView.tv_product_title.text = productList[position].ar_product_name
+        }
 
-        if(!productList[position].offerPrice.isNullOrEmpty())
-        {
-            holder.itemView.original_price_layout.visibility=View.VISIBLE
+
+        if (!productList[position].offerPrice.isNullOrEmpty()) {
+            holder.itemView.original_price_layout.visibility = View.VISIBLE
             if (!productList[position].avgPrice.isNullOrEmpty()) {
-                val amount = NumberFormat.getInstance().format(productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+                val amount = String.format("%.3f", productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
                 holder.itemView.tv_original_amount.text = amount
             }
-            val amount = NumberFormat.getInstance().format(productList[position].offerPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+            val amount = String.format("%.3f", productList[position].offerPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
             holder.itemView.tv_product_amount.text = amount
-        }else{
-            holder.itemView.original_price_layout.visibility=View.GONE
+        } else {
+            holder.itemView.original_price_layout.visibility = View.GONE
             if (!productList[position].avgPrice.isNullOrEmpty()) {
-                val amount = NumberFormat.getInstance().format(productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+                val amount = String.format("%.3f", productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
                 holder.itemView.tv_product_amount.text = amount
             }
         }
-        val weight = productList[position].weight + " " + productList[position].weightIn
-        holder.itemView.tv_quantity.text = weight
+        if (productList[position].weightIn!!.equals("Ml"))
+            holder.itemView.tv_quantity.text = productList[position].weight + " " + mContext.getString(R.string.Ml)
+        else if (productList[position].weightIn!!.equals("Kg"))
+            holder.itemView.tv_quantity.text = productList[position].weight + " " + mContext.getString(R.string.Kg)
+        else if (productList[position].weightIn!!.equals("Lt"))
+            holder.itemView.tv_quantity.text = productList[position].weight + " " + mContext.getString(R.string.Lt)
+        else if (productList[position].weightIn!!.equals("Gm"))
+            holder.itemView.tv_quantity.text = productList[position].weight + " " + mContext.getString(R.string.Gm)
+
+//        holder.itemView.tv_quantity.text = weight
         holder.itemView.tag = position
         /* if product is out of stock*/
         if (productList[position].outOfStock == 1) {
@@ -149,7 +162,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
             val displaymetrics = DisplayMetrics()
             (mContext as AppCompatActivity).windowManager.defaultDisplay.getMetrics(displaymetrics)
             val width = displaymetrics.widthPixels
-            imageViewHeight = (width / 2) - 32
+            imageViewHeight = (width / 2) - 80
 
             /* if user add or remove product from detail activity then change it in adapter also*/
             SampleRxJavaBus.getInstance().objectPublishSubject.subscribe({ addToWishList ->
@@ -179,7 +192,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
 
                     addToWishList.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         productList[position].isWishlist = if (flag.equals("2")) 0 else 1
@@ -191,7 +204,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
                 }, { error ->
                     addToWishList.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -213,7 +226,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
                     notifyMeButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     /* if (result.response!!.status!!) {
                          productList[position].isWishlist = if (flag.equals("2")) 0 else 1
                          notifyItemChanged(position)
@@ -221,7 +234,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
                 }, { error ->
                     notifyMeButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -237,10 +250,10 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
         removeFromWhishListRequest["product_id"] = productList[position].productId!!
         removeFromWhishListRequest["cart_id"] = pref.getPreferenceStringData(pref.KEY_CART_ID)
         removeFromWhishListRequest["quantity"] = "1"
-        if(  productList[position].offerPrice.isNullOrEmpty())
-            removeFromWhishListRequest["price"] =  productList[position].avgPrice!!
+        if (productList[position].offerPrice.isNullOrEmpty())
+            removeFromWhishListRequest["price"] = productList[position].avgPrice!!
         else
-            removeFromWhishListRequest["price"] =  productList[position].offerPrice!!
+            removeFromWhishListRequest["price"] = productList[position].offerPrice!!
 
         val defaultAddressObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).addToCart(removeFromWhishListRequest)
 
@@ -249,7 +262,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
                 .subscribe({ result ->
                     addToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         pref.setPreferenceStringData(pref.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
@@ -258,7 +271,7 @@ class ProductAdapter(val mContext: Context) : RecyclerView.Adapter<ProductAdapte
                 }, { error ->
                     addToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

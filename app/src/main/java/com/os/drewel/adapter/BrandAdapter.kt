@@ -23,10 +23,8 @@ import kotlinx.android.synthetic.main.brand_row_selector.view.*
 
 class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.brand_row_selector, parent, false)
-
         return BrandHolder(view)
     }
 
@@ -43,7 +41,6 @@ class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : 
             bundle.putSerializable(AppIntentExtraKeys.BRAND_WISE_PRODUCT, brandList[pos])
             intent.putExtras(bundle)
             mContext.startActivity(intent)
-
         }
     }
 
@@ -61,9 +58,8 @@ class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : 
             val llm = LinearLayoutManager(mContext)
             llm.orientation = LinearLayoutManager.HORIZONTAL
             itemView.productRv.layoutManager = llm
-            itemView.productRv.addItemDecoration(EqualSpacingItemDecoration(16, EqualSpacingItemDecoration.HORIZONTAL))
+            itemView.productRv.addItemDecoration(EqualSpacingItemDecoration(5, EqualSpacingItemDecoration.HORIZONTAL))
             itemView.productRv.adapter = productAdapter
-
 
         }
 

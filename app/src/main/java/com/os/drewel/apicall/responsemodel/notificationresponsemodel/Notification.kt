@@ -17,6 +17,10 @@ class Notification {
     @SerializedName("message")
     @Expose
     var message: String? = null
+    @SerializedName("message_arabic")
+    @Expose
+    var message_arabic: String? = null
+
     @SerializedName("send_by")
     @Expose
     var sendBy: String? = null

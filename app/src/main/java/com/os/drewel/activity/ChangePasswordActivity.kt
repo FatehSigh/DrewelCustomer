@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.os.drewel.R
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -96,6 +97,13 @@ class ChangePasswordActivity : BaseActivity(), View.OnClickListener {
         }
         newPasswordTextLayout.isErrorEnabled = false
 
+        if (newPasswordEditText.text.toString().equals(oldPasswordEditText.text.toString()) ) {
+            newPasswordTextLayout.error = getString(R.string.password_same)
+            newPasswordTextLayout.requestFocus()
+            return false
+        }
+        newPasswordTextLayout.isErrorEnabled = false
+
         if ( confirmPasswordEditText.text.toString().isEmpty()) {
             confirmPasswordTextLayout.error = getString(R.string.empty_confirm_password)
             confirmPasswordTextLayout.requestFocus()
@@ -140,13 +148,13 @@ class ChangePasswordActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                             finish()
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

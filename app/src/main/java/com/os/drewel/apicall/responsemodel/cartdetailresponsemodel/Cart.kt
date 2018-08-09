@@ -15,6 +15,11 @@ class Cart {
     @SerializedName("product_name")
     @Expose
     var productName: String? = null
+    @SerializedName("ar_product_name")
+
+    @Expose
+    var ar_product_name: String? = null
+
     @SerializedName("product_price")
     @Expose
     var productPrice: String? = null

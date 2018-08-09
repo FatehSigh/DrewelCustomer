@@ -326,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:layoutDirection="rtl"
-                android:text="@string/cash"
+                android:text="@string/COD"
                 android:textAlignment="textStart"
                 android:textColor="@color/violet_1" />
 

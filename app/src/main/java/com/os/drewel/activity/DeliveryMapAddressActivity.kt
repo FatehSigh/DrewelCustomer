@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.Marker
 import com.os.drewel.R
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.utill.Utils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -123,9 +124,9 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
                 val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(this)
                 startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
             } catch (e: GooglePlayServicesRepairableException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                Utils.getInstance().showToast(this,e.message!!)
             } catch (e: GooglePlayServicesNotAvailableException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                Utils.getInstance().showToast(this,e.message!!)
             }
 
         }
@@ -331,7 +332,7 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
 
                             } else {
                                 hideLoading()
-                                Toast.makeText(this, getString(R.string.error_address_not_found), Toast.LENGTH_LONG).show()
+                                Utils.getInstance().showToast(this,getString(R.string.error_address_not_found))
                             }
                         },
                         { error ->

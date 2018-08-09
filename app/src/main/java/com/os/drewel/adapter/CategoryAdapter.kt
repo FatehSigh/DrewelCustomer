@@ -56,21 +56,17 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
                 holder.itemView.subCategoryNameTv.text = subCategoryName
             }
 
-
             ImageLoader.getInstance().displayImage(categoryList.get(position - 1).img, holder.itemView.categoryIv, DrewelApplication.getInstance().options)
-
         }
 
         holder.itemView.setOnClickListener(View.OnClickListener { view ->
             val pos: Int = view.tag as Int
-
             if (pos == 0) {
                 val intent = Intent(mContext, ProductActivity::class.java)
                 if (mContext != null) {
                     mContext.startActivity(intent)
                 }
             } else {
-
                 val intent = Intent(mContext, ProductActivity::class.java)
                 val bundle = Bundle()
                 bundle.putSerializable(AppIntentExtraKeys.SELECTED_CATEGORY, categoryList[pos - 1])
@@ -79,10 +75,7 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
                     mContext.startActivity(intent)
                 }
             }
-
         })
-
-
     }
 
 

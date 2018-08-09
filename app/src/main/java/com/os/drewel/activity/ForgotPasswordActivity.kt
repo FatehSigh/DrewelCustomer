@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.os.drewel.R
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.utill.Utils
 import com.os.drewel.utill.ValidationUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -62,7 +63,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
                     if (NetworkUtils.isConnected()) {
                         callForgotPasswordApi()
                     }else
-                        Toast.makeText(this,getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
 
                 }
@@ -116,13 +117,13 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                             finish()
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

@@ -13,6 +13,10 @@ class Category() :Parcelable {
     @SerializedName("category_name")
     @Expose
     var categoryName: String? = null
+    @SerializedName("ar_category_name")
+    @Expose
+    var ar_category_name: String? = null
+
     @SerializedName("img")
     @Expose
     var img: String? = null
@@ -20,21 +24,19 @@ class Category() :Parcelable {
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
         categoryName = parcel.readString()
+        ar_category_name = parcel.readString()
         img = parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(categoryName)
+        parcel.writeString(ar_category_name)
         parcel.writeString(img)
     }
 
     override fun describeContents(): Int {
         return 0
-    }
-
-    override fun toString(): String {
-        return "Category(id=$id, categoryName=$categoryName, img=$img)"
     }
 
     companion object CREATOR : Parcelable.Creator<Category> {
@@ -46,5 +48,6 @@ class Category() :Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 
 }

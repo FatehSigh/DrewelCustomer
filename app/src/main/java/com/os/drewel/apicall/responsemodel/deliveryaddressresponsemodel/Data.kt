@@ -2,8 +2,9 @@ package com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Data {
+class Data : Serializable {
 
     @SerializedName("Address")
     @Expose

@@ -18,6 +18,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Cart
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.CommonUtil
@@ -45,8 +46,12 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
     override fun onBindViewHolder(holder: CartItemHolder, position: Int) {
         ImageLoader.getInstance().displayImage(cartIemList[position].productImage, holder.itemView.productImageIv, DrewelApplication.getInstance().options)
-        holder.itemView.tv_product_title.text = cartIemList[position].productName
+
         holder.itemView.productQuantityTv.text = cartIemList[position].quantity
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            holder.itemView.tv_product_title.text = cartIemList[position].productName
+        }else
+            holder.itemView.tv_product_title.text = cartIemList[position].ar_product_name
 
         val cartItem = cartIemList[position]
         val quantity = cartItem.quantity!!.toInt()
@@ -64,16 +69,16 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
         if (!cartIemList[position].offerPrice.isNullOrEmpty()) {
             holder.itemView.original_price_layout.visibility = View.VISIBLE
-            holder.itemView.tv_original_amount.text = NumberFormat.getInstance().format(totalAmount) + " " + mContext.getString(R.string.omr)
+            holder.itemView.tv_original_amount.text =String.format("%.3f", totalAmount)   + " " + mContext.getString(R.string.omr)
 
             val offerPrice = cartItem.offerPrice!!.toDouble()
             val totalOfferAmount = offerPrice * quantity
-            val totalOfferAmountStr = NumberFormat.getInstance().format(totalOfferAmount) + " " + mContext.getString(R.string.omr)
+            val totalOfferAmountStr =String.format("%.3f",totalOfferAmount.toDouble())   + " " + mContext.getString(R.string.omr)
             holder.itemView.tv_product_amount.text = totalOfferAmountStr
 
         } else {
             holder.itemView.original_price_layout.visibility = View.GONE
-            holder.itemView.tv_product_amount.text = NumberFormat.getInstance().format(totalAmount) + " " + mContext.getString(R.string.omr)
+            holder.itemView.tv_product_amount.text = String.format("%.3f", totalAmount)  + " " + mContext.getString(R.string.omr)
         }
 
         if (cartIemList[position].outOfStock == 1) {
@@ -177,13 +182,13 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
                     } else {
                         notifyItemChanged(position)
-                        Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
                     }
                 }, { error ->
                     progressDialog?.dismiss()
                     addProductQuantityBt.isEnabled = true
                     notifyItemChanged(position)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -218,13 +223,13 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
                     } else {
                         notifyItemChanged(position)
-                        Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
                     }
                 }, { error ->
                     progressDialog?.dismiss()
                     itemView.isEnabled = false
                     notifyItemChanged(position)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

@@ -17,6 +17,7 @@ import android.os.Build
 import android.os.Environment
 import android.text.format.DateUtils
 import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.DirectionResults
 import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.Location
@@ -39,6 +40,7 @@ import java.util.*
  */
 class Utils private constructor() {
     var IMAGE_MAX_SIZE = 1024
+    var toast: Toast? = null
 
     companion object {
 
@@ -48,6 +50,21 @@ class Utils private constructor() {
             if (utills == null)
                 utills = Utils()
             return utills as Utils
+        }
+    }
+
+    fun showToast(mContext: Context?, Message: String) {
+        try {
+            if (mContext != null) {
+                if (toast != null) {
+                    toast!!.cancel()
+                }
+                toast = Toast.makeText(mContext, Message, Toast.LENGTH_SHORT)
+                toast!!.show()
+            } else
+                Log.e("tag", "context is null at showing toast.")
+        } catch (e: Exception) {
+            Log.e("tag", "context is null at showing toast.", e)
         }
     }
 
@@ -98,7 +115,7 @@ class Utils private constructor() {
         var `in`: InputStream?
         val returnedBitmap: Bitmap?
         val mContentResolver: ContentResolver
-       // val getImagePath = ""
+        // val getImagePath = ""
         try {
             mContentResolver = mContext.contentResolver
             `in` = mContentResolver.openInputStream(uri)
@@ -194,7 +211,7 @@ class Utils private constructor() {
     fun getTimeStampFromDate(str_date: String): Long {
         var timestamp: Long = 0
         try {
-            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault())
+            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             val date = formatter.parse(str_date) as Date
             timestamp = date.time
         } catch (e: ParseException) {
@@ -205,13 +222,13 @@ class Utils private constructor() {
     }
 
 
-       fun convertTimeFormat(time: String, fromFormat: String, toFormat: String): String {
+    fun convertTimeFormat(time: String, fromFormat: String, toFormat: String): String {
         var timea = ""
         try {
-            val sdf = SimpleDateFormat(fromFormat,Locale.getDefault())
+            val sdf = SimpleDateFormat(fromFormat, Locale.getDefault())
             val dateObj = sdf.parse(time)
             println(dateObj)
-            timea = SimpleDateFormat(toFormat,Locale.getDefault()).format(dateObj)
+            timea = SimpleDateFormat(toFormat, Locale.getDefault()).format(dateObj)
             return timea
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -223,10 +240,10 @@ class Utils private constructor() {
     fun convertTimeFormatEnglish(time: String, fromFormat: String, toFormat: String): String {
         var timea = ""
         try {
-            val sdf = SimpleDateFormat(fromFormat,Locale(Constants.LANGUAGE_ENGLISH))
+            val sdf = SimpleDateFormat(fromFormat, Locale(Constants.LANGUAGE_ENGLISH))
             val dateObj = sdf.parse(time)
             println(dateObj)
-            timea = SimpleDateFormat(toFormat,Locale(Constants.LANGUAGE_ENGLISH)).format(dateObj)
+            timea = SimpleDateFormat(toFormat, Locale(Constants.LANGUAGE_ENGLISH)).format(dateObj)
             return timea
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -266,7 +283,7 @@ class Utils private constructor() {
     }
 
 
-     fun getDirectionsUrl(origin: LatLng, dest: LatLng): String {
+    fun getDirectionsUrl(origin: LatLng, dest: LatLng): String {
 
         // Origin of route
         val strOrigin = "origin=" + origin.latitude + "," + origin.longitude
@@ -288,7 +305,7 @@ class Utils private constructor() {
         return "https://maps.googleapis.com/maps/api/directions/$output?$parameters"
     }
 
-    fun getStepsToDrawPolyline(directionResults : DirectionResults) :ArrayList<LatLng> {
+    fun getStepsToDrawPolyline(directionResults: DirectionResults): ArrayList<LatLng> {
         val routeList = ArrayList<LatLng>()
         if (directionResults.routes!!.isNotEmpty()) {
             var decodeList: ArrayList<LatLng>
@@ -317,7 +334,7 @@ class Utils private constructor() {
     }
 
 
-    private  fun updateResourcesLocale(context : Context, locale :Locale) : Context{
+    private fun updateResourcesLocale(context: Context, locale: Locale): Context {
         val configuration = context.resources.configuration
         configuration.setLocale(locale)
         configuration.setLayoutDirection(locale)
@@ -331,16 +348,16 @@ class Utils private constructor() {
         val resources = context.resources
         val configuration = resources.configuration
         configuration.locale = locale
-          configuration.setLayoutDirection(locale)
+        configuration.setLayoutDirection(locale)
 
         resources.updateConfiguration(configuration, resources.displayMetrics)
         return context
     }
 
 
-    fun updateBaseContextLocale(context : Context ) : Context{
+    fun updateBaseContextLocale(context: Context): Context {
         val language = Prefs.getInstance(context).getPreferenceStringData(Prefs.prefs!!.KEY_LANGUAGE)
-        val locale  =  Locale(language)
+        val locale = Locale(language)
         Locale.setDefault(locale)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResourcesLocale(context, locale)

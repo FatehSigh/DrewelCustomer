@@ -71,7 +71,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
         } else {
             holder.itemView.btn_reorder.visibility = View.VISIBLE
             holder.itemView.btn_edit.visibility = View.GONE
-            holder.itemView.btn_delete.visibility = View.GONE
+            holder.itemView.btn_delete.visibility = View.VISIBLE
         }
 
         val order = myCurrentOrderList[position]
@@ -82,10 +82,28 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
             holder.itemView.order_item_txt_order_delivery_time.text = deliveryTime
         }
         holder.itemView.order_item_txt_no_of_items.text = order.totalQuantity
-        val amount = NumberFormat.getInstance().format(order.totalAmount?.toDouble()) + " " + mContext?.getString(R.string.omr)
+        val amount = String.format("%.3f", order.totalAmount?.toDouble()) + " " + mContext?.getString(R.string.omr)
         holder.itemView.order_item_txt_order_amount.text = amount
-        holder.itemView.order_item_txt_payment_method.text = order.paymentMode
-        holder.itemView.order_item_txt_order_status.text = order.orderDeliveryStatus
+        if (order.paymentMode.equals("COD"))
+            holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.COD)
+        else
+            holder.itemView.order_item_txt_payment_method.text = order.paymentMode
+
+
+//        holder.itemView.order_item_txt_order_status.text = order.orderDeliveryStatus
+
+        if (order.orderDeliveryStatus.equals("Cancelled"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.Cancelled)
+        else if (order.orderDeliveryStatus.equals("Not Cancelled"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.NotCancelled)
+        else if (order.orderDeliveryStatus.equals("Pending"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.Pending)
+        else if (order.orderDeliveryStatus.equals("Under Packaging"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.UnderPackaging)
+        else if (order.orderDeliveryStatus.equals("Ready To Deliver"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.ReadyToDeliver)
+        else if (order.orderDeliveryStatus.equals("Delivered"))
+            holder.itemView.order_item_txt_order_status.text = mContext!!.getString(R.string.delivered)
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -182,7 +200,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
                     itemView.btn_reorder.isEnabled = true
                     progressDialog?.dismiss()
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     if (result.response!!.status!!) {
                         pref.setPreferenceStringData(pref.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
@@ -190,7 +208,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                 }, { error ->
                     itemView.btn_reorder.isEnabled = true
                     progressDialog?.dismiss()
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -242,7 +260,10 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                     logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext!!.getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                         logoutAlertDialog.dismiss()
 //                        callReorderApi(adapterPosition, itemView)
-                        onClickItem.onClick("Delete", adapterPosition)
+                        if (TYPE == CURRENT_ORDER)
+                            onClickItem.onClick("Delete", adapterPosition)
+                        else
+                            onClickItem.onClick("DeletePrevious", adapterPosition)
                     })
                     logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, mContext!!.getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
                         logoutAlertDialog.dismiss()
@@ -291,13 +312,13 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
 
                     } else {
                         notifyItemRemoved(position)
-                        Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     }
                 }, { error ->
                     progressDialog?.dismiss()
                     itemView.btn_edit.isEnabled = true
                     notifyItemChanged(position)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

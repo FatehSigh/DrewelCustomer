@@ -83,11 +83,11 @@ class WishListActivity : ProductBaseActivity() {
 
                     } else {
                         wishlistRecyclerView.visibility=View.GONE
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

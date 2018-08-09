@@ -10,6 +10,7 @@ import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import android.support.v4.content.ContextCompat
 import com.blankj.utilcode.util.Utils
+import com.crashlytics.android.Crashlytics
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -20,6 +21,7 @@ import com.os.drewel.activity.WelcomeActivity
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
+import io.fabric.sdk.android.Fabric
 import net.danlew.android.joda.JodaTimeAndroid
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -51,12 +53,15 @@ class DrewelApplication : MultiDexApplication() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
+//        Fabric.with(this,  Crashlytics())
+//        logUser()
         MultiDex.install(this)
     }
 
     override fun onCreate() {
         super.onCreate()
         drewelApplication = this
+        Fabric.with(this, Crashlytics())
         /* initialize joda Time*/
         JodaTimeAndroid.init(this)
         /* initialize universal image loader*/

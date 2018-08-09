@@ -118,7 +118,6 @@ open class ProductBaseActivity : BaseActivity() {
                         cartItemView.cartItemCountTv.visibility = View.GONE
                     else
                         cartItemView.cartItemCountTv.visibility = View.VISIBLE
-
                 },
                 { error ->
                     Log.d("error", error.message)

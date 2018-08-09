@@ -12,6 +12,7 @@ import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import kotlinx.android.synthetic.main.my_order_product_item.view.*
 import java.text.NumberFormat
 
@@ -29,8 +30,11 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
 
     override fun onBindViewHolder(holder: MyOrderItemHolder, position: Int) {
         ImageLoader.getInstance().displayImage(myOrderIemList[position].productImage, holder.itemView.productImageIv, DrewelApplication.getInstance().options)
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+            holder.itemView.tv_product_title.text = myOrderIemList[position].productName
+        } else
+            holder.itemView.tv_product_title.text = myOrderIemList[position].ar_product_name
 
-        holder.itemView.tv_product_title.text = myOrderIemList[position].productName
         holder.itemView.tv_product_quantity.text = mContext.getString(R.string.quantity_colon) + " " + myOrderIemList[position].quantity
 
         /*  val cartItem = myOrderIemList[position]
@@ -38,7 +42,7 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
           val quantity = cartItem.quantity!!.toInt()
           val totalAmount = price * quantity*/
 
-        holder.itemView.tv_product_amount.text = mContext.getString(R.string.price_colon) + " " + NumberFormat.getInstance().format(myOrderIemList[position].productPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+        holder.itemView.tv_product_amount.text = mContext.getString(R.string.price_colon) + " " + String.format("%.3f", myOrderIemList[position].productPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
 
         holder.itemView.tv_product_categories.text = showProductCategory(myOrderIemList[position])
 
@@ -76,10 +80,17 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
         var category = ""
 
         for (i in product.category!!.indices) {
-            category += if (i == product.category!!.size - 1) {
-                product.category!![i].categoryName!!
-            } else
-                product.category!![i].categoryName!! + ", "
+            if (product.category!!.isNotEmpty())
+                category += if (i == product.category!!.size - 1) {
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.category!![i].categoryName!!
+                    } else
+                        product.category!![i].ar_category_name!!
+                } else
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.category!![i].categoryName!! + ", "
+                    } else
+                        product.category!![i].ar_category_name!! + ", "
         }
 
         return category
@@ -93,10 +104,19 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
 
         } else {
             for (i in product.subCategory!!.indices) {
-                subCategory += if (i == product.subCategory!!.size - 1) {
-                    product.subCategory!![i].categoryName!!
-                } else
-                    product.subCategory!![i].categoryName!! + ", "
+                if (product.subCategory!!.isNotEmpty())
+                    subCategory += if (i == product.subCategory!!.size - 1) {
+                        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                            product.subCategory!![i].categoryName!!
+                        } else {
+                            product.subCategory!![i].ar_category_name!!
+//                        product.category!![i].ar_category_name!!+ ", "
+                        }
+                    } else
+                        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                            product.subCategory!![i].categoryName!! + ", "
+                        } else
+                            product.subCategory!![i].ar_category_name!! + ", "
             }
         }
 

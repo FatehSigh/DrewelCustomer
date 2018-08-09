@@ -79,7 +79,7 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
                 if (isAppInstalled) {
                     shareToFb()
                 } else {
-                    Toast.makeText(mContext, mContext.getString(R.string.install_facebook), Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.install_facebook))
                     val shareIntent = Intent(Intent.ACTION_VIEW)
                     shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     shareIntent.data = Uri.parse(ShareAppConstant.playStoreURL + ShareAppConstant.PACKAGE_FACEBOOK_KATANA)
@@ -142,11 +142,11 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
                 mContext.startActivity(shareIntent)
 
             } catch (e: Exception) {
-                Toast.makeText(mContext, mContext.getString(R.string.install_twitter), Toast.LENGTH_SHORT).show()
+                com.os.drewel.utill.Utils.getInstance().showToast(mContext,mContext.getString(R.string.install_twitter))
             }
 
         } else {
-            Toast.makeText(mContext, mContext.getString(R.string.install_twitter), Toast.LENGTH_SHORT).show()
+            com.os.drewel.utill.Utils.getInstance().showToast(mContext,mContext.getString(R.string.install_twitter))
             val shareIntent = Intent(Intent.ACTION_VIEW)
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             shareIntent.data = Uri.parse(ShareAppConstant.playStoreURL + ShareAppConstant.PACKAGE_TWITTER)

@@ -23,6 +23,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.rxbus.SampleRxJavaBus
@@ -58,32 +59,46 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
         holder.itemView.imv_product.layoutParams = relativePram
 
         ImageLoader.getInstance().displayImage(wishList[position].productImage, holder.itemView.imv_product, DrewelApplication.getInstance().options)
-        holder.itemView.tv_product_title.text = wishList[position].productName
 
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            holder.itemView.tv_product_title.text = wishList[position].productName
+        }else
+        {
+            holder.itemView.tv_product_title.text = wishList[position].ar_product_name
+        }
         /* val amount = NumberFormat.getInstance().format(wishList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
          holder.itemView.tv_product_amount.text = amount*/
-
 
         if (!wishList[position].offerPrice.isNullOrEmpty()) {
             holder.itemView.original_price_layout.visibility = View.VISIBLE
             if (!wishList[position].avgPrice.isNullOrEmpty()) {
-                val amount = NumberFormat.getInstance().format(wishList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+                val amount = String.format("%.3f", wishList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
                 holder.itemView.tv_original_amount.text = amount
             }
-            val amount = NumberFormat.getInstance().format(wishList[position].offerPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+            val amount = String.format("%.3f", wishList[position].offerPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
             holder.itemView.tv_product_amount.text = amount
         } else {
             holder.itemView.original_price_layout.visibility = View.GONE
             if (!wishList[position].avgPrice.isNullOrEmpty()) {
-                val amount = NumberFormat.getInstance().format(wishList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+                val amount = String.format("%.3f", wishList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
                 holder.itemView.tv_product_amount.text = amount
             }
         }
+//        val weight = wishList[position].weight + " " + wishList[position].weightIn
+//        holder.itemView.tv_quantity.text = weight
+        var weight: String = ""
+        if (wishList[position].weightIn!!.equals("Ml"))
+            weight = wishList[position].weight + " " + mContext.getString(R.string.Ml)
+        else if (wishList[position].weightIn!!.equals("Kg"))
+            weight = wishList[position].weight + " " + mContext.getString(R.string.Kg)
+        else if (wishList[position].weightIn!!.equals("Lt"))
+            weight = wishList[position].weight + " " + mContext.getString(R.string.Lt)
+        else if (wishList[position].weightIn!!.equals("Gm"))
+            weight = wishList[position].weight + " " + mContext.getString(R.string.Gm)
 
-        val weight = wishList[position].weight + " " + wishList[position].weightIn
         holder.itemView.tv_quantity.text = weight
-        holder.itemView.tag = position
 
+        holder.itemView.tag = position
 
         holder.itemView.setOnClickListener({ view ->
             clickPosition = holder.layoutPosition
@@ -155,7 +170,7 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
                     moveToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         pref.setPreferenceStringData(pref.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
@@ -171,7 +186,7 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
                 }, { error ->
                     moveToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
                     Log.e("TAG", "{$error.message}")
                     progressDialog?.dismiss()
                 }
@@ -196,7 +211,7 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
 
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         SampleRxJavaBus.getInstance().objectPublishSubject.onNext(0)
@@ -210,7 +225,7 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
                 }, { error ->
                     removeFromWishList.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    Toast.makeText(mContext, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
                     Log.e("TAG", "{$error.message}")
                     progressDialog?.dismiss()
                 }

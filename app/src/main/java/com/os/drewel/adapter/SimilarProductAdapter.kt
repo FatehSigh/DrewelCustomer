@@ -17,6 +17,7 @@ import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.responsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import kotlinx.android.synthetic.main.similar_product_child.view.*
 import java.text.NumberFormat
 
@@ -45,9 +46,15 @@ class SimilarProductAdapter(val mContext: Context?) : RecyclerView.Adapter<Simil
         holder.itemView.card_view.layoutParams = cardViewPram
 
         ImageLoader.getInstance().displayImage(productList[position].productImage, holder.itemView.imv_product, DrewelApplication.getInstance().options)
-        holder.itemView.productTitle.text = productList[position].productName
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            holder.itemView.productTitle.text = productList[position].productName
+        }else
+        {
+            holder.itemView.productTitle.text = productList[position].ar_product_name
+        }
+
         if (mContext != null) {
-            val amount = NumberFormat.getInstance().format(productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
+            val amount =String.format("%.3f", productList[position].avgPrice!!.toDouble()) + " " + mContext.getString(R.string.omr)
             holder.itemView.tv_product_amount.text = amount
         }
 

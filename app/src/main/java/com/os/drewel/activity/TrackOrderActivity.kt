@@ -41,7 +41,7 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var driverCurrentLocationLatLng: LatLng
     private lateinit var deliveryLocationLatLng: LatLng
     private lateinit var driverCurrentMarker: Marker
-    private var locationUpdateDisposable: Disposable?=null
+    private var locationUpdateDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +113,7 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
 
     /* get driver location in each 30 seconds */
     private fun getDriverLocation() {
-       locationUpdateDisposable= Observable.interval(0, 30, TimeUnit.SECONDS)
+        locationUpdateDisposable = Observable.interval(0, 30, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -144,26 +144,20 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
 
     /* get distance and direction between destination and driver current location*/
     private fun callGetDirectionApi() {
-
         val directionUrl = Utils.getInstance().getDirectionsUrl(driverCurrentLocationLatLng, deliveryLocationLatLng)
-
         val getDirectionObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getGoogleDirection(directionUrl)
         getDirectionObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ directionResults ->
-
                     val routeList = Utils.getInstance().getStepsToDrawPolyline(directionResults)
-
                     if (routeList.size > 0) {
                         val rectLine = PolylineOptions().width(10f).color(Color.RED)
                         // Adding route on the map
                         rectLine.addAll(routeList)
                         googleMap.addPolyline(rectLine)
-
                     }
-
                 }, { error ->
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -180,7 +174,7 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
         driverLocationObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                  //  setProgressState(View.GONE)
+                    //  setProgressState(View.GONE)
                     if (result.response?.status!!) {
 
                         result.response?.data?.location?.latitude?.let {
@@ -205,16 +199,16 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
                         }
                     }
                 }, { error ->
-                   // setProgressState(View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    // setProgressState(View.GONE)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
     }
 
-   /* private fun setProgressState(visibility: Int) {
-        //    progressBar.visibility = visibility
-    }*/
+    /* private fun setProgressState(visibility: Int) {
+         //    progressBar.visibility = visibility
+     }*/
 
     override fun onStop() {
         super.onStop()

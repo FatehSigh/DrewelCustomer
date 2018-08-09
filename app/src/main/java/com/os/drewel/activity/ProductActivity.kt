@@ -169,15 +169,16 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                         } else
                             isFilterApplied = false
 
+
                     } else {
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                         brandRecyclerView.visibility = View.GONE
                         /*search_product.visibility=View.GONE
                         searchProductView.visibility=View.GONE*/
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -210,9 +211,15 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             selectedMaxPriceRange = ""
             selectedMinPriceRange = ""
             selectedRating = ""
-            popupWindowView.ratingBar.rating = 0f
-            setAdapterOfBrandName()
-            setMinMaxRangeOfPrice()
+            if (filterPopupWindow == null) {
+
+            } else{
+                popupWindowView.ratingBar.rating = 0f
+                setAdapterOfBrandName()
+                setMinMaxRangeOfPrice()
+            }
+
+
 
             if (tab != null) {
                 subCategoryId = subCategoryList[tab.position].id!!

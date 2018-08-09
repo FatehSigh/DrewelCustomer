@@ -85,13 +85,13 @@ class RequestFragment : BaseFragment(), OnClickItem {
                 .subscribe({ result ->
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, activity!!)
                     setProgressState(View.GONE)
-                    Toast.makeText(activity, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     if (result.response!!.status!!) {
                         callCategoryListApi()
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(activity, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -211,7 +211,7 @@ class RequestFragment : BaseFragment(), OnClickItem {
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

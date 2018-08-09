@@ -89,7 +89,7 @@ class WelcomeActivity : BaseActivity() , View.OnClickListener{
                     if (NetworkUtils.isConnected()) {
                         callFacebookLogin()
                     }else
-                        Toast.makeText(this,getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
 
                 }
@@ -97,7 +97,7 @@ class WelcomeActivity : BaseActivity() , View.OnClickListener{
                     if (NetworkUtils.isConnected()) {
                         callFacebookLogin()
                     }else
-                        Toast.makeText(this,getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
 
                 }

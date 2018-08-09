@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.Utils
 import com.os.drewel.R
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
@@ -52,8 +53,8 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
         if (intent.hasExtra(AppIntentExtraKeys.USER_ID)) {
             userId = intent.getStringExtra(AppIntentExtraKeys.USER_ID)
             mobileNumber = intent.getStringExtra(AppIntentExtraKeys.MOBILE_NUMBER)
-            oTP = intent.getStringExtra(AppIntentExtraKeys.OTP)
-
+            if (intent.getStringExtra(AppIntentExtraKeys.OTP) != null)
+                oTP = intent.getStringExtra(AppIntentExtraKeys.OTP)
 //            val otpCharacters = oTP.toCharArray()
 //            otp_tv_otp_1.setText(otpCharacters[0].toString())
 //            otp_tv_otp_2.setText(otpCharacters[1].toString())
@@ -119,10 +120,10 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     if (NetworkUtils.isConnected())
                         otpVerificationAPI(otp_tv_otp_1.text.toString() + otp_tv_otp_2.text.toString() + otp_tv_otp_3.text.toString() + otp_tv_otp_4.text.toString())
                     else
-                        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
                 } else {
-                    Toast.makeText(this, getString(R.string.incomplete_otp), Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.incomplete_otp))
                 }
             }
 
@@ -130,7 +131,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 if (NetworkUtils.isConnected()) {
                     resendOtpVerificationAPI()
                 } else
-                    Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
 
             }
 
@@ -152,7 +153,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         val prefs = Prefs.getInstance(this)
@@ -180,7 +181,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -201,7 +202,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_SHORT).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                         resendOTPLayout.isEnabled = false
                         setTimerForOTP()
@@ -213,7 +214,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

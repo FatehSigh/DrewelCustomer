@@ -11,6 +11,10 @@ class Category {
     @SerializedName("category_name")
     @Expose
     var categoryName: String? = null
+
+    @SerializedName("ar_category_name")
+    @Expose
+    var ar_category_name: String? = null
     @SerializedName("img")
     @Expose
     var img: String? = null

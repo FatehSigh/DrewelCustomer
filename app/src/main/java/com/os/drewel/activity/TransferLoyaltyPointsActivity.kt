@@ -83,14 +83,14 @@ class TransferLoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
                         setResult(Activity.RESULT_OK)
                         finish()
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

@@ -17,6 +17,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.prefrences.Prefs
+import com.os.drewel.utill.Utils
 import com.os.drewel.utill.ValidationUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -60,7 +61,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-
         when (view.id) {
             R.id.signUp -> {
                 KeyboardUtils.hideSoftInput(this)
@@ -72,18 +72,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.loginButton -> {
                 // startActivity(Intent(this, MainActivity::class.java))
-
                 if (validateLogin()) {
                     KeyboardUtils.hideSoftInput(this)
                     if (NetworkUtils.isConnected()) {
                         setProgressState(View.VISIBLE, false)
                         callLoginApi()
                     } else
-                        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
                 }
             }
             R.id.facebookLoginButton -> {
-
                 callFacebookLogin()
             }
             R.id.forgotPasswordTv -> {
@@ -159,7 +157,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         if (result.response!!.data!!.isMobileverify.equals("0")) {
@@ -227,7 +225,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

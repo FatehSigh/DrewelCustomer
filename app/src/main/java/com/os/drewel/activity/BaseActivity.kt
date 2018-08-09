@@ -61,7 +61,8 @@ open class BaseActivity : AppCompatActivity() {
         if (NetworkUtils.isConnected()) {
             return true
         }
-        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
+        Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
+//        Toast.makeText(this, getString(R.string.error_network_connection), Toast.LENGTH_LONG).show()
         return false
     }
 
@@ -129,12 +130,12 @@ open class BaseActivity : AppCompatActivity() {
             override fun onCancel() {
 
                 println("=========================onCancel")
-                Toast.makeText(this@BaseActivity, getString(R.string.cancel), Toast.LENGTH_LONG).show()
+                Utils.getInstance().showToast(this@BaseActivity, getString(R.string.cancel))
             }
 
             override fun onError(error: FacebookException) {
                 println("=========================onError" + error.toString())
-                Toast.makeText(this@BaseActivity, error.toString(), Toast.LENGTH_LONG).show()
+                Utils.getInstance().showToast(this@BaseActivity, error.toString())
             }
         })
     }
@@ -186,11 +187,13 @@ open class BaseActivity : AppCompatActivity() {
                             val intent = Intent(this, OTPVerificationActivity::class.java)
                             intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, result.response!!.data!!.country_code + result.response!!.data!!.mobile_number)
                             intent.putExtra(AppIntentExtraKeys.USER_ID, result.response!!.data!!.userId)
+
                             intent.putExtra(AppIntentExtraKeys.OTP, result.response!!.data!!.authotp)
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                            Utils.getInstance().showToast(this, result.response!!.message!!)
+//                            Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
                             val prefs = Prefs.getInstance(this)
                             prefs.setPreferenceStringData(prefs.KEY_USER_ID, result.response!!.data!!.userId!!)
                             prefs.setPreferenceStringData(prefs.KEY_FIRST_NAME, result.response!!.data!!.firstName!!)
@@ -237,7 +240,8 @@ open class BaseActivity : AppCompatActivity() {
 
                     } else if (result.response!!.isDeactivate!! == "0") {
                         val signUpRequest = SignUpRequest()
-                        signUpRequest.fbId = fbId
+                        signUpRequest.fbId = "15184874"
+//                        signUpRequest.fbId = fbId
                         signUpRequest.firstName = firstNAme
                         signUpRequest.lastName = lastName
                         signUpRequest.email = semail
@@ -252,7 +256,8 @@ open class BaseActivity : AppCompatActivity() {
                     }
                 }, { error ->
                     /*setProgressState(View.GONE, true)*/
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this, error.message!!)
+//                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     Log.e("TAG", "{$error.message}")
                 }
                 )

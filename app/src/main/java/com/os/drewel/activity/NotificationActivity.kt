@@ -28,6 +28,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.os.drewel.delegate.OnClick
 import com.os.drewel.utill.SwipeHelper
+import com.os.drewel.utill.Utils
 import kotlinx.android.synthetic.main.activity_notifiaction.*
 
 
@@ -101,7 +102,7 @@ class NotificationActivity : BaseActivity() {
                         0,
                         Color.parseColor("#eb011c"),
                         UnderlayButtonClickListener {
-//                            Log.e("Position on delete", it.toString())
+                            //                            Log.e("Position on delete", it.toString())
                             showLogoutDialog(getString(R.string.delete_notificaions), it, false)
                         }
                 ))
@@ -278,14 +279,14 @@ class NotificationActivity : BaseActivity() {
                         }
                     } else {
                         txt_clearall.visibility = View.GONE
-                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
+                        Utils.getInstance().showToast(this,result.response!!.message!!)
                     }
 
 
                 }, { error ->
                     txt_clearall.visibility = View.GONE
                     setProgressState(View.GONE, true)
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    Utils.getInstance().showToast(this,error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

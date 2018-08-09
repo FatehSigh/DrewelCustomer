@@ -23,12 +23,22 @@ class Coupon {
     @SerializedName("category_name")
     @Expose
     var categoryName: String? = null
+    @SerializedName("ar_category_name")
+    @Expose
+    var ar_category_name: String? = null
+
     @SerializedName("max_use")
     @Expose
     var maxUse: String? = null
     @SerializedName("coupon_description")
     @Expose
     var couponDescription: String? = null
+
+    @SerializedName("ar_coupon_description")
+    @Expose
+    var ar_coupon_description: String? = null
+
+
     @SerializedName("expires_on")
     @Expose
     var expiresOn: String? = null
