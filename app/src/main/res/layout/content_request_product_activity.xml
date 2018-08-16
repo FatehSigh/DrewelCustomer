@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
-    android:background="@color/grey_1"
+    android:background="@color/white_1"
     android:orientation="vertical"
     tools:showIn="@layout/request_product_activity">
 
@@ -16,17 +16,15 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:gravity="center_horizontal"
-        android:paddingHorizontal="@dimen/_25sdp"
-        android:paddingStart="@dimen/_20sdp"
+        android:paddingStart="@dimen/_15sdp"
         android:paddingTop="@dimen/_25sdp"
-        android:paddingEnd="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_15sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:text="@string/not_finding_your_favourite_products"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="@dimen/_22sdp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/violet_1"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/roboto_medium_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,14 +37,13 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:gravity="center_horizontal"
-        android:paddingStart="@dimen/_20sdp"
+        android:paddingStart="@dimen/_12sdp"
         android:paddingTop="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_12sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:text="@string/type_in_each_product_you_need_and_we_ll_try_to_arrange_it_in_your_order"
-        android:textColor="@color/violet_2"
-        android:textSize="@dimen/_16sdp"
-        android:textStyle="bold"
+        android:textColor="@color/grey_color_txt"
+        android:textSize="@dimen/_11sdp"
         app:backgroundTint="@color/violet_1" />
 
     <android.support.v7.widget.AppCompatEditText
@@ -60,18 +57,18 @@
         android:gravity="start"
         android:hint="@string/enter_the_product_name"
         android:maxLines="5"
-        android:paddingStart="@dimen/_20sdp"
-
-        android:paddingTop="@dimen/_25sdp"
-        android:paddingEnd="@dimen/_20sdp"
-        android:paddingBottom="@dimen/_5sdp" />
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingTop="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:textSize="@dimen/_13sdp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/et_product_title"
-        android:layout_marginStart="@dimen/_28sdp"
-        android:layout_marginEnd="@dimen/_28sdp"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
         android:background="@color/violet_1" />
 
 

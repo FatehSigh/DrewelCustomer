@@ -1,8 +1,10 @@
 package com.os.drewel.activity
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
@@ -148,7 +150,8 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Data?=null
+
+    var cartResponse: com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Data? = null
 
     private fun callGetProductApi() {
         setProgressState(View.VISIBLE, View.GONE)
@@ -165,7 +168,7 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
 
                     if (result.response!!.status!!) {
-                        cartResponse=result.response!!.data!!
+                        cartResponse = result.response!!.data!!
                         noItemAvailableTv.visibility = View.GONE
                         setProgressState(View.GONE, View.VISIBLE)
                         cartProductList = result.response!!.data!!.cart!!
@@ -213,7 +216,7 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
             totalItemQuantity += quantity
             totalAmount += price * quantity
         }
-        tv_amount_total.text = String.format("%.3f",totalAmount)  + " " + getString(R.string.omr)
+        tv_amount_total.text = String.format("%.3f", totalAmount) + " " + getString(R.string.omr)
         orderItemQuantity = totalItemQuantity.toString()
         productQuantityTv.text = totalItemQuantity.toString()
         val nf = NumberFormat.getNumberInstance(Locale.US)
@@ -244,23 +247,56 @@ var cartResponse:com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Dat
             }
             R.id.checkoutBt -> {
                 if (cartItemAdapter?.isAnyProductOutOfStock!!) {
-                    Utils.getInstance().showToast(this,getString(R.string.remove_item_which_are_out_of_stock))
+                    Utils.getInstance().showToast(this, getString(R.string.remove_item_which_are_out_of_stock))
 
                 } else {
-                    if (cartResponse!=null && cartResponse!!.is_edited!!.isNotEmpty() && cartResponse!!.is_edited!!.equals("1")){
 
-                    }
-                    if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
-                        val intent = Intent(this, DeliveryDetailActivity::class.java)
-                        startActivity(intent)
+                    if (orderNetPrice.toDouble() < 5) {
+                        val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                        logoutAlertDialog.setTitle(getString(R.string.app_name))
+                        logoutAlertDialog.setMessage(getString(R.string.minimum_order_validation))
+                        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok), DialogInterface.OnClickListener { dialog, id ->
+                            logoutAlertDialog.dismiss()
+                        })
+//                        logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+//                            logoutAlertDialog.dismiss()
+//                        })
+                        logoutAlertDialog.show()
                     } else {
-                        val intent = Intent(this, CheckOutActivity::class.java)
-                        intent.putExtra(AppIntentExtraKeys.ADDRESS, pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS))
-                        intent.putExtra(AppIntentExtraKeys.NAME, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME))
-                        intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER))
-                        intent.putExtra(AppIntentExtraKeys.LANDMARK, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK))
-                        startActivity(intent)
+                        if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
+                            val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                            logoutAlertDialog.setTitle(getString(R.string.app_name))
+                            logoutAlertDialog.setMessage(getString(R.string.add_delivery_address))
+                            logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok), DialogInterface.OnClickListener { dialog, id ->
+                                logoutAlertDialog.dismiss()
+                                val intent = Intent(this, DeliveryAddressActivity::class.java)
+                                startActivity(intent)
+                            })
+                            logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel), DialogInterface.OnClickListener { dialog, id ->
+                                logoutAlertDialog.dismiss()
+                            })
+                            logoutAlertDialog.show()
+
+                        } else {
+
+                            val intent = Intent(this, CheckOutActivity::class.java)
+                            intent.putExtra(AppIntentExtraKeys.ADDRESS, pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS))
+                            intent.putExtra(AppIntentExtraKeys.NAME, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME))
+                            intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER))
+                            intent.putExtra(AppIntentExtraKeys.LANDMARK, pref?.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK))
+                            startActivity(intent)
+                        }
                     }
+
+//                    if (cartResponse!=null && cartResponse!!.is_edited!!.isNotEmpty() && cartResponse!!.is_edited!!.equals("1")){
+//
+//                    }
+//                    if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
+//                        val intent = Intent(this, DeliveryDetailActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//
+//                    }
                 }
             }
         }

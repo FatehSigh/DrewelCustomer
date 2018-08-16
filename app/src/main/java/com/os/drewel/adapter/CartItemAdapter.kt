@@ -242,11 +242,20 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
         for (i in product.category!!.indices) {
             category += if (i == product.category!!.size - 1) {
-                product.category!![i].categoryName!!
-            } else
-                product.category!![i].categoryName!! + ", "
-        }
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.category!![i].categoryName!!
+                    }else {
+                        product.category!![i].ar_category_name!!
+                    }
+                } else{
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.category!![i].categoryName!! + ", "
+                    }else{
+                        product.category!![i].ar_category_name!! + ", "
+                    }
+                }
 
+        }
         return category
     }
 
@@ -259,9 +268,19 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
         } else {
             for (i in product.subCategory!!.indices) {
                 subCategory += if (i == product.subCategory!!.size - 1) {
-                    product.subCategory!![i].categoryName!!
-                } else
-                    product.subCategory!![i].categoryName!! + ", "
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.subCategory!![i].categoryName!!
+                    }else{
+                        product.subCategory!![i].ar_category_name!!
+                    }
+                } else{
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        product.subCategory!![i].categoryName!! + ", "
+                    }else{
+                        product.subCategory!![i].ar_category_name!! + ", "
+                    }
+                }
+
             }
         }
 

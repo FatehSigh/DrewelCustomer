@@ -27,10 +27,12 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_setting_activity.view.*
 
 
 /**
@@ -45,29 +47,41 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
         initView()
     }
 
+    var address = ""
+    var name = ""
+    var latLang: LatLng? = null
+    var postalCode = ""
 
     private fun initView() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-        if (intent != null)
+        if (intent != null) {
             from = intent.getIntExtra("TYPE", 0)
-        if (from==3) {
+            address = intent.getStringExtra(AppIntentExtraKeys.ADDRESS)
+            name = intent.getStringExtra(AppIntentExtraKeys.ADDRESS_NAME)
+            latLang = intent.getParcelableExtra(AppIntentExtraKeys.LATLNG)
+            postalCode = intent.getStringExtra(AppIntentExtraKeys.POSTAL_CODE) ?: ""
+            addressTv.setText(address)
+        }
+
+        if (from == 3) {
             fulladdressEditText.visibility = View.VISIBLE
             view_fulladdress.visibility = View.VISIBLE
         }
 //                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 //                supportActionBar!!.setDisplayShowHomeEnabled(false)
         saveDeliveryDetailBt.setOnClickListener(this)
-        addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
+//        addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
         setSelector(APARTMENT)
         fulladdressEditText.setOnClickListener(this)
         rl_house.setOnClickListener(this)
         rl_apartment.setOnClickListener(this)
         rl_office.setOnClickListener(this)
     }
-var place:Place?=null
+
+    var place: Place? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
@@ -79,7 +93,7 @@ var place:Place?=null
                     Log.i("onActivityResult", "Place: " + place!!.latLng)
                     val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
                     logoutAlertDialog.setTitle(getString(R.string.app_name))
-                    logoutAlertDialog.setMessage(getString(R.string.want_to_defaultaddress))
+                    logoutAlertDialog.setMessage(getString(R.string.minimum_order_validation))
                     logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                         logoutAlertDialog.dismiss()
 //                        if (isNetworkAvailable())
@@ -91,54 +105,56 @@ var place:Place?=null
                     })
                     logoutAlertDialog.show()
 
-
                 }
                 PlaceAutocomplete.RESULT_ERROR -> {
 
                     val status = PlaceAutocomplete.getStatus(this, data)
                     Log.i("onActivityResult", status.statusMessage)
-                    Utils.getInstance().showToast(this,status.statusMessage!!)
+                    Utils.getInstance().showToast(this, status.statusMessage!!)
                 }
                 RESULT_CANCELED -> // The user canceled the operation.
                     Log.e("onActivityResult", "canceled")
             }
         }
     }
+
+    var addressDetail = ""
     override fun onClick(view: View) {
         when (view.id) {
             R.id.saveDeliveryDetailBt -> {
                 if (validate()) {
-//                    val addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + " " + pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
                     KeyboardUtils.hideSoftInput(this)
-//                    val intent = Intent(this, CheckOutActivity::class.java)
+                    var delivery_type = APARTMENT
                     if (rl_apartment.isSelected) {
-                        val addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS_TYPE, APARTMENT)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS, addressDetail)
-                        callAddAddressApi(addressDetail, APARTMENT, PhoneNumberEditText.text.toString().trim(), additionDirectionEditText.text.toString().trim(), NameEditText.text.toString().trim())
+                        delivery_type = APARTMENT
+                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
                     } else if (rl_house.isSelected) {
-                        val addressDetail = ApartmentNumEditText.text.toString().trim() + ", " /*+ FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", "*/ + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS_TYPE, VILLA)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS, addressDetail)
-                        callAddAddressApi(addressDetail, VILLA, PhoneNumberEditText.text.toString().trim(), additionDirectionEditText.text.toString().trim(), NameEditText.text.toString().trim())
-
+                        delivery_type = VILLA
+                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " /*+ FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", "*/ + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
                     } else {
-                        val addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS_TYPE, OFFICE)
-//                        intent.putExtra(AppIntentExtraKeys.ADDRESS, addressDetail)
-                        callAddAddressApi(addressDetail, OFFICE, PhoneNumberEditText.text.toString().trim(), additionDirectionEditText.text.toString().trim(), NameEditText.text.toString().trim())
-
+                        delivery_type = OFFICE
+                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
                     }
-//                    intent.putExtra(AppIntentExtraKeys.ADDRESS, addressDetail)
-//                    intent.putExtra(AppIntentExtraKeys.NAME, NameEditText.text.toString().trim())
-//                    intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, PhoneNumberEditText.text.toString().trim())
-//                    intent.putExtra(AppIntentExtraKeys.LANDMARK, additionDirectionEditText.text.toString().trim())
-//                    startActivity(intent)
+
+                    val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                    logoutAlertDialog.setTitle(getString(R.string.app_name))
+                    logoutAlertDialog.setMessage(getString(R.string.want_to_defaultaddress))
+                    logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+                        logoutAlertDialog.dismiss()
+                        if (isNetworkAvailable())
+                            callAddAddressApi(name, address, latLang!!.latitude, latLang!!.longitude, postalCode, delivery_type, NameEditText.text.toString().trim(), PhoneNumberEditText.text.toString().trim(), additionDirectionEditText.text.toString().trim(), addressDetail)
+
+                    })
+                    logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+                        logoutAlertDialog.dismiss()
+                    })
+                    logoutAlertDialog.show()
+
 
                 }
             }
-            R.id.fulladdressEditText->{
-                                try {
+            R.id.fulladdressEditText -> {
+                try {
                     val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
                             .build(this)
                     startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
@@ -158,7 +174,6 @@ var place:Place?=null
                 ApartmentNumEditText.requestFocus()
             }
 
-
             R.id.rl_office -> {
                 setSelector(OFFICE)
                 ApartmentNumEditText.requestFocus()
@@ -166,41 +181,25 @@ var place:Place?=null
         }
     }
 
-    /*user_id,language,cart_id,delivery_address,delivery_latitude,delivery_longitude,delivery_landmark,delivery_address_type,deliver_to,deliver_mobile,address_id
- */
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    private fun callAddAddressApi(address: String, delivery_address_type: String, mobile_number: String, landmark: String, name: String) {
+    private fun callAddAddressApi(name: String, address: String, latitude: Double, longitude: Double, postalCode: String, delivery_address_type: String, user_name: String, mobile_number: String, landmark: String, full_address: String) {
         progressBar.visibility = View.VISIBLE
         saveDeliveryDetailBt.isEnabled = false
+
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
-//        if (from==3){
-//            addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
-//            addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
-//            addDeliveryAddressRequest["address"] = address
-//            addDeliveryAddressRequest["name"] = name
-//            addDeliveryAddressRequest["is_default"] = "1"
-//            addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
-//            addDeliveryAddressRequest["zip_code"] =
-//        }else{
-//            addDeliveryAddressRequest["address_id"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID)
-//            addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
-//            addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
-//        }
-
-        addDeliveryAddressRequest["address_id"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID)
-        addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE)
-        addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE)
-        addDeliveryAddressRequest["delivery_address"] = address
-        addDeliveryAddressRequest["deliver_to"] = name
         addDeliveryAddressRequest["delivery_address_type"] = delivery_address_type
-
-        addDeliveryAddressRequest["delivery_landmark"] = landmark
-        addDeliveryAddressRequest["cart_id"] = pref!!.getPreferenceStringData(pref!!.KEY_CART_ID)
+        addDeliveryAddressRequest["name"] = name
+        addDeliveryAddressRequest["latitude"] = latitude.toString()
+        addDeliveryAddressRequest["longitude"] = longitude.toString()
+        addDeliveryAddressRequest["is_default"] = "1"
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        addDeliveryAddressRequest["zip_code"] = postalCode
         addDeliveryAddressRequest["deliver_mobile"] = mobile_number
-        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).order_address_save(addDeliveryAddressRequest)
+        addDeliveryAddressRequest["delivery_landmark"] = landmark
+        addDeliveryAddressRequest["address"] = full_address
+        addDeliveryAddressRequest["deliver_to"] = user_name
+
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).addAddress(addDeliveryAddressRequest)
         compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
@@ -208,7 +207,7 @@ var place:Place?=null
                     saveDeliveryDetailBt.isEnabled = true
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     if (result.response!!.status!!) {
-                        saveDefaultAddressToPref(address, name, mobile_number, address, landmark, delivery_address_type)
+                        saveDefaultAddressToPref(result.response!!.data!!.addressId!!, address, name, latitude.toString(), longitude.toString(), user_name, mobile_number, full_address, landmark, delivery_address_type, postalCode)
                     } else {
                         Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
@@ -219,6 +218,65 @@ var place:Place?=null
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
+    }
+
+    /*user_id,language,cart_id,delivery_address,delivery_latitude,delivery_longitude,delivery_landmark,delivery_address_type,deliver_to,deliver_mobile,address_id
+ */
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+//    private fun callAddAddressApi(address: String, delivery_address_type: String, mobile_number: String, landmark: String, name: String) {
+//        progressBar.visibility = View.VISIBLE
+//        saveDeliveryDetailBt.isEnabled = false
+//        val addDeliveryAddressRequest = HashMap<String, String>()
+//        addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).trim()
+//        addDeliveryAddressRequest["address_id"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID).trim()
+//        addDeliveryAddressRequest["delivery_latitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE).trim()
+//        addDeliveryAddressRequest["delivery_longitude"] = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE).trim()
+//        addDeliveryAddressRequest["delivery_address"] = address.trim()
+//        addDeliveryAddressRequest["deliver_to"] = name.trim()
+//        addDeliveryAddressRequest["delivery_address_type"] = delivery_address_type.trim()
+//        addDeliveryAddressRequest["delivery_landmark"] = landmark.trim()
+//        addDeliveryAddressRequest["cart_id"] = pref!!.getPreferenceStringData(pref!!.KEY_CART_ID).trim()
+//        addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage().trim()
+//        addDeliveryAddressRequest["deliver_mobile"] = mobile_number.trim()
+//        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).order_address_save(addDeliveryAddressRequest)
+//        compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ result ->
+//                    progressBar.visibility = View.GONE
+//                    saveDeliveryDetailBt.isEnabled = true
+//                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+//                    if (result.response!!.status!!) {
+//                        saveDefaultAddressToPref(address, name, mobile_number, address, landmark, delivery_address_type)
+//                    } else {
+//                        Utils.getInstance().showToast(this, result.response!!.message!!)
+//                    }
+//                }, { error ->
+//                    progressBar.visibility = View.GONE
+//                    saveDeliveryDetailBt.isEnabled = true
+//                    Utils.getInstance().showToast(this, error.message!!)
+//                    Log.e("TAG", "{$error.message}")
+//                }
+//                ))
+//    }
+
+    private fun saveDefaultAddressToPref(id: String, address: String, name: String, latitude: String, longitude: String, username: String, phoneNumber: String, fullAddress: String, landmark: String, delivery_address_type: String, zip_code: String) {
+
+        var pref = Prefs.getInstance(context = this)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID, id)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS, address)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME, name)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE, latitude)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE, longitude)
+
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME, username)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER, phoneNumber)
+        pref!!.setPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS, fullAddress)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK, landmark)
+
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_TYPE, delivery_address_type)
+        pref!!.setPreferenceStringData(pref!!.KEY_ZIP_CODE, zip_code)
+        finish()
     }
 
     private fun saveDefaultAddressToPref(address: String, username: String, phoneNumber: String, fullAddress: String, landmark: String, delivery_address_type: String) {
@@ -314,12 +372,10 @@ var place:Place?=null
 //                img_office.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
 //                DrawableCompat.setTint(img_office.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 ImageViewCompat.setImageTintList(img_office, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary)))
-
                 ApartmentNoTextLayout.visibility = View.VISIBLE
                 FloorTextLayout.visibility = View.VISIBLE
                 BuildingTextLayout.visibility = View.VISIBLE
             }
-
         }
     }
 

@@ -3,6 +3,8 @@ package com.os.drewel.activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -53,7 +55,24 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.delivery_address_activity)
         initView()
         setAdapter()
+        swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                refreshItems()
+            }
+        })
     }
+    fun refreshItems() {
+        // Load complete
+        Handler().postDelayed({
+            try {
+                if (isNetworkAvailable())
+                    callGetAddressApi(View.GONE)
+            } catch (e: Exception) {
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }, 2000)
+    }
+
 
     private fun initView() {
         setSupportActionBar(toolbar)
@@ -62,7 +81,8 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         mMapView.setOnClickListener {
             val intent = Intent(this, DeliveryMapAddressActivity::class.java)
-            startActivityForResult(intent, AppRequestCodes.DELIVER_ADDRESS_REQUEST_CODE)
+            startActivity(intent)
+//            startActivityForResult(intent, AppRequestCodes.DELIVER_ADDRESS_REQUEST_CODE)
         }
         /* when user click on adapter row*/
         if (intent != null) {
@@ -73,7 +93,7 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         clickOfAdapterItem()
         setClickListeners()
         if (isNetworkAvailable())
-            callGetAddressApi()
+            callGetAddressApi(View.VISIBLE)
     }
 
     private fun clickOfAdapterItem() {
@@ -122,17 +142,19 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.searchDeliveryAddress -> {
+                val intent = Intent(this, DeliveryMapAddressActivity::class.java)
+                startActivity(intent)
 //                startActivity(Intent(this,DeliveryDetailActivity::class.java).putExtra("TYPE", 3))
 
-                try {
-                    val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this)
-                    startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
-                } catch (e: GooglePlayServicesRepairableException) {
-                    Utils.getInstance().showToast(this, e.message!!)
-                } catch (e: GooglePlayServicesNotAvailableException) {
-                    Utils.getInstance().showToast(this, e.message!!)
-                }
+//                try {
+//                    val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+//                            .build(this)
+//                    startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
+//                } catch (e: GooglePlayServicesRepairableException) {
+//                    Utils.getInstance().showToast(this, e.message!!)
+//                } catch (e: GooglePlayServicesNotAvailableException) {
+//                    Utils.getInstance().showToast(this, e.message!!)
+//                }
             }
             R.id.deliveryAddressDoneBt -> {
                 if (From == 2) {
@@ -183,7 +205,7 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
 
                     val status = PlaceAutocomplete.getStatus(this, data)
                     Log.i("onActivityResult", status.statusMessage)
-                    Utils.getInstance().showToast(this,status.statusMessage!!)
+                    Utils.getInstance().showToast(this, status.statusMessage!!)
                 }
                 RESULT_CANCELED -> // The user canceled the operation.
                     Log.e("onActivityResult", "canceled")
@@ -246,12 +268,12 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         if (isNetworkAvailable())
                             callAddAddressApi(name, address, latitude, longitude, postalCode, ",", "", "", "", "")
                     } else {
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     }
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -292,12 +314,12 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         setAdapter()
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     } else {
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                         setDoneButtonVisibility(View.VISIBLE, View.GONE)
                     }
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -319,8 +341,8 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         pref!!.setPreferenceStringData(pref!!.KEY_ZIP_CODE, zip_code)
     }
 
-    private fun callGetAddressApi() {
-        setDoneButtonVisibility(View.GONE, View.VISIBLE)
+    private fun callGetAddressApi(visibility:Int) {
+        setDoneButtonVisibility(View.GONE,visibility)
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -328,20 +350,26 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    swipeRefreshLayout.isRefreshing = false
                     if (result.response!!.status!!) {
                         addressList = result.response!!.data!!.address!!
-                        if (addressList.isEmpty())
+                        if (addressList.isEmpty()) {
+                            searchDeliveryAddress.setText(R.string.add_new_address)
                             setDoneButtonVisibility(View.GONE, View.GONE)
-                        else
+                        } else {
+                            searchDeliveryAddress.setText(R.string.add_another_address)
                             setDoneButtonVisibility(View.VISIBLE, View.GONE)
+                        }
+
                         setAdapter()
                     } else {
                         setDoneButtonVisibility(View.GONE, View.GONE)
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
+                    swipeRefreshLayout.isRefreshing = false
                     setDoneButtonVisibility(View.GONE, View.GONE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -373,10 +401,10 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                                 ?: "", addressList[addressPosition].delivery_address_type
                                 ?: "", addressList[addressPosition].zip_code ?: "")
                     } else
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                 }, { error ->
                     setDoneButtonVisibility(View.VISIBLE, View.GONE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -398,10 +426,10 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
                         addressList.removeAt(addressPosition)
                         deliverListAdapter!!.notifyItemRemoved(addressPosition)
                     } else
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

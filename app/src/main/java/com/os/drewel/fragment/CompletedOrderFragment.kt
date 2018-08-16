@@ -1,12 +1,11 @@
 package com.os.drewel.fragment
 
 import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.os.Handler
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +13,12 @@ import android.view.ViewGroup
 import com.os.drewel.R
 import com.os.drewel.activity.HomeActivity
 import com.os.drewel.adapter.MyCurrentOrderAdapter
-import com.os.drewel.adapter.NotificationAdapter
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.myorderresponsemodel.Order
 import com.os.drewel.application.DrewelApplication
-import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.Constants
 import com.os.drewel.constant.Constants.COMPLETED_ORDER
 import com.os.drewel.delegate.OnClickItem
-import com.os.drewel.utill.SwipeHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -49,12 +45,26 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        updateMenuTitles()
-        callMyCurrentOrderApi()
+        callMyCurrentOrderApi(View.VISIBLE)
         txt_clearall.setOnClickListener {
             showLogoutDialog(getString(R.string.want_to_delete_allorder), 0, true)
         }
+        swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                refreshItems()
+            }
+        })
     }
-
+    fun refreshItems() {
+        // Load complete
+        Handler().postDelayed({
+            try {
+                callMyCurrentOrderApi(View.GONE)
+            } catch (e: Exception) {
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }, 2000)
+    }
     private fun updateMenuTitles() {
         var activity = activity as HomeActivity
         if (activity.menu == null)
@@ -65,8 +75,8 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
         activity.menu!!.findItem(R.id.menu_whishlist).isVisible = true
     }
 
-    private fun callMyCurrentOrderApi() {
-        setProgressState(View.VISIBLE)
+    private fun callMyCurrentOrderApi(visible: Int) {
+        setProgressState(visible)
 
         val myCurrentOrderRequest = HashMap<String, String>()
         myCurrentOrderRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
@@ -76,6 +86,7 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
         currentOrderDisposable = myCurrentOrderObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    swipeRefreshLayout.isRefreshing = false
                     setProgressState(View.GONE)
                     if (result.response!!.status!!) {
                         noOrderAlertTv.visibility = View.GONE
@@ -91,6 +102,7 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
                         myOrderRv.visibility = View.GONE
                     }
                 }, { error ->
+                    swipeRefreshLayout.isRefreshing = false
                     setProgressState(View.GONE)
                     Log.e("TAG", "{$error.message}")
                 }
@@ -98,14 +110,13 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
     }
 
     private fun setAdapter() {
-        if (currentOrderAdapter == null) {
+//        if (currentOrderAdapter == null) {
             myOrderRv.layoutManager = LinearLayoutManager(context)
 //            myOrderRv.addItemDecoration(EqualSpacingItemDecoration(26, EqualSpacingItemDecoration.VERTICAL))
-
             currentOrderAdapter = MyCurrentOrderAdapter(context, myCurrentOrderList, COMPLETED_ORDER, this)
             myOrderRv.adapter = currentOrderAdapter
-        } else
-            currentOrderAdapter?.notifyDataSetChanged()
+//        } else
+//            currentOrderAdapter?.notifyDataSetChanged()
 
 //        val swipeHelper = object : SwipeHelper(activity, myOrderRv) {
 //            override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder, underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {

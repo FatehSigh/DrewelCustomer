@@ -136,7 +136,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
 
         val changeLanguageAlertDialog = AlertDialog.Builder(this.context!!, R.style.DeliveryTypeTheme).create()
 
-        changeLanguageAlertDialog.setTitle(getString(R.string.app_name))
+//        changeLanguageAlertDialog.setTitle(getString(R.string.app_name))
         changeLanguageAlertDialog.setMessage(getString(R.string.choose_language))
 
 
@@ -302,7 +302,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                         prefs!!.setPreferenceStringData(prefs!!.KEY_EMAIL, "")
                         prefs!!.setPreferenceStringData(prefs!!.KEY_PHOTO, "")
                         prefs!!.setPreferenceStringData(prefs!!.KEY_ROLE_ID, "")
-
+                        prefs!!. clearSharedPreference()
                         val intent = Intent(activity, WelcomeActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)

@@ -17,6 +17,7 @@ import android.os.Build
 import android.os.Environment
 import android.text.format.DateUtils
 import android.util.Log
+import android.util.TypedValue
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.DirectionResults
@@ -52,6 +53,31 @@ class Utils private constructor() {
             return utills as Utils
         }
     }
+
+    fun dpToPix(mContext: Context?, value: Int): Int {
+        var calculatedValue = value
+        try {
+            if (mContext != null)
+                calculatedValue = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value.toFloat(), mContext.resources.displayMetrics))
+        } catch (e: Exception) {
+        }
+
+        return calculatedValue
+
+    }
+
+    fun pixToDP(mContext: Context, value: Int): Float {
+        val r = mContext.resources
+        var calculatedValue = value.toFloat()
+        try {
+            calculatedValue = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value.toFloat(), r.displayMetrics)
+        } catch (e: Exception) {
+        }
+
+        return calculatedValue
+
+    }
+
 
     fun showToast(mContext: Context?, Message: String) {
         try {

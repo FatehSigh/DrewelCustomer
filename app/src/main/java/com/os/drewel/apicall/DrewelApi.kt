@@ -247,6 +247,15 @@ interface DrewelApi {
     @POST("delete_notification")
     fun deleteNotification(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
 
+
+    @Headers("Content-Type: application/json")
+    @POST("clear_wallet")
+    fun clear_wallet(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("clear_loyalty")
+    fun clear_loyalty(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>
+
     @Headers("Content-Type: application/json")
     @POST("clear_order")
     fun clear_order(@Body myOrderDetailRequest: Map<String, String>): Observable<BaseResponse>

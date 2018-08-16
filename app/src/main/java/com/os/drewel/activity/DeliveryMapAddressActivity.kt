@@ -24,6 +24,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -31,6 +32,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.os.drewel.R
+import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
+import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.AppRequestCodes
 import com.os.drewel.utill.Utils
@@ -118,15 +122,14 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
         if (view.id == mapDoneButton.id) {
             showLoading()
             geoLocationAddressAPI(LatLng(this.googleMap!!.cameraPosition.target.latitude, this.googleMap!!.cameraPosition.target.longitude))
-
         } else if (view.id == R.id.searchDeliveryAddress) {
             try {
                 val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(this)
                 startActivityForResult(intent, AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE)
             } catch (e: GooglePlayServicesRepairableException) {
-                Utils.getInstance().showToast(this,e.message!!)
+                Utils.getInstance().showToast(this, e.message!!)
             } catch (e: GooglePlayServicesNotAvailableException) {
-                Utils.getInstance().showToast(this,e.message!!)
+                Utils.getInstance().showToast(this, e.message!!)
             }
 
         }
@@ -301,8 +304,8 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
 
                                     if (i == 0)
                                         fullAddress = address.getAddressLine(i)
-                                    else if (i < address.maxAddressLineIndex)
-                                        fullAddress += ", " + address.getAddressLine(i)
+//                                    else if (i < address.maxAddressLineIndex)
+//                                        fullAddress += ", " + address.getAddressLine(i)
                                     else
                                         break
                                 }
@@ -322,17 +325,32 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
 
                                 val name = subThoroughfare + thoroughfare + subLocality + locality
                                 hideLoading()
-                                val intent = Intent()
-                                intent.putExtra(AppIntentExtraKeys.ADDRESS, fullAddress)
-                                intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, name)
-                                intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
-                                intent.putExtra(AppIntentExtraKeys.LATLNG, latLng)
-                                setResult(Activity.RESULT_OK, intent)
-                                finish()
+//                                val intent = Intent()
+//                                intent.putExtra(AppIntentExtraKeys.ADDRESS, fullAddress)
+//                                intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, name)
+//                                intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
+//                                intent.putExtra(AppIntentExtraKeys.LATLNG, latLng)
+//                                setResult(Activity.RESULT_OK, intent)
+//                                finish()
+                                val intent = Intent(this, DeliveryDetailActivity::class.java)
 
+//                                setResult(Activity.RESULT_OK, intent)
+                                if (place != null) {
+                                    intent.putExtra(AppIntentExtraKeys.ADDRESS, place!!.address)
+                                    intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, place!!.name)
+                                    intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
+                                    intent.putExtra(AppIntentExtraKeys.LATLNG, place!!.latLng)
+                                } else {
+                                    intent.putExtra(AppIntentExtraKeys.ADDRESS, fullAddress)
+                                    intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, name)
+                                    intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
+                                    intent.putExtra(AppIntentExtraKeys.LATLNG, latLng)
+                                }
+                                startActivity(intent)
+                                finish()
                             } else {
                                 hideLoading()
-                                Utils.getInstance().showToast(this,getString(R.string.error_address_not_found))
+                                Utils.getInstance().showToast(this, getString(R.string.error_address_not_found))
                             }
                         },
                         { error ->
@@ -343,6 +361,7 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
                 )
     }
 
+    var place: Place? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (requestCode == AppRequestCodes.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
@@ -350,16 +369,16 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
             when (resultCode) {
                 Activity.RESULT_OK -> {
 
-                    val place = PlaceAutocomplete.getPlace(this, data!!)
+                    place = PlaceAutocomplete.getPlace(this, data!!)
 
-                    Log.i("onActivityResult", "Place: " + place.name)
-                    Log.i("onActivityResult", "Place: " + place.address)
-                    Log.i("onActivityResult", "Place: " + place.latLng)
+                    Log.i("onActivityResult", "Place: " + place!!.name)
+                    Log.i("onActivityResult", "Place: " + place!!.address)
+                    Log.i("onActivityResult", "Place: " + place!!.latLng)
 
-                    val latLng = LatLng(place.latLng.latitude, place.latLng.longitude)
+                    val latLng = LatLng(place!!.latLng.latitude, place!!.latLng.longitude)
                     val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14f)
                     googleMap!!.animateCamera(cameraUpdate)
-                    searchDeliveryAddress.text = place.name
+                    searchDeliveryAddress.text = place!!.name
 
                 }
                 PlaceAutocomplete.RESULT_ERROR -> {

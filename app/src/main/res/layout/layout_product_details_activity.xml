@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.amar.library.ui.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:background="@color/white"
-    app:stickyFooter="@+id/largeLabel"
-    tools:showIn="@layout/product_detail_activity">
+<!--<com.amar.library.ui.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/scrollView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginTop="?attr/actionBarSize"-->
+    <!--android:background="@color/white"-->
+    <!--app:stickyFooter="@+id/largeLabel"-->
+    <!--tools:showIn="@layout/product_detail_activity">-->
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/white"
+        tools:showIn="@layout/product_detail_activity">
     <!-- when failed,paste it ,  app:stickyHeader="@+id/my_first_name"-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,18 +48,20 @@
                     android:id="@+id/productImagePager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/outOfStockTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
+                    android:background="#99FFFFFF"
                     android:fontFamily="@font/roboto_bold_1"
                     android:gravity="center"
-                    android:background="#99FFFFFF"
                     android:text="@string/out_of_stock"
                     android:textColor="@android:color/holo_red_light"
-                    android:textSize="@dimen/_15sdp"
-                    android:layout_centerHorizontal="true"/>
+                    android:textSize="@dimen/_15sdp" />
+
                 <com.rd.PageIndicatorView
                     android:id="@+id/pageIndicatorView"
                     android:layout_width="wrap_content"
@@ -66,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/ic_circle_white_8dp"
                     android:padding="@dimen/_10sdp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/share"
@@ -77,14 +90,14 @@
 
 
         <!--<TextView-->
-            <!--android:id="@+id/outOfStockTv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:paddingBottom="@dimen/_5sdp"-->
-            <!--android:text="@string/out_of_stock"-->
-            <!--android:textColor="@android:color/holo_red_light"-->
-            <!--android:textSize="@dimen/_15sdp" />-->
+        <!--android:id="@+id/outOfStockTv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:paddingBottom="@dimen/_5sdp"-->
+        <!--android:text="@string/out_of_stock"-->
+        <!--android:textColor="@android:color/holo_red_light"-->
+        <!--android:textSize="@dimen/_15sdp" />-->
 
         <RelativeLayout
             android:id="@+id/rel"
@@ -165,18 +178,33 @@
                 style="@style/LightBlackTextColorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dairy_and_egg" />
-
-            <android.support.v7.widget.AppCompatCheckedTextView
-                android:id="@+id/tv_product_sub_categories"
-                android:layout_width="wrap_content"
+               />
+            <LinearLayout
+                android:elevation="@dimen/_5sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/arrow"
-                android:drawablePadding="@dimen/_5sdp"
-                android:gravity="center"
-                android:paddingStart="@dimen/_5sdp"
-                android:text="@string/cheese"
-                android:theme="@style/LightBlackTextColorStyle" />
+                android:background="@android:color/transparent"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:rotation="@integer/locale_mirror_flip"
+                    android:src="@mipmap/arrow" />
+                <android.support.v7.widget.AppCompatCheckedTextView
+                    android:id="@+id/tv_product_sub_categories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_5sdp"
+
+                    android:theme="@style/LightBlackTextColorStyle" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -249,73 +277,80 @@
 
         </LinearLayout>
 
-
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_rating"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:text="4"
-                android:theme="@style/OrangeTextColorStyle" />
-
-            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                android:id="@+id/ratingBar"
-                style="@style/Widget.MaterialRatingBar.RatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:maxHeight="@dimen/_41sdp"
-                android:minHeight="@dimen/_14sdp"
-                android:numStars="5"
-                android:rating="3"
-                app:mrb_progressTint="@color/colorPrimary"
-                app:mrb_secondaryProgressTint="@color/black" />
-
-            <!--    <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_total_reviews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:text="@string/total_reviews"
-                    android:theme="@style/OrangeTextColorStyle" />
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_6sdp"
-                    android:text="@string/reviews"
-                    android:theme="@style/BlackTextColorStyle" />-->
-        </LinearLayout>
+                    android:text="4"
+                    android:theme="@style/OrangeTextColorStyle" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/txt_write_your_review"
-            style="@style/ButtonTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:background="@color/violet_4"
-            android:gravity="center"
-            android:text="@string/write_your_review"
-            android:textColor="@color/black"
-            android:textStyle="normal" />
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.MaterialRatingBar.RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:maxHeight="@dimen/_41sdp"
+                    android:minHeight="@dimen/_14sdp"
+                    android:numStars="5"
+                    android:rating="3"
+                    app:mrb_progressTint="@color/colorPrimary"
+                    app:mrb_secondaryProgressTint="@color/black" />
+
+                <!--    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_total_reviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:text="@string/total_reviews"
+                        android:theme="@style/OrangeTextColorStyle" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:text="@string/reviews"
+                        android:theme="@style/BlackTextColorStyle" />-->
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/txt_write_your_review"
+                style="@style/ButtonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@color/violet_4"
+                android:gravity="center"
+                android:text="@string/write_your_review"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+        </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/largeLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ll"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -438,4 +473,4 @@
 
     </LinearLayout>
 
-</com.amar.library.ui.StickyScrollView>
+</ScrollView>

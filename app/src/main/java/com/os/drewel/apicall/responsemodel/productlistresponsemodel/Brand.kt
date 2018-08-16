@@ -10,6 +10,9 @@ class Brand : Serializable {
     @SerializedName("brand_name")
     @Expose
     var brandName: String? = null
+    @SerializedName("ar_brand_name")
+    @Expose
+    var ar_brand_name: String? = null
     @SerializedName("brand_id")
     @Expose
     var brandId: String? = null

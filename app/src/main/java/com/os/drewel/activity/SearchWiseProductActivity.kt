@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.os.drewel.R
 import com.os.drewel.adapter.ProductAdapter
+import com.os.drewel.adapter.ProductAdapter2
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
 import com.os.drewel.application.DrewelApplication
@@ -24,7 +25,7 @@ import java.util.*
  */
 class SearchWiseProductActivity : ProductBaseActivity() {
 
-    private var productAdapter: ProductAdapter? = null
+    private var productAdapter: ProductAdapter2? = null
 
     var disposable: Disposable? = null
 
@@ -105,7 +106,7 @@ class SearchWiseProductActivity : ProductBaseActivity() {
 
     private fun setAdapter() {
         if (productAdapter == null) {
-            productAdapter = ProductAdapter(this)
+            productAdapter = ProductAdapter2(this)
             productAdapter!!.productList = productList
             brandWiseProductRecyclerView.layoutManager = GridLayoutManager(this,2 )
             brandWiseProductRecyclerView.addItemDecoration(EqualSpacingItemDecoration(10, EqualSpacingItemDecoration.GRID))

@@ -12,8 +12,7 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 import android.content.pm.PackageManager
 import android.R.attr.versionName
 import android.content.pm.PackageInfo
-
-
+import com.os.drewel.application.DrewelApplication
 
 
 class AboutAppActivity : BaseActivity(), View.OnClickListener {
@@ -25,6 +24,10 @@ class AboutAppActivity : BaseActivity(), View.OnClickListener {
         initView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        DrewelApplication.getInstance().setLocale( DrewelApplication.getInstance().getLanguage(),this)
+    }
     /* set toolbar and back button*/
     private fun initView() {
         toolbarTitleTv.text = getString(R.string.about_app)

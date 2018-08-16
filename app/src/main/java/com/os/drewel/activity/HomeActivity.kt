@@ -98,7 +98,7 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                     }
                 }, { error ->
                     // setProgressState(View.GONE, true)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -118,7 +118,10 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
 
         when (item.itemId) {
             R.id.navigation_home -> {
-                addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS)
+                if (pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME).isNotEmpty())
+                    addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME)
+                else
+                    addressTv.text = getString(R.string.add_new_address)
                 setFragment(CategoryFragment())
                 return true
             }
@@ -184,7 +187,10 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
 
     override fun onResume() {
         super.onResume()
-        addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME)
+        if (pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME).isNotEmpty())
+            addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME)
+        else
+            addressTv.text = getString(R.string.add_new_address)
     }
 
     /* set title of action bar*/

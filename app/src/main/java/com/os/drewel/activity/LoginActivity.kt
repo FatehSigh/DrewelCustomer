@@ -211,12 +211,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                             prefs.setPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS_LONGITUDE, result.response!!.data!!.addressLongitude
                                     ?: "")
                             prefs.setPreferenceBooleanData(prefs.KEY_SOCIAL_LOGIN, false)
-                            val intent: Intent
 
-                            intent = if (prefs.getPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS).isEmpty())
-                                Intent(this, DeliveryAddressActivity::class.java)
-                            else
-                                Intent(this, HomeActivity::class.java)
+//                            val intent = Intent(this, DeliveryAddressActivity::class.java)
+//                            startActivity(intent) if (prefs.getPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS).isEmpty())
+//                                Intent(this, DeliveryAddressActivity::class.java)
+//                            else
+                            val intent =  Intent(this, HomeActivity::class.java)
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)

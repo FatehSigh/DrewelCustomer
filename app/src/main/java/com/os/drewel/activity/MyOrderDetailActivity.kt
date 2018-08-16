@@ -19,6 +19,7 @@ import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Data
 import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -256,8 +257,13 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         order_detail_recyl_products.adapter = myOrderProductItemAdapter
 
         order_detail_txt_address_line.text = myOrderDetailResponse!!.order!!.deliveryAddress
-        order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
 
+        order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+            order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
+        }else {
+            order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "dd MMM, yyyy")
+        }
         val deliveryTime = getString(R.string.from) + " " + Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryStartTime!!, "HH:mm:ss", "hh:mm a") + " " + getString(R.string.to) + " " + Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryEndTime!!, "HH:mm:ss", "hh:mm a")
 
         order_detail_txt_delivery_time_line2.text = deliveryTime
@@ -278,7 +284,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         if (myOrderDetailResponse?.order?.paymentMode.equals("COD"))
             order_detail_txt_payment_type.text = getString(R.string.COD)
         else
-            order_detail_txt_payment_type.text = myOrderDetailResponse?.order?.paymentMode
+            order_detail_txt_payment_type.text = getString(R.string.credit_card)
 
         if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Cancelled"))
             order_detail_txt_order_status.text = getString(R.string.Cancelled)

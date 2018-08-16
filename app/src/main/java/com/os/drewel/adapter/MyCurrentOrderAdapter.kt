@@ -21,6 +21,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.myorderresponsemodel.Order
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.constant.Constants.CURRENT_ORDER
 import com.os.drewel.delegate.OnClickItem
 import com.os.drewel.prefrences.Prefs
@@ -69,6 +70,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
             } else
                 startTimer(myCurrentOrderList[position], holder)
         } else {
+            holder.itemView.ll_edit.visibility=View.VISIBLE
             holder.itemView.btn_reorder.visibility = View.VISIBLE
             holder.itemView.btn_edit.visibility = View.GONE
             holder.itemView.btn_delete.visibility = View.VISIBLE
@@ -76,7 +78,13 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
 
         val order = myCurrentOrderList[position]
         holder.itemView.order_item_txt_order_id.text = order.orderId
-        holder.itemView.order_item_txt_order_delivery_date.text = Utils.getInstance().convertTimeFormat(order.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
+        holder.itemView.order_item_txt_transaction.setText(mContext!!.getString(R.string.not_applicable))
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+
+            holder.itemView.order_item_txt_order_delivery_date.text = Utils.getInstance().convertTimeFormat(order.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
+        }else {
+            holder.itemView.order_item_txt_order_delivery_date.text = Utils.getInstance().convertTimeFormat(order.deliveryDate!!, "yyyy-MM-dd", "dd MMM, yyyy")
+        }
         if (mContext != null) {
             val deliveryTime = mContext.getString(R.string.from) + " " + Utils.getInstance().convertTimeFormat(order.deliveryStartTime!!, "HH:mm:ss", "hh:mm a") + " " + mContext.getString(R.string.to) + " " + Utils.getInstance().convertTimeFormat(order.deliveryEndTime!!, "HH:mm:ss", "hh:mm a")
             holder.itemView.order_item_txt_order_delivery_time.text = deliveryTime
@@ -87,7 +95,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
         if (order.paymentMode.equals("COD"))
             holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.COD)
         else
-            holder.itemView.order_item_txt_payment_method.text = order.paymentMode
+            holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.credit_card)
 
 
 //        holder.itemView.order_item_txt_order_status.text = order.orderDeliveryStatus
@@ -123,6 +131,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                 } else
                     holder.itemView.btn_edit.visibility = View.VISIBLE
                 holder.itemView.btn_delete.visibility = View.VISIBLE
+                holder.itemView.ll_edit.visibility=View.VISIBLE
                 var millisUntil: Long? = 0
                 holder.timer = object : CountDownTimer(actualTime, 1000) {
                     override fun onTick(millisUntilFinished: Long) {

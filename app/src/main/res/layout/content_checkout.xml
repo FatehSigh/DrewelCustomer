@@ -70,7 +70,9 @@
             android:id="@+id/deliveryAddressHintTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
             android:text="@string/delivery_address"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewPhoneNumber" />
@@ -145,6 +147,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp"
             android:text="@string/add_detail"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,6 +155,7 @@
             app:layout_constraintTop_toBottomOf="@+id/viewDeliveryAddress" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="@dimen/_12sdp"
             android:id="@+id/chooseDeliveryTypeTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -162,14 +166,18 @@
             android:paddingEnd="@dimen/_15sdp"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/black"
+            android:textColorHint="@color/violet_1"
+            android:fontFamily="@font/roboto_regular_0"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addDetailHintTv" />
 
         <View
+            android:layout_marginTop="@dimen/_7sdp"
             android:id="@+id/viewDeliveryType"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
+            android:layout_height="1dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/violet_1"
@@ -191,7 +199,7 @@
             android:textColorHint="@color/violet_1"
             app:backgroundTint="@color/violet_1"
             app:layout_constraintEnd_toStartOf="@+id/applyLoyaltyPointTv"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewDeliveryType" />
 
@@ -202,7 +210,7 @@
             android:background="@android:color/transparent"
             android:paddingStart="@dimen/_5sdp"
             android:paddingEnd="@dimen/_15sdp"
-            android:text="@string/apply"
+            android:text="@string/redeem"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"

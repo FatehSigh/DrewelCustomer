@@ -17,6 +17,7 @@ import com.os.drewel.activity.ProductActivity
 import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Category
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import kotlinx.android.synthetic.main.category_row_selector.view.*
 import kotlinx.android.synthetic.main.product_list_all_child.view.*
 
@@ -41,17 +42,32 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
                 holder.itemView.subCategoryNameTv.text = mContext.getString(R.string.all_products_from_this_store)
             }
         } else {
-            holder.itemView.categoryNameTv.text = categoryList.get(position - 1).categoryName
+            if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                holder.itemView.categoryNameTv.text = categoryList.get(position - 1).categoryName
+            } else {
+                holder.itemView.categoryNameTv.text = categoryList.get(position - 1).ar_category_name
+            }
+
             var subCategoryName = ""
             val subCategory = categoryList[position - 1].subcategories
 
             if (subCategory != null) {
                 for (i in 0 until subCategory.size) {
                     subCategoryName +=
-                            if (i == (subCategory.size - 1))
-                                subCategory[i].categoryName
-                            else
-                                subCategory[i].categoryName + " , "
+                            if (i == (subCategory.size - 1)) {
+                                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                                    subCategory[i].categoryName
+                                } else {
+                                    subCategory[i].ar_category_name
+                                }
+                            } else
+                                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                                    subCategory[i].categoryName + " , "
+                                } else {
+                                    subCategory[i].ar_category_name + " , "
+                                }
+
+
                 }
                 holder.itemView.subCategoryNameTv.text = subCategoryName
             }

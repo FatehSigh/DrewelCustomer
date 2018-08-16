@@ -1,15 +1,16 @@
 package com.os.drewel.fragment
 
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import com.os.drewel.R
-import com.os.drewel.activity.CartActivity
 import com.os.drewel.activity.HomeActivity
 import com.os.drewel.adapter.MyCurrentOrderAdapter
 import com.os.drewel.apicall.DrewelApi
@@ -19,9 +20,6 @@ import com.os.drewel.constant.Constants
 import com.os.drewel.constant.Constants.CURRENT_ORDER
 import com.os.drewel.delegate.OnClickItem
 import com.os.drewel.prefrences.Prefs
-import com.os.drewel.rxbus.CartRxJavaBus
-import com.os.drewel.utill.CommonUtil
-import com.os.drewel.utill.EqualSpacingItemDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -38,7 +36,7 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
     }
 
     private var currentOrderDisposable: Disposable? = null
-    private var myCurrentOrderList: List<Order> = ArrayList()
+    private var myCurrentOrderList: MutableList<Order> = ArrayList()
     private var currentOrderAdapter: MyCurrentOrderAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,7 +46,23 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        updateMenuTitles()
-        callMyCurrentOrderApi()
+        callMyCurrentOrderApi(VISIBLE)
+        swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                refreshItems()
+            }
+        })
+    }
+
+    fun refreshItems() {
+        // Load complete
+        Handler().postDelayed({
+            try {
+                callMyCurrentOrderApi(GONE)
+            } catch (e: Exception) {
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }, 2000)
     }
 
     private fun callDeleteOrderApi(position: Int) {
@@ -63,7 +77,9 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
                 .subscribe({ result ->
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, activity!!)
                     if (result.response!!.status!!) {
-                        callMyCurrentOrderApi()
+                        myCurrentOrderList.removeAt(position)
+                        currentOrderAdapter!!.notifyDataSetChanged()
+//                        callMyCurrentOrderApi(VISIBLE)
                     } else {
                         com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     }
@@ -84,8 +100,8 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         activity.menu!!.findItem(R.id.menu_whishlist).isVisible = true
     }
 
-    private fun callMyCurrentOrderApi() {
-        setProgressState(View.VISIBLE)
+    private fun callMyCurrentOrderApi(show: Int) {
+        setProgressState(show)
         val myCurrentOrderRequest = HashMap<String, String>()
         myCurrentOrderRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         myCurrentOrderRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -94,17 +110,23 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         currentOrderDisposable = myCurrentOrderObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    swipeRefreshLayout.isRefreshing = false
                     setProgressState(View.GONE)
                     if (result.response!!.status!!) {
                         noOrderAlertTv.visibility = View.GONE
                         myOrderRv.visibility = View.VISIBLE
-                        myCurrentOrderList = result.response?.data?.order!!
+
+                        myCurrentOrderList = (result.response?.data?.order as MutableList<Order>?)!!
+//                        if (result.response?.data?.order!!.isEmpty())
+//                            myCurrentOrderList = ArrayList()
                         setAdapter()
+
                     } else {
                         noOrderAlertTv.visibility = View.VISIBLE
                         myOrderRv.visibility = View.GONE
                     }
                 }, { error ->
+                    swipeRefreshLayout.isRefreshing = false
                     setProgressState(View.GONE)
                     Log.e("TAG", "{$error.message}")
                 }
@@ -140,8 +162,9 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         super.onDestroy()
     }
 
-    private fun setProgressState(visibility: Int) { if (isAdded)
-        progressBar.visibility = visibility
+    private fun setProgressState(visibility: Int) {
+        if (isAdded)
+            progressBar.visibility = visibility
     }
 
     override fun onStop() {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.opengl.Visibility
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -33,6 +32,7 @@ import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.rxbus.SampleRxJavaBus
+import devs.mulham.horizontalcalendar.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.product_list_all_child.view.*
@@ -42,7 +42,7 @@ import java.text.NumberFormat
  * Created by sharukhb on 3/13/2018.
  */
 
-class ProductAdapter(val mContext: Context, internal var visibility: Int) : RecyclerView.Adapter<ProductAdapter.CategoryHolder>() {
+class ProductAdapter2(val mContext: Context) : RecyclerView.Adapter<ProductAdapter2.CategoryHolder>() {
 
     var productList: List<Product> = ArrayList()
     var imageViewHeight = 0
@@ -57,9 +57,9 @@ class ProductAdapter(val mContext: Context, internal var visibility: Int) : Recy
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
 
-        val linearPram = LinearLayout.LayoutParams(imageViewWidth,LinearLayout.LayoutParams.WRAP_CONTENT)
+        val linearPram = LinearLayout.LayoutParams(imageViewWidth, LinearLayout.LayoutParams.WRAP_CONTENT)
         holder.itemView.productListRootLL.layoutParams = linearPram
-//        val linearPram = LinearLayout.LayoutParams(imageViewWidth, imageViewHeight)
+//        val linearPram = LinearLayout.LayoutParams(imageViewWidth,imageViewHeight)
 //        holder.itemView.productListRootLL.layoutParams = linearPram
 //        val relativePram = RelativeLayout.LayoutParams(imageViewWidth, imageViewHeight-150)
 //        holder.itemView.imv_product.layoutParams = relativePram
@@ -160,31 +160,22 @@ class ProductAdapter(val mContext: Context, internal var visibility: Int) : Recy
 
 
     inner class CategoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         init {
             val displaymetrics = DisplayMetrics()
             (mContext as AppCompatActivity).windowManager.defaultDisplay.getMetrics(displaymetrics)
             val width = displaymetrics.widthPixels
-            imageViewWidth = (width / 2) - 80
+            imageViewWidth = (width / 2) - 32
             val height = displaymetrics.heightPixels
-            var value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 60)
-            if (visibility == View.VISIBLE) {
-                value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 150)
-                imageViewHeight = (height)/2-220
-            } else
-                imageViewHeight = (height)/2-150
-                value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 100)
-            Log.e("Height==>",value.toString())
+            imageViewHeight = (height - com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 70)) / 2
+//            imageViewHeight = (height / 2) - com.os.drewel.utill.Utils.getInstance().dpToPix(mContext,value)
 //            val height = displaymetrics.heightPixels
 //            imageViewHeight = (height / 2) -100
-            /* if user add or remove product from detail activity then change it in adapter also*/
+/*            if user add or remove product from detail activity then change it in adapter also*/
             SampleRxJavaBus.getInstance().objectPublishSubject.subscribe({ addToWishList ->
                 productList[clickPosition].isWishlist = addToWishList as Int
-
                 notifyItemChanged(clickPosition)
             })
         }
-
     }
 
     @SuppressLint("CheckResult")

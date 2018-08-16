@@ -11,9 +11,10 @@ import android.view.ViewGroup
 import com.os.drewel.R
 import com.os.drewel.activity.BrandWiseProductActivity
 import com.os.drewel.apicall.responsemodel.productlistresponsemodel.Brand
+import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import com.os.drewel.utill.EqualSpacingItemDecoration
-import com.os.drewel.utill.Utils
 import kotlinx.android.synthetic.main.brand_row_selector.view.*
 
 
@@ -21,15 +22,26 @@ import kotlinx.android.synthetic.main.brand_row_selector.view.*
  * Created by monikab on 3/13/2018.
  */
 
-class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
-
+class BrandAdapter(val mContext: Context, private val brandList: List<Brand>, internal  var visibility: Int) : RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
+    var imageViewHeight = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.brand_row_selector, parent, false)
         return BrandHolder(view)
     }
 
     override fun onBindViewHolder(holder: BrandHolder, position: Int) {
-        holder.itemView.brandNameTv.text = brandList[position].brandName
+
+//        val linearPram = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,imageViewHeight)
+//        holder.itemView.cl_main.layoutParams = linearPram
+
+
+
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+            holder.itemView.brandNameTv.text = brandList[position].brandName
+        } else {
+            holder.itemView.brandNameTv.text = brandList[position].ar_brand_name
+        }
+
         holder.itemView.productNumberTv.text = brandList[position].products!!.size.toString()
         holder.productAdapter.productList(brandList[position].products!!)
         holder.productAdapter.notifyDataSetChanged()
@@ -51,10 +63,14 @@ class BrandAdapter(val mContext: Context, private val brandList: List<Brand>) : 
 
     inner class BrandHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val productAdapter = ProductAdapter(mContext)
+        val productAdapter = ProductAdapter(mContext,visibility)
 
        /* init method call itself when class call & set layout manger for recycler view*/
         init {
+//           val displaymetrics = DisplayMetrics()
+//           (mContext as AppCompatActivity).windowManager.defaultDisplay.getMetrics(displaymetrics)
+//           val width = displaymetrics.heightPixels
+//           imageViewHeight = (width / 2)
             val llm = LinearLayoutManager(mContext)
             llm.orientation = LinearLayoutManager.HORIZONTAL
             itemView.productRv.layoutManager = llm

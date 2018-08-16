@@ -170,6 +170,7 @@
         <activity android:name=".activity.TransferLoyaltyPointsActivity" />
         <activity android:name=".activity.TrackOrderActivity" />
         <activity android:name=".activity.CouponCodeActivity" />
+        <activity android:name=".activity.ZoomActivity" />
 
         <service android:name=".firebase.DrewelFirebaseInstanceIDService">
             <intent-filter>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.os.drewel.R
 import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.utill.CommonUtil
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.delivery_address_item.view.*
@@ -49,8 +50,19 @@ class DeliveryListAdapter(val mContext: Context?, private val addressList: List<
         } else
             holder.itemView.deliverAddressTypeName.visibility = View.GONE
 
-        if (addressList[position].isDefault.equals("1"))
+        if (addressList[position].isDefault.equals("1")) {
             defualtAddressPos = position
+            saveDefaultAddressToPref(addressList[position].id!!, addressList[position].address!!, addressList[position].name!!, addressList[position].latitude!!, addressList[position].longitude!!, addressList[position].username
+                    ?: "", addressList[position].mobileNumber
+                    ?: "", addressList[position].fullAddress
+                    ?: "", addressList[position].landmark ?: "",
+                    addressList[position].delivery_address_type ?: "",
+                    addressList[position].zip_code ?: ""
+            )
+
+
+        }
+
 
         holder.itemView.setOnClickListener({
             defaultAddressClickSubject.onNext(holder.layoutPosition)
@@ -64,6 +76,23 @@ class DeliveryListAdapter(val mContext: Context?, private val addressList: List<
         })
     }
 
+    private fun saveDefaultAddressToPref(id: String, address: String, name: String, latitude: String, longitude: String, username: String, phoneNumber: String, fullAddress: String, landmark: String, delivery_address_type: String, zip_code: String) {
+
+        var pref = Prefs.getInstance(context = mContext)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID, id)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS, address)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME, name)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LATITUDE, latitude)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_LONGITUDE, longitude)
+
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME, username)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER, phoneNumber)
+        pref!!.setPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS, fullAddress)
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_lANDMARK, landmark)
+
+        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_TYPE, delivery_address_type)
+        pref!!.setPreferenceStringData(pref!!.KEY_ZIP_CODE, zip_code)
+    }
 
     override fun getItemCount(): Int {
         Log.e("Size of list=", addressList.size.toString())

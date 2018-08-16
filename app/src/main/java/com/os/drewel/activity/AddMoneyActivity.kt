@@ -1,5 +1,6 @@
 package com.os.drewel.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.os.drewel.R
+import com.os.drewel.utill.Utils
 
 
 import kotlinx.android.synthetic.main.activity_add_money.*
@@ -28,6 +30,9 @@ class AddMoneyActivity : AppCompatActivity() ,View.OnClickListener{
         when (v!!.id) {
             R.id.btn_accept_order->finish()
         }
+    }
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(Utils.getInstance().updateBaseContextLocale(newBase!!))
     }
 
     private fun addMoneyAPI() {

@@ -272,7 +272,7 @@ open class BaseActivity : AppCompatActivity() {
     fun showChangeLanguageDialog(changeLanguageTv: TextView) {
         DrewelApplication.getInstance().setLocale(pref!!.getPreferenceStringData(pref!!.KEY_LANGUAGE), this)
         val changeLanguageAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
-        changeLanguageAlertDialog.setTitle(getString(R.string.app_name))
+//        changeLanguageAlertDialog.setTitle(getString(R.string.app_name))
         changeLanguageAlertDialog.setMessage(getString(R.string.choose_language))
 
         changeLanguageAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.english), DialogInterface.OnClickListener { dialog, id ->

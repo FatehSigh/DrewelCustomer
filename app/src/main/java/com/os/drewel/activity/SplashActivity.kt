@@ -67,7 +67,7 @@ class SplashActivity : BaseActivity() {
                             when {
                                 prefs.getPreferenceStringData(prefs.KEY_USER_ID).isEmpty() -> startActivity(Intent(this, WelcomeActivity::class.java))
 
-                                prefs.getPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS).isEmpty() -> startActivity(Intent(this, DeliveryAddressActivity::class.java))
+//                                prefs.getPreferenceStringData(prefs.KEY_DELIVERY_ADDRESS).isEmpty() -> startActivity(Intent(this, DeliveryAddressActivity::class.java))
 
                                 else -> startActivity(Intent(this, HomeActivity::class.java))
                             }

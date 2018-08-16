@@ -1,6 +1,7 @@
 package com.os.drewel.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Parcelable
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 
 import com.os.drewel.R
+import com.os.drewel.activity.ZoomActivity
 import com.os.drewel.application.DrewelApplication
 import kotlinx.android.synthetic.main.product_list_all_child.view.*
 
@@ -36,7 +38,7 @@ import java.util.ArrayList
 
 
         view.addView(imageLayout, 0)
-
+        imageView.setOnClickListener{context.startActivity(Intent(context, ZoomActivity::class.java).putExtra("URL",IMAGES[position]))}
         return imageLayout
     }
 

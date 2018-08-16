@@ -8,34 +8,70 @@
     <include
         android:id="@+id/toolbarLayout"
         layout="@layout/app_toolbar" />
+    <LinearLayout
 
-    <android.support.v7.widget.AppCompatTextView
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
-        android:id="@+id/walletTv"
-        style="@style/BlackTextColorStyle"
+        android:id="@+id/ll_wallet"
+        android:elevation="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/wallet"
-        app:elevation="@dimen/_5sdp" />
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
+            android:id="@+id/walletTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/wallet"
+          />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/ll_wallet"
+        android:id="@+id/ll_howItsWork"
+        android:elevation="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/walletTv"
+            android:id="@+id/loyaltyPointsTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/loyalty_point"
+            app:elevation="@dimen/_5sdp" />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
 
-    <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/walletTv"
-        android:id="@+id/loyaltyPointsTv"
-        style="@style/BlackTextColorStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/loyalty_point"
-        app:elevation="@dimen/_5sdp" />
 
   
 

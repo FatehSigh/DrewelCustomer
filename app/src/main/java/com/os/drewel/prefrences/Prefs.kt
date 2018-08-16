@@ -2,11 +2,12 @@ package com.os.drewel.prefrences
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.os.drewel.application.DrewelApplication
 
 /**
  * Created by monikab on 3/14/2018.
  */
-class Prefs(context: Context?) {
+class Prefs(internal  var context: Context?) {
 
     private val PREFS_FILENAME = "com.os.drewel.prefs"
 
@@ -83,5 +84,17 @@ class Prefs(context: Context?) {
     fun getPreferenceBooleanData(preferenceKey: String): Boolean {
 
         return sharedPreferences.getBoolean(preferenceKey, false)
+    }
+    fun clearSharedPreference() {
+        try {
+            var deviceid= getInstance(context).getPreferenceStringData(getInstance(context).KEY_DEVICE_ID)
+            var language= DrewelApplication.getInstance().getLanguage()
+            sharedPreferences!!.edit().clear().commit()
+            getInstance(context).setPreferenceStringData(getInstance(context).KEY_DEVICE_ID, deviceid)
+            getInstance(context).setPreferenceStringData(getInstance(context).KEY_LANGUAGE, language)
+            DrewelApplication.getInstance().setLocale(language, context!!)
+        } catch (e: Exception) {
+        }
+
     }
 }

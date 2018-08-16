@@ -3,6 +3,7 @@ package com.os.drewel.adapter
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,7 +93,7 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
                     } else
                         product.category!![i].ar_category_name!! + ", "
         }
-
+Log.e("Category=",category)
         return category
     }
 
@@ -119,7 +120,7 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
                             product.subCategory!![i].ar_category_name!! + ", "
             }
         }
-
+        Log.e("subCategory=",subCategory)
         return subCategory
     }
 

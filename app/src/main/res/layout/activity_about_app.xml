@@ -8,66 +8,134 @@
         android:id="@+id/toolbarLayout"
         layout="@layout/app_toolbar" />
 
-
-    <android.support.v7.widget.AppCompatTextView
+    <LinearLayout
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
-        android:id="@+id/howItsWorkTv"
-        style="@style/BlackTextColorStyle"
+        android:id="@+id/ll_howItsWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/how_it_work"
-        app:elevation="@dimen/_5sdp" />
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
 
-    <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/howItsWorkTv"
-        android:id="@+id/termsOfUseTv"
-        style="@style/BlackTextColorStyle"
+            android:id="@+id/howItsWorkTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/how_it_work"
+            />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/ll_howItsWork"
+        android:id="@+id/ll_termsOfUse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/terms_of_use"
-        app:elevation="@dimen/_5sdp" />
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/howItsWorkTv"
+            android:id="@+id/termsOfUseTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/terms_of_use"
+            />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
 
-    <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/termsOfUseTv"
-        android:id="@+id/privacyPolicyTv"
-        style="@style/BlackTextColorStyle"
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/ll_termsOfUse"
+        android:id="@+id/ll_privacyPolicy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/privacy_policy"
-        app:elevation="@dimen/_5sdp" />
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/termsOfUseTv"
+            android:id="@+id/privacyPolicyTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/privacy_policy"
+           />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
 
-    <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/privacyPolicyTv"
-        android:id="@+id/FAQTv"
-        style="@style/BlackTextColorStyle"
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/ll_privacyPolicy"
+        android:id="@+id/ll_FAQ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableEnd="@mipmap/arrow"
-        android:drawablePadding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_12sdp"
-        android:text="@string/faq"
-        app:elevation="@dimen/_5sdp" />
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/privacyPolicyTv"
+            android:id="@+id/FAQTv"
+            style="@style/BlackTextColorStyle"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/faq"
+            />
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:rotation="@integer/locale_mirror_flip"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
 
 
     <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/FAQTv"
+        app:layout_constraintTop_toBottomOf="@+id/ll_FAQ"
         android:id="@+id/versionHintTv"
         style="@style/BlackTextColorStyle"
         android:layout_width="match_parent"
@@ -77,10 +145,10 @@
         android:gravity="center_vertical"
         android:padding="@dimen/_12sdp"
         android:text="@string/app_version"
-        app:elevation="@dimen/_5sdp" />
+       />
 
     <android.support.v7.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/FAQTv"
+        app:layout_constraintTop_toBottomOf="@+id/ll_FAQ"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/versionTv"
         style="@style/BlackTextColorStyle"
@@ -90,6 +158,6 @@
         android:drawablePadding="@dimen/_10sdp"
         android:gravity="center_vertical"
         android:padding="@dimen/_12sdp"
-        app:elevation="@dimen/_5sdp" />
+         />
 
 </android.support.constraint.ConstraintLayout>

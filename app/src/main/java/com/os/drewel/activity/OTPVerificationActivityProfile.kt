@@ -1,6 +1,7 @@
 package com.os.drewel.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
@@ -21,6 +22,7 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.prefrences.Prefs
+import com.os.drewel.utill.Utils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -42,6 +44,9 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
     private var oTP: String = ""
     private val wait = 60
     private var timer: Disposable? = null
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(Utils.getInstance().updateBaseContextLocale(newBase!!))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -263,7 +268,6 @@ class OTPVerificationActivityProfile : AppCompatActivity(), View.OnClickListener
         progressBar.visibility = visibility
         verifyOTPButton.isEnabled = enableButton
         resendOTPLayout.isEnabled = enableButton
-
     }
 
 

@@ -71,47 +71,123 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.v7.widget.AppCompatTextView
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/countryCodeEditText"
-                style="@style/LoginEditTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:enabled="false"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="4"
-                android:padding="@dimen/_10sdp"
-                android:text="+968"
-                app:backgroundTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/phoneNumberTextLayout"
-                app:layout_constraintStart_toEndOf="@+id/phoneNumberTextLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/phoneNumberTextLayout"
-                style="@style/LoginEditTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/txt_mob"
+                android:gravity="center_vertical"
+                android:text="@string/mobile_number"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9sdp"
+                android:visibility="gone" />
+            <LinearLayout
                 android:layout_marginTop="@dimen/_5sdp"
-                app:errorTextAppearance="@style/error_appearance"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/countryCodeEditText"
-                app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout">
+                android:id="@+id/ll_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_mob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal">
+                <!-- <Spinner
+                     android:id="@+id/profile_spinner_mobile_prefix"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="start|center_vertical"
+                     android:entries="@array/array_numbers_dummy"
+                     android:spinnerMode="dialog" />-->
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/phoneNumberEditText"
-                    style="@style/LoginEditTextStyle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_number"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+                    <android.support.design.widget.TextInputEditText
+                    android:id="@+id/countryCodeEditText"
+                    style="@style/LoginEditTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
                     android:inputType="number"
-                    app:backgroundTint="@color/white" />
+                        android:layout_marginTop="@dimen/_5sdp"
+                    android:maxLength="4"
+                    android:padding="@dimen/_10sdp"
+                    android:text="+968"
+                    app:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/phoneNumberTextLayout"
+                    app:layout_constraintStart_toEndOf="@+id/phoneNumberTextLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout"
+                    app:layout_constraintVertical_bias="1.0" />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/phoneNumberTextLayout"
+                        style="@style/LoginEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorTextAppearance="@style/error_appearance"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/countryCodeEditText"
+                        app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout">
 
-            </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/phoneNumberEditText"
+                            style="@style/LoginEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/phone_number"
+                            android:inputType="number"
+                            app:backgroundTint="@color/white" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/countryCodeEditText"-->
+                <!--style="@style/LoginEditTextStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/_5sdp"-->
+                <!--android:enabled="false"-->
+                <!--android:gravity="center"-->
+                <!--android:inputType="number"-->
+                <!--android:maxLength="4"-->
+                <!--android:padding="@dimen/_10sdp"-->
+                <!--android:text="+968"-->
+                <!--app:backgroundTint="@color/white"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/phoneNumberTextLayout"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/phoneNumberTextLayout"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout"-->
+                <!--app:layout_constraintVertical_bias="1.0" />-->
+
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/phoneNumberTextLayout"-->
+                <!--style="@style/LoginEditTextStyle"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/_5sdp"-->
+                <!--app:errorTextAppearance="@style/error_appearance"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/countryCodeEditText"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout">-->
+
+                <!--<android.support.design.widget.TextInputEditText-->
+                    <!--android:id="@+id/phoneNumberEditText"-->
+                    <!--style="@style/LoginEditTextStyle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="@string/phone_number"-->
+                    <!--android:inputType="number"-->
+                    <!--app:backgroundTint="@color/white" />-->
+
+            <!--</android.support.design.widget.TextInputLayout>-->
 
 
             <android.support.design.widget.TextInputLayout
@@ -121,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 app:errorTextAppearance="@style/error_appearance"
-                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextLayout">
+                app:layout_constraintTop_toBottomOf="@+id/ll_phone">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/emailAddressEditText"

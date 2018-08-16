@@ -16,7 +16,6 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RatingBar
-import android.widget.Toast
 import com.os.drewel.R
 import com.os.drewel.adapter.BrandAdapter
 import com.os.drewel.adapter.BrandNameAdapter
@@ -27,6 +26,7 @@ import com.os.drewel.apicall.responsemodel.productlistresponsemodel.Brand
 import com.os.drewel.apicall.responsemodel.productlistresponsemodel.Data
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -83,14 +83,23 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
             category = intent.getSerializableExtra(AppIntentExtraKeys.SELECTED_CATEGORY) as Category
             subCategoryList = category.subcategories!!
-            productTitle.text = category.categoryName
+            if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                productTitle.text = category.categoryName
+            } else {
+                productTitle.text = category.ar_category_name
+            }
+
             categoryId = category.id!!
             if (subCategoryList.isNotEmpty())
                 subCategoryId = subCategoryList[0].id!!
             else
                 tabs.visibility = View.GONE
             for (i in subCategoryList.indices) {
-                tabs!!.addTab(tabs!!.newTab().setText(subCategoryList[i].categoryName))
+                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                    tabs!!.addTab(tabs!!.newTab().setText(subCategoryList[i].categoryName))
+                } else {
+                    tabs!!.addTab(tabs!!.newTab().setText(subCategoryList[i].ar_category_name))
+                }
             }
         } else {
             productTitle.text = getString(R.string.all_products)
@@ -121,7 +130,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     private fun setAdapter() {
         /*if (brandAdapter == null) {*/
-        brandAdapter = BrandAdapter(this, brandList)
+        brandAdapter = BrandAdapter(this, brandList, tabs.visibility)
         brandRecyclerView.layoutManager = LinearLayoutManager(this)
         brandRecyclerView.adapter = brandAdapter
         /* } else {
@@ -171,14 +180,14 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
 
                     } else {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                         brandRecyclerView.visibility = View.GONE
                         /*search_product.visibility=View.GONE
                         searchProductView.visibility=View.GONE*/
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -213,7 +222,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             selectedRating = ""
             if (filterPopupWindow == null) {
 
-            } else{
+            } else {
                 popupWindowView.ratingBar.rating = 0f
                 setAdapterOfBrandName()
                 setMinMaxRangeOfPrice()

@@ -24,13 +24,13 @@
     <string name="dont_have_account">ليس لديك حساب؟</string>
     <string name="signup">تسجيل حساب</string>
     <string name="first_name">الإسم الأول</string>
-    <string name="last_name">الإسم الأخير</string>
+    <string name="last_name">القبيلة</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="already_have_account">لديك حساب من قبل ؟</string>
     <string name="confirm_password">تأكيد  كلمة المرور</string>
     <string name="search">بحث</string>
     <string name="register">التسجيل</string>
-    <string name="submit">قدم</string>
+    <string name="submit">ثبت</string>
     <string name="enter_first_name">يرجى إدخال الأسم الأول</string>
     <string name="please_enter_lastname">يرجى إدخال ألإسم الأخير.</string>
     <string name="enter_phone_number">الرجاء إدخال  البريد الإلكتروني</string>
@@ -62,8 +62,8 @@
     <string name="all_products">جميع المنتجات</string>
     <string name="home">المتجر</string>
     <string name="myorder">طلباتي</string>
-    <string name="request">اضف</string>
-    <string name="requests">اضف</string>
+    <string name="request">اضافات</string>
+    <string name="requests">اضافات</string>
     <string name="more">المزيد</string>
     <string name="kraft_singles"> كرافت</string>
     <string name="discount_off">(40٪ من )</string>
@@ -116,7 +116,7 @@
     <string name="sign_out">تسجيل الخروج</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="notification">الإشعارات</string>
-    <string name="faq">تعليمات</string>
+    <string name="faq">اسئلة متكررة</string>
     <string name="price_low_high">سعر منخفض - عالي</string>
     <string name="price_high_low">سعر عالي - منخفض</string>
     <string name="most_popular_products">المنتجات الأكثرطلبا</string>
@@ -134,7 +134,7 @@
     <string name="floor">الطابق</string>
     <string name="street">الشارع</string>
     <string name="apartment_no">رقم الشقة</string>
-    <string name="additional_directions">اتجاهات إضافية</string>
+    <string name="additional_directions">معلومات اضافية عن العنوان</string>
     <string name="save">حفظ</string>
     <string name="set_delivery_address">حدد عنوانك</string>
     <string name="set_delivery_location">حدد موقعك</string>
@@ -155,7 +155,7 @@
     <string name="added_to_wish_list">تم اضافته للمفضلة</string>
     <string name="move_to_cart">أضف لسلة التسوق</string>
     <string name="wishlist">مفضل</string>
-    <string name="apply">تقديم الطلب</string>
+    <string name="apply">استخدم</string>
     <string name="cancel">إلغاء</string>
     <string name="clear_all">حذف الكل</string>
 
@@ -165,7 +165,7 @@
     <string name="my_profile">ملفي الشخصي</string>
     <string name="mobile_number">رقم الهاتف النقال</string>
     <string name="notification_setting">إعدادت الإشعار</string>
-    <string name="notify_me">بلغني</string>
+    <string name="notify_me">ارجو ابلاغي</string>
     <string name="out_of_stock">غير متوفرة</string>
     <string name="total_price">السعر الإجمالي</string>
     <string name="delivery_detail">بيانات التوصيل</string>
@@ -180,7 +180,7 @@
     <string name="add_loyalty_point">نقطة الولاء</string>
     <string name="choose_payment_detail">إختار تفاصيل الدفع</string>
     <string name="cash">الدفع عن الإستلام</string>
-    <string name="cc">البطاقة الإتمانية</string>
+    <string name="cc">بطاقة الائتمان</string>
     <string name="total_item">اجمالي المشتريات</string>
     <string name="discount">التخفيض</string>
     <string name="delivery_charges">رسوم التوصيل</string>
@@ -199,13 +199,13 @@
     <string name="arabic">عربي</string>
     <string name="choose_language">إختار اللغة المفضلة لديك</string>
     <string name="map">خريطة</string>
-    <string name="how_it_work">كيف يعمل</string>
-    <string name="terms_of_use">تعليمات الاستخدام</string>
+    <string name="how_it_work">كيفية عمل التطبيق</string>
+    <string name="terms_of_use">الشروط و الأحكام</string>
     <string name="app_version">إصدار التطبيق</string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="filter">تصفية</string>
     <string name="offers">عروض</string>
-    <string name="expires">انتهى</string>
+    <string name="expires">سوف ينتهي هذ العرض بتاريخ #</string>
     <string name="cart_is_empty">السلة خالية</string>
     <string name="select_delivery_type">الرجاء إختيار طريقة التوصيل</string>
     <string name="select_delivery_time_slot">الرجاء اختيار وقت التوصيل</string>
@@ -226,7 +226,7 @@
     <string name="edit">تحرير</string>
     <string name="delivery_time">وقت التوصيل</string>
     <string name="payment_method">طريقة الدفع</string>
-    <string name="credit_card">البطاقة الائتمانية</string>
+    <string name="credit_card">بطاقة الائتمان</string>
     <string name="pay_by_card">البطاقة</string>
     <string name="paid_in_cash">نقداً</string>
     <string name="pay_by_credits">المحفظة</string>
@@ -249,7 +249,7 @@
     <string name="price_colon">السعر :</string>
     <string name="no_time_slot_available_today">لايوجد ادخال مسار زمني  اليوم.</string>
     <string name="remove_item_which_are_out_of_stock">يرجى إزالة المنتجات غير المتوفرة  من السلة</string>
-    <string name="call">إتصل</string>
+    <string name="call">اتصل</string>
     <string name="reorder">إعادة الطلب</string>
     <string name="previous_order">الطلب السابق</string>
     <string name="loyalty_point">نقاط الولاء</string>
@@ -274,7 +274,7 @@
     <string name="type_in_each_product_you_need_and_we_ll_try_to_arrange_it_in_your_order">اضف اي منتج غير متوفر حاليا في متجرنا و سوف نحاول توفيره مستقبلا</string>
     <string name="product_name">الرجاء إدخال إسم المنتج.</string>
     <string name="write_your_review">أضف/ اقراء التعليقات</string>
-    <string name="choose_time_slot">احجز وقتك</string>
+    <string name="choose_time_slot">أحجز وقت التوصيل</string>
     <string name="submit_review">تقديم المراجعة</string>
     <string name="rate_product_validation">الرجاء  قم يتقيم المنتج.</string>
     <string name="review_product_validation">الرجاء مراجعة المنتج.</string>
@@ -296,13 +296,13 @@
     <string name="balance">الرصيد</string>
     <string name="have_a_promocode">لديك رمز الترويجي ؟</string>
     <string name="amount_dollar">المبلغ (ر.ع)</string>
-    <string name="way_no">رقم الشارع.</string>
+    <string name="way_no">رقم السكة.</string>
     <string name="enter_way">يرجى إدخال الطريق لا.</string>
-    <string name="choose_delivery_time_slot">اختر فتحة وقت التسليم</string>
-    <string name="call_us">اتصل بنا</string>
-    <string name="chat_us">تحدث معنا </string>
+    <string name="choose_delivery_time_slot">أختر وقت التوصيل</string>
+    <string name="call_us">أتصل</string>
+    <string name="chat_us">المحادثة مباشرة </string>
     <string name="want_to_reorder">هل أنت متأكد من أنك تريد إعادة طلب هذه الطلبية ؟</string>
-    <string name="mail_us">ارسل لنا</string>
+    <string name="mail_us">تواصل عن طريق البريد الألكتروني</string>
     <string name="verified">التحقق</string>
     <string name="verify_otp">الرجاء التحقق من رقم الهاتف لإرسال التغيير</string>
     <string name="take_photo">الكاميرا</string>
@@ -331,7 +331,8 @@
     <string-array name="array_numbers_dummy">
         <item>+918</item>
     </string-array>
-
+    <string name="delete_loyaltypoint">هل انت متاكد من رغبتك في حذف تاريخ بيانات نقاط الولاء؟</string>
+    <string name="delet_transaction">هل أنت متأكد من رغبتك بحذف المعاملات السابقة في المحفظة؟</string>
 
     <string name="Kg">كلغ</string>
     <string name="Gm">غرام</string>
@@ -345,6 +346,13 @@
     <string name="COD">الدفع عن الإستلام</string>
     <string name="choose_delivery_time_slot_validation">اختر وقت التوصيل </string>
     <string name="from_order">From Order:</string>
+    <string name="redeem">استخدم نقاط الولاء</string>
+    <string name="add_new_address">اضف عنوان التوصيل</string>
+    <string name="add_another_address">اضف عنوان توصيل اخر</string>
+    <string name="minimum_order_validation">الحد الأدنى للطب 5.000 ريال عماني</string>
+    <string name="ok">حسنا</string>
+    <string name="not_applicable">غير متوفر</string>
+    <string name="add_delivery_address">Please select your delivery address to continue.</string>
 </resources>
 
 

@@ -6,26 +6,34 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/txt_clearall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium_0"
+        android:fontFamily="@font/roboto_regular_0"
         android:gravity="center"
         android:padding="@dimen/_5sdp"
         android:text="@string/clear_all"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/myOrderRv"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_clearall" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_clearall">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myOrderRv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_clearall" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/progressBar"

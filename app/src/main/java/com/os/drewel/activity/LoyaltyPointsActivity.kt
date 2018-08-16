@@ -1,19 +1,26 @@
 package com.os.drewel.activity
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.os.drewel.R
 import com.os.drewel.adapter.LoyaltyPointTransactionAdapter
+import com.os.drewel.adapter.NotificationAdapter
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.loyaltypointresponsemodel.LoyaltyPoint
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppRequestCodes
+import com.os.drewel.prefrences.Prefs
+import com.os.drewel.utill.SwipeHelper
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -28,7 +35,7 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
     private var disposable: Disposable? = null
     private var loyaltyPointTransactionAdapter: LoyaltyPointTransactionAdapter? = null
 
-    private var loyaltyPointsTransaction: List<LoyaltyPoint> = ArrayList()
+    private var loyaltyPointsTransaction: MutableList<LoyaltyPoint> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,20 +79,95 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
             loyaltyPointTransactionAdapter?.loyaltyPointsTransaction = loyaltyPointsTransaction
             loyaltyPointTransactionAdapter?.notifyDataSetChanged()
         }
+
+
+        val swipeHelper = object : SwipeHelper(this, loyaltyPointTransactionRv) {
+            override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder, underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
+                underlayButtons.add(SwipeHelper.UnderlayButton(
+                        getString(R.string.delete),
+                        0,
+                        Color.parseColor("#eb011c"),
+                        UnderlayButtonClickListener {
+                            //                            Log.e("Position on delete", it.toString())
+                            showLogoutDialog(getString(R.string.delete_loyaltypoint), it, false)
+                        }
+                ))
+
+            }
+        }
+
     }
 
+    /* show logout confirmation popup to user*/
+    private fun showLogoutDialog(message: String, position: Int, clearAll: Boolean) {
+        val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+        logoutAlertDialog.setTitle(getString(R.string.app_name))
+        logoutAlertDialog.setMessage(message)
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+            logoutAlertDialog.dismiss()
+            callDeleteNotificationApi(position, clearAll)
+        })
+        logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
+            logoutAlertDialog.dismiss()
+            loyaltyPointTransactionAdapter!!.notifyDataSetChanged()
+        })
+        logoutAlertDialog.show()
+    }
+
+    private fun callDeleteNotificationApi(position: Int, clearAll: Boolean) {
+        setProgressState(View.VISIBLE)
+//        setProgressState(View.VISIBLE, View.GONE)
+        val readNotificationRequest = java.util.HashMap<String, String>()
+        readNotificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        readNotificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        if (!clearAll)
+            readNotificationRequest["wallet_id"] = loyaltyPointsTransaction[position].orderId!!
+        val cancelOrderObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).clear_loyalty(readNotificationRequest)
+        cancelOrderObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    setProgressState(View.GONE)
+                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+//                    if (FROM!=1){
+                    if (clearAll) {
+                        loyaltyPointsTransaction = ArrayList()
+                        loyaltyPointTransactionRv.layoutManager = LinearLayoutManager(this)
+                        loyaltyPointTransactionAdapter = LoyaltyPointTransactionAdapter(this, loyaltyPointsTransaction)
+                        loyaltyPointTransactionRv.adapter = loyaltyPointTransactionAdapter
+//                        unread = 0
+//                        txt_clearall.visibility = View.GONE
+                    } else {
+                        loyaltyPointsTransaction.removeAt(position)
+                        loyaltyPointTransactionAdapter!!.notifyDataSetChanged()
+//                        unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+//                        unread -= 1
+//                        try {
+//                            if (notificationList.isEmpty())
+//                                txt_clearall.visibility = View.GONE
+//                            else
+//                                txt_clearall.visibility = View.VISIBLE
+//                        } catch (e: Exception) {
+//
+//                        }
+                    }
+
+                }, { error ->
+                    setProgressState(View.GONE)
+                    Log.e("TAG", "{$error.message}")
+                })
+    }
 
     override fun onClick(v: View) {
         when (v.id) {
 
             R.id.loyaltyPointHintTv -> {
-                val intent = Intent(this, TransferLoyaltyPointsActivity::class.java)
-                startActivityForResult(intent, AppRequestCodes.TRANSFER_LOYALTY_POINT_CODE)
+//                val intent = Intent(this, TransferLoyaltyPointsActivity::class.java)
+//                startActivityForResult(intent, AppRequestCodes.TRANSFER_LOYALTY_POINT_CODE)
             }
 
             R.id.loyaltyPointTv -> {
-                val intent = Intent(this, TransferLoyaltyPointsActivity::class.java)
-                startActivityForResult(intent, AppRequestCodes.TRANSFER_LOYALTY_POINT_CODE)
+//                val intent = Intent(this, TransferLoyaltyPointsActivity::class.java)
+//                startActivityForResult(intent, AppRequestCodes.TRANSFER_LOYALTY_POINT_CODE)
             }
         }
     }
@@ -107,16 +189,24 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
                     setProgressState(View.GONE)
 
                     if (result.response!!.status!!) {
-                        loyaltyPointsTransaction = result.response!!.data!!.loyaltyPoints!!
-                        loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble())+" "+ getString(R.string.omr)
-                        setAdapter()
+                        if (result.response!!.data!!.currentLoyaltyPoints!=null)
+                        loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble()) + " " + getString(R.string.omr)
+                        else
+                            loyaltyPointTv.text =   NumberFormat.getInstance().format(0.000)+" "+ getString(R.string.omr)
+                        if (result.response!!.data!!.loyaltyPoints!=null) {
+
+                            loyaltyPointsTransaction = (result.response!!.data!!.loyaltyPoints as MutableList<LoyaltyPoint>?)!!
+
+                            setAdapter()
+                        }
+
                     } else {
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                         noTransactionAlertTv.visibility = View.VISIBLE
                     }
                 }, { error ->
                     setProgressState(View.GONE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

@@ -15,7 +15,9 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.View.FOCUS_UP
 import android.widget.RelativeLayout
+import android.widget.ScrollView
 import android.widget.Toast
 import com.facebook.CallbackManager
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -102,7 +104,6 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         /*dynamically set height of viewpager*/
         setHeightOfViewPager()
 
-
     }
 
     override fun onResume() {
@@ -135,13 +136,13 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
 
 
     private fun setHeightOfViewPager() {
-
         val displaymetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displaymetrics)
         val width = displaymetrics.widthPixels
 
         val linearPram = RelativeLayout.LayoutParams(width, width-200)
         productImagePager.layoutParams = linearPram
+        outOfStockTv.layoutParams = linearPram
     }
 
     private fun setClickListener() {
@@ -446,17 +447,27 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
 
         shareDialog!!.shareImageURL = productDetailResponse.response!!.data!!.product!!.productImage!![0]
         saveProductImage()
+
     }
 
     private fun showProductCategory() {
-
         var category = ""
         var subCategory = ""
         for (i in productDetail.category!!.indices) {
             category += if (i == productDetail.category!!.size - 1) {
-                productDetail.category!![i].categoryName!!
-            } else
-                productDetail.category!![i].ar_category_name!! + ", "
+
+                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                    productDetail.category!![i].categoryName!!
+                } else {
+                    productDetail.category!![i].ar_category_name!!
+                }
+            } else {
+                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                    productDetail.category!![i].categoryName!! + ", "
+                } else {
+                    productDetail.category!![i].ar_category_name!! + ", "
+                }
+            }
         }
         tv_product_categories.text = category
 
@@ -465,14 +476,24 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         } else {
             for (i in productDetail.subCategory!!.indices) {
                 subCategory += if (i == productDetail.subCategory!!.size - 1) {
-                    productDetail.subCategory!![i].categoryName!!
-                } else
-                    productDetail.subCategory!![i].ar_category_name!! + ", "
+
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        productDetail.subCategory!![i].categoryName!!
+                    } else {
+                        productDetail.subCategory!![i].ar_category_name!!
+                    }
+                } else {
+                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                        productDetail.subCategory!![i].categoryName!! + ", "
+                    } else {
+                        productDetail.category!![i].ar_category_name!! + ", "
+                        subCategory
+                    }
+                }
+                tv_product_sub_categories.text = subCategory
             }
-            tv_product_sub_categories.text = subCategory
         }
     }
-
 
     private fun saveProductImage() {
 

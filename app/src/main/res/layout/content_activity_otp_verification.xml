@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buttonOrangeColor"
+    android:layoutDirection="ltr"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -128,7 +129,6 @@
             android:background="@drawable/button_black_alpha_background"
             android:text="@string/verify"
             app:layout_constraintTop_toBottomOf="@+id/confirmPasswordTextLayout" />
-
 
         <LinearLayout
             android:id="@+id/resendOTPLayout"

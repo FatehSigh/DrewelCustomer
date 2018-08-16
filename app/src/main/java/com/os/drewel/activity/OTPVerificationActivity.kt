@@ -1,5 +1,6 @@
 package com.os.drewel.activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
@@ -47,6 +48,9 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.otp_verification)
         initView()
         getDataFromBundle()
+    }
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(com.os.drewel.utill.Utils.getInstance().updateBaseContextLocale(newBase!!))
     }
 
     private fun getDataFromBundle() {
@@ -120,10 +124,10 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     if (NetworkUtils.isConnected())
                         otpVerificationAPI(otp_tv_otp_1.text.toString() + otp_tv_otp_2.text.toString() + otp_tv_otp_3.text.toString() + otp_tv_otp_4.text.toString())
                     else
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.error_network_connection))
 
                 } else {
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.incomplete_otp))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.incomplete_otp))
                 }
             }
 
@@ -131,10 +135,9 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 if (NetworkUtils.isConnected()) {
                     resendOtpVerificationAPI()
                 } else
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.error_network_connection))
 
             }
-
 
         }
 
@@ -153,7 +156,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         val prefs = Prefs.getInstance(this)
@@ -173,7 +176,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                         else
                             prefs.setPreferenceBooleanData(prefs.KEY_SOCIAL_LOGIN, true)
 
-                        val intent = Intent(this, DeliveryAddressActivity::class.java)
+                        val intent = Intent(this, HomeActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                         finish()
@@ -181,7 +184,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -202,7 +205,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     if (result.response!!.status!!) {
                         resendOTPLayout.isEnabled = false
                         setTimerForOTP()
@@ -214,7 +217,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

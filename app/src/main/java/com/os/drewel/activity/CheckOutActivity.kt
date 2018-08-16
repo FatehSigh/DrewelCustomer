@@ -75,13 +75,13 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     }
 
     private fun getDataFromIntent() {
-        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
+//        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
             nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
                     ?: "") ?: ""
             phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
                     ?: "") ?: ""
-            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
-                    ?: "") ?: ""
+            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
+                    ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
             checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
                     ?: "") ?: ""
             delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
@@ -89,7 +89,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             Log.e("delivery_address_type", delivery_address_type)
             checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
                     ?: "") ?: ""
-        }
+//        }
         quantityTv.text = orderItemQuantity
         subTotalTv.text = String.format("%.3f", orderNetPrice.toDouble()) + " " + getString(R.string.omr)
         subTotalTvValue = orderNetPrice.toFloat()
@@ -109,19 +109,21 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             } else if (delivery_address_type.equals("3")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.office))
             }
+        }else{
+            deliveryAddressTv_dropdown.setText(getString(R.string.house))
         }
     }
 
 
     override fun onResume() {
         super.onResume()
-        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
+//        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
             nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
                     ?: "") ?: ""
             phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
                     ?: "") ?: ""
-            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS
-                    ?: "") ?: ""
+            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
+                    ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
             checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
                     ?: "") ?: ""
             delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
@@ -129,7 +131,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             Log.e("delivery_address_type", delivery_address_type)
             checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
                     ?: "") ?: ""
-        }
+//        }
         checkoutRequest.deliverTo = nameTv.text.toString()
         checkoutRequest.deliverMobile = phoneNoTv.text.toString()
         if (delivery_address_type.isNotEmpty()) {
@@ -140,7 +142,9 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             } else if (delivery_address_type.equals("3")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.office))
             }
-        }
+        } else{
+        deliveryAddressTv_dropdown.setText(getString(R.string.house))
+    }
     }
 
     private fun initView() {
@@ -160,12 +164,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                     checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
                 }
                 R.id.cardRadioBt -> {
-                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
-//                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_CARD
+//                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
+                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_CARD
                 }
                 R.id.walletRadioBt -> {
-                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
-//                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_WALLET
+//                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
+                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_WALLET
                 }
             }
         })
@@ -209,7 +213,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             R.id.applyLoyaltyPointTv -> {
                 KeyboardUtils.hideSoftInput(this)
                 if (applyLoyaltyPointTv.text.equals(getString(R.string.remove))) {
-                    applyLoyaltyPointTv.text = getString(R.string.apply)
+                    applyLoyaltyPointTv.text = getString(R.string.redeem)
                     LoyaltyPointEditText.text = getString(R.string.add_loyalty_point)
 //                    discountTv.setText("0" + " " + getString(R.string.omr))
 //                    discountTvValue = 0f
@@ -602,7 +606,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                         setLoyaltyPointDiscount(result.response!!.data!!.loyalty_points.toString().toDouble())
                         loyaltyPoints = result.response!!.data!!.loyalty_points.toString()
                         setGrandTotal()
-                        LoyaltyPointEditText.text = result.response!!.data!!.loyalty_points.toString() + " " + getString(R.string.add_loyalty_point)
+                        LoyaltyPointEditText.text = result.response!!.data!!.loyalty_points.toString() + " " + getString(R.string.omr)
                         applyLoyaltyPointTv.text = getString(R.string.remove)
                         // setCouponCodeEdibility(false)
                     } else {
