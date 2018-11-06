@@ -195,12 +195,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             return false
         }
         phoneNumberTextLayout.isErrorEnabled = false
-//        if (phoneNumberEditText.text.toString().length < 10) {
-//            phoneNumberTextLayout.error = getString(R.string.valid_phone_number)
-//            phoneNumberTextLayout.requestFocus()
-//            return false
-//        }
-//        phoneNumberTextLayout.isErrorEnabled = false
+        if (phoneNumberEditText.text.toString().length < 8) {
+            phoneNumberTextLayout.error = getString(R.string.valid_phone_number)
+            phoneNumberTextLayout.requestFocus()
+            return false
+        }
+        phoneNumberTextLayout.isErrorEnabled = false
 
         if (TextUtils.isEmpty(emailAddressEditText.text.toString().trim())) {
             emailAddressTextLayout.error = getString(R.string.enter_email_address)

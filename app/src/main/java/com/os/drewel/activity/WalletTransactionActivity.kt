@@ -45,7 +45,8 @@ class WalletTransactionActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wallet_transaction)
         initView()
-        getTransactionApi()
+        if (isNetworkAvailable())
+            getTransactionApi()
         addMoneyAPI()
 //        setAdapter()
     }
@@ -68,10 +69,10 @@ class WalletTransactionActivity : BaseActivity(), View.OnClickListener {
                     Log.e("result==>", result.toString())
                     setProgressState(View.GONE, true)
                     if (result.response!!.status!!) {
-                        if (result.response!!.data!!.wallet_balance!=null)
+                        if (result.response!!.data!!.wallet_balance != null)
                             tv_blc.setText(result.response!!.data!!.wallet_balance + " " + getString(R.string.omr))
                         else
-                            tv_blc.setText(   NumberFormat.getInstance().format(0.000)+" "+ getString(R.string.omr))
+                            tv_blc.setText(NumberFormat.getInstance().format(0.000) + " " + getString(R.string.omr))
                         if (result.response!!.data!!.transactions != null) {
                             transaction = (result.response!!.data!!.transactions as MutableList<Transaction>?)!!
                             setAdapter()
@@ -163,7 +164,8 @@ class WalletTransactionActivity : BaseActivity(), View.OnClickListener {
         logoutAlertDialog.setMessage(message)
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()
-            callDeleteNotificationApi(position, clearAll)
+            if (isNetworkAvailable())
+                callDeleteNotificationApi(position, clearAll)
         })
         logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()

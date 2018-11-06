@@ -16,8 +16,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
+import com.blankj.utilcode.util.NetworkUtils
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
+import com.os.drewel.activity.BaseActivity
 import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
@@ -107,24 +109,32 @@ class WishlistAdapter(val mContext: Context, var wishList: MutableList<Product>)
             mContext.startActivity(intent)
         })
 
-        holder.itemView.removeFromWishListBt.setOnClickListener({
+        holder.itemView.removeFromWishListBt.setOnClickListener {
             if (holder.layoutPosition >= 0)
-                callRemoveFromWishListApi(holder.layoutPosition, holder.itemView.removeFromWishListBt, "2")
-        })
+                if (NetworkUtils.isConnected()) {
+                    callRemoveFromWishListApi(holder.layoutPosition, holder.itemView.removeFromWishListBt, "2")
+                } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
-        holder.itemView.moveToCartBt.setOnClickListener({
+        }
+
+        holder.itemView.moveToCartBt.setOnClickListener {
             if (wishList[holder.layoutPosition].outOfStock == 0) {
-                moveToCartApi(holder.layoutPosition, holder.itemView.moveToCartBt)
-            }
-        })
+                if (NetworkUtils.isConnected()) {
+                    moveToCartApi(holder.layoutPosition, holder.itemView.moveToCartBt)
+                } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
+            }
+        }
 
         if (wishList[position].outOfStock == 1) {
             holder.itemView.moveToCartBt.text = mContext.getString(R.string.out_of_stock)
             holder.itemView.moveToCartBt.setTextColor(ContextCompat.getColor(mContext, R.color.colorRed))
+//            holder.itemView. txt_out_of_stock.visibility=View.VISIBLE
         } else {
             holder.itemView.moveToCartBt.text = mContext.getString(R.string.move_to_cart)
-            holder.itemView.moveToCartBt.setTextColor(ContextCompat.getColor(mContext, R.color.black))
+            holder.itemView.moveToCartBt.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            holder.itemView.moveToCartBt.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+//            holder.itemView. txt_out_of_stock.visibility=View.GONE
         }
 
 

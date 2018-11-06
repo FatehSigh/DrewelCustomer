@@ -13,7 +13,7 @@ class Data {
     var products: List<Product>? = null
     @SerializedName("Coupons")
     @Expose
-    var coupons: List<Any>? = null
+    var coupons: List<Coupon>? = null
 
 
     @SerializedName("DeliveryBoy")

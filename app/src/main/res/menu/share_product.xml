@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:bwq="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_share"
+        android:title="Share"
+        bwq:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        bwq:showAsAction="ifRoom" />
+    ...
+</menu>

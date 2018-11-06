@@ -20,10 +20,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
+import com.blankj.utilcode.util.NetworkUtils
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.assist.FailReason
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener
 import com.os.drewel.R
+import com.os.drewel.activity.BaseActivity
 import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
@@ -57,7 +59,7 @@ class ProductAdapter(val mContext: Context, internal var visibility: Int) : Recy
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
 
-        val linearPram = LinearLayout.LayoutParams(imageViewWidth,LinearLayout.LayoutParams.WRAP_CONTENT)
+        val linearPram = LinearLayout.LayoutParams(imageViewWidth, LinearLayout.LayoutParams.WRAP_CONTENT)
         holder.itemView.productListRootLL.layoutParams = linearPram
 //        val linearPram = LinearLayout.LayoutParams(imageViewWidth, imageViewHeight)
 //        holder.itemView.productListRootLL.layoutParams = linearPram
@@ -130,18 +132,26 @@ class ProductAdapter(val mContext: Context, internal var visibility: Int) : Recy
                 "1"
             else
                 "2"
+            if (NetworkUtils.isConnected()) {
+                callAddToWishListApi(holder.layoutPosition, holder.itemView.addToWishList, flag)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
-            callAddToWishListApi(holder.layoutPosition, holder.itemView.addToWishList, flag)
         })
 
 
         holder.itemView.imv_add_product.setOnClickListener({
-            addToCartApi(holder.layoutPosition, holder.itemView.imv_add_product)
+            if (NetworkUtils.isConnected()) {
+                addToCartApi(holder.layoutPosition, holder.itemView.imv_add_product)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
         })
 
 
         holder.itemView.notifyMeBt.setOnClickListener({
-            callNotifyMeApi(holder.layoutPosition, holder.itemView.notifyMeBt)
+            if (NetworkUtils.isConnected()) {
+                callNotifyMeApi(holder.layoutPosition, holder.itemView.notifyMeBt)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
         })
     }
 
@@ -167,14 +177,14 @@ class ProductAdapter(val mContext: Context, internal var visibility: Int) : Recy
             val width = displaymetrics.widthPixels
             imageViewWidth = (width / 2) - 80
             val height = displaymetrics.heightPixels
-            var value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 60)
+            var value = com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 60)
             if (visibility == View.VISIBLE) {
-                value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 150)
-                imageViewHeight = (height)/2-220
+                value = com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 150)
+                imageViewHeight = (height) / 2 - 220
             } else
-                imageViewHeight = (height)/2-150
-                value =  com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 100)
-            Log.e("Height==>",value.toString())
+                imageViewHeight = (height) / 2 - 150
+            value = com.os.drewel.utill.Utils.getInstance().dpToPix(mContext, 100)
+            Log.e("Height==>", value.toString())
 //            val height = displaymetrics.heightPixels
 //            imageViewHeight = (height / 2) -100
             /* if user add or remove product from detail activity then change it in adapter also*/

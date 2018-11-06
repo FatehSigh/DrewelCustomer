@@ -14,6 +14,7 @@ object Constants {
     const val PAYMENT_TYPE_COD = "1"
     const val PAYMENT_TYPE_CARD = "2"
     const val PAYMENT_TYPE_WALLET = "3"
+    const val PAYMENT_TYPE_THAWANI = "4"
 
     const val DELIVERY_NOW = "1"
     const val SAME_DAY_DELIVERY = "2"

@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.CompoundButton
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
@@ -21,8 +22,13 @@ import com.os.drewel.activity.*
 import com.os.drewel.activity.BaseActivity.Companion.isLanguageChange
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.application.DrewelApplication.Companion.user_unread_count
 import com.os.drewel.constant.Constants
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.prefrences.Prefs.Companion.prefs
+import com.os.drewel.rxbus.NotificationRxJavaBus
+import com.os.drewel.rxbus.SampleRxJavaBus
+import com.os.drewel.rxbus.UnreadCountRxJavaBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -39,7 +45,6 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
     private var notificationOnOffDisposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         return inflater.inflate(R.layout.setting_activity, container, false)
     }
 
@@ -58,7 +63,13 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
         updateMenuTitles()
         /* set click listeners of buttons*/
         setClickListeners()
-
+        if (user_unread_count.toInt() > 0) {
+            tv_unread_count.text = user_unread_count.toString()
+            tv_unread_count.visibility = View.VISIBLE
+//                    setDynamicallyParam(pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString())
+        } else {
+            tv_unread_count.visibility = View.GONE
+        }
         if (pref!!.getPreferenceBooleanData(pref!!.KEY_SOCIAL_LOGIN)) {
             tv_change_password.visibility = View.GONE
             changePwView.visibility = View.GONE
@@ -66,14 +77,60 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
             tv_change_password.visibility = View.VISIBLE
             changePwView.visibility = View.VISIBLE
         }
+        NotificationRxJavaBus.getInstance().notificationPublishSubject.subscribe { addToWishList ->
+            if (isAdded) {
+                if (pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT) > 0) {
+                    tv_notifications_count.text = pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString()
+                    tv_notifications_count.visibility = View.VISIBLE
+                    setDynamicallyParam(pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString())
+                } else {
+                    tv_notifications_count.visibility = View.GONE
+                }
+            }
+        }
+
+        UnreadCountRxJavaBus.getInstance().unreadCountRxJavaBus.subscribe { count ->
+            if (isAdded) {
+                if (user_unread_count > 0) {
+                    tv_unread_count.text = count
+                    tv_unread_count.visibility = View.VISIBLE
+//                    setDynamicallyParam(pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString())
+                } else {
+                    tv_unread_count.visibility = View.GONE
+                }
+            }
+        }
     }
+
 
     override fun onStart() {
         super.onStart()
         tv_profile_name.text = pref!!.getPreferenceStringData(pref!!.KEY_FIRST_NAME) + " " + pref!!.getPreferenceStringData(pref!!.KEY_LAST_NAME)
         tv_profile_email.text = pref!!.getPreferenceStringData(pref!!.KEY_EMAIL)
         ImageLoader.getInstance().displayImage(pref!!.getPreferenceStringData(pref!!.KEY_PHOTO), imv_profile_img, DrewelApplication.getInstance().options)
+        if (pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT) > 0) {
+            tv_notifications_count.text = pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString()
+            tv_notifications_count.visibility = View.VISIBLE
+            setDynamicallyParam(pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString())
+        }
+    }
 
+    private fun setDynamicallyParam(cartItemQuantity: String) {
+        if (cartItemQuantity.length > 2) {
+            tv_notifications_count.measure(0, 0)
+            val width = tv_notifications_count.measuredWidth
+            val linearPram = RelativeLayout.LayoutParams(width, width)
+            tv_notifications_count.layoutParams = linearPram
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT) > 0) {
+            tv_notifications_count.text = pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString()
+            tv_notifications_count.visibility = View.VISIBLE
+            setDynamicallyParam(pref!!.getPreferenceIntData(pref!!.UNREAD_COUNT).toString())
+        }
     }
 
     private fun setClickListeners() {
@@ -90,17 +147,15 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
 
         switch_off_on_notification.isChecked = !pref!!.getPreferenceStringData(pref!!.KEY_NOTIFICATION_STATUS).equals("off")
 
-        switch_off_on_notification.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener(
-                { compoundButton: CompoundButton, b: Boolean ->
-                    if (isNetworkAvailable()) {
-                        switch_off_on_notification.isEnabled = false
-                        if (b)
-                            callNotificationOnOffAPI("on")
-                        else
-                            callNotificationOnOffAPI("off")
-                    }
-                }
-        ))
+        switch_off_on_notification.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+            if (isNetworkAvailable()) {
+                switch_off_on_notification.isEnabled = false
+                if (b)
+                    callNotificationOnOffAPI("on")
+                else
+                    callNotificationOnOffAPI("off")
+            }
+        }
     }
 
 
@@ -116,8 +171,8 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
 
             logoutAlertDialog.dismiss()
-
-            callLogoutAPI()
+            if (isNetworkAvailable())
+                callLogoutAPI()
 
         })
 
@@ -187,7 +242,6 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
 
             R.id.contactUsTv -> {
                 contactUs()
-
             }
 
             R.id.rel_profile -> {
@@ -210,19 +264,6 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.tv_rate_us -> {
-//                var link = "market://details?id="
-//                try {
-//                    // play market available
-//                    activity!!.packageManager.getPackageInfo("com.android.vending", 0)
-//                    // not available
-//                } catch (e: PackageManager.NameNotFoundException) {
-//                    e.printStackTrace()
-//                    // should use browser
-//                    link = "https://play.google.com/store/apps/details?id="
-//                }
-//
-//                // starts external action
-//                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link + activity!!.packageName)))
                 val uri = Uri.parse("market://details?id=" + context!!.packageName)
                 val goToMarket = Intent(Intent.ACTION_VIEW, uri)
                 goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
@@ -262,6 +303,8 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
                 items[item] == getString(R.string.chat_us) -> {
+                    callChatAPI()
+
                     dialog.dismiss()
                 }
                 items[item] == getString(R.string.mail_us) -> {
@@ -279,6 +322,33 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
             dialog.dismiss()
         }
         builder.show()
+    }
+    private fun callChatAPI() {
+        setProgressState(View.VISIBLE, false)
+        val logoutRequest = HashMap<String, String>()
+        logoutRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        logoutRequest["language"] = DrewelApplication.getInstance().getLanguage()
+
+        val logoutObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).add_chat(logoutRequest)
+        logoutDisposable = logoutObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    // DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,context!!)
+                    setProgressState(View.GONE, true)
+//                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
+                    if (result.response!!.status!!) {
+
+                        startActivity(Intent(activity, MessageDetail_Activity::class.java).putExtra("admin_id",result.response!!.data!!.admin_id).putExtra("admin_img",result.response!!.data!!.img))
+//                        val intent = Intent(activity, WelcomeActivity::class.java)
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        startActivity(intent)
+//                        activity!!.finish()
+                    }
+                }, { error ->
+                    setProgressState(View.GONE, true)
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
+                    Log.e("TAG", "{$error.message}")
+                })
     }
 
     private fun callLogoutAPI() {
@@ -302,7 +372,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                         prefs!!.setPreferenceStringData(prefs!!.KEY_EMAIL, "")
                         prefs!!.setPreferenceStringData(prefs!!.KEY_PHOTO, "")
                         prefs!!.setPreferenceStringData(prefs!!.KEY_ROLE_ID, "")
-                        prefs!!. clearSharedPreference()
+                        prefs!!.clearSharedPreference()
                         val intent = Intent(activity, WelcomeActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
@@ -310,7 +380,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
                     }
                 }, { error ->
                     setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(activity,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(activity, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 })
     }

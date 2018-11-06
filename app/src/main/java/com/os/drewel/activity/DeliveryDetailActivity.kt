@@ -395,6 +395,14 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
         }
         PhoneNumberTextLayout.isErrorEnabled = false
 
+        if (PhoneNumberEditText.text.toString().length < 8) {
+            PhoneNumberTextLayout.error = getString(R.string.valid_phone_number)
+            PhoneNumberTextLayout.requestFocus()
+            return false
+        }
+        PhoneNumberTextLayout.isErrorEnabled = false
+
+
         if (ApartmentNumEditText.text.toString().isBlank()) {
             if (rl_house.isSelected)
                 ApartmentNoTextLayout.error = getString(R.string.enter_house_number)

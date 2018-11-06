@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
     android:id="@+id/cl_main"
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -39,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:rotation="@integer/locale_mirror_flip"
             android:src="@mipmap/arrow" />
     </LinearLayout>
 

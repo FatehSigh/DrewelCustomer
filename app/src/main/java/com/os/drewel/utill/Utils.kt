@@ -5,10 +5,7 @@ import android.annotation.TargetApi
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.ExifInterface
@@ -16,8 +13,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.text.format.DateUtils
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.DirectionResults
@@ -390,5 +389,39 @@ class Utils private constructor() {
         }
         return updateResourcesLocaleLegacy(context, locale)
     }
+    private val WIDTH_INDEX = 0
+    private val HEIGHT_INDEX = 1
 
+    fun getScreenSize(context: Context): IntArray {
+        val widthHeight = IntArray(2)
+        widthHeight[WIDTH_INDEX] = 0
+        widthHeight[HEIGHT_INDEX] = 0
+
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.getDefaultDisplay()
+
+        val size = Point()
+        display.getSize(size)
+        widthHeight[WIDTH_INDEX] = size.x
+        widthHeight[HEIGHT_INDEX] = size.y
+
+        if (!isScreenSizeRetrieved(widthHeight)) {
+            val metrics = DisplayMetrics()
+            display.getMetrics(metrics)
+            widthHeight[0] = metrics.widthPixels
+            widthHeight[1] = metrics.heightPixels
+        }
+
+        // Last defense. Use deprecated API that was introduced in lower than API 13
+        if (!isScreenSizeRetrieved(widthHeight)) {
+            widthHeight[0] = display.getWidth() // deprecated
+            widthHeight[1] = display.getHeight() // deprecated
+        }
+
+        return widthHeight
+    }
+
+    private fun isScreenSizeRetrieved(widthHeight: IntArray): Boolean {
+        return widthHeight[WIDTH_INDEX] != 0 && widthHeight[HEIGHT_INDEX] != 0
+    }
 }

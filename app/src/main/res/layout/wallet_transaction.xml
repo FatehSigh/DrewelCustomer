@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -34,13 +34,12 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
         android:id="@+id/rel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
         <RelativeLayout
             android:id="@+id/rel_new"
@@ -75,7 +74,6 @@
                 android:textSize="@dimen/_11sdp" />
 
             <android.support.v7.widget.AppCompatImageView
-                android:visibility="gone"
                 android:id="@+id/imv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +82,8 @@
                 android:background="@color/violet"
                 android:padding="@dimen/_10sdp"
                 android:src="@mipmap/moneygrey"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -104,7 +103,6 @@
 
 
             <Button
-
                 android:id="@+id/btn_accept_order"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
@@ -117,9 +115,10 @@
                 android:text="@string/add_money"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13sdp" />
-
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone" />
         </RelativeLayout>
+
         <include
             android:id="@+id/progressBar"
             layout="@layout/progress_dialog_loading"

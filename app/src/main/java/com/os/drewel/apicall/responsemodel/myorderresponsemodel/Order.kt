@@ -49,4 +49,11 @@ class Order {
 
     var stopTimer: Boolean? = false
 
+    @SerializedName("cancelled_before")
+    @Expose
+    var cancelledBefore: String? = null
+    @SerializedName("is_delivery_boy")
+    @Expose
+    var is_delivery_boy: String? = null
+
 }

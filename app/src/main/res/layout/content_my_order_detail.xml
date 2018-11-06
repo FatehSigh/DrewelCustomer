@@ -96,7 +96,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.5dp"
                 android:background="@color/violet_1" />
 
             <LinearLayout
@@ -151,7 +151,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.5dp"
                 android:background="@color/violet_1" />
 
             <LinearLayout
@@ -214,7 +214,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.5dp"
                 android:background="@color/violet_1" />
 
             <LinearLayout
@@ -271,7 +271,43 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.5dp"
+                android:background="@color/violet_1" />
+            <LinearLayout
+                android:id="@+id/ll_couponCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="start"
+                        android:text="@string/coupon_code"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/couponCodeRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/countryCodeView" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
                 android:background="@color/violet_1" />
 
             <LinearLayout
@@ -429,7 +465,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="0.5dp"
                 android:background="@color/violet_1" />
 
             <LinearLayout

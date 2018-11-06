@@ -10,7 +10,7 @@
     <string name="login">تسجيل الدخول</string>
     <string name="forgot_password">نسيت كلمة المرور</string>
 
-
+    <string name="Press_again_to_exit">اضغط  للخروج.</string>
     <string name="action_settings">الإعدادت</string>
     <string name="skip">تجاوز</string>
     <string name="welcome_image">ترحيب بصورة</string>
@@ -88,6 +88,7 @@
     <string name="my_cart">سلة التسوق</string>
     <string name="dummy_cart">Cheedar Cream cheese Lorem ipsum dolor sit amet</string>
     <string name="items">المنتجات</string>
+    <string name="item">المنتجا</string>
     <string name="payment_summary">ملخص  الفاتوره</string>
     <string name="sub_total"> مبلغ المشتريات</string>
     <string name="order_charge">رسوم توصيل الطلبات</string>
@@ -255,7 +256,7 @@
     <string name="loyalty_point">نقاط الولاء</string>
     <string name="transactions">المعاملات</string>
     <string name="transfer_loyalty_point">تحويل نقاط الولاء</string>
-    <string name="loyalty_point_earned">نقاط الولاء المكتسبه</string>
+    <string name="loyalty_point_earned">نقاط الولاء المكتسبة</string>
     <string name="loyalty_point_redeem">استبدال نقاط الولاء</string>
     <string name="order">اطلب</string>
     <string name="loyalty_point_more_then_zero">نقاط الواء يجب ان تكون أكثر من 0</string>
@@ -282,8 +283,8 @@
     <string name="available_delivery_slots">منافذ التوصيل متوفرة</string>
     <string name="review_submitted">لقد قمت من قبل بتقديم و مشاهدة هذا المنتج.</string>
     <string name="write_your_comment">اكتب تعليقك ..</string>
-    <string name="office">مكتب</string>
-    <string name="house">منزل</string>
+    <string name="office">المكتب</string>
+    <string name="house">المنزل</string>
     <string name="apartment">الشقة</string>
     <string name="house_no">رقم المنزل.</string>
     <string name="office_no">رقم المكتب.</string>
@@ -308,7 +309,7 @@
     <string name="take_photo">الكاميرا</string>
     <string name="from_gallery">ألبوم الصور</string>
     <string name="add_photo">إضافة صورة</string>
-    <string name="want_to_edit">هل أنت متأكد من أنك تريد تعديل هذا الطلب؟</string>
+    <string name="want_to_edit">بمجرد من ان تقوم بتحرير الطلب، سيكون الطلب تحت قيد الانتظار حتى تقوم بتثبيت الطلب النهائي.</string>
     <string name="last_paid">تم دفع المبلغ مسبقا</string>
     <string name="amount_will_be_transfered">ر.ع سيضاف الى المحفظة</string>
     <string name="cant_delete_default_address">لا يمكنك حذف العنوان الافتراضي</string>
@@ -316,13 +317,15 @@
     <string name="delete">حذف</string>
     <string name="want_to_delete_product">هل انت متاكد من انك تريد حذف طلب هذا المنتج ؟</string>
     <string name="want_to_delete_address">هل انت متاكد من انك تريد حذف عنوان التسليم؟</string>
-    <string name="want_to_delete_order">هل أنت متأكد من حذف هذا الطلب ؟</string>
+    <string name="want_to_delete_order">هل أنت متأكد من رغبتك في حذف بيانات هذا الطلب؟</string>
+    <string name="want_to_cancel">هل أنت متأكد من أنك تريد إلغاء هذا الطلب ؟</string>
     <string name="want_to_delete_allorder">هل أنت متأكد أنك تريد حذف كل طلبات ؟</string>
     <string name="delivered">تم التوصيل</string>
     <string name="can_t_find_location">لم تجد الموقع؟</string>
     <string name="switch_to_map_view">الانتقال الى الخريطة </string>
     <string name="want_to_defaultaddress">هل انت متاكد من انك تريد اضافة هذا العنوان كعنوان تسليم ؟</string>
     <string name="transaction_id">رقم المعاملة:</string>
+    <string name="transaction_id_small">رقم المعاملة:</string>
     <string name="clearall">إزالة كل شيء</string>
     <string name="delete_all_notifications">هل أنت متأكد أنك تريد حذف كل الإشعارات ؟</string>
     <string name="delete_notificaions">هل أنت متأكد أنك تريد حذف هذا الإشعار؟</string>
@@ -349,10 +352,18 @@
     <string name="redeem">استخدم نقاط الولاء</string>
     <string name="add_new_address">اضف عنوان التوصيل</string>
     <string name="add_another_address">اضف عنوان توصيل اخر</string>
-    <string name="minimum_order_validation">الحد الأدنى للطب 5.000 ريال عماني</string>
+    <string name="minimum_order_validation">الحد الأدنى للطلب</string>
     <string name="ok">حسنا</string>
-    <string name="not_applicable">غير متوفر</string>
+    <!--<string name="not_applicable">غير متوفر</string>-->
+    <string name="not_applicable">لا يوجد</string>
+    لا يوجد
+
     <string name="add_delivery_address">Please select your delivery address to continue.</string>
+    <string name="sort_by"> ترتيب حسب   </string>
+    <string name="thawani">Thawani</string>
+    <string name="write_comment">WriteMessage</string>
+    <string name="chat_support">Chat Support</string>
+    <string name="coupon_code">Coupon Code</string>
 </resources>
 
 

@@ -17,7 +17,7 @@ import com.os.drewel.utill.Utils
 
 import kotlinx.android.synthetic.main.activity_add_money.*
 
-class AddMoneyActivity : AppCompatActivity() ,View.OnClickListener{
+class AddMoneyActivity : BaseActivity() ,View.OnClickListener{
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

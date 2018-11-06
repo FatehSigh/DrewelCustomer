@@ -68,7 +68,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/dairy_and_egg"
-                    android:gravity="center_vertical"
                     style="@style/LightBlackTextColorStyle"
                     android:textColor="@color/black"/>
                 <LinearLayout
@@ -80,18 +79,17 @@
                     <ImageView
                         android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
+                        android:visibility="gone"
                         android:paddingStart="@dimen/_5sdp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:rotation="@integer/locale_mirror_flip"
                         android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
                     <android.support.v7.widget.AppCompatCheckedTextView
                         android:id="@+id/tv_product_sub_categories"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="@string/cheese"
                         android:theme="@style/LightBlackTextColorStyle"
                         android:textColor="@color/black"/>
                 </LinearLayout>

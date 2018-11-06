@@ -49,13 +49,12 @@ class MyOrderProductItemAdapter(val mContext: Context, private val myOrderIemLis
 
         val subcategory = showProductSubcategory(myOrderIemList[position])
         holder.itemView.tv_product_sub_categories.text = subcategory
-
         if (subcategory.isBlank())
             holder.itemView.tv_product_sub_categories.visibility = View.GONE
         else
             holder.itemView.tv_product_sub_categories.visibility = View.VISIBLE
+        holder.itemView.tv_product_sub_categories.text = "> "+subcategory
     }
-
 
     override fun getItemCount(): Int {
         return myOrderIemList.size

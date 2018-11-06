@@ -11,9 +11,7 @@
     <item
         android:id="@+id/navigation_search"
         android:icon="@mipmap/offer"
-        android:title="@string/offers"
-        />
-
+        android:title="@string/discount" />
     <item
         android:id="@+id/navigation_my_order"
         android:icon="@mipmap/myordersunselect"
@@ -26,4 +24,13 @@
         android:id="@+id/navigation_more"
         android:icon="@mipmap/moreunselect"
         android:title="@string/more" />
+    <!--<item-->
+    <!--android:id="@+id/navigation_more"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:clickable="false"-->
+    <!--android:title="@string/more"-->
+    <!--app:actionLayout="@layout/action_bar_unread_icon"-->
+    <!--app:showAsAction="always" />-->
+
 </menu>

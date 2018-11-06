@@ -36,15 +36,15 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
     var unread = 0
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
+        Log.e("Remote Message=blank", "fdg")
         Log.e("Remote Message=", remoteMessage!!.data.toString())
-        var data = sendNotif(remoteMessage!!.data)
+        var data = sendNotif(remoteMessage.data)
         unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
         unread += 1
         Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
         ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
         generateNotification(data)
     }
-
     /*pendingCart
     orderPlaced
     orderCancelled
@@ -52,7 +52,6 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
     general
     deliveryStatusChange
     deliveryBoyAssigned*/
-
 
     object NotificationType {
         const val pendingCart = "pendingCart"
@@ -97,6 +96,22 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         }
 //        val id = (System.currentTimeMillis() * (Math.random() * 100).toInt()).toInt()
         notificationManager.notify(getRandomNumer(), mBuilder.build())
+
+        when {
+            data.notification_type.equals(NotificationType.orderCancelled) ||
+                    data.notification_type.equals(NotificationType.deliveryStatusChange) ||
+                    data.notification_type.equals(NotificationType.deliveryBoyAssigned)
+            -> try {
+                if (Prefs.getInstance(this).getPreferenceStringData(Prefs.getInstance(this).KEY_USER_ID).isEmpty()) {
+                } else {
+                    val intent2 = Intent()
+                    intent2.action = "UPDATE_STATUS"
+                    sendBroadcast(intent2)
+                }
+            } catch (e: Exception) {
+            }
+        }
+
     }
 
 
@@ -112,15 +127,15 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
             notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
         } else if (data.notification_type.equals(NotificationType.productAvailable)) {
             notificationIntent = Intent(this, ProductDetailActivity::class.java)
-            notificationIntent!!.putExtra(AppIntentExtraKeys.PRODUCT_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.PRODUCT_ID, data.item_id)
         } else if (data.notification_type.equals(NotificationType.deliveryStatusChange)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
-            notificationIntent!!.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
         } else if (data.notification_type.equals(NotificationType.deliveryBoyAssigned)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
-            notificationIntent!!.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
         } else if (data.notification_type.equals(NotificationType.general)) {
-//            notificationIntent!!.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+//          notificationIntent!!.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
             notificationIntent = Intent(this, NotificationActivity::class.java)
         }
 
@@ -143,9 +158,9 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotif(data: Map<String, String>): PNModel {
         var notificationsModel = PNModel()
-        notificationsModel.notification_type = data.get("notification_type")
-        notificationsModel.notification_id = data.get("notification_id")
-        var jsonObject = JSONObject(data.get("payload"))
+        notificationsModel.notification_type = data["notification_type"]
+        notificationsModel.notification_id = data["notification_id"]
+        var jsonObject = JSONObject(data["payload"])
         notificationsModel.second_user_id = jsonObject.getString("second_user_id")
         notificationsModel.image = jsonObject.getString("image")
         notificationsModel.profile_image = jsonObject.getString("profile_image")
@@ -155,8 +170,8 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         notificationsModel.last_name = jsonObject.getString("last_name")
         notificationsModel.title = jsonObject.getString("title")
         notificationsModel.first_name = jsonObject.getString("first_name")
-        notificationsModel.badge = Integer.parseInt(data.get("badge"))
-        notificationsModel.message = data.get("message")
+        notificationsModel.badge = Integer.parseInt(data["badge"])
+        notificationsModel.message = data["message"]
         Log.e("Notification==>", notificationsModel.toString())
         return notificationsModel
     }

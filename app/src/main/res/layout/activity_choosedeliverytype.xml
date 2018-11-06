@@ -83,7 +83,6 @@
             app:sizeMiddleText="20sp"
             app:textColorNormal="@color/grey_color_txt"
             app:textColorSelected="@color/colorPrimary" />
-
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
@@ -110,7 +109,6 @@
             android:gravity="center"
             android:text="@string/choose_time_slot"
             android:textAllCaps="false"
-            android:textSize="@dimen/_18sdp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent" />
 

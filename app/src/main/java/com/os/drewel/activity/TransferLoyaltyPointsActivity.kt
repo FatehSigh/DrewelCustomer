@@ -57,7 +57,6 @@ class TransferLoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
             R.id.transferLoyaltyPointBt ->{
 
                 if(validateLoyaltyPoint() && isNetworkAvailable()){
-
                     callTransferLoyaltyPointApi()
 
                 }

@@ -11,6 +11,7 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.ContextCompat
 import com.blankj.utilcode.util.Utils
 import com.crashlytics.android.Crashlytics
+import com.firebase.client.Firebase
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -45,7 +46,9 @@ class DrewelApplication : MultiDexApplication() {
     companion object {
 
         lateinit var drewelApplication: DrewelApplication
-
+        var admin_unread_count = 0
+        var user_unread_count = 0
+        var chat_id = ""
         fun getInstance(): DrewelApplication {
             return drewelApplication
         }
@@ -60,6 +63,7 @@ class DrewelApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        Firebase.setAndroidContext(this)
         drewelApplication = this
         Fabric.with(this, Crashlytics())
         /* initialize joda Time*/
@@ -132,7 +136,7 @@ class DrewelApplication : MultiDexApplication() {
             language
     }
 
-    //    fun setLocale(lang: String, mContext: Context): Context {
+//    fun setLocale(lang: String, mContext: Context): Context {
 //        val myLocale = Locale(lang)
 //        val res = mContext.resources
 //        //val dm = res.displayMetrics
@@ -140,6 +144,7 @@ class DrewelApplication : MultiDexApplication() {
 //        conf.setLayoutDirection(myLocale)
 //        return mContext.createConfigurationContext(conf)
 //    }
+
     fun setLocale(lang: String, mContext: Context) {
 //        var lang = lang
 //        if (lang == null) {

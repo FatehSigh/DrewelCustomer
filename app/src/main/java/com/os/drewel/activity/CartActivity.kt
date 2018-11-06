@@ -28,6 +28,10 @@ import kotlinx.android.synthetic.main.content_my_cart.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Home
+import com.os.drewel.prefrences.Prefs
+import me.leolin.shortcutbadger.ShortcutBadger
+
 
 /**
  * Created by monikab on 4/3/2018.
@@ -69,7 +73,8 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         }
         checkoutBt.setOnClickListener(this)
         continueShoppingBt.setOnClickListener(this)
-        callGetProductApi()
+        if (isNetworkAvailable())
+            callGetProductApi()
         productQuantityChangeListener()
     }
 
@@ -86,6 +91,10 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     isCalled = true
                     is_read = "1"
+                    var unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+                    unread -= 1
+                    Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
+                    ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
                 }, { error ->
                     Log.e("TAG", "{$error.message}")
                 }
@@ -110,6 +119,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         super.onBackPressed()
     }
 
+    var out_of_stock = false
     private fun setAdapter() {
         if (cartItemAdapter == null) {
             cartItemAdapter = CartItemAdapter(this, cartProductList)
@@ -117,17 +127,22 @@ class CartActivity : BaseActivity(), View.OnClickListener {
             cartItemRecyclerView.adapter = cartItemAdapter
             cartItemAdapter!!.cartItemClickSubject = cartItemClickSubject
         }
+        for (i in cartProductList.indices) {
+            if (cartProductList[i].outOfStock == 1) {
+                out_of_stock = true
+                break
+            }
+        }
     }
 
     private fun productQuantityChangeListener() {
-        itemClickDisposable = cartItemClickSubject.subscribe({
+        itemClickDisposable = cartItemClickSubject.subscribe {
             if (cartProductList.isEmpty()) {
                 noItemAvailableTv.visibility = View.VISIBLE
                 setProgressState(View.GONE, View.GONE)
             } else
                 setTotalAmount()
         }
-        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -164,9 +179,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         disposable = getProductObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
-
                     if (result.response!!.status!!) {
                         cartResponse = result.response!!.data!!
                         noItemAvailableTv.visibility = View.GONE
@@ -183,13 +196,13 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext("0")
                         noItemAvailableTv.visibility = View.VISIBLE
                         setProgressState(View.GONE, View.GONE)
-                        Utils.getInstance().showToast(this, result.response!!.message!!)
+//                        Utils.getInstance().showToast(this, result.response!!.message!!)
 //                        Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
 
                     }
                 }, { error ->
                     setProgressState(View.GONE, View.GONE)
-                    Utils.getInstance().showToast(this, error.message!!)
+//                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -197,7 +210,11 @@ class CartActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun setData() {
-        val quantityData = cartProductList.size.toString() + " " + getString(R.string.items)
+        var quantityData = ""
+        if (cartProductList.size > 1)
+            quantityData = cartProductList.size.toString() + " " + getString(R.string.items)
+        else
+            quantityData = cartProductList.size.toString() + " " + getString(R.string.item)
         productQuantityTv.text = quantityData
         setTotalAmount()
     }
@@ -216,9 +233,15 @@ class CartActivity : BaseActivity(), View.OnClickListener {
             totalItemQuantity += quantity
             totalAmount += price * quantity
         }
+        var quantityData = ""
+        if (cartProductList.size > 1)
+            quantityData = cartProductList.size.toString() + " " + getString(R.string.items)
+        else
+            quantityData = cartProductList.size.toString() + " " + getString(R.string.item)
+        productQuantityTv.text = quantityData
         tv_amount_total.text = String.format("%.3f", totalAmount) + " " + getString(R.string.omr)
         orderItemQuantity = totalItemQuantity.toString()
-        productQuantityTv.text = totalItemQuantity.toString()
+//        productQuantityTv.text = totalItemQuantity.toString()
         val nf = NumberFormat.getNumberInstance(Locale.US)
         val formatter = nf as DecimalFormat
         formatter.applyPattern("#.###")
@@ -239,28 +262,41 @@ class CartActivity : BaseActivity(), View.OnClickListener {
         contentLayout.visibility = viewVisibility
     }
 
-
     override fun onClick(view: View) {
         when (view.id) {
             R.id.continueShoppingBt -> {
-                finish()
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+
             }
             R.id.checkoutBt -> {
-                if (cartItemAdapter?.isAnyProductOutOfStock!!) {
+                if (!isNetworkAvailable())
+                    return
+                for (i in cartProductList.indices) {
+                    if (cartProductList[i].outOfStock == 1) {
+                        out_of_stock = true
+                        break
+                    } else
+                        out_of_stock = false
+                }
+                if (out_of_stock) {
                     Utils.getInstance().showToast(this, getString(R.string.remove_item_which_are_out_of_stock))
-
+                    for (i in cartProductList.indices) {
+                        if (cartProductList[i].outOfStock == 1) {
+                            cartItemRecyclerView.scrollToPosition(i)
+                            break
+                        }
+                    }
                 } else {
-
                     if (orderNetPrice.toDouble() < 5) {
                         val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
                         logoutAlertDialog.setTitle(getString(R.string.app_name))
-                        logoutAlertDialog.setMessage(getString(R.string.minimum_order_validation))
-                        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok), DialogInterface.OnClickListener { dialog, id ->
+                        Log.e("min==", getString(R.string.minimum_order_validation) + String.format("%.3f", 5.000) + " " + getString(R.string.omr))
+                        logoutAlertDialog.setMessage(getString(R.string.minimum_order_validation) + " " + String.format("%.3f", 5.000) + " " + getString(R.string.omr))
+                        logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok)) { dialog, id ->
                             logoutAlertDialog.dismiss()
-                        })
-//                        logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
-//                            logoutAlertDialog.dismiss()
-//                        })
+                        }
                         logoutAlertDialog.show()
                     } else {
                         if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
@@ -276,7 +312,6 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                                 logoutAlertDialog.dismiss()
                             })
                             logoutAlertDialog.show()
-
                         } else {
 
                             val intent = Intent(this, CheckOutActivity::class.java)

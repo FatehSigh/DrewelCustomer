@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_comment"
+        android:orientation="vertical">
+
+        <include layout="@layout/app_toolbar" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_posts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_1" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/txt_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/img_send"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="@string/write_comment"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_color_txt"
+                    android:textSize="@dimen/_13sdp" />
+
+
+                <ImageView
+                    android:id="@+id/img_send"
+                    android:layout_width="@dimen/_55sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/_15sdp"
+                    android:src="@mipmap/send" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@
 
     <color name="orange_1">#ff7300</color>
     <color name="light_grey_2">#cfcece</color>
-    <color name="colorPrimary_verylight">#fdf5f4</color>
+    <color name="colorPrimary_verylight">#f5e4df</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="buttonOrangeColor">#e07257</color>
@@ -54,5 +54,6 @@
 
     <color name="tab_layout_divider">#b22b44</color>
 
-    <color name="cancel_btn_txt">#d23e59</color>
+
+    <color name="out_of_stock">#AAEDECF2</color>
 </resources>

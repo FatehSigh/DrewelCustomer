@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:209881296273:android:76905883740ae9ca",
+        "android_client_info": {
+          "package_name": "com.octalsoftware.drewel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209881296273-9aim0ad9jlcrh67iqdlqav8o9dsdt82f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octalsoftware.drewel",
+            "certificate_hash": "22f6a4048d3effdfc0ed8e275675ec5ea5a8a43d"
+          }
+        },
+        {
+          "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbWNBqFpi-wp88j0cPminqVWJ5qEuL3dw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:209881296273:android:45ca60b1d1e0c14e",
         "android_client_info": {
           "package_name": "com.os.drewel"

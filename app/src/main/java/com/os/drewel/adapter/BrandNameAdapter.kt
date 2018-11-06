@@ -1,6 +1,7 @@
 package com.os.drewel.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,16 +29,17 @@ class BrandNameAdapter(private val brandNameList: List<Brand>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: BrandNameHolder, position: Int) {
 
         holder.itemView.brandNameCheckBox.text = brandNameList[position].brandName
-      //  holder.itemView.brandProductsTv.text = brandNameList[position].products!!.size.toString()
+        //  holder.itemView.brandProductsTv.text = brandNameList[position].products!!.size.toString()
 
-        holder.itemView.brandNameCheckBox.isChecked= selectedPosArray.contains(position)
+        holder.itemView.brandNameCheckBox.isChecked = selectedPosArray.contains(position)
 
-        holder.itemView.brandNameCheckBox.setOnCheckedChangeListener({ compoundButton: CompoundButton, checked: Boolean ->
+        holder.itemView.brandNameCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, checked: Boolean ->
+            Log.e("position==", holder.layoutPosition.toString())
             if (checked)
                 selectedPosArray.add(holder.layoutPosition)
             else
                 selectedPosArray.remove(holder.layoutPosition)
-        })
+        }
     }
 
     override fun getItemCount(): Int {

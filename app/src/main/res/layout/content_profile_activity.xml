@@ -59,7 +59,7 @@
                 android:id="@+id/edt_profile_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM "
+                android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                 android:hint="@string/first_name"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
@@ -79,7 +79,7 @@
                 android:id="@+id/edt_profile_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM "
+                android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                 android:hint="@string/last_name"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
@@ -125,6 +125,7 @@
                     android:maxLength="4"
                     android:padding="@dimen/_10sdp"
                     android:text="+968"
+                    android:enabled="false"
                     android:theme="@style/EditTextHint" />
 
                 <android.support.design.widget.TextInputLayout
@@ -139,7 +140,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:digits="1234567890"
-
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:maxLines="1" />

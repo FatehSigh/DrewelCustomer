@@ -210,6 +210,7 @@
     <string name="order_id">Order Id</string>
     <string name="date_colon">Date:</string>
     <string name="time_colon">Time:</string>
+    <string name="item">Item</string>
     <string name="no_of_items_colon">No of items:</string>
     <string name="date_of_placing_order_colon">Date of placing order:</string>
     <string name="order_type">Order type:</string>
@@ -253,9 +254,9 @@
     <string name="loyalty_point">Loyalty Balance</string>
     <string name="delivered">Delivered</string>
     <string name="transactions">Transactions</string>
-    <string name="transfer_loyalty_point">Transfer loyalty balance</string>
-    <string name="loyalty_point_earned">Loyalty balance earned</string>
-    <string name="loyalty_point_redeem">Loyalty balance redeem</string>
+    <string name="transfer_loyalty_point">Transfer Loyalty Balance</string>
+    <string name="loyalty_point_earned">Loyalty Balance Earned</string>
+    <string name="loyalty_point_redeem">Loyalty Balance Redeemed</string>
     <string name="order">Order</string>
     <string name="loyalty_point_more_then_zero">Loyalty balance should be more then 0</string>
     <string name="loyalty_point_transferred">Loyalty balance transferred</string>
@@ -270,7 +271,7 @@
     <string name="not_finding_your_favourite_products">Not Finding Your Favourite Products?</string>
     <string name="type_in_each_product_you_need_and_we_ll_try_to_arrange_it_in_your_order">Type in each product not offered in our store and we will try to include it in the future.</string>
     <string name="product_name">Please enter product name.</string>
-    <string name="write_your_review">Write/View Your Review</string>
+    <string name="write_your_review">Write/View Reviews</string>
     <string name="choose_time_slot">Book Delivery Time Slot</string>
     <string name="submit_review">Submit Review</string>
     <string name="rate_product_validation">Please rate the product.</string>
@@ -303,7 +304,8 @@
     <string name="take_photo">Camera</string>
     <string name="from_gallery">Photo Library</string>
     <string name="add_photo">Add Photo</string>
-    <string name="want_to_edit">Are you sure you want to edit this order?</string>
+    <string name="want_to_edit">Once you edit the order, your order remains pending until you submit the final order.</string>
+    <string name="want_to_cancel">Are you sure you want to cancel this order?</string>
     <string name="last_paid">Already Paid Amount</string>
     <string name="amount_will_be_transfered">OMR will be added  to your  wallet.</string>
     <string name="cant_delete_default_address">Default address can\'t be deleted. Please select any other address as your default address to delete this address.</string>
@@ -311,18 +313,19 @@
     <string name="delete">Delete</string>
     <string name="want_to_delete_product">Are you sure you want to delete this product request?</string>
     <string name="want_to_delete_address">Are you sure you want to delete this delivery address?</string>
-    <string name="want_to_delete_order">Are you sure you want to delete this order?</string>
-    <string name="want_to_delete_allorder">Are you sure you want to delete all orders?</string>
+    <string name="want_to_delete_order">Are you sure you wants to delete the record of this order?</string>
+    <string name="want_to_delete_allorder">Are you sure you want to delete the records of all previous orders?</string>
     <string name="can_t_find_location">Can\'t find location?</string>
     <string name="switch_to_map_view">Switch to Map view</string>
     <string name="want_to_defaultaddress">Are you sure you want to add this place as your delivery address?</string>
     <string name="transaction_id">TRANSACTION ID:</string>
+    <string name="transaction_id_small">Transaction Id:</string>
     <string name="clearall">Clear All</string>
     <string name="delete_all_notifications">Are you sure you want to delete all notifications?</string>
     <string name="delete_notificaions">Are you sure you want to delete this notification?</string>
     <string name="delete_loyaltypoint">Are you sure you want to delete Loyalty balance history?</string>
     <string name="delet_transaction">Are you sure you want to delete this Wallet transaction history?</string>
-    <string name="reply">Reply:</string>
+    <string name="reply">Reply: </string>
     <string name="enter_the_product_name">Enter the product name</string>
 
 
@@ -330,7 +333,7 @@
         <item>+918</item>
 
     </string-array>
-
+    <string name="Press_again_to_exit">Click to exit.</string>
     <string name="Kg">Kg</string>
     <string name="Gm">Gm</string>
     <string name="Lt">Lt</string>
@@ -341,14 +344,19 @@
     <string name="UnderPackaging">Under Packaging</string>
     <string name="ReadyToDeliver">Ready To Deliver</string>
     <string name="COD">Cash On Delivery</string>
-    <string name="choose_delivery_time_slot_validation">Please, select delivery time slot.</string>
+    <string name="choose_delivery_time_slot_validation">Please select delivery time slot.</string>
     <string name="from_order">From Order:</string>
     <string name="redeem">Redeem</string>
     <string name="add_new_address">Add  Address</string>
     <string name="add_another_address">Add Another Address</string>
-    <string name="minimum_order_validation">Minimum order value must be 5.000 OMR.</string>
+    <string name="minimum_order_validation">Minimum order value must be </string>
     <string name="ok">OK</string>
     <string name="not_applicable">N/A</string>
     <string name="add_delivery_address">Please select your delivery address to continue.</string>
+    <string name="sort_by"> Sort By    </string>
+    <string name="thawani">Thawani</string>
+    <string name="write_comment">WriteMessage</string>
+    <string name="chat_support">Chat Support</string>
+    <string name="coupon_code">Coupon Code</string>
 
 </resources>

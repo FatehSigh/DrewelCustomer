@@ -41,10 +41,10 @@ class AboutAppActivity : BaseActivity(), View.OnClickListener {
 
     private fun setOnClickListener() {
 
-        howItsWorkTv.setOnClickListener(this)
-        termsOfUseTv.setOnClickListener(this)
-        privacyPolicyTv.setOnClickListener(this)
-        FAQTv.setOnClickListener(this)
+        ll_howItsWork.setOnClickListener(this)
+        ll_termsOfUse.setOnClickListener(this)
+        ll_privacyPolicy.setOnClickListener(this)
+        ll_FAQ.setOnClickListener(this)
         try {
             val pInfo = this.packageManager.getPackageInfo(packageName, 0)
             val version = pInfo.versionName
@@ -68,29 +68,25 @@ class AboutAppActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onClick(v: View) {
-
         when(v.id){
-
-            R.id.howItsWorkTv ->{
+            R.id.ll_howItsWork ->{
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DrewelApi.HOW_ITS_WORK_URL))
                 startActivity(browserIntent)
             }
-            R.id.termsOfUseTv ->{
+            R.id.ll_termsOfUse ->{
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DrewelApi.TERMS_OF_USE_URL))
                 startActivity(browserIntent)
             }
-            R.id.privacyPolicyTv ->{
+            R.id.ll_privacyPolicy ->{
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DrewelApi.PRIVACY_POLICY_URL))
                 startActivity(browserIntent)
             }
-            R.id.FAQTv ->{
+            R.id.ll_FAQ ->{
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DrewelApi.FAQ_URL))
                 startActivity(browserIntent)
             }
-
         }
     }
-
 }
 
 

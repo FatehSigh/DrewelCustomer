@@ -8,8 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.RelativeLayout
 import com.os.drewel.R
+import com.os.drewel.application.DrewelApplication
+import com.os.drewel.application.DrewelApplication.Companion.chat_id
 import com.os.drewel.fragment.RequestFragment
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
+import com.os.drewel.rxbus.UnreadCountRxJavaBus
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.action_bar_notifitcation_icon.view.*
 
@@ -24,12 +28,16 @@ open class ProductBaseActivity : BaseActivity() {
 
     lateinit var cartRxBustDisposable: Disposable
     private lateinit var cartItemView: View
-
+    private lateinit var countItemView: View
+    public var isAddressChange = false
     var driveActivityName = ""
     var menu: Menu? = null
+    lateinit var unreadCountRxJavaBus:  Disposable
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        chat_id = "a1_u" + Prefs(DrewelApplication.getInstance()).getPreferenceStringData(Prefs(DrewelApplication.getInstance()).KEY_USER_ID)
         subscribeCartBus()
+
     }
 
     /* */
@@ -98,7 +106,6 @@ open class ProductBaseActivity : BaseActivity() {
         }
         return cartItemView
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

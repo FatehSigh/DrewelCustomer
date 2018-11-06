@@ -79,6 +79,7 @@ class DeliveryListAdapter(val mContext: Context?, private val addressList: List<
     private fun saveDefaultAddressToPref(id: String, address: String, name: String, latitude: String, longitude: String, username: String, phoneNumber: String, fullAddress: String, landmark: String, delivery_address_type: String, zip_code: String) {
 
         var pref = Prefs.getInstance(context = mContext)
+
         pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_ID, id)
         pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS, address)
         pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME, name)

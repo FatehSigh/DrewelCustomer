@@ -94,7 +94,6 @@ class NotificationActivity : BaseActivity() {
         notificationRv.layoutManager = LinearLayoutManager(this)
         notificationRv.adapter = notificationAdapter
 
-
         val swipeHelper = object : SwipeHelper(this, notificationRv) {
             override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder, underlayButtons: MutableList<SwipeHelper.UnderlayButton>) {
                 underlayButtons.add(SwipeHelper.UnderlayButton(
@@ -279,14 +278,14 @@ class NotificationActivity : BaseActivity() {
                         }
                     } else {
                         txt_clearall.visibility = View.GONE
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
 
 
                 }, { error ->
                     txt_clearall.visibility = View.GONE
                     setProgressState(View.GONE, true)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -304,7 +303,8 @@ class NotificationActivity : BaseActivity() {
         logoutAlertDialog.setMessage(message)
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()
-            callDeleteNotificationApi(position, clearAll)
+            if (isNetworkAvailable())
+                callDeleteNotificationApi(position, clearAll)
         })
         logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()

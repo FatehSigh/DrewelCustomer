@@ -108,6 +108,10 @@ interface DrewelApi {
     fun addAddress(@Body addAddressRequest: Map<String, String>): Observable<AddAddressResponse>
 
     @Headers("Content-Type: application/json")
+    @POST("availability_check")
+    fun checkAddress(@Body addAddressRequest: Map<String, String>): Observable<BaseResponse>
+
+    @Headers("Content-Type: application/json")
     @POST("is_delivery_place")
     fun is_delivery_place(@Body addAddressRequest: Map<String, String>): Observable<AddAddressResponse>
 
@@ -130,6 +134,11 @@ interface DrewelApi {
     @Headers("Content-Type: application/json")
     @POST("get_wishlist")
     fun getWishlist(@Body wishListRequest: Map<String, String>): Observable<WishlistResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("product_list_offer")
+    fun getDiscount(@Body wishListRequest: Map<String, String>): Observable<WishlistResponse>
 
     /*  @Headers("Content-Type: application/json")
       @POST("brands_list")
@@ -158,6 +167,11 @@ interface DrewelApi {
     @Headers("Content-Type: application/json")
     @POST("logout")
     fun logout(@Body logoutRequest: Map<String, String>): Observable<BaseResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("add_chat")
+    fun add_chat(@Body logoutRequest: Map<String, String>): Observable<com.os.drewel.apicall.responsemodel.addchatresponsemodel.BaseResponse>
+
 
     @Headers("Content-Type: application/json")
     @POST("notification_status")

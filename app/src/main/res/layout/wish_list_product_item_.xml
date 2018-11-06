@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/productListRootLL"
     android:layout_width="@dimen/_150sdp"
-    android:layout_height="wrap_content"
-    android:id="@+id/productListRootLL">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
@@ -14,65 +14,87 @@
         card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/imv_product"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/rl_product"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_140sdp"
-                android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cartt" />
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imv_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cartt" />
+
+                <TextView
+                    android:id="@+id/txt_out_of_stock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="#99FFFFFF"
+                    android:fontFamily="@font/roboto_bold_1"
+                    android:gravity="center"
+                    android:text="@string/out_of_stock"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/tv_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/imv_product"
+                    android:layout_alignBottom="@+id/imv_product"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/_4sdp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp" />
+            </RelativeLayout>
 
             <TextView
-                android:visibility="gone"
-                android:layout_below="@+id/imv_product"
                 android:id="@+id/outOfStockTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_product"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:text="@string/out_of_stock"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="@dimen/_10sdp"
-                android:layout_centerHorizontal="true"/>
+                android:visibility="gone" />
 
             <android.support.v7.widget.AppCompatImageButton
-                android:background="@android:color/transparent"
                 android:id="@+id/removeFromWishListBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
                 android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/_6sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_cancel_black_24dp"
-                android:tint="@color/colorPrimary"/>
+                android:tint="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/tv_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/imv_product"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/colorPrimary"
-                android:padding="@dimen/_4sdp"
-                android:text="@string/quantity"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/tv_product_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_quantity"
+                android:layout_below="@id/rl_product"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:paddingStart="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingTop="@dimen/_6sdp"
                 android:maxLines="1"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 android:text="@string/kraft_singles"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp" />
@@ -82,31 +104,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_product_title"
-                android:paddingBottom="@dimen/_6sdp"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
                 android:text="fggff"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
 
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/original_price_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_product_title"
-                android:layout_toEndOf="@+id/tv_product_amount"
-                android:id="@+id/original_price_layout">
+                android:layout_toEndOf="@+id/tv_product_amount">
 
                 <TextView
                     android:id="@+id/tv_original_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"
                     android:text="@string/discount_off"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_5sdp"
-                    android:paddingEnd="@dimen/_5sdp"
                     android:visibility="visible" />
 
                 <TextView
@@ -114,10 +136,10 @@
                     android:layout_height="1dp"
                     android:layout_centerInParent="true"
                     android:background="@color/colorRed"
-                    card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent" />
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -134,19 +156,19 @@
                 android:visibility="gone" />
 
             <View
+                android:id="@+id/dividerView"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/violet"
-                android:id="@+id/dividerView"
-                android:layout_below="@+id/tv_product_amount"/>
+                android:layout_below="@+id/tv_product_amount"
+                android:background="@color/violet" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/moveToCartBt"
-                android:layout_below="@+id/dividerView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:gravity="center"
+                android:layout_below="@+id/dividerView"
                 android:background="@android:color/transparent"
+                android:gravity="center"
                 android:text="@string/move_to_cart"
                 android:textAllCaps="false"
                 android:textColor="@color/black"

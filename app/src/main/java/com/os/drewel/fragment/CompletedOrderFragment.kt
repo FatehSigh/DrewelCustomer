@@ -30,7 +30,8 @@ import kotlinx.android.synthetic.main.my_current_order.*
 class CompletedOrderFragment : BaseFragment(), OnClickItem {
     override fun onClick(tag: String, position: Int) {
         if (tag.equals("DeletePrevious")) {
-            callDeleteNotificationApi(position, false)
+            if (isNetworkAvailable())
+                callDeleteNotificationApi(position, false)
         }
     }
 
@@ -45,26 +46,31 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        updateMenuTitles()
-        callMyCurrentOrderApi(View.VISIBLE)
+        if (isNetworkAvailable())
+            callMyCurrentOrderApi(View.VISIBLE)
         txt_clearall.setOnClickListener {
             showLogoutDialog(getString(R.string.want_to_delete_allorder), 0, true)
         }
         swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
-                refreshItems()
+                if (isNetworkAvailable())
+                    refreshItems()
             }
         })
     }
+
     fun refreshItems() {
         // Load complete
         Handler().postDelayed({
             try {
-                callMyCurrentOrderApi(View.GONE)
+                if (isAdded)
+                    callMyCurrentOrderApi(View.GONE)
             } catch (e: Exception) {
                 swipeRefreshLayout.isRefreshing = false
             }
         }, 2000)
     }
+
     private fun updateMenuTitles() {
         var activity = activity as HomeActivity
         if (activity.menu == null)
@@ -111,10 +117,10 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
 
     private fun setAdapter() {
 //        if (currentOrderAdapter == null) {
-            myOrderRv.layoutManager = LinearLayoutManager(context)
+        myOrderRv.layoutManager = LinearLayoutManager(context)
 //            myOrderRv.addItemDecoration(EqualSpacingItemDecoration(26, EqualSpacingItemDecoration.VERTICAL))
-            currentOrderAdapter = MyCurrentOrderAdapter(context, myCurrentOrderList, COMPLETED_ORDER, this)
-            myOrderRv.adapter = currentOrderAdapter
+        currentOrderAdapter = MyCurrentOrderAdapter(context, myCurrentOrderList, COMPLETED_ORDER, this)
+        myOrderRv.adapter = currentOrderAdapter
 //        } else
 //            currentOrderAdapter?.notifyDataSetChanged()
 
@@ -140,7 +146,8 @@ class CompletedOrderFragment : BaseFragment(), OnClickItem {
         logoutAlertDialog.setMessage(message)
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()
-            callDeleteNotificationApi(position, clearAll)
+            if (isNetworkAvailable())
+                callDeleteNotificationApi(position, clearAll)
         })
         logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()

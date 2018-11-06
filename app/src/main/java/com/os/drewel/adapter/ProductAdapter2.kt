@@ -19,10 +19,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
+import com.blankj.utilcode.util.NetworkUtils
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.assist.FailReason
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener
 import com.os.drewel.R
+import com.os.drewel.activity.BaseActivity
 import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.Product
@@ -130,18 +132,27 @@ class ProductAdapter2(val mContext: Context) : RecyclerView.Adapter<ProductAdapt
                 "1"
             else
                 "2"
+            if (NetworkUtils.isConnected()) {
+                callAddToWishListApi(holder.layoutPosition, holder.itemView.addToWishList, flag)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
-            callAddToWishListApi(holder.layoutPosition, holder.itemView.addToWishList, flag)
+
         })
 
 
         holder.itemView.imv_add_product.setOnClickListener({
-            addToCartApi(holder.layoutPosition, holder.itemView.imv_add_product)
+            if (NetworkUtils.isConnected()) {
+                addToCartApi(holder.layoutPosition, holder.itemView.imv_add_product)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
         })
 
 
         holder.itemView.notifyMeBt.setOnClickListener({
-            callNotifyMeApi(holder.layoutPosition, holder.itemView.notifyMeBt)
+            if (NetworkUtils.isConnected()) {
+                callNotifyMeApi(holder.layoutPosition, holder.itemView.notifyMeBt)
+            } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
         })
     }
 

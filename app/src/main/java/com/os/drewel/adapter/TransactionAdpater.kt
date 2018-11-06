@@ -31,19 +31,17 @@ class TransactionAdpater(val mContext: Context, var transaction: MutableList<Tra
     override fun onBindViewHolder(holder: TransactionHolder, position: Int) {
         if (transaction[position].type!!.equals("Cr")) {
             holder.itemView.tv_price.text = "+" + transaction[position].amount + " " + mContext.getString(R.string.omr)
-            holder.itemView.tv_from_order.text = mContext.getString(R.string.from) + " " + mContext.getString(R.string.order) + ": " + transaction[position].order_id
+            holder.itemView.tv_from_order.text = mContext.getString(R.string.from) + " " + mContext.getString(R.string.order) + ": #" + transaction[position].order_id
 
         } else if (transaction[position].type!!.equals("Db")) {
             holder.itemView.tv_price.text = "-" + transaction[position].amount + " " + mContext.getString(R.string.omr)
-            holder.itemView.tv_from_order.text = mContext.getString(R.string.to) + " " + mContext.getString(R.string.order) + ":" + transaction[position].order_id
-
+            holder.itemView.tv_from_order.text = mContext.getString(R.string.to) + " " + mContext.getString(R.string.order) + ": #" + transaction[position].order_id
         }
-        holder.itemView.tv_title.text = transaction[position].id
-
+        holder.itemView.tv_title.text =mContext.getString(R.string.transaction_id_small) +" #"+transaction[position].id
         try {
             val startdate = SimpleDateFormat("yyyy-MM-dd").parse(transaction[position].date!!)
-            holder.itemView.tv_time.setText(SimpleDateFormat("dd MMM ''yy").format(startdate))
-//            holder.itemView.txt_time.setText(SimpleDateFormat("h:mm a").format(startdate))
+            holder.itemView.tv_time.setText(SimpleDateFormat("dd MMM, yyyy").format(startdate))
+//          holder.itemView.txt_time.setText(SimpleDateFormat("h:mm a").format(startdate))
         } catch (e: Exception) {
         }
     }

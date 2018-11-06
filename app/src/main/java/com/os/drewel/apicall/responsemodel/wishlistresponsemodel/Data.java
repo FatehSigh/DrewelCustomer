@@ -11,6 +11,17 @@ public class Data {
     @SerializedName("Products")
     @Expose
     private List<Product> products = null;
+    @SerializedName("Product")
+    @Expose
+    private List<Product> product = null;
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
 
     public List<Product> getProducts() {
         return products;

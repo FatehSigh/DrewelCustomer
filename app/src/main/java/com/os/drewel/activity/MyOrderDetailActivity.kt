@@ -11,15 +11,21 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import com.os.drewel.R
+import com.os.drewel.adapter.AppliedCouponCodeAdapter
+import com.os.drewel.adapter.CouponCodeAdapter
 import com.os.drewel.adapter.MyOrderProductItemAdapter
 import com.os.drewel.apicall.DrewelApi
+import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Coupon
 import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Data
 import com.os.drewel.apicall.responsemodel.myorderdetailresponsemodel.Product
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.Constants
+import com.os.drewel.delegate.CouponCodeRemove
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,6 +33,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_my_order_detail.*
 import kotlinx.android.synthetic.main.my_order_detail.*
+import me.leolin.shortcutbadger.ShortcutBadger
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,7 +46,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
     private var myOrderDetailResponse: Data? = null
 
     private var myOrderDetailDisposable: CompositeDisposable = CompositeDisposable()
-
+    private var appliedCouponCodesAllInfo: MutableList<Coupon> = ArrayList()
     private var myOrderProductList: List<Product> = ArrayList()
     var FROM = 0
     var is_read = ""
@@ -55,9 +62,8 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-
         orderId = intent.getStringExtra(AppIntentExtraKeys.ORDER_ID)
-
+        Log.e(" orderId==>", orderId)
         if (intent.getIntExtra(AppIntentExtraKeys.FROM, 0) == 1) {
             FROM = 1
             notificationId = intent.getStringExtra(AppIntentExtraKeys.NOTIFICATION_ID)
@@ -89,6 +95,10 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     isCalled = true
                     is_read = "1"
+                    var unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+                    unread -= 1
+                    Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
+                    ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
                 }, { error ->
                     Log.e("TAG", "{$error.message}")
                 }
@@ -105,8 +115,20 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.order_detail_btn_cancel -> {
-                if (isNetworkAvailable())
-                    callCancelOrderApi()
+                val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                logoutAlertDialog.setTitle(getString(R.string.app_name))
+                logoutAlertDialog.setMessage(getString(R.string.want_to_cancel))
+                logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes)) { dialog, id ->
+                    logoutAlertDialog.dismiss()
+                    if (isNetworkAvailable())
+                        callCancelOrderApi()
+                }
+                logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no)) { dialog, id ->
+                    logoutAlertDialog.dismiss()
+                }
+                logoutAlertDialog.show()
+
+
             }
             R.id.reorderTv -> {
                 if (isNetworkAvailable()) {
@@ -205,6 +227,7 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
                     if (result.response!!.status!!) {
                         pref!!.setPreferenceStringData(pref!!.KEY_CART_ID, result.response!!.data!!.cart!!.cartId!!)
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
+                        startActivity(Intent(this, CartActivity::class.java))
                     }
 
                 }, { error ->
@@ -217,7 +240,16 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         myOrderDetailDisposable.add(disposable)
     }
 
+    private fun setAppliedCouponCodesAdapter() {
+        if (appliedCouponCodeAdapter == null) {
+            couponCodeRv.layoutManager = LinearLayoutManager(this)
+            appliedCouponCodeAdapter = CouponCodeAdapter(this, appliedCouponCodesAllInfo)
+            couponCodeRv.adapter = appliedCouponCodeAdapter
+        } else
+            appliedCouponCodeAdapter?.notifyDataSetChanged()
+    }
 
+    private var appliedCouponCodeAdapter: CouponCodeAdapter? = null
     private fun callGetMyOrderDetailApi() {
         setProgressState(View.VISIBLE, View.GONE)
         val getMyOrderDetailRequest = HashMap<String, String>()
@@ -230,12 +262,16 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         val disposable = getProductObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
-
                     if (result.response!!.status!!) {
                         setProgressState(View.GONE, View.VISIBLE)
                         myOrderDetailResponse = result.response!!.data
+                        appliedCouponCodesAllInfo = myOrderDetailResponse!!.coupons as MutableList<Coupon>
+                        if (!appliedCouponCodesAllInfo.isEmpty()) {
+                            setAppliedCouponCodesAdapter()
+                            ll_couponCode.visibility=View.VISIBLE
+                        }else
+                            ll_couponCode.visibility=View.GONE
                         setOrderDetailData()
                     } else {
                         setProgressState(View.GONE, View.GONE)
@@ -250,21 +286,18 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setOrderDetailData() {
-
         myOrderProductList = myOrderDetailResponse!!.products!!
         val myOrderProductItemAdapter = MyOrderProductItemAdapter(this, myOrderProductList)
         order_detail_recyl_products.layoutManager = LinearLayoutManager(this)
         order_detail_recyl_products.adapter = myOrderProductItemAdapter
-
         order_detail_txt_address_line.text = myOrderDetailResponse!!.order!!.deliveryAddress
-
-        order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
-            order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "MMM dd, yyyy")
-        }else {
+        order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "dd MMM, yyyy")
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+            order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "dd MMM, yyyy")
+        } else {
             order_detail_txt_delivery_time_line1.text = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryDate!!, "yyyy-MM-dd", "dd MMM, yyyy")
         }
-        val deliveryTime = getString(R.string.from) + " " + Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryStartTime!!, "HH:mm:ss", "hh:mm a") + " " + getString(R.string.to) + " " + Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryEndTime!!, "HH:mm:ss", "hh:mm a")
+        val deliveryTime = Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryStartTime!!, "HH:mm:ss", "hh:mm aa") + " " + getString(R.string.to) + " " + Utils.getInstance().convertTimeFormat(myOrderDetailResponse!!.order!!.deliveryEndTime!!, "HH:mm:ss", "hh:mm aa")
 
         order_detail_txt_delivery_time_line2.text = deliveryTime
 
@@ -283,8 +316,12 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
 
         if (myOrderDetailResponse?.order?.paymentMode.equals("COD"))
             order_detail_txt_payment_type.text = getString(R.string.COD)
-        else
+        else if (myOrderDetailResponse?.order?.paymentMode.equals("Wallet"))
+            order_detail_txt_payment_type.text = getString(R.string.wallet)
+        else if (myOrderDetailResponse?.order?.paymentMode.equals("Online"))
             order_detail_txt_payment_type.text = getString(R.string.credit_card)
+        else
+            order_detail_txt_payment_type.text = getString(R.string.thawani)
 
         if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Cancelled"))
             order_detail_txt_order_status.text = getString(R.string.Cancelled)
@@ -299,8 +336,8 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
         else if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Delivered"))
             order_detail_txt_order_status.text = getString(R.string.delivered)
 
-        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Pending"))
-            reorderTv.visibility = GONE
+        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Delivered") || myOrderDetailResponse?.order?.orderDeliveryStatus.equals("Cancelled"))
+            reorderTv.visibility = VISIBLE
         if (showCancelButton())
             order_detail_btn_cancel.visibility = View.VISIBLE
         else
@@ -328,7 +365,8 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
 
         if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("delivered", true))
             return false
-
+        if (myOrderDetailResponse?.order?.orderDeliveryStatus.equals("pending", true))
+            return false
         if (myOrderDetailResponse?.deliveryBoy != null)
             return true
         return false
@@ -372,7 +410,6 @@ class MyOrderDetailActivity : BaseActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-
                 if (FROM == 1) {
                     var intent = Intent(this, HomeActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

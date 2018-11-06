@@ -9,30 +9,126 @@ import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.widget.AppCompatTextView
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.os.drewel.R
+import com.os.drewel.R.id.navigation_more
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.application.DrewelApplication.Companion.admin_unread_count
+import com.os.drewel.application.DrewelApplication.Companion.chat_id
+import com.os.drewel.application.DrewelApplication.Companion.user_unread_count
+import com.os.drewel.firebase.MessageDataSource
 import com.os.drewel.fragment.*
+import com.os.drewel.model.ChatModel
+import com.os.drewel.model.ChatUserModel
 import com.os.drewel.prefrences.Prefs
+import com.os.drewel.rxbus.NotificationRxJavaBus
+import com.os.drewel.rxbus.UnreadCountRxJavaBus
 import com.os.drewel.utill.BadgeIntentService
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.action_bar_unread_icon.view.*
 import kotlinx.android.synthetic.main.home_product_activity.*
 import kotlinx.android.synthetic.main.layout_product.*
+import kotlinx.android.synthetic.main.product_list_all_child.view.*
 import me.leolin.shortcutbadger.ShortcutBadger
 
 /**
  * Created by monikab on 3/12/2018.
  */
 
-class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener, MessageDataSource.MessagesCallbacks {
+    override fun onChannelAdded(message: ChatModel?) {
+        if (message!!.channel_info != null) {
+            if (message.channel_info!!.admin_count != null)
+                admin_unread_count = message.channel_info!!.admin_count!!.toInt()
+            if (message.channel_info!!.user_count != null) {
+                user_unread_count = message.channel_info!!.user_count!!.toInt()
+                UnreadCountRxJavaBus.getInstance().unreadCountRxJavaBus.onNext(user_unread_count.toString())
+            }
+        }
+    }
+
+    override fun onMessageAdded(message: ChatModel?) {
+
+    }
+
+    private fun setDynamicallyParam(cartItemQuantity: String) {
+        if (cartItemQuantity.length > 2) {
+            countItemView.unreadCountTv.measure(0, 0)
+            val width = countItemView.unreadCountTv.measuredWidth
+
+            val linearPram = RelativeLayout.LayoutParams(width, width)
+            val marginInDp = -5
+            val marginInPx = marginInDp * resources.displayMetrics.density
+            linearPram.setMargins(marginInPx.toInt(), marginInPx.toInt(), 0, 0)
+//            linearPram.addRule(RelativeLayout.END_OF, R.id.nav_more)
+
+            countItemView.unreadCountTv.layoutParams = linearPram
+        }
+    }
+
+    private lateinit var countItemView: View
+    private fun getViewOfCountMenuItem(menu: BottomNavigationView): View {
+        var mbottomNavigationMenuView: BottomNavigationMenuView = menu.getChildAt(0) as BottomNavigationMenuView
+        var views = mbottomNavigationMenuView.getChildAt(4);
+        var itemView: BottomNavigationItemView = views as BottomNavigationItemView;
+        countItemView = LayoutInflater.from(this)
+                .inflate(R.layout.action_bar_unread_icon,
+                        mbottomNavigationMenuView, false);
+        itemView.addView(countItemView)
+
+        setDynamicallyParam(user_unread_count.toString())
+        if (user_unread_count.toString().isEmpty() || user_unread_count.toString() == "0")
+            itemView.unreadCountTv.visibility = View.GONE
+        else
+            itemView.unreadCountTv.visibility = View.VISIBLE
+        unreadCountRxJavaBus = UnreadCountRxJavaBus.getInstance().unreadCountRxJavaBus.subscribe(
+                { cartItemQuantity ->
+                    itemView.unreadCountTv.text = cartItemQuantity
+
+                    setDynamicallyParam(cartItemQuantity)
+
+                    if (cartItemQuantity.isEmpty() || cartItemQuantity == "0")
+                        itemView.unreadCountTv.visibility = View.GONE
+                    else
+                        itemView.unreadCountTv.visibility = View.VISIBLE
+                },
+                { error ->
+                    Log.d("error", error.message)
+                }
+        )
+
+        return countItemView
+
+    }
+
+    private fun subscribeUnreadCountBus() {
+        unreadCountRxJavaBus = UnreadCountRxJavaBus.getInstance().unreadCountRxJavaBus.subscribe(
+                { cartItemQuantity ->
+                    countItemView.unreadCountTv.text = cartItemQuantity
+
+//                    setDynamicallyParam(cartItemQuantity)
+
+                    if (cartItemQuantity.isEmpty() || cartItemQuantity == "0")
+                        countItemView.unreadCountTv.visibility = View.GONE
+                    else
+                        countItemView.unreadCountTv.visibility = View.VISIBLE
+                },
+                { error ->
+                    Log.d("error", error.message)
+                }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +136,21 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
         initView()
     }
 
+    private var firstTimeBackPressed = true
+    override fun onBackPressed() {
+        if (firstTimeBackPressed) {
+            Toast.makeText(this, getText(R.string.Press_again_to_exit), Toast.LENGTH_SHORT).show()
+            firstTimeBackPressed = false
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    var prefs: Prefs? = null
+    //    private var onlineListener: MessageDataSource.UserListener? = null
+    private var mListener: MessageDataSource.ChannelListener? = null
 
     private fun initView() {
-
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         supportActionBar!!.setDisplayShowHomeEnabled(false)
@@ -57,18 +165,23 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
         } else if (intent != null) {
             if (intent.getIntExtra("FROM", 0).equals(1)) {
                 setFragment(MyOrderFragment())
+                navigationView.selectedItemId = R.id.navigation_my_order
             } else
                 setFragment(CategoryFragment())
         } else
             setFragment(CategoryFragment())
-
         addressTv.setOnClickListener(this)
-        callUnreadNotifApi()
+        prefs = Prefs(this)
+        getViewOfCountMenuItem(navigationView)
+//        subscribeUnreadCountBus()
+
+//        onlineListener = MessageDataSource.UserListener(chat_id, this)
+        if (isNetworkAvailable())
+            callUnreadNotifApi()
     }
 
     private fun setFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.container, fragment)
@@ -86,15 +199,12 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
-                    // setProgressState(View.GONE, true)
-//                    Toast.makeText(this, result.response!!.message, Toast.LENGTH_LONG).show()
                     if (result.response!!.status!!) {
+                        chat_id = result.response!!.data!!.admin_id + Prefs(DrewelApplication.getInstance()).getPreferenceStringData(Prefs(DrewelApplication.getInstance()).KEY_USER_ID)
+                        mListener = MessageDataSource.addChannelListener(chat_id, this)
                         val prefs = Prefs.getInstance(this)
                         prefs.setPreferenceIntData(prefs.UNREAD_COUNT, result.response!!.data!!.unread!!)
                         ShortcutBadger.applyCount(this, result.response!!.data!!.unread!!)
-//                        startService(
-//                                Intent(this, BadgeIntentService::class.java).putExtra("badgeCount", result.response!!.data!!.unread)
-//                        )
                     }
                 }, { error ->
                     // setProgressState(View.GONE, true)
@@ -127,8 +237,8 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
             }
 
             R.id.navigation_search -> {
-                setTitle(getString(R.string.offers))
-                setFragment(DiscountFragment())
+                setTitle(getString(R.string.discount))
+                setFragment(OfferFragment())
                 return true
             }
 
@@ -153,6 +263,7 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
         return false
     }
 
+
     @SuppressLint("RestrictedApi")
     private fun removeShiftMode(view: BottomNavigationView) {
         val menuView = view.getChildAt(0) as BottomNavigationMenuView
@@ -176,7 +287,6 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
     }
 
     override fun onClick(view: View) {
-
         when (view.id) {
             R.id.addressTv -> {
                 startActivity(Intent(this, DeliveryAddressActivity::class.java))
@@ -191,6 +301,9 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
             addressTv.text = pref!!.getPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_NAME)
         else
             addressTv.text = getString(R.string.add_new_address)
+
+        if (supportFragmentManager.findFragmentById(R.id.container) is SettingFragment)
+            NotificationRxJavaBus.getInstance().notificationPublishSubject.onNext("")
     }
 
     /* set title of action bar*/

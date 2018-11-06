@@ -80,7 +80,8 @@ class SplashActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable.dispose()
+        if (disposable != null)
+            disposable.dispose()
     }
 
 
@@ -98,7 +99,14 @@ class SplashActivity : BaseActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 callNextActivity()
             } else {
-
+                disposable = Observable.timer(3000, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {
+                                },
+                                { error -> },
+                                {  })
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

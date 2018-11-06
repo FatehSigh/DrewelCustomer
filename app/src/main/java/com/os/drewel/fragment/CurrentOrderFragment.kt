@@ -1,5 +1,9 @@
 package com.os.drewel.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,6 +15,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.os.drewel.R
+import com.os.drewel.activity.BaseActivity
 import com.os.drewel.activity.HomeActivity
 import com.os.drewel.adapter.MyCurrentOrderAdapter
 import com.os.drewel.apicall.DrewelApi
@@ -31,7 +36,8 @@ import kotlinx.android.synthetic.main.my_current_order.*
 class CurrentOrderFragment : BaseFragment(), OnClickItem {
     override fun onClick(tag: String, position: Int) {
         if (tag.equals("Delete")) {
-            callDeleteOrderApi(position)
+            if (isNetworkAvailable())
+                callDeleteOrderApi(position)
         }
     }
 
@@ -43,22 +49,40 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         return inflater.inflate(R.layout.my_current_order, container, false)
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("UPDATE_STATUS")
+        activity!!.registerReceiver(broadcastReceiver, intentFilter)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        updateMenuTitles()
-        callMyCurrentOrderApi(VISIBLE)
+        if (isNetworkAvailable())
+            callMyCurrentOrderApi(VISIBLE)
         swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
-                refreshItems()
+                if (isNetworkAvailable())
+                    refreshItems()
             }
         })
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            //   Toast.makeText(context, "This is the broadcast", Toast.LENGTH_SHORT).show();
+            if (isNetworkAvailable())
+                refreshItems()
+        }
     }
 
     fun refreshItems() {
         // Load complete
         Handler().postDelayed({
             try {
-                callMyCurrentOrderApi(GONE)
+                if (isAdded)
+                    callMyCurrentOrderApi(GONE)
             } catch (e: Exception) {
                 swipeRefreshLayout.isRefreshing = false
             }
@@ -71,7 +95,7 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
         updateCartRequest["user_id"] = pref.getPreferenceStringData(pref.KEY_USER_ID)
         updateCartRequest["language"] = DrewelApplication.getInstance().getLanguage()
         updateCartRequest["order_id"] = myCurrentOrderList[position].orderId!!
-        val updateCartObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).delete_order(updateCartRequest)
+        val updateCartObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).cancelOrder(updateCartRequest)
         updateCartObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
@@ -115,32 +139,34 @@ class CurrentOrderFragment : BaseFragment(), OnClickItem {
                     if (result.response!!.status!!) {
                         noOrderAlertTv.visibility = View.GONE
                         myOrderRv.visibility = View.VISIBLE
-
                         myCurrentOrderList = (result.response?.data?.order as MutableList<Order>?)!!
 //                        if (result.response?.data?.order!!.isEmpty())
 //                            myCurrentOrderList = ArrayList()
+                        if (myCurrentOrderList.size > 0) {
+                            noOrderAlertTv.visibility = View.GONE
+                            myOrderRv.visibility = View.VISIBLE
+                        } else {
+                            noOrderAlertTv.visibility = View.VISIBLE
+                            myOrderRv.visibility = View.GONE
+                        }
                         setAdapter()
-
                     } else {
                         noOrderAlertTv.visibility = View.VISIBLE
                         myOrderRv.visibility = View.GONE
                     }
                 }, { error ->
+                    noOrderAlertTv.visibility = View.VISIBLE
+                    myOrderRv.visibility = View.GONE
                     swipeRefreshLayout.isRefreshing = false
                     setProgressState(View.GONE)
                     Log.e("TAG", "{$error.message}")
-                }
-                )
+                })
     }
 
     private fun setAdapter() {
-//        if (currentOrderAdapter == null) {
         myOrderRv.layoutManager = LinearLayoutManager(context)
-//            myOrderRv.addItemDecoration(EqualSpacingItemDecoration(26, EqualSpacingItemDecoration.VERTICAL))
         currentOrderAdapter = MyCurrentOrderAdapter(context, myCurrentOrderList, CURRENT_ORDER, this)
         myOrderRv.adapter = currentOrderAdapter
-//        } else
-//            currentOrderAdapter?.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

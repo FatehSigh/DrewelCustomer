@@ -41,8 +41,8 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
         val expireDate = Utils.getInstance().convertTimeFormat(couponList[position].requested_on!!, "yyyy-MM-dd", "dd MMM, yyyy")
         try {
             val startdate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(couponList[position].requested_on!!)
-            holder.itemView.txt_date.setText(SimpleDateFormat("dd MMM ''yy").format(startdate))
-            holder.itemView.txt_time.setText(SimpleDateFormat("h:mm a").format(startdate))
+            holder.itemView.txt_date.setText(SimpleDateFormat("dd MMM, yyyy").format(startdate))
+            holder.itemView.txt_time.setText(SimpleDateFormat("hh:mm aa").format(startdate))
         } catch (e: Exception) {
         }
         if (holder.timer != null) {
@@ -56,7 +56,10 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
             startTimer(couponList[position], holder)
         holder.itemView.txt_date.text = expireDate
         holder.itemView.txt_title.text = couponList[position].product_name
-        holder.itemView.txt_reply.text = mContext!!.getString(R.string.reply) + couponList[position].reply
+        if (!couponList[position].reply.isNullOrEmpty()) {
+            holder.itemView.txt_reply.text = mContext!!.getString(R.string.reply) + couponList[position].reply
+            holder.itemView.txt_reply.visibility = View.VISIBLE
+        } else holder.itemView.txt_reply.visibility = View.GONE
 
         holder.itemView.txt_edit.setOnClickListener {
             if (onClickItem != null)
@@ -171,14 +174,14 @@ class ProductRequestListAdapter(val mContext: Context?, private val couponList: 
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, mContext)
                     itemView.txt_delete.isEnabled = true
                     progressDialog?.dismiss()
-                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                     }
                 }, { error ->
                     itemView.txt_delete.isEnabled = true
                     progressDialog?.dismiss()
-                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

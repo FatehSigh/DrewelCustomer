@@ -2,6 +2,7 @@ package com.os.drewel.activity
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -10,12 +11,8 @@ import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.RatingBar
+import android.view.*
+import android.widget.*
 import com.os.drewel.R
 import com.os.drewel.adapter.BrandAdapter
 import com.os.drewel.adapter.BrandNameAdapter
@@ -32,7 +29,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.content_products.*
+import kotlinx.android.synthetic.main.content_setting_activity.view.*
 import kotlinx.android.synthetic.main.filter_products.view.*
+import kotlinx.android.synthetic.main.sort_product.view.*
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -64,6 +63,10 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     private var isFilterApplied = false
 
+    private var sortPopupWindow: PopupWindow? = null
+
+    private lateinit var sortPopupWindowView: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
@@ -78,7 +81,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         search_product.setOnClickListener(this)
-
+        txt_sortby.setOnClickListener(this)
         if (intent.hasExtra(AppIntentExtraKeys.SELECTED_CATEGORY)) {
 
             category = intent.getSerializableExtra(AppIntentExtraKeys.SELECTED_CATEGORY) as Category
@@ -107,7 +110,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         }
 
         tabs.addOnTabSelectedListener(this)
-        setDividerForTab()
+//        setDividerForTab()
 
     }
 
@@ -138,7 +141,6 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
          }*/
     }
 
-
     private fun callGetProductApi() {
         setProgressState(View.VISIBLE, false)
         val getProductRequest = HashMap<String, Any>()
@@ -149,13 +151,17 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         getProductRequest["min_price"] = selectedMinPriceRange
         getProductRequest["max_price"] = selectedMaxPriceRange
         getProductRequest["ratings"] = selectedRating
-
+        getProductRequest["sort_by"] = sort_by
         val brandAry = ArrayList<String?>()
         for (i in selectedBrandPosArray.indices)
-            brandAry.add(brandNameList[selectedBrandPosArray[i]].brandId)
+            try {
+                Log.e("Value is==", brandNameList[selectedBrandPosArray[i]].brandId + ", Position is=" + selectedBrandPosArray[i])
+                brandAry.add(brandNameList[selectedBrandPosArray[i]].brandId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
         getProductRequest["brands_id"] = brandAry
-
 
         val getProductObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getProduct(getProductRequest/*, brandAry*/)
         disposable = getProductObservable.subscribeOn(Schedulers.newThread())
@@ -169,7 +175,8 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                         searchProductView.visibility=View.VISIBLE*/
                         productResponse = result.response!!.data!!
                         brandList = result.response!!.data!!.brands!!
-                        brandNameList = result.response!!.data!!.brands!!
+                        if (brandNameList.isEmpty())
+                            brandNameList = result.response!!.data!!.brands!!
                         setAdapter()
                         /* change brands filter*/
                         if (filterPopupWindow != null && !isFilterApplied) {
@@ -177,7 +184,6 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                             setMinMaxRangeOfPrice()
                         } else
                             isFilterApplied = false
-
 
                     } else {
                         com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
@@ -242,7 +248,6 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.menu_filter -> {
                 val view = findViewById<View>(R.id.menu_filter)
                 if (brandList.isNotEmpty()) {
@@ -251,7 +256,6 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                     else
                         showFilterPopUp(view)
                 }
-
                 return true
             }
         }
@@ -261,6 +265,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     private fun initFilterPopUp(anchorView: View) {
         try {
+
             /* set view for filter popup window*/
             filterPopupWindow = PopupWindow(this)
             popupWindowView = layoutInflater.inflate(R.layout.filter_products, null) as View
@@ -270,7 +275,6 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             val llm_brand_name = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             popupWindowView.recyclerView_tv_brand_name.layoutManager = llm_brand_name
             setAdapterOfBrandName()
-
 
             /* set price rande*/
             popupWindowView.rsbAge.setOnRangeSeekbarChangeListener { minValue, maxValue ->
@@ -290,11 +294,68 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             popupWindowView.applyFilterBt.setOnClickListener(this)
             popupWindowView.cancelFilterBt.setOnClickListener(this)
             popupWindowView.clearFilterBt.setOnClickListener(this)
+            popupWindowView.img_sortby.setOnClickListener(this)
+            popupWindowView.txt_sort_by.setOnClickListener(this)
             /* show popup window*/
             showFilterPopUp(anchorView)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    var sort_by = "0"
+    val SORT_PRICE_LOW_TO_HIGH = "1"
+    val SORT_PRICE_HIGH_TO_LOW = "2"
+    val SORT_NEW_PRODUCTS = "3"
+    val SORT_MOST_POPULAR_PRODUCTS = "4"
+    val SORT_DISCOUNTED_PRODUCTS = "5"
+
+
+    private fun initSortPopUp(anchorView: View) {
+        try {
+            /* set view for filter popup window*/
+            sortPopupWindow = PopupWindow(this)
+            sortPopupWindowView = layoutInflater.inflate(R.layout.sort_product, null) as View
+            sortPopupWindow!!.contentView = sortPopupWindowView
+
+            sortPopupWindowView.sort_by.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    R.id.rb_price_low_high -> sort_by = SORT_PRICE_LOW_TO_HIGH
+                    R.id.rb_price_high_low -> sort_by = SORT_PRICE_HIGH_TO_LOW
+                    R.id.rb_newly_added -> sort_by = SORT_NEW_PRODUCTS
+                    R.id.rb_most_popular_products -> sort_by = SORT_MOST_POPULAR_PRODUCTS
+                    R.id.rb_discounted_products -> sort_by = SORT_DISCOUNTED_PRODUCTS
+                }
+//                txt_sortby.text = sortPopupWindowView.findViewById<RadioButton>(checkedId).text.toString()
+                sortPopupWindow!!.dismiss()
+                if (isNetworkAvailable())
+                    callGetProductApi()
+            }
+
+            /* show popup window*/
+            showSortPopUp(anchorView)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun showSortPopUp(anchorView: View) {
+        sortPopupWindow!!.height = WindowManager.LayoutParams.WRAP_CONTENT
+        sortPopupWindow!!.width = WindowManager.LayoutParams.WRAP_CONTENT
+        sortPopupWindow!!.isOutsideTouchable = true
+        sortPopupWindow!!.isFocusable = true
+        //popup.showAtLocation(anchorView,Gravity.NO_GRAVITY,50,120);
+        sortPopupWindow!!.isFocusable = true
+        sortPopupWindow!!.setBackgroundDrawable(BitmapDrawable(resources, Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)))
+        val rectangle = Rect()
+        val window = window
+        window.decorView.getWindowVisibleDisplayFrame(rectangle)
+        val statusBarHeight = rectangle.top
+        var contentViewTop = window.findViewById<View>(Window.ID_ANDROID_CONTENT).getTop();
+        var titleBarHeight = contentViewTop + statusBarHeight;
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC))
+            sortPopupWindow!!.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.height + statusBarHeight);
+        sortPopupWindow!!.showAsDropDown(anchorView)
     }
 
     private fun setAdapterOfBrandName() {
@@ -303,8 +364,8 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
     }
 
     private fun setMinMaxRangeOfPrice() {
-        popupWindowView.rsbAge.setMaxValue(productResponse!!.maxPrice!!.toFloat())
-        popupWindowView.rsbAge.setMinValue(productResponse!!.minPrice!!.toFloat())
+//        popupWindowView.rsbAge.setMaxValue(productResponse!!.maxPrice!!.toFloat())
+//        popupWindowView.rsbAge.setMinValue(productResponse!!.minPrice!!.toFloat())
 
         popupWindowView.tv_min_amount.text = NumberFormat.getInstance().format(productResponse!!.minPrice!!.toDouble())
         popupWindowView.tv_max_amount.text = NumberFormat.getInstance().format(productResponse!!.maxPrice!!.toDouble())
@@ -322,6 +383,12 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         //  popup.showAtLocation(anchorView,Gravity.NO_GRAVITY,50,120);
         filterPopupWindow!!.isFocusable = true
         filterPopupWindow!!.setBackgroundDrawable(BitmapDrawable(resources, Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)))
+        val rectangle = Rect()
+        val window = window
+        window.decorView.getWindowVisibleDisplayFrame(rectangle)
+        val statusBarHeight = rectangle.top
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC))
+            filterPopupWindow!!.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.height + statusBarHeight);
         filterPopupWindow!!.showAsDropDown(anchorView)
     }
 
@@ -332,17 +399,22 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                 isFilterApplied = true
                 filterPopupWindow!!.dismiss()
                 selectedBrandPosArray.clear()
+                Log.e("selectedPosArray==>", brandNameAdapter!!.selectedPosArray.toString())
                 selectedBrandPosArray = brandNameAdapter!!.selectedPosArray.clone() as ArrayList<Int>
                 selectedMaxPriceRange = popupWindowView.tv_max_amount.text.toString()
                 selectedMinPriceRange = popupWindowView.tv_min_amount.text.toString()
                 selectedRating = popupWindowView.ratingBar.rating.toString()
 
-
                 if (isNetworkAvailable())
                     callGetProductApi()
             }
+            R.id.txt_sortby -> {
+                if (sortPopupWindow == null)
+                    initSortPopUp(view)
+                else
+                    showSortPopUp(view)
+            }
             R.id.clearFilterBt -> {
-
                 filterPopupWindow!!.dismiss()
                 selectedBrandPosArray.clear()
                 selectedMaxPriceRange = ""
@@ -350,29 +422,56 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                 selectedRating = ""
 
                 popupWindowView.ratingBar.rating = 0f
-
+                sort_by = ""
                 setAdapterOfBrandName()
-                setMinMaxRangeOfPrice()
+                popupWindowView.tv_min_amount.text = "1"
+                popupWindowView.tv_max_amount.text = "100"
+
+                popupWindowView.rsbAge.setMinStartValue(1f).apply()
+                popupWindowView.rsbAge.setMaxStartValue(100f).apply()
 
                 if (isNetworkAvailable())
                     callGetProductApi()
             }
             R.id.cancelFilterBt -> {
                 /* if user cancel filter then set previous values to filter window*/
-                brandNameAdapter!!.selectedPosArray.clear()
-                brandNameAdapter!!.selectedPosArray = selectedBrandPosArray.clone() as ArrayList<Int>
-                popupWindowView.recyclerView_tv_brand_name.adapter = brandNameAdapter
-                if (selectedMaxPriceRange.isNotEmpty()) {
-                    popupWindowView.rsbAge.setMinStartValue(selectedMinPriceRange.toFloat()).apply()
-                    popupWindowView.rsbAge.setMaxStartValue(selectedMaxPriceRange.toFloat()).apply()
-                }
-
-                if (selectedRating.isNotEmpty()) {
-                    popupWindowView.ratingBar.rating = selectedRating.toFloat()
-                }
-
+//                brandNameAdapter!!.selectedPosArray.clear()
+//                brandNameAdapter!!.selectedPosArray = selectedBrandPosArray.clone() as ArrayList<Int>
+//                popupWindowView.recyclerView_tv_brand_name.adapter = brandNameAdapter
+//                if (selectedMaxPriceRange.isNotEmpty()) {
+//                    popupWindowView.rsbAge.setMinStartValue(selectedMinPriceRange.toFloat()).apply()
+//                    popupWindowView.rsbAge.setMaxStartValue(selectedMaxPriceRange.toFloat()).apply()
+//                }
+//                if (selectedRating.isNotEmpty()) {
+//                    popupWindowView.ratingBar.rating = selectedRating.toFloat()
+//                }
+                filterPopupWindow!!.dismiss()
+                selectedBrandPosArray.clear()
+                selectedMaxPriceRange = ""
+                selectedMinPriceRange = ""
+                selectedRating = ""
+                sort_by = ""
+                popupWindowView.ratingBar.rating = 0f
+                setAdapterOfBrandName()
+                setMinMaxRangeOfPrice()
                 filterPopupWindow!!.dismiss()
 
+            }
+            R.id.txt_sort_by -> {
+                val view = findViewById<View>(R.id.menu_filter)
+                filterPopupWindow!!.dismiss()
+                if (sortPopupWindow == null)
+                    initSortPopUp(view)
+                else
+                    showSortPopUp(view)
+            }
+            R.id.img_sortby -> {
+                val view = findViewById<View>(R.id.menu_filter)
+                filterPopupWindow!!.dismiss()
+                if (sortPopupWindow == null)
+                    initSortPopUp(view)
+                else
+                    showSortPopUp(view)
             }
             R.id.tv_brand_name -> {
 
@@ -387,6 +486,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
             R.id.search_product -> {
                 startActivity(Intent(this, SearchSuggestionActivity::class.java))
             }
+
         }
     }
 }

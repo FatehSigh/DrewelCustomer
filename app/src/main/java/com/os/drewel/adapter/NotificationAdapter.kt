@@ -28,13 +28,13 @@ class NotificationAdapter(val mContext: Activity?, private var notificationList:
     }
 
     override fun onBindViewHolder(holder: NotificationHolder, position: Int) {
-        if ((notificationList[position].isRead!!.isBlank()))
-            if (notificationList[position].equals("0"))
+        if (!(notificationList[position].isRead!!.isEmpty()))
+            if (notificationList[position].isRead.equals("0"))
                 holder.itemView.ll_main.setBackgroundColor(mContext!!.getResources().getColor(R.color.colorPrimary_verylight))
             else
                 holder.itemView.ll_main.setBackgroundColor(mContext!!.getResources().getColor(R.color.white))
         else
-            holder.itemView.ll_main.setBackgroundColor(mContext!!.getResources().getColor(R.color.white))
+            holder.itemView.ll_main.setBackgroundColor(mContext!!.getResources().getColor(R.color.colorPrimary_verylight))
 
         if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ARABIC))
             holder.itemView.notification_tv.text = notificationList[position].message_arabic
@@ -42,7 +42,7 @@ class NotificationAdapter(val mContext: Activity?, private var notificationList:
             holder.itemView.notification_tv.text = notificationList[position].message
         try {
             val startdate = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(notificationList[position].created!!)
-            holder.itemView.notification_time_tv.setText(SimpleDateFormat("dd MMM ''yy  |  h:mm a ").format(startdate))
+            holder.itemView.notification_time_tv.setText(SimpleDateFormat("dd MMM, yyyy  |  hh:mm aa ").format(startdate))
 //            holder.itemView.txt_time.setText(SimpleDateFormat("h:mm a").format(startdate))
         } catch (e: Exception) {
         }

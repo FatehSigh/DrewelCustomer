@@ -2,7 +2,6 @@ package com.os.drewel.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -10,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.assist.FailReason
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener
 import com.os.drewel.R
 import com.os.drewel.activity.ProductActivity
 import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Category
@@ -19,14 +16,13 @@ import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.Constants
 import kotlinx.android.synthetic.main.category_row_selector.view.*
-import kotlinx.android.synthetic.main.product_list_all_child.view.*
 
 
 /**
  * Created by sharukhb on 3/13/2018.
  */
 
-class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) : RecyclerView.Adapter<CategoryAdapter.CategoryHolder>() {
+class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>,var img: String) : RecyclerView.Adapter<CategoryAdapter.CategoryHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
@@ -40,6 +36,7 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
             if (mContext != null) {
                 holder.itemView.categoryNameTv.text = mContext.getString(R.string.all_products)
                 holder.itemView.subCategoryNameTv.text = mContext.getString(R.string.all_products_from_this_store)
+                ImageLoader.getInstance().displayImage(img, holder.itemView.categoryIv, DrewelApplication.getInstance().options)
             }
         } else {
             if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
@@ -62,9 +59,9 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
                                 }
                             } else
                                 if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
-                                    subCategory[i].categoryName + " , "
+                                    subCategory[i].categoryName + ", "
                                 } else {
-                                    subCategory[i].ar_category_name + " , "
+                                    subCategory[i].ar_category_name + ", "
                                 }
 
 
@@ -75,13 +72,11 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
             ImageLoader.getInstance().displayImage(categoryList.get(position - 1).img, holder.itemView.categoryIv, DrewelApplication.getInstance().options)
         }
 
-        holder.itemView.setOnClickListener(View.OnClickListener { view ->
+        holder.itemView.setOnClickListener { view ->
             val pos: Int = view.tag as Int
             if (pos == 0) {
                 val intent = Intent(mContext, ProductActivity::class.java)
-                if (mContext != null) {
-                    mContext.startActivity(intent)
-                }
+                mContext?.startActivity(intent)
             } else {
                 val intent = Intent(mContext, ProductActivity::class.java)
                 val bundle = Bundle()
@@ -91,18 +86,17 @@ class CategoryAdapter(val mContext: Context?, val categoryList: List<Category>) 
                     mContext.startActivity(intent)
                 }
             }
-        })
+        }
     }
 
 
     override fun getItemCount(): Int {
         Log.e("Size=", categoryList.size.toString())
-        return categoryList.size + 1;
+        return categoryList.size + 1
     }
 
 
     class CategoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
 
     }
 

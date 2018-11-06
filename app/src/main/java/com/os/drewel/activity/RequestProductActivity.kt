@@ -79,12 +79,14 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
             R.id.txt_request -> {
 
                 if (et_product_title.text.toString().isBlank())
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.product_name))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.product_name))
                 else if (isNetworkAvailable()) {
-                    if (From == 1)
-                        calleditRequestProductApi()
-                    else
-                        callRequestProductApi()
+                    if (From == 1) {
+                        if (isNetworkAvailable())
+                            calleditRequestProductApi()
+                    } else
+                        if (isNetworkAvailable())
+                            callRequestProductApi()
                 } else
                     com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.error_network_connection))
             }
@@ -103,17 +105,17 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
                 .subscribe({ result ->
                     progressBar.visibility = View.GONE
                     if (result.response!!.status!!) {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                         val intent2 = Intent()
                         intent2.action = "UPDATE_ACCEPTED"
                         sendBroadcast(intent2)
                         finish()
                     } else {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -132,18 +134,18 @@ class RequestProductActivity : BaseActivity(), View.OnClickListener {
                 .subscribe({ result ->
                     progressBar.visibility = View.GONE
                     if (result.response!!.status!!) {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                         couponList!!.product_name = et_product_title.text.toString()
                         val intent = Intent()
                         intent.putExtra("Data", couponList)
                         setResult(Activity.RESULT_OK, intent)
                         finish()
                     } else {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

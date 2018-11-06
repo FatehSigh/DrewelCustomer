@@ -24,6 +24,7 @@ import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDet
 import com.os.drewel.apicall.responsemodel.reviewResponseModel.Review
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.constant.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -60,11 +61,16 @@ class RateProductActivity : BaseActivity(), View.OnClickListener {
             myCartChildRL.visibility = VISIBLE
             tv_review.visibility = GONE
         }
-
-        callProductReviewListAPi()
+        if (isNetworkAvailable())
+            callProductReviewListAPi()
         tv_product_categories.text = category
         tv_product_sub_categories.text = subCategory
-        tv_product_title.text = productDetail!!.productName
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+            tv_product_title.text = productDetail!!.productName
+        } else {
+            tv_product_title.text = productDetail!!.ar_product_name
+        }
+
         if (productDetail!!.productImage!!.isNotEmpty())
             ImageLoader.getInstance().displayImage(productDetail!!.productImage!!.get(0), productImageIv, DrewelApplication.getInstance().options)
         setClickListeners()
@@ -99,20 +105,17 @@ class RateProductActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-
         when (view.id) {
-
             R.id.DoneBt -> {
-
                 KeyboardUtils.hideSoftInput(this)
                 if (ratingBar.rating == 0f)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.rate_product_validation))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.rate_product_validation))
                 else if (tv_product_desc.text.toString().isEmpty())
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.review_product_validation))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.review_product_validation))
                 else if (isNetworkAvailable())
                     callRequestProductApi()
                 else
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,getString(R.string.error_network_connection))
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, getString(R.string.error_network_connection))
             }
         }
     }
@@ -131,17 +134,19 @@ class RateProductActivity : BaseActivity(), View.OnClickListener {
                 .subscribe({ result ->
                     progressBar.visibility = View.GONE
                     if (result.response!!.status!!) {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                         productDetail!!.review_submited = 1
                         myCartChildRL.visibility = GONE
                         tv_review.visibility = VISIBLE
                         tv_review.text = getString(R.string.review_submitted)
-                        callProductReviewListAPi()
+                        finish()
+//                        if (isNetworkAvailable())
+//                            callProductReviewListAPi()
                     } else {
                     }
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -167,7 +172,7 @@ class RateProductActivity : BaseActivity(), View.OnClickListener {
                     }
                 }, { error ->
                     progressBar.visibility = View.GONE
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

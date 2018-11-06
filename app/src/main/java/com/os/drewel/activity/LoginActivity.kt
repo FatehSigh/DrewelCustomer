@@ -85,6 +85,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 callFacebookLogin()
             }
             R.id.forgotPasswordTv -> {
+                emailAddressEditText.setText("")
+                passwordEditText.setText("")
                 KeyboardUtils.hideSoftInput(this)
                 startActivity(Intent(this, ForgotPasswordActivity::class.java))
             }
@@ -124,19 +126,19 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
         passwordTextLayout.isErrorEnabled = false
 
-        if (passwordTextLayout.visibility == View.VISIBLE && passwordEditText.text.toString().length < 6) {
+        /*if (passwordTextLayout.visibility == View.VISIBLE && passwordEditText.text.toString().length < 6) {
             passwordTextLayout.error = getString(R.string.short_password)
             passwordTextLayout.requestFocus()
             return false
         }
-        passwordTextLayout.isErrorEnabled = false
+        passwordTextLayout.isErrorEnabled = false*/
 /*
         if (passwordTextLayout.visibility == View.VISIBLE && !(passwordEditText.text.toString().matches(".*[A-Za-z]+.*[0-9]+.*".toRegex()) || passwordEditText.text.toString().matches(".*[0-9]+.*[A-Za-z]+.*".toRegex()))) {
             passwordTextLayout.error = getString(R.string.invalid_password)
             passwordTextLayout.requestFocus()
             return false
         }*/
-        passwordTextLayout.isErrorEnabled = false
+//        passwordTextLayout.isErrorEnabled = false
 
 
         return true

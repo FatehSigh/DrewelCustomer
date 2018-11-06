@@ -31,6 +31,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_discount.*
 import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
 import android.view.MenuInflater
+import com.os.drewel.activity.BaseActivity
 
 
 /**
@@ -43,7 +44,8 @@ class RequestFragment : BaseFragment(), OnClickItem {
         Log.e("position==", position.toString())
         this@RequestFragment.position = position
         if (tag.equals("Delete")) {
-            callDeleteApi(position)
+            if (isNetworkAvailable())
+                callDeleteApi(position)
         } else if (tag.equals("edit")) {
             startActivityForResult(Intent(activity, RequestProductActivity::class.java).putExtra("From", 1).putExtra("Data", couponList[position]), 2000)
         }
@@ -66,7 +68,8 @@ class RequestFragment : BaseFragment(), OnClickItem {
 //                var productRequest = data.getSerializableExtra("Data") as ProductRequest
 //                couponList[position] = productRequest
 //                discountAdapter!!.notifyDataSetChanged()
-                callCategoryListApi()
+                if (isNetworkAvailable())
+                    callCategoryListApi()
             }
         }
     }
@@ -87,7 +90,8 @@ class RequestFragment : BaseFragment(), OnClickItem {
                     setProgressState(View.GONE)
                     com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     if (result.response!!.status!!) {
-                        callCategoryListApi()
+                        if (isNetworkAvailable())
+                            callCategoryListApi()
                     }
                 }, { error ->
                     setProgressState(View.GONE)
@@ -151,7 +155,8 @@ class RequestFragment : BaseFragment(), OnClickItem {
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
 //            Toast.makeText(context, "This is the broadcast", Toast.LENGTH_SHORT).show();
-            callCategoryListApi()
+            if (isNetworkAvailable())
+                callCategoryListApi()
         }
     }
 

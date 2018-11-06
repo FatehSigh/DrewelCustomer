@@ -118,6 +118,7 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
+                            if (isNetworkAvailable())
                             callDriverLocationApi()
                         },
                         { error -> Log.e("TAG", "{$error.message}") },
@@ -157,7 +158,7 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
                         googleMap.addPolyline(rectLine)
                     }
                 }, { error ->
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -194,13 +195,13 @@ class TrackOrderActivity : BaseActivity(), OnMapReadyCallback {
 
                            googleMap.moveCamera(cu)
                            googleMap.animateCamera(cu)*/
-
-                            callGetDirectionApi()
+                            if (isNetworkAvailable())
+                                callGetDirectionApi()
                         }
                     }
                 }, { error ->
                     // setProgressState(View.GONE)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )

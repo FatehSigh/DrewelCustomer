@@ -5,20 +5,17 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutManager
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.View.FOCUS_UP
 import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.Toast
 import com.facebook.CallbackManager
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.assist.FailReason
@@ -37,7 +34,6 @@ import com.os.drewel.dialog.ShareBottomSheetDialog
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.rxbus.SampleRxJavaBus
-import com.os.drewel.utill.CommonUtil
 import com.os.drewel.utill.EqualSpacingItemDecoration
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,8 +41,11 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_product_details_activity.*
 import kotlinx.android.synthetic.main.product_detail_activity.*
-import kotlinx.android.synthetic.main.product_list_all_child.view.*
-import java.text.NumberFormat
+import android.support.v7.widget.ShareActionProvider;
+import com.os.drewel.utill.ShareAppConstant
+import kotlinx.android.synthetic.main.child_my_cart.view.*
+import me.leolin.shortcutbadger.ShortcutBadger
+import java.net.URI
 
 /**
  * Created by monikab on 3/20/2018.
@@ -60,7 +59,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
     var shareDialog: ShareBottomSheetDialog? = null
     //  var productImagePath = ""
     private var callbackManager = CallbackManager.Factory.create()
-    private  var productDetail: ProductDetail=ProductDetail()
+    private var productDetail: ProductDetail = ProductDetail()
 
     private var productImageBitmap: Bitmap? = null
     private var notificationId = ""
@@ -100,9 +99,9 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         }
         /* set click listeners for button*/
         setClickListener()
-
         /*dynamically set height of viewpager*/
         setHeightOfViewPager()
+
 
     }
 
@@ -114,8 +113,8 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         }
     }
 
+
     private fun callReadNotificationApi() {
-//      setProgressState(View.VISIBLE, View.GONE)
         val readNotificationRequest = java.util.HashMap<String, String>()
         readNotificationRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         readNotificationRequest["language"] = DrewelApplication.getInstance().getLanguage()
@@ -127,11 +126,14 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     isCalled = true
                     is_read = "1"
+                    var unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+                    unread -= 1
+                    Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
+                    ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
                 }, { error ->
                     Log.e("TAG", "{$error.message}")
                 }
                 )
-//        myOrderDetailDisposable.add(disposable)
     }
 
 
@@ -140,7 +142,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         windowManager.defaultDisplay.getMetrics(displaymetrics)
         val width = displaymetrics.widthPixels
 
-        val linearPram = RelativeLayout.LayoutParams(width, width-200)
+        val linearPram = RelativeLayout.LayoutParams(width, width - 200)
         productImagePager.layoutParams = linearPram
         outOfStockTv.layoutParams = linearPram
     }
@@ -155,17 +157,30 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         removeProductQuantityBt.setOnClickListener(this)
     }
 
+    var intentShare = Intent();
+    public fun prepareShareIntent(show: Boolean) {
+        if (show) {
+            val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "https://56.octallabs.com/drewel/product_details/" + productId)
+//            sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(contentResolver, shareImagePath, "https://56.octallabs.com/drewel/product_details/"  + productId, "https://56.octallabs.com/drewel/product_details/"  + productId)))
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, "https://56.octallabs.com/drewel/product_details/" + productId)
+            sharingIntent.type = "text/plain";
+            startActivity(Intent.createChooser(sharingIntent, "Share"))
+        }
+    }
+
     /* on click of buttons*/
     override fun onClick(view: View) {
 
         when (view.id) {
             R.id.imv_share_product -> {
-                if (shareDialog!!.shareImagePath.isNotEmpty())
-                    shareDialog!!.show()
+                if (shareImagePath != null)
+                    prepareShareIntent(true)
                 else {
                     if (isNetworkAvailable())
-                        saveProductImage()
+                        saveProductImage(true)
                 }
+
             }
             R.id.addToWishList -> {
 
@@ -183,7 +198,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     addToCartApi(addToCart)
             }
             R.id.txt_write_your_review -> {
-                if(!isNetworkAvailable())
+                if (!isNetworkAvailable())
                     return
                 var intent = Intent(this@ProductDetailActivity, RateProductActivity::class.java)
                 intent.putExtra("DATA", productDetail)
@@ -193,7 +208,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 startActivityForResult(intent, 1000)
             }
             R.id.addProductQuantityBt -> {
-                if(!isNetworkAvailable())
+                if (!isNetworkAvailable())
                     return
                 val quantity = productDetail.cartQuantity!!.toInt() + 1
                 val price = if (productDetail.offerPrice.isNullOrEmpty())
@@ -204,7 +219,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 callUpdateCartApi(quantity.toString(), price.toString())
             }
             R.id.removeProductQuantityBt -> {
-                if(!isNetworkAvailable())
+                if (!isNetworkAvailable())
                     return
                 if (productDetail.cartQuantity!!.toInt() > 1) {
                     val quantity = productDetail.cartQuantity!!.toInt() - 1
@@ -224,6 +239,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
 
     }
 
+
     private fun callDeleteProductFromCartApi() {
         addProductQuantityBt.isEnabled = false
         removeProductQuantityBt.isEnabled = false
@@ -233,7 +249,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         deleteProductRequest["cart_id"] = pref.getPreferenceStringData(pref.KEY_CART_ID)
         deleteProductRequest["user_id"] = pref.getPreferenceStringData(pref.KEY_USER_ID)
         deleteProductRequest["language"] = DrewelApplication.getInstance().getLanguage()
-        deleteProductRequest["product_id"] = productId!!
+        deleteProductRequest["product_id"] = productId
 
         val deleteCartProductObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).deleteCartProduct(deleteProductRequest)
         deleteCartProductObservable.subscribeOn(Schedulers.newThread())
@@ -253,12 +269,12 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
 
                     } else {
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
                     addProductQuantityBt.isEnabled = true
                     removeProductQuantityBt.isEnabled = true
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -295,14 +311,14 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext(result.response!!.data!!.cart!!.quantity!!)
                     } else {
 //                      notifyItemChanged(position)
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
                 }, { error ->
                     addProductQuantityBt.isEnabled = true
                     removeProductQuantityBt.isEnabled = true
                     addProductQuantityBt.isEnabled = true
 //                    notifyItemChanged(position)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -325,11 +341,11 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                         productDetailResponse = result
                         setData()
                     } else
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                 }, { error ->
                     setProgressState(View.GONE, View.GONE)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
-                    Log.e("TAG", "{$error.message}")
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
+                    Log.e("TAG", "{$error}")
                 }
                 )
     }
@@ -360,12 +376,11 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         productQuantityTv.setText(productDetail.cartQuantity!!.toString())
         productImagePager.adapter = SlidingImageAdapter(this, productDetail.productImage!!)
         pageIndicatorView.setViewPager(productImagePager)
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
             tv_product_title.text = productDetail.productName
             tv_product_desc.text = productDetail.productDescription
             txt_toolbar.text = productDetail.productName
-        }else
-        {
+        } else {
             tv_product_title.text = productDetail.ar_product_name
             tv_product_desc.text = productDetail.ar_product_description
             txt_toolbar.text = productDetail.ar_product_name
@@ -384,7 +399,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             amount = String.format("%.3f", productDetail.offerPrice!!.toDouble()) + " " + getString(R.string.omr)
             tv_product_amount.text = amount
             val offerExpireDate = getString(R.string.offer_expire_on) + " " + Utils.getInstance().convertTimeFormatAndTimeZone(productDetail.offerExpiresOn
-                    ?: "", "yyyy-MM-dd", "dd MMM yyyy")
+                    ?: "", "yyyy-MM-dd", "dd MMM, yyyy")
             tv_offer_expire_on.text = offerExpireDate
         } else {
             tv_offer_expire_on.visibility = View.GONE
@@ -407,22 +422,22 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
 //        val weight = getString(R.string.weight) + " - " + productDetail.weight + " " + productDetail.weightIn
         tv_product_weight.text = weight
         addToWishList.text = if (productDetail.isWishlist == 0) getString(R.string.add_to_wish_list) else getString(R.string.added_to_wish_list)
-
-        tv_rating.text = productDetail.avgRating ?: "0"
+        if (!productDetail.avgRating.isNullOrEmpty())
+            tv_rating.text = String.format("%.1f", productDetail.avgRating!!.toDouble()) ?: "0"
+        else
+            tv_rating.text = "0"
         ratingBar.rating = productDetail.avgRating?.toFloat() ?: 0.0F
 
         val brand = getString(R.string.brand) + " - " + productDetail.brandName
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
             val brand = getString(R.string.brand) + " - " + productDetail.brandName
             tv_product_brand.text = brand
-        }else
-        {
+        } else {
             val brand = getString(R.string.brand) + " - " + productDetail.ar_brand_name
             tv_product_brand.text = brand
         }
 
         showProductCategory()
-
 
         if (productDetailResponse.response!!.data!!.relatedProducts!!.isNotEmpty()) {
             val llm = LinearLayoutManager(this)
@@ -437,17 +452,15 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             similarProductRecyclerView.visibility = View.GONE
         }
 
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
             shareDialog!!.productTitle = productDetail.productName!!
-        }else
-        {
+        } else {
             shareDialog!!.productTitle = productDetail.ar_product_name!!
         }
         shareDialog!!.productPrice = amount
 
         shareDialog!!.shareImageURL = productDetailResponse.response!!.data!!.product!!.productImage!![0]
-        saveProductImage()
-
+        saveProductImage(false)
     }
 
     private fun showProductCategory() {
@@ -486,21 +499,29 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
                         productDetail.subCategory!![i].categoryName!! + ", "
                     } else {
-                        productDetail.category!![i].ar_category_name!! + ", "
-                        subCategory
+                        productDetail.subCategory!![i].ar_category_name!! + ", "
                     }
                 }
                 tv_product_sub_categories.text = subCategory
+                if (subCategory.isBlank()) {
+                    tv_product_sub_categories.visibility = View.GONE
+                } else {
+                    tv_product_sub_categories.visibility = View.VISIBLE
+                    tv_product_sub_categories.text = "> " + subCategory
+                }
             }
         }
     }
 
-    private fun saveProductImage() {
+    private fun saveProductImage(isShow: Boolean) {
 
         ImageLoader.getInstance().loadImage(productDetailResponse.response!!.data!!.product!!.productImage!![0], object : ImageLoadingListener {
             override fun onLoadingComplete(p0: String?, p1: View?, p2: Bitmap?) {
                 productImageBitmap = p2
-                checkRequestPermission()
+                checkRequestPermission(isShow)
+//
+// productImageBitmap
+
             }
 
             override fun onLoadingStarted(p0: String?, p1: View?) {
@@ -539,6 +560,10 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 var isSubmitted = data.getIntExtra("isSubmitted", 0)
                 productDetail.review_submited = isSubmitted
+                if (isNetworkAvailable()) {
+                    progressBar.visibility = View.VISIBLE
+                    callProductDetailAPi()
+                }
             }
         } else
             callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -561,18 +586,15 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     addToWishList.isEnabled = true
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     if (result.response!!.status!!) {
-
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                         productDetail.isWishlist = if (flag == "2") 0 else 1
                         addToWishList.text = if (flag == "2") getString(R.string.add_to_wish_list) else getString(R.string.added_to_wish_list)
-
                         SampleRxJavaBus.getInstance().objectPublishSubject.onNext(if (flag == "2") 0 else 1)
-
                     } else
-                        com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
-
+                        com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                 }, { error ->
                     addToWishList.isEnabled = true
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -592,26 +614,17 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 .subscribe({ result ->
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     notifyMeButton.isEnabled = true
-                    // setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
-                    /* if (result.response!!.status!!) {
-
-                         productList[position].isWishlist = if (flag.equals("2")) 0 else 1
-
-                         notifyItemChanged(position)
-
-                     }*/
-
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
                 }, { error ->
                     notifyMeButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
     }
 
-
+    var shouldCall = false
     private fun addToCartApi(addToCartButton: AppCompatTextView) {
         addToCartButton.isEnabled = false
         val removeFromWhishListRequest = java.util.HashMap<String, String>()
@@ -638,7 +651,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     rl_add_sub.visibility = View.VISIBLE
                     addToCart.visibility = View.GONE
                     // setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,result.response!!.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
 
                     if (result.response!!.status!!) {
                         productDetail.cartQuantity = 1
@@ -648,18 +661,21 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 }, { error ->
                     addToCartButton.isEnabled = true
                     // setProgressState(View.GONE, true)
-                    com.os.drewel.utill.Utils.getInstance().showToast(this,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
     }
 
+    private var shareImagePath: String? = ""
 
-    private fun checkRequestPermission() {
+    private fun checkRequestPermission(show: Boolean) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         } else {
-            shareDialog!!.shareImagePath = Utils.getInstance().saveBitmapToExternalStorage(productImageBitmap, "share")
+            shareImagePath = Utils.getInstance().saveBitmapToExternalStorage(productImageBitmap, "share")
+            if (show)
+                prepareShareIntent(show)
         }
 
     }
@@ -667,7 +683,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                shareDialog!!.shareImagePath = Utils.getInstance().saveBitmapToExternalStorage(productImageBitmap, "share")
+                shareImagePath = Utils.getInstance().saveBitmapToExternalStorage(productImageBitmap, "share")
             } else {
 
             }
@@ -710,6 +726,5 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
             }
         }
         super.onBackPressed()
-//        onBackPressed()
     }
 }

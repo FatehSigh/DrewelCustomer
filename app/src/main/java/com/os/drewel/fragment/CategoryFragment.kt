@@ -1,23 +1,20 @@
 package com.os.drewel.fragment
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.os.drewel.R
 import com.os.drewel.activity.HomeActivity
 import com.os.drewel.activity.SearchSuggestionActivity
 import com.os.drewel.adapter.CategoryAdapter
 import com.os.drewel.adapter.HomeBannerAdapter
+import com.os.drewel.adapter.SlidingImageAdapterHomeBanner
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Category
-import com.os.drewel.apicall.responsemodel.categoryresponsemodel.CategoryListResponse
 import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Home
 import com.os.drewel.application.DrewelApplication
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -64,13 +61,13 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
         activity.menu!!.findItem(R.id.menu_whishlist).isVisible = true
     }
 
-    private fun setAdapter() {
+    private fun setAdapter(img: String) {
 
         if (myadapter == null) {
             val llm = LinearLayoutManager(context)
             llm.orientation = LinearLayoutManager.VERTICAL
             recyclerView!!.layoutManager = llm
-            myadapter = CategoryAdapter(context, categoryList)
+            myadapter = CategoryAdapter(context, categoryList,img)
             recyclerView!!.adapter = myadapter
         } else
             myadapter!!.notifyDataSetChanged()
@@ -82,15 +79,16 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
 
 
     private fun setHomeBannerAdapter() {
-
-        if (homeBanneradapter == null) {
-            val llm = LinearLayoutManager(context)
-            llm.orientation = LinearLayoutManager.HORIZONTAL
-            homeBannerRecyclerView!!.layoutManager = llm
-            homeBanneradapter = HomeBannerAdapter(context, homeBannerList)
-            homeBannerRecyclerView!!.adapter = homeBanneradapter
-        } else
-            homeBanneradapter!!.notifyDataSetChanged()
+        productImagePager.adapter = SlidingImageAdapterHomeBanner(activity!!, homeBannerList)
+        pageIndicatorView.setViewPager(productImagePager)
+//        if (homeBanneradapter == null) {
+//            val llm = LinearLayoutManager(context)
+//            llm.orientation = LinearLayoutManager.HORIZONTAL
+//            homeBannerRecyclerView!!.layoutManager = llm
+//            homeBanneradapter = HomeBannerAdapter(context, homeBannerList)
+//            homeBannerRecyclerView!!.adapter = homeBanneradapter
+//        } else
+//            homeBanneradapter!!.notifyDataSetChanged()
 
     }
 
@@ -112,7 +110,7 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
                         categoryList = result.response!!.data!!.category!!
                         homeBannerList = result.response!!.data!!.homeBanner!!
                         setHomeBannerAdapter()
-                        setAdapter()
+                        setAdapter(result.response!!.data!!.img!!)
 
                     } else
                         com.os.drewel.utill.Utils.getInstance().showToast(context, result.response!!.message!!)

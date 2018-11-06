@@ -73,7 +73,7 @@
                     app:piv_selectedColor="@color/colorPrimary"
                     app:piv_unselectedColor="@color/violet" />
 
-                <android.support.v7.widget.AppCompatImageButton
+               <!-- <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/imv_share_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     android:padding="@dimen/_10sdp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/share"
-                    app:elevation="@dimen/_5sdp" />
+                    app:elevation="@dimen/_5sdp" />-->
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -191,6 +191,7 @@
                     android:paddingStart="@dimen/_5sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@android:color/transparent"
                     android:rotation="@integer/locale_mirror_flip"
                     android:src="@mipmap/arrow" />

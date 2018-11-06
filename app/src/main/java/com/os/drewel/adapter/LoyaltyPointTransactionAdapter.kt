@@ -43,7 +43,7 @@ class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTra
             }
         }
         if (loyaltyPointsTransaction[position].orderId!!.isNotEmpty()) {
-            earnedStr.append(" " + mContext.getString(R.string.order) + " ")
+            earnedStr.append(" " + mContext.getString(R.string.order) + ": #")
             earnedStr.append(loyaltyPointsTransaction[position].orderId)
         }
         else
@@ -51,7 +51,7 @@ class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTra
 
         holder.itemView.loyaltyPointEarnedFromTv.text = earnedStr
 
-        holder.itemView.loyaltyPointEarnedDateTv.text = Utils.getInstance().convertTimeFormatAndTimeZone(loyaltyPointsTransaction[position].createdAt!!, "yyyy-MM-dd HH:mm:ss", "dd MMM yyyy hh:mm a")
+        holder.itemView.loyaltyPointEarnedDateTv.text = Utils.getInstance().convertTimeFormatAndTimeZone(loyaltyPointsTransaction[position].createdAt!!, "yyyy-MM-dd HH:mm:ss", "dd MMM yyyy, hh:mm aa")
 
 
     }

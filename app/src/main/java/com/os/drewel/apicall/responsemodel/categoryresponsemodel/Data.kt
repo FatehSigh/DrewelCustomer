@@ -9,7 +9,9 @@ class Data : Serializable {
     @SerializedName("category")
     @Expose
     var category: List<Category>? = null
-
+    @SerializedName("all_category_img")
+    @Expose
+    var img: String? = null
 
     @SerializedName("home")
     @Expose

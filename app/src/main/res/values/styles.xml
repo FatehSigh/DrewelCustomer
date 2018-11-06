@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
     </style>
 
@@ -29,6 +31,7 @@
         <item name="android:textSize">@dimen/_15sdp</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
+
     <style name="DeletetTextStyle">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/_15sdp</item>
@@ -46,6 +49,7 @@
 
     <style name="ToolbarTitleStyle">
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_regular_0</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>
@@ -85,6 +89,7 @@
     <style name="CircularProgressWhite" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/white</item>
     </style>
+
     <style name="TextInputHint" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/black</item>
     </style>
@@ -123,6 +128,7 @@
         <item name="android:textColor">@color/violet_1</item>
         <item name="android:textSize">@dimen/_11sdp</item>
     </style>
+
     <style name="DeliveryTypeTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/orange_1</item>
 
@@ -146,6 +152,7 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="android:colorForeground">@color/black</item>
     </style>
+
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
@@ -159,4 +166,9 @@
     <style name="error_appearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorRed</item>
     </style>
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/_13sdp</item>
+        <item name="android:fontFamily">@font/roboto_regular_0</item>
+    </style>
+
 </resources>

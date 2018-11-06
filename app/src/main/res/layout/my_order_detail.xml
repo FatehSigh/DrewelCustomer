@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_horizontal"
                 android:gravity="center"
+                android:visibility="gone"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:text="@string/reorder"

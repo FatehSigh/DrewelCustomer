@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cartView"
+    app:layout_anchorGravity="end"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|start"
+    android:background="@android:color/transparent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+
+    android:paddingStart="8dip"
+    android:paddingEnd="8dip">
+
+    <TextView
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/unreadCountTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rounded_square"
+        android:backgroundTint="@color/colorPrimary"
+        android:gravity="center"
+        android:visibility="visible"
+        android:minWidth="@dimen/_10sdp"
+        android:padding="@dimen/_2sdp"
+        android:text="12"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8sdp" />
+</RelativeLayout>

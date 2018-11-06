@@ -61,6 +61,7 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
             }
         })
     }
+
     fun refreshItems() {
         // Load complete
         Handler().postDelayed({
@@ -73,6 +74,11 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         }, 2000)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (isNetworkAvailable())
+            callGetAddressApi(View.VISIBLE)
+    }
 
     private fun initView() {
         setSupportActionBar(toolbar)
@@ -92,31 +98,35 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         }
         clickOfAdapterItem()
         setClickListeners()
-        if (isNetworkAvailable())
-            callGetAddressApi(View.VISIBLE)
+
     }
 
     private fun clickOfAdapterItem() {
-        itemClickDisposable = defaultAddressClickSubject.subscribe({ addressPosition ->
-            callSetDefaultAddressApi(addressPosition)
-        })
-        deleteClickDisposable = deleteAddressClickSubject.subscribe({ addressPosition ->
-
-            val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
-            logoutAlertDialog.setTitle(getString(R.string.app_name))
-            logoutAlertDialog.setMessage(getString(R.string.want_to_delete_address))
-            logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
-                logoutAlertDialog.dismiss()
-                if (addressList.isNotEmpty() && addressList[addressPosition].isDefault.equals("1")) {
-                    Utils.getInstance().showToast(this, getString(R.string.cant_delete_default_address))
-                } else
-                    callDeleteAddressApi(addressPosition)
-            })
-            logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
-                logoutAlertDialog.dismiss()
-            })
-            logoutAlertDialog.show()
-        })
+        itemClickDisposable = defaultAddressClickSubject.subscribe { addressPosition ->
+            if (isNetworkAvailable())
+                callSetDefaultAddressApi(addressPosition)
+        }
+        deleteClickDisposable = deleteAddressClickSubject.subscribe { addressPosition ->
+            if (addressList.isNotEmpty() && addressList[addressPosition].isDefault.equals("1")) {
+                Utils.getInstance().showToast(this, getString(R.string.cant_delete_default_address))
+            }else {
+                val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+                logoutAlertDialog.setTitle(getString(R.string.app_name))
+                logoutAlertDialog.setMessage(getString(R.string.want_to_delete_address))
+                logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes)) { dialog, id ->
+                    logoutAlertDialog.dismiss()
+                    if (addressList.isNotEmpty() && addressList[addressPosition].isDefault.equals("1")) {
+                        Utils.getInstance().showToast(this, getString(R.string.cant_delete_default_address))
+                    } else
+                        if (isNetworkAvailable())
+                            callDeleteAddressApi(addressPosition)
+                }
+                logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no)) { dialog, id ->
+                    logoutAlertDialog.dismiss()
+                }
+                logoutAlertDialog.show()
+            }
+        }
     }
 
     private fun setAdapter() {
@@ -341,8 +351,8 @@ class DeliveryAddressActivity : BaseActivity(), View.OnClickListener {
         pref!!.setPreferenceStringData(pref!!.KEY_ZIP_CODE, zip_code)
     }
 
-    private fun callGetAddressApi(visibility:Int) {
-        setDoneButtonVisibility(View.GONE,visibility)
+    private fun callGetAddressApi(visibility: Int) {
+        setDoneButtonVisibility(View.GONE, visibility)
         val addDeliveryAddressRequest = HashMap<String, String>()
         addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()

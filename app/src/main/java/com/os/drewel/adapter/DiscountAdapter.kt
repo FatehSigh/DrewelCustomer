@@ -30,31 +30,42 @@ class DiscountAdapter(val mContext: Context?, private val couponList: List<Coupo
     }
 
     override fun onBindViewHolder(holder: DiscountHolder, position: Int) {
-
         ImageLoader.getInstance().displayImage(couponList[position].img, holder.itemView.discountImageIv, DrewelApplication.getInstance().options)
-        val expireDate = mContext?.getString(R.string.expires) + " " + Utils.getInstance().convertTimeFormat(couponList[position].expiresOn!!, "yyyy-MM-dd", "dd MMM yyyy")
-
+        val expireDate = mContext?.getString(R.string.expires) + " " + Utils.getInstance().convertTimeFormat(couponList[position].expiresOn!!, "yyyy-MM-dd", "dd MMM, yyyy")
         holder.itemView.expireDateTv.text = expireDate
 
-
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
             holder.itemView.offerDescriptionTv.text = couponList[position].couponDescription
-        }else {
+            if (!couponList[position].categoryName.isNullOrEmpty())
+                holder.itemView.txt_category.text = couponList[position].categoryName
+            else
+                holder.itemView.txt_category.visibility = View.GONE
+        } else {
             holder.itemView.offerDescriptionTv.text = couponList[position].ar_coupon_description
+            if (!couponList[position].ar_category_name.isNullOrEmpty())
+                holder.itemView.txt_category.text = couponList[position].ar_category_name
+            else
+                holder.itemView.txt_category.visibility = View.GONE
         }
 
         if (couponList[position].discountType.equals("Percent"))
-        holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble())+" %"
-        else
-            holder.itemView.discountPercentageTv.text = String.format("%.3f",couponList[position].discount!!.toDouble()) +" "+mContext!!.getString(R.string.omr)
+            holder.itemView.discountPercentageTv.text = NumberFormat.getInstance().format(couponList[position].discount!!.toDouble()) + " %"
+        else {
+            val arrOfStr = couponList[position].discount!!.split(".")
+            if (arrOfStr.size > 1)
+                holder.itemView.discountPercentageTv.text = arrOfStr[0] + " " + mContext!!.getString(R.string.omr)
+            else
+                holder.itemView.discountPercentageTv.text = couponList[position].discount!! + " " + mContext!!.getString(R.string.omr)
+        }
+
         holder.itemView.couponCodeTv.text = couponList[position].couponCode
         if (isFromCheckout) {
             holder.itemView.isRedeemTv.visibility = View.VISIBLE
             if (couponList[position].isUsed == 0) {
                 holder.itemView.isRedeemTv.text = mContext!!.getString(R.string.apply)
-                holder.itemView.isRedeemTv.setOnClickListener({
+                holder.itemView.isRedeemTv.setOnClickListener {
                     applyCouponCodeClickSubject.onNext(holder.layoutPosition)
-                })
+                }
             } else {
                 holder.itemView.isRedeemTv.text = mContext!!.getString(R.string.redeemed)
             }

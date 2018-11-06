@@ -103,10 +103,10 @@
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
@@ -115,19 +115,78 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/_10sdp"
                     android:background="@color/white"
                     android:drawableStart="@mipmap/notification"
+                    android:drawablePadding="@dimen/_10sdp"
 
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/notifications"
-              />
+                    android:text="@string/notifications" />
 
-                <ImageView
-                    android:layout_alignParentEnd="true"
+                <!-- <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_notifications_count"
+                    style="@style/BlackTextColorStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorRed" />-->
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_notifications_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rounded_square"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center"
+                    android:minWidth="@dimen/_10sdp"
+                    android:padding="@dimen/_6sdp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    android:rotation="@integer/locale_mirror_flip"
+                    android:src="@mipmap/arrow"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_wallet"
+                    style="@style/BlackTextColorStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:drawableStart="@mipmap/wallet"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_12sdp"
+                    android:text="@string/wallet" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
@@ -139,63 +198,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
-        <LinearLayout
-            android:elevation="@dimen/_5sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal">
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_wallet"
-                style="@style/BlackTextColorStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawableStart="@mipmap/wallet"
-                android:drawablePadding="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:padding="@dimen/_12sdp"
-                android:text="@string/wallet"
-                />
-            <ImageView
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:padding="@dimen/_10sdp"
-                android:rotation="@integer/locale_mirror_flip"
-                android:src="@mipmap/arrow" />
-        </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@android:color/darker_gray" />
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_delivery_address"
                     style="@style/BlackTextColorStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
-                    android:drawablePadding="@dimen/_10sdp"
                     android:drawableStart="@mipmap/deliveryaddress"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:layout_weight="1"
-                    android:text="@string/delivery_address"
-                 />
+                    android:text="@string/delivery_address" />
+
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
@@ -204,42 +231,41 @@
             </LinearLayout>
 
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
+
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_change_language"
                     style="@style/BlackTextColorStyle"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
                     android:drawableStart="@mipmap/changelanguage"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/change_language"
-                     />
+                    android:text="@string/change_language" />
 
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
                     android:rotation="@integer/locale_mirror_flip"
                     android:src="@mipmap/arrow" />
             </LinearLayout>
-
 
 
             <View
@@ -248,35 +274,35 @@
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_change_password"
                     style="@style/BlackTextColorStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:layout_weight="1"
+                    android:background="@color/white"
                     android:drawableStart="@mipmap/password"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/change_password"
-                 />
+                    android:text="@string/change_password" />
+
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
                     android:rotation="@integer/locale_mirror_flip"
                     android:src="@mipmap/arrow" />
             </LinearLayout>
-
 
 
             <View
@@ -284,30 +310,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
+
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_about_app"
                     style="@style/BlackTextColorStyle"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
                     android:drawableStart="@mipmap/aboutapp"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/about_app"
-                   />
+                    android:text="@string/about_app" />
 
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
@@ -320,30 +347,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
+
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_rate_us"
                     style="@style/BlackTextColorStyle"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
-                    android:drawableStart="@mipmap/aboutapp"
+                    android:drawableStart="@mipmap/rateapp"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/rate_us"
-                    />
+                    android:text="@string/rate_us" />
 
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
@@ -355,30 +383,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
+
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/contactUsTv"
                     style="@style/BlackTextColorStyle"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
                     android:drawableStart="@mipmap/contactus"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/contact_us"
-                   />
-
-                <ImageView
-                    android:layout_alignParentEnd="true"
+                    android:text="@string/contact_us" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_unread_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rounded_square"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center"
+                    android:minWidth="@dimen/_10sdp"
+                    android:padding="@dimen/_6sdp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"
@@ -391,30 +433,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@android:color/darker_gray" />
+
             <LinearLayout
-                android:elevation="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_sign_out"
                     style="@style/BlackTextColorStyle"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@color/white"
                     android:drawableStart="@mipmap/signout"
                     android:drawablePadding="@dimen/_10sdp"
 
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
-                    android:text="@string/sign_out"
-                     />
+                    android:text="@string/sign_out" />
+
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:padding="@dimen/_10sdp"

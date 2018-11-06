@@ -27,6 +27,19 @@
                 android:maxLines="1"
                 android:text="@string/products_details"
                 style="@style/ToolbarTitleStyle" />
+            <android.support.v7.widget.AppCompatImageButton
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:id="@+id/imv_share_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+             android:tint="@color/white"
+                android:padding="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/share"
+                app:elevation="@dimen/_5sdp" />
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

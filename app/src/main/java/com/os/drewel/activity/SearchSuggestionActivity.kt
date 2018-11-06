@@ -82,9 +82,10 @@ class SearchSuggestionActivity : BaseActivity() {
                     it.text().toString().trim()
                 }
                 .filter {
-                    it.length > 0
+                    it.length > 2
                 }
                 .flatMap {
+
                     getSearch(it).subscribeOn(Schedulers.io())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -108,11 +109,10 @@ class SearchSuggestionActivity : BaseActivity() {
     }
 
     private fun clearSearchResult() {
-        runOnUiThread({
+        runOnUiThread{
             searchSuggestionList = ArrayList()
             setSearchAdapter()
-
-        })
+        }
     }
 
     private fun setSearchAdapter() {

@@ -87,7 +87,7 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
                 }
             }
 
-            R.id.shareWithMessageBt ->{
+            R.id.shareWithMessageBt -> {
                 dismiss()
                 sharingImageToMessage()
             }
@@ -142,11 +142,11 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
                 mContext.startActivity(shareIntent)
 
             } catch (e: Exception) {
-                com.os.drewel.utill.Utils.getInstance().showToast(mContext,mContext.getString(R.string.install_twitter))
+                com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.install_twitter))
             }
 
         } else {
-            com.os.drewel.utill.Utils.getInstance().showToast(mContext,mContext.getString(R.string.install_twitter))
+            com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.install_twitter))
             val shareIntent = Intent(Intent.ACTION_VIEW)
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             shareIntent.data = Uri.parse(ShareAppConstant.playStoreURL + ShareAppConstant.PACKAGE_TWITTER)
@@ -178,7 +178,6 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
         // Set permissions
         LoginManager.getInstance().logInWithPublishPermissions(mContext as AppCompatActivity, permissionNeeds)
         val accessToken = AccessToken.getCurrentAccessToken()
-
         if (accessToken == null) {
             LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
@@ -188,7 +187,6 @@ class ShareBottomSheetDialog(val mContext: Context, private var callbackManager:
                 override fun onCancel() {
                     println("onCancel")
                 }
-
 
                 override fun onError(exception: FacebookException) {
                     println("onError")

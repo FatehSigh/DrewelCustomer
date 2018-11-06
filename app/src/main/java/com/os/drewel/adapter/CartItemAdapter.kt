@@ -5,14 +5,20 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
+import com.blankj.utilcode.util.NetworkUtils
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
+import com.os.drewel.activity.BaseActivity
 import com.os.drewel.activity.ProductDetailActivity
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Cart
@@ -22,6 +28,7 @@ import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.CommonUtil
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -38,7 +45,7 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
     lateinit var cartItemClickSubject: PublishSubject<String>
     var isAnyProductOutOfStock = false
     var progressDialog: ProgressDialog? = null
-
+    var height = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.child_my_cart, parent, false)
         return CartItemHolder(view)
@@ -48,9 +55,9 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
         ImageLoader.getInstance().displayImage(cartIemList[position].productImage, holder.itemView.productImageIv, DrewelApplication.getInstance().options)
 
         holder.itemView.productQuantityTv.text = cartIemList[position].quantity
-        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)){
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
             holder.itemView.tv_product_title.text = cartIemList[position].productName
-        }else
+        } else
             holder.itemView.tv_product_title.text = cartIemList[position].ar_product_name
 
         val cartItem = cartIemList[position]
@@ -69,34 +76,38 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
         if (!cartIemList[position].offerPrice.isNullOrEmpty()) {
             holder.itemView.original_price_layout.visibility = View.VISIBLE
-            holder.itemView.tv_original_amount.text =String.format("%.3f", totalAmount)   + " " + mContext.getString(R.string.omr)
+            holder.itemView.tv_original_amount.text = String.format("%.3f", totalAmount) + " " + mContext.getString(R.string.omr)
 
             val offerPrice = cartItem.offerPrice!!.toDouble()
             val totalOfferAmount = offerPrice * quantity
-            val totalOfferAmountStr =String.format("%.3f",totalOfferAmount.toDouble())   + " " + mContext.getString(R.string.omr)
+            val totalOfferAmountStr = String.format("%.3f", totalOfferAmount.toDouble()) + " " + mContext.getString(R.string.omr)
             holder.itemView.tv_product_amount.text = totalOfferAmountStr
 
         } else {
             holder.itemView.original_price_layout.visibility = View.GONE
-            holder.itemView.tv_product_amount.text = String.format("%.3f", totalAmount)  + " " + mContext.getString(R.string.omr)
+            holder.itemView.tv_product_amount.text = String.format("%.3f", totalAmount) + " " + mContext.getString(R.string.omr)
         }
 
         if (cartIemList[position].outOfStock == 1) {
             isAnyProductOutOfStock = true
             holder.itemView.outOfStockTv.visibility = View.VISIBLE
-        } else
+            holder.itemView.myCartChildRL.setBackgroundColor(mContext.resources.getColor(R.color.out_of_stock))
+        } else {
             holder.itemView.outOfStockTv.visibility = View.GONE
-
+            holder.itemView.myCartChildRL.setBackgroundColor(mContext.resources.getColor(R.color.white))
+        }
 
         holder.itemView.tv_product_categories.text = showProductCategory(cartIemList[position])
-
         val subcategory = showProductSubcategory(cartIemList[position])
-        holder.itemView.tv_product_sub_categories.text = subcategory
 
-        if (subcategory.isBlank())
+
+        if (subcategory.isBlank()) {
             holder.itemView.tv_product_sub_categories.visibility = View.GONE
-        else
+        } else {
             holder.itemView.tv_product_sub_categories.visibility = View.VISIBLE
+            holder.itemView.tv_product_sub_categories.text="> "+subcategory
+        }
+
     }
 
 
@@ -107,6 +118,7 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
     inner class CartItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         init {
+            height = itemView.myCartChildRL.height
             itemView.addProductQuantityBt.setOnClickListener(this)
             itemView.removeProductQuantityBt.setOnClickListener(this)
             itemView.imv_product_delete.setOnClickListener(this)
@@ -122,8 +134,10 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
                         cartIemList[adapterPosition].productPrice!!.toDouble() * quantity
                     else
                         cartIemList[adapterPosition].offerPrice!!.toDouble() * quantity
+                    if (NetworkUtils.isConnected()) {
+                        callUpdateCartApi(adapterPosition, quantity.toString(), price.toString(), itemView)
+                    } else com.os.drewel.utill.Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
-                    callUpdateCartApi(adapterPosition, quantity.toString(), price.toString(), itemView)
                 }
                 R.id.removeProductQuantityBt -> {
                     if (cartIemList[adapterPosition].quantity!!.toInt() > 1) {
@@ -133,16 +147,25 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
                             cartIemList[adapterPosition].productPrice!!.toDouble() * quantity
                         else
                             cartIemList[adapterPosition].offerPrice!!.toDouble() * quantity
+                        if (NetworkUtils.isConnected()) {
+                            callUpdateCartApi(adapterPosition, quantity.toString(), price.toString(), itemView)
+                        } else Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
 
-                        callUpdateCartApi(adapterPosition, quantity.toString(), price.toString(), itemView)
                     } else {
-                        callDeleteProductFromCartApi(adapterPosition, itemView)
+                        if (NetworkUtils.isConnected()) {
+                            callDeleteProductFromCartApi(adapterPosition, itemView)
+                        } else Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
                         /*Delete Item*/
                     }
                 }
 
                 R.id.imv_product_delete -> {
-                    callDeleteProductFromCartApi(adapterPosition, itemView)
+                    if (NetworkUtils.isConnected()) {
+                        callDeleteProductFromCartApi(adapterPosition, itemView)
+                    } else Utils.getInstance().showToast(mContext, mContext.getString(R.string.error_network_connection))
+
+
                 }
 
                 R.id.myCartChildRL -> {
@@ -182,13 +205,13 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
                     } else {
                         notifyItemChanged(position)
-                        com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     }
                 }, { error ->
                     progressDialog?.dismiss()
                     addProductQuantityBt.isEnabled = true
                     notifyItemChanged(position)
-                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -223,13 +246,13 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
                     } else {
                         notifyItemChanged(position)
-                        com.os.drewel.utill.Utils.getInstance().showToast(mContext,result.response!!.message!!)
+                        com.os.drewel.utill.Utils.getInstance().showToast(mContext, result.response!!.message!!)
                     }
                 }, { error ->
                     progressDialog?.dismiss()
                     itemView.isEnabled = false
                     notifyItemChanged(position)
-                    com.os.drewel.utill.Utils.getInstance().showToast(mContext,error.message!!)
+                    com.os.drewel.utill.Utils.getInstance().showToast(mContext, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 )
@@ -242,18 +265,18 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
 
         for (i in product.category!!.indices) {
             category += if (i == product.category!!.size - 1) {
-                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
-                        product.category!![i].categoryName!!
-                    }else {
-                        product.category!![i].ar_category_name!!
-                    }
-                } else{
-                    if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
-                        product.category!![i].categoryName!! + ", "
-                    }else{
-                        product.category!![i].ar_category_name!! + ", "
-                    }
+                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                    product.category!![i].categoryName!!
+                } else {
+                    product.category!![i].ar_category_name!!
                 }
+            } else {
+                if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
+                    product.category!![i].categoryName!! + ", "
+                } else {
+                    product.category!![i].ar_category_name!! + ", "
+                }
+            }
 
         }
         return category
@@ -270,13 +293,13 @@ class CartItemAdapter(val mContext: Context, val cartIemList: MutableList<Cart>)
                 subCategory += if (i == product.subCategory!!.size - 1) {
                     if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
                         product.subCategory!![i].categoryName!!
-                    }else{
+                    } else {
                         product.subCategory!![i].ar_category_name!!
                     }
-                } else{
+                } else {
                     if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH)) {
                         product.subCategory!![i].categoryName!! + ", "
-                    }else{
+                    } else {
                         product.subCategory!![i].ar_category_name!! + ", "
                     }
                 }

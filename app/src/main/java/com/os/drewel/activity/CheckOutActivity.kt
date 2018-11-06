@@ -71,24 +71,25 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         setContentView(R.layout.activity_checkout)
         initView()
         getDataFromIntent()
-        callDeliveryChargesApi()
+        if (isNetworkAvailable())
+            callDeliveryChargesApi()
     }
 
     private fun getDataFromIntent() {
 //        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
-            nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
-                    ?: "") ?: ""
-            phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
-                    ?: "") ?: ""
-            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
-                    ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
-            checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
-                    ?: "") ?: ""
-            delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
-                    ?: "") ?: ""
-            Log.e("delivery_address_type", delivery_address_type)
-            checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
-                    ?: "") ?: ""
+        nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
+                ?: "") ?: ""
+        phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
+                ?: "") ?: ""
+        deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
+                ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
+        checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
+                ?: "") ?: ""
+        delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
+                ?: "") ?: ""
+        Log.e("delivery_address_type", delivery_address_type)
+        checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
+                ?: "") ?: ""
 //        }
         quantityTv.text = orderItemQuantity
         subTotalTv.text = String.format("%.3f", orderNetPrice.toDouble()) + " " + getString(R.string.omr)
@@ -109,7 +110,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             } else if (delivery_address_type.equals("3")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.office))
             }
-        }else{
+        } else {
             deliveryAddressTv_dropdown.setText(getString(R.string.house))
         }
     }
@@ -118,19 +119,19 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     override fun onResume() {
         super.onResume()
 //        if (pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME!!)!!.isNotEmpty()) {
-            nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
-                    ?: "") ?: ""
-            phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
-                    ?: "") ?: ""
-            deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
-                    ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
-            checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
-                    ?: "") ?: ""
-            delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
-                    ?: "") ?: ""
-            Log.e("delivery_address_type", delivery_address_type)
-            checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
-                    ?: "") ?: ""
+        nameTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_USERNAME
+                ?: "") ?: ""
+        phoneNoTv.text = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_PHONE_NUMBER
+                ?: "") ?: ""
+        deliveryAddressTv.text = pref?.getPreferenceStringData(pref?.KEY_FULL_DELIVERY_ADDRESS
+                ?: pref?.KEY_DELIVERY_ADDRESS!!) ?: ""
+        checkoutRequest.deliveryLandmark = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_lANDMARK
+                ?: "") ?: ""
+        delivery_address_type = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_TYPE
+                ?: "") ?: ""
+        Log.e("delivery_address_type", delivery_address_type)
+        checkoutRequest.addressId = pref?.getPreferenceStringData(pref?.KEY_DELIVERY_ADDRESS_ID
+                ?: "") ?: ""
 //        }
         checkoutRequest.deliverTo = nameTv.text.toString()
         checkoutRequest.deliverMobile = phoneNoTv.text.toString()
@@ -142,9 +143,9 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             } else if (delivery_address_type.equals("3")) {
                 deliveryAddressTv_dropdown.setText(getString(R.string.office))
             }
-        } else{
-        deliveryAddressTv_dropdown.setText(getString(R.string.house))
-    }
+        } else {
+            deliveryAddressTv_dropdown.setText(getString(R.string.house))
+        }
     }
 
     private fun initView() {
@@ -158,7 +159,9 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         applyLoyaltyPointTv.setOnClickListener(this)
         confirmOrderBt.setOnClickListener(this)
 //        CouponCodeEditText.setOnClickListener(this)
-        paymentMethodRadioGroup.setOnCheckedChangeListener({ group: RadioGroup, checkedId: Int ->
+        if (DrewelApplication.getInstance().getLanguage().equals(Constants.LANGUAGE_ENGLISH))
+            thawaniRadioBt.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.thawani, 0, 0, 0);
+        paymentMethodRadioGroup.setOnCheckedChangeListener { group: RadioGroup, checkedId: Int ->
             when (checkedId) {
                 R.id.cashRadioBt -> {
                     checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
@@ -171,8 +174,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 //                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
                     checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_WALLET
                 }
+                R.id.thawaniRadioBt -> {
+//                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_COD
+                    checkoutRequest.paymentMode = Constants.PAYMENT_TYPE_THAWANI
+                }
             }
-        })
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -221,7 +228,8 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                     setLoyaltyPointDiscount(0.0)
                     setGrandTotal()
                 } else {
-                    callApplyLoyaltyPointApi("")
+                    if (isNetworkAvailable())
+                        callApplyLoyaltyPointApi("")
                 }
 
 
@@ -291,38 +299,37 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppRequestCodes.APPLY_COUPON_CODE && resultCode == Activity.RESULT_OK) {
-
             val couponCode = data?.getStringExtra(AppIntentExtraKeys.COUPON_CODE) ?: ""
             if (appliedCouponCodes.contains(couponCode)) {
-                Utils.getInstance().showToast(this,getString(R.string.coupon_already_applied))
+                Utils.getInstance().showToast(this, getString(R.string.coupon_already_applied))
             } else if (couponCode.isNotBlank()) {
                 if (isNetworkAvailable())
                     callApplyCouponCodeApi(couponCode)
             }
         } else if (requestCode == 1245 && resultCode == Activity.RESULT_OK) {
             deliveryDate = data!!.getStringExtra("deliveryDate")
-            checkoutRequest.deliveryType = data!!.getStringExtra("deliveryType")
-            deliveryTimeSlotStartTime = data!!.getStringExtra("deliveryTimeSlotStartTime")
-            deliveryTimeSlotEndTime = data!!.getStringExtra("deliveryTimeSlotEndTime")
-            var date = SimpleDateFormat("dd MMM yy").format(SimpleDateFormat("yyyy-MM-dd").parse(deliveryDate))
+            checkoutRequest.deliveryType = data.getStringExtra("deliveryType")
+            deliveryTimeSlotStartTime = data.getStringExtra("deliveryTimeSlotStartTime")
+            deliveryTimeSlotEndTime = data.getStringExtra("deliveryTimeSlotEndTime")
+            val date = SimpleDateFormat("dd MMM, yyyy").format(SimpleDateFormat("yyyy-MM-dd").parse(deliveryDate))
             Log.e("cor deliveryType", checkoutRequest.deliveryType)
             if (checkoutRequest.deliveryType.equals(Constants.DELIVERY_NOW)) {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
                     deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.expediteDeliveryCharges!!.toFloat()).toFloat()
-                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) +" "+ getString(R.string.omr)
-                chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
+                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
+                chooseDeliveryTypeTv.text = date.toString() + ", " + data!!.getStringExtra("timeslot")
                 setGrandTotal()
             } else if (checkoutRequest.deliveryType.equals(Constants.SAME_DAY_DELIVERY)) {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
                     deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.sameDayDeliveryCharge!!.toFloat()).toFloat()
-                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) +" "+  getString(R.string.omr)
-                chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
+                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
+                chooseDeliveryTypeTv.text = date.toString() + ", " + data!!.getStringExtra("timeslot")
                 setGrandTotal()
             } else {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
                     deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.deliveryCharge!!.toFloat()).toFloat()
-                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) +" "+  getString(R.string.omr)
-                chooseDeliveryTypeTv.text = date.toString() + ", " + deliveryTimeSlotStartTime + "- " + deliveryTimeSlotEndTime
+                deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
+                chooseDeliveryTypeTv.text = date.toString() + ", " + data!!.getStringExtra("timeslot")
                 setGrandTotal()
             }
         }
@@ -330,12 +337,8 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 
 
     private fun isValidateCheckoutRequest(): Boolean {
-//        if (checkoutRequest.deliveryType == null) {
-//            Toast.makeText(this, getString(R.string.select_delivery_type), Toast.LENGTH_LONG).show()
-//            return false
-//        }
         if (deliveryTimeSlotStartTime.isEmpty() || deliveryTimeSlotEndTime.isEmpty()) {
-            Utils.getInstance().showToast(this,getString(R.string.select_delivery_time_slot))
+            Utils.getInstance().showToast(this, getString(R.string.choose_delivery_time_slot_validation))
             return false
         }
         return true
@@ -352,10 +355,6 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         discount = discountTvValue
         subTotal = subTotalTvValue
         deliverCharge = deliveryChargesValue
-
-//        discount = discountTv.text.toString().split(" ")[0].toFloat()
-//        subTotal = subTotalTv.text.split(" ")[0].toFloat()
-//        deliverCharge = deliveryChargesTv.text.toString().split(" ")[0].toFloat()
 
         val discountedAmount = (subTotal - discount)
         val grandTotal = if (discountedAmount > 0)
@@ -391,7 +390,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 if (grandTotal > 0) {
                     grandTotalTv.text = String.format("%.3f", grandTotal) + " " + getString(R.string.omr)
                 } else
-                    grandTotalTv.text ="0.000" + getString(R.string.omr)
+                    grandTotalTv.text = "0.000" + getString(R.string.omr)
             }
         } else {
             last_instruction.visibility = View.GONE
@@ -496,13 +495,13 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                         // setLoyaltyPointEdibility(false)
                     } else {
                         CouponCodeEditText.setText("")
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
                     }
 
                 }, { error ->
                     setProgressState(View.GONE, View.VISIBLE)
                     applyCouponCodeTv.isEnabled = true
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -548,7 +547,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                                     } else {
                                         last_instruction.visibility = View.GONE
                                     }
-                                    grandTotalTv.text = "0.000"+ getString(R.string.omr)
+                                    grandTotalTv.text = "0.000" + getString(R.string.omr)
 
                                     cardRadioBt.isChecked = true
                                     cashRadioBt.isEnabled = false
@@ -568,12 +567,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                             ll_lastpaid.visibility = View.GONE
                         }
                     } else
-                        Utils.getInstance().showToast(this,result.response!!.message!!)
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
 
                 }, { error ->
                     setProgressState(View.GONE, View.VISIBLE)
                     applyCouponCodeTv.isEnabled = true
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -598,7 +597,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 .subscribe({ result ->
 
                     setProgressState(View.GONE, View.VISIBLE)
-                    Utils.getInstance().showToast(this,result.response!!.message!!)
+                    Utils.getInstance().showToast(this, result.response!!.message!!)
 
                     applyLoyaltyPointTv.isEnabled = true
 
@@ -616,7 +615,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 }, { error ->
                     setProgressState(View.GONE, View.VISIBLE)
                     applyLoyaltyPointTv.isEnabled = true
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))
@@ -654,7 +653,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 .subscribe({ result ->
                     confirmOrderBt.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Utils.getInstance().showToast(this,result.response!!.message!!)
+                    Utils.getInstance().showToast(this, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
                         pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME, checkoutRequest.deliverTo
@@ -678,7 +677,7 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 }, { error ->
                     confirmOrderBt.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Utils.getInstance().showToast(this,error.message!!)
+                    Utils.getInstance().showToast(this, error.message!!)
                     Log.e("TAG", "{$error.message}")
                 }
                 ))

@@ -40,6 +40,7 @@ import com.os.drewel.constant.AppRequestCodes
 import com.os.drewel.utill.Utils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.delivery_map_address_activity.*
 import java.util.*
@@ -214,10 +215,10 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
         val mAlertDialog = android.support.v7.app.AlertDialog.Builder(this)
         mAlertDialog.setTitle(R.string.location_service_disabled_title)
                 .setMessage(R.string.location_service_disabled_text)
-                .setPositiveButton(R.string.enable, { _, _ ->
+                .setPositiveButton(R.string.enable) { _, _ ->
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)
-                }).show()
+                }.show()
     }
 
     override fun onCameraIdle() {
@@ -297,15 +298,10 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
                                 Log.d("addresses", ">>" + Arrays.toString(addresses.toTypedArray()))
                                 Log.d("addresses", ">>" + Arrays.toString(addresses.toTypedArray()))
 
-
                                 for (i in 0 until address.maxAddressLineIndex + 1) {
-
                                     Log.d("getAddressLine$i", ">>" + address.getAddressLine(i))
-
                                     if (i == 0)
                                         fullAddress = address.getAddressLine(i)
-//                                    else if (i < address.maxAddressLineIndex)
-//                                        fullAddress += ", " + address.getAddressLine(i)
                                     else
                                         break
                                 }
@@ -322,19 +318,9 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
 
                                 locality = if (address.locality != null) address.locality else ""
 
-
                                 val name = subThoroughfare + thoroughfare + subLocality + locality
                                 hideLoading()
-//                                val intent = Intent()
-//                                intent.putExtra(AppIntentExtraKeys.ADDRESS, fullAddress)
-//                                intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, name)
-//                                intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
-//                                intent.putExtra(AppIntentExtraKeys.LATLNG, latLng)
-//                                setResult(Activity.RESULT_OK, intent)
-//                                finish()
                                 val intent = Intent(this, DeliveryDetailActivity::class.java)
-
-//                                setResult(Activity.RESULT_OK, intent)
                                 if (place != null) {
                                     intent.putExtra(AppIntentExtraKeys.ADDRESS, place!!.address)
                                     intent.putExtra(AppIntentExtraKeys.ADDRESS_NAME, place!!.name)
@@ -346,8 +332,9 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
                                     intent.putExtra(AppIntentExtraKeys.POSTAL_CODE, address.postalCode)
                                     intent.putExtra(AppIntentExtraKeys.LATLNG, latLng)
                                 }
-                                startActivity(intent)
-                                finish()
+                                checkAddress(intent, latLng)
+//                                startActivity(intent)
+//                                finish()
                             } else {
                                 hideLoading()
                                 Utils.getInstance().showToast(this, getString(R.string.error_address_not_found))
@@ -359,6 +346,35 @@ class DeliveryMapAddressActivity : BaseActivity(), View.OnClickListener, OnMapRe
                         },
                         { Log.d("TAG", "completed") }
                 )
+    }
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private fun checkAddress(intent: Intent, latLng: LatLng) {
+        showLoading()
+
+        val addDeliveryAddressRequest = HashMap<String, String>()
+        addDeliveryAddressRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        addDeliveryAddressRequest["latitude"] = latLng.latitude.toString()
+        addDeliveryAddressRequest["longitude"] = latLng.longitude.toString()
+        addDeliveryAddressRequest["language"] = DrewelApplication.getInstance().getLanguage()
+        val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).checkAddress(addDeliveryAddressRequest)
+        compositeDisposable.add(signUpObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    hideLoading()
+//                    DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
+                    if (result.response!!.status!!) {
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Utils.getInstance().showToast(this, result.response!!.message!!)
+                    }
+                }, { error ->
+                    hideLoading()
+                    Utils.getInstance().showToast(this, error.message!!)
+                    Log.e("TAG", "{$error.message}")
+                }
+                ))
     }
 
     var place: Place? = null

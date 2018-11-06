@@ -36,12 +36,12 @@
                 android:paddingEnd="@dimen/_10sdp"
                 android:text="@string/english"
                 android:textColor="@color/white"
-                android:drawableEnd="@mipmap/aeeowaddress"
+
                 android:drawablePadding="@dimen/_5sdp"
                 android:textSize="@dimen/_15sdp"/>
+            <!--android:drawableEnd="@mipmap/aeeowaddress"-->
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

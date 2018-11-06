@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/grey_1"
+    android:layout_height="match_parent"
+    tools:showIn="@layout/rate_product_activity"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    android:layout_height="match_parent">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/grey_1"
-        android:orientation="vertical"
-        tools:showIn="@layout/rate_product_activity">
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_review"
             style="@style/LightBlackTextColorStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
             android:layout_toStartOf="@+id/imv_product_delete"
             android:maxLines="4"
+            android:padding="@dimen/_5sdp"
             android:text="@string/com_facebook_send_button_text"
             android:textColor="@color/grey_color_txt"
             android:textSize="@dimen/_13sdp"
             android:textStyle="normal" />
+
         <RelativeLayout
             android:id="@+id/myCartChildRL"
             android:layout_width="match_parent"
@@ -139,15 +139,16 @@
                 android:layout_below="@+id/relativeLayout"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:textCursorDrawable="@null"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/search_background"
                 android:gravity="start"
                 android:hint="@string/write_your_comment"
+                android:inputType="textEmailAddress"
                 android:maxLines="10"
                 android:padding="@dimen/_15sdp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_color_txt"
+                android:textCursorDrawable="@null"
                 app:fontFamily="@font/roboto_light_1" />
             <!-- <View
                  android:layout_width="match_parent"
@@ -179,13 +180,12 @@
              android:background="@color/violet_1"/>
         -->
         <android.support.v7.widget.RecyclerView
-            android:nestedScrollingEnabled="false"
             android:id="@+id/rv_review"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
-             />
-
+            android:layout_marginBottom="@dimen/_50sdp"
+          />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

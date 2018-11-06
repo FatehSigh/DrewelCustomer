@@ -111,5 +111,7 @@ dependencies {
     implementation 'net.danlew:android.joda:2.9.9.4'
     implementation project(':horizontalcalendar')
     implementation "me.leolin:ShortcutBadger:1.1.21@aar"
+    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.firebase:firebase-client-android:2.4.1+'
 }
 apply plugin: 'com.google.gms.google-services'

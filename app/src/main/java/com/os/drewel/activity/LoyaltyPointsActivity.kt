@@ -41,7 +41,8 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_loyalty_points_list)
         initView()
-        callLoyaltyPointTransactionApi()
+        if (isNetworkAvailable())
+            callLoyaltyPointTransactionApi()
     }
 
     /* set toolbar and back button*/
@@ -105,7 +106,8 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
         logoutAlertDialog.setMessage(message)
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()
-            callDeleteNotificationApi(position, clearAll)
+            if (isNetworkAvailable())
+                callDeleteNotificationApi(position, clearAll)
         })
         logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
             logoutAlertDialog.dismiss()
@@ -189,11 +191,11 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
                     setProgressState(View.GONE)
 
                     if (result.response!!.status!!) {
-                        if (result.response!!.data!!.currentLoyaltyPoints!=null)
-                        loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble()) + " " + getString(R.string.omr)
+                        if (result.response!!.data!!.currentLoyaltyPoints != null)
+                            loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble()) + " " + getString(R.string.omr)
                         else
-                            loyaltyPointTv.text =   NumberFormat.getInstance().format(0.000)+" "+ getString(R.string.omr)
-                        if (result.response!!.data!!.loyaltyPoints!=null) {
+                            loyaltyPointTv.text = NumberFormat.getInstance().format(0.000) + " " + getString(R.string.omr)
+                        if (result.response!!.data!!.loyaltyPoints != null) {
 
                             loyaltyPointsTransaction = (result.response!!.data!!.loyaltyPoints as MutableList<LoyaltyPoint>?)!!
 
@@ -219,7 +221,8 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppRequestCodes.TRANSFER_LOYALTY_POINT_CODE && resultCode == Activity.RESULT_OK) {
-            callLoyaltyPointTransactionApi()
+            if (isNetworkAvailable())
+                callLoyaltyPointTransactionApi()
         }
     }
 }

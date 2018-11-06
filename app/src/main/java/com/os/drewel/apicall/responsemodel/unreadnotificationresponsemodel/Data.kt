@@ -9,4 +9,7 @@ class Data {
     @Expose
     var unread: Int? = null
 
+    @SerializedName("admin_id")
+    @Expose
+    var admin_id: String? = null
 }

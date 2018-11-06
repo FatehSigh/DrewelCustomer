@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_220sdp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
     android:background="@color/white"
@@ -14,7 +14,44 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/_10sdp">
-        <android.support.v7.widget.AppCompatButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="start"
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_height="@dimen/_30sdp">
+                <ImageView
+                    android:id="@+id/img_sortby"
+                    android:src="@mipmap/sort_by"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_sort_by"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@string/sort_by"
+                    android:textAllCaps="false"
+                    android:textColor="@color/buttonOrangeColor"/>
+            </LinearLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:id="@+id/clearFilterBt"
+                android:padding="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@android:color/transparent"
+                android:text="@string/clear_all"
+                android:textAllCaps="false"
+                android:textColor="@color/buttonOrangeColor"/>
+        </LinearLayout>
+     <!--   <android.support.v7.widget.AppCompatButton
             android:id="@+id/clearFilterBt"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_20sdp"
@@ -22,7 +59,7 @@
             android:background="@android:color/transparent"
             android:text="@string/clear_all"
             android:textAllCaps="false"
-            android:textColor="@color/buttonOrangeColor"/>
+            android:textColor="@color/buttonOrangeColor"/>-->
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_marginTop="@dimen/_5sdp"
@@ -81,12 +118,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layoutDirection="ltr"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_min_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="1"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:textColor="@color/lightblack"
                 android:textSize="@dimen/_10sdp" />
@@ -95,9 +134,10 @@
                 android:id="@+id/tv_max_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:text="2"
                 android:textColor="@color/lightblack"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textSize="@dimen/_10sdp" />
         </RelativeLayout>
 

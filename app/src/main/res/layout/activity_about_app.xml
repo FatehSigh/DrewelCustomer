@@ -89,7 +89,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/_12sdp"
             android:text="@string/privacy_policy"
-           />
+            />
         <ImageView
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
