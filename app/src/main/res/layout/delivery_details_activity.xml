@@ -31,6 +31,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_delivery_details_activity" />
+
     <include
         android:id="@+id/progressBar"
         layout="@layout/progress_dialog_loading"

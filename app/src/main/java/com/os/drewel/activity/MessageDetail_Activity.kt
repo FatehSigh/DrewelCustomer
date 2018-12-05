@@ -1,5 +1,6 @@
 package com.os.drewel.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -12,10 +13,12 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.os.drewel.R
 import com.os.drewel.adapter.ChatMessageAdapter
+import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.application.DrewelApplication.Companion.admin_unread_count
 import com.os.drewel.application.DrewelApplication.Companion.chat_id
 import com.os.drewel.application.DrewelApplication.Companion.user_unread_count
+import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.firebase.MessageDataSource
 import com.os.drewel.firebase.MessageDataSource.chatRoot
 import com.os.drewel.model.ChannelInfoModel
@@ -25,6 +28,8 @@ import com.os.drewel.model.MessageModel
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.NotificationRxJavaBus
 import com.os.drewel.rxbus.UnreadCountRxJavaBus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.app_toolbar.*
 import kotlinx.android.synthetic.main.chat.*
 import java.util.*
@@ -32,7 +37,7 @@ import java.util.*
 
 class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageDataSource.MessagesCallbacks {
     override fun onChannelAdded(message: ChatModel?) {
-        if (message!!.channel_info!!.user_count!=null) {
+        if (message!!.channel_info!!.user_count != null) {
             user_unread_count = message.channel_info!!.user_count!!.toInt()
             UnreadCountRxJavaBus.getInstance().unreadCountRxJavaBus.onNext(user_unread_count.toString())
             if (user_unread_count > 0) {
@@ -75,6 +80,11 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
             android.R.id.home -> {
                 KeyboardUtils.hideSoftInput(this)
                 onBackPressed()
+                if (intent.getIntExtra(AppIntentExtraKeys.FROM, 0).equals(1)) {
+                    var intent = Intent(this, HomeActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
                 return true
             }
         }
@@ -97,12 +107,45 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat)
         prefs = Prefs(this)
-        admin_img = intent.getStringExtra("admin_img")
-        admin_id = intent.getStringExtra("admin_id")
+        if (intent.getIntExtra(AppIntentExtraKeys.FROM, 0).equals(1)) {
+            callChatAPI()
+        } else {
+            admin_img = intent.getStringExtra("admin_img")
+            admin_id = intent.getStringExtra("admin_id")
+            mListener = MessageDataSource.addMessagesListener(chat_id, this)
+            setView()
+        }
 //        chat_id = "a" + admin_id + "_u" + Prefs(DrewelApplication.getInstance()).getPreferenceStringData(Prefs(DrewelApplication.getInstance()).KEY_USER_ID)
-        mListener = MessageDataSource.addMessagesListener(chat_id, this)
+//        mListener = MessageDataSource.addMessagesListener(chat_id, this)
 //        channelListener = MessageDataSource.addChannelListener(chat_id, this)
-        setView()
+
+    }
+
+    private fun callChatAPI() {
+        val logoutRequest = HashMap<String, String>()
+        logoutRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+        logoutRequest["language"] = DrewelApplication.getInstance().getLanguage()
+
+        val logoutObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).add_chat(logoutRequest)
+        logoutObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    // DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!,context!!)
+//                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
+                    if (result.response!!.status!!) {
+                        admin_img = result.response!!.data!!.img!!
+                        admin_id = result.response!!.data!!.admin_id!!
+                        chat_id = result.response!!.data!!.admin_id + Prefs(DrewelApplication.getInstance()).getPreferenceStringData(Prefs(DrewelApplication.getInstance()).KEY_USER_ID)
+                        mListener = MessageDataSource.addMessagesListener(chat_id, this)
+                        setView()
+//                        val intent = Intent(activity, WelcomeActivity::class.java)
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        startActivity(intent)
+//                        activity!!.finish()
+                    }
+                }, { error ->
+                    Log.e("TAG", "{$error.message}")
+                })
     }
 
     private var mListener: MessageDataSource.MessagesListener? = null
@@ -151,7 +194,7 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
             var channelInfoModel: ChannelInfoModel = ChannelInfoModel()
             channelInfoModel.message = txt_msg.text.toString().trim()
             channelInfoModel.admin_count = admin_unread_count
-            channelInfoModel.receiver_id =admin_id
+            channelInfoModel.receiver_id = admin_id
             channelInfoModel.receiver_name = "admin"
             channelInfoModel.receiver_profile_image = admin_img
             channelInfoModel.sender_id = prefs!!.getPreferenceStringData(prefs!!.KEY_USER_ID)
@@ -186,6 +229,15 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
 //        MessageDataSource.stop(mListener!!)
 //        MessageDataSource.stop(channelListener!!)
         super.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (intent.getIntExtra(AppIntentExtraKeys.FROM, 0).equals(1)) {
+            var intent = Intent(this, HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(v: View?) {

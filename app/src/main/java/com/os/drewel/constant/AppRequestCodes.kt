@@ -12,4 +12,5 @@ object AppRequestCodes {
     const val TRANSFER_LOYALTY_POINT_CODE =5
     const val DELIVER_ADDRESS_LIST_REQUEST_CODE =9
     const val APPLY_COUPON_CODE =6
+    const val BROWSER_REQUEST=7
 }

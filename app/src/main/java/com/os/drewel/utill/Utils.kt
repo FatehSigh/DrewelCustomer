@@ -1,10 +1,8 @@
 package com.os.drewel.utill
 
-import android.annotation.SuppressLint
-import android.annotation.TargetApi
+import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -12,6 +10,7 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.support.v7.app.AlertDialog
 import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -24,7 +23,6 @@ import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.Location
 import com.os.drewel.apicall.responsemodel.googledirectionresultmodel.Steps
 import com.os.drewel.constant.Constants
 import com.os.drewel.prefrences.Prefs
-import org.intellij.lang.annotations.Language
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.Hours
@@ -389,6 +387,7 @@ class Utils private constructor() {
         }
         return updateResourcesLocaleLegacy(context, locale)
     }
+
     private val WIDTH_INDEX = 0
     private val HEIGHT_INDEX = 1
 
@@ -424,4 +423,56 @@ class Utils private constructor() {
     private fun isScreenSizeRetrieved(widthHeight: IntArray): Boolean {
         return widthHeight[WIDTH_INDEX] != 0 && widthHeight[HEIGHT_INDEX] != 0
     }
+
+
+    fun isAppIsInBackground(context: Context): Boolean {
+
+        var isInBackground = false
+        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+
+            val runningProcesses = am.getRunningAppProcesses()
+            for (processInfo in runningProcesses) {
+                if (processInfo.importance === ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    for (activeProcess in processInfo.pkgList) {
+                        if (activeProcess == context.getPackageName()) {
+                            isInBackground = true
+                            break
+                        }
+                    }
+                }
+            }
+        } else {
+            val taskInfo = am.getRunningTasks(1)
+            val componentInfo = taskInfo.get(0).topActivity
+            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+                isInBackground = true
+                return isInBackground
+            }
+        }
+        return isInBackground
+    }
+
+
+    /**
+     * check if app is in background or foreground
+     *
+     * @param mContext
+     * @return
+     */
+    fun isAppForground(mContext: Context): Boolean {
+
+        val am = mContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val tasks = am.getRunningTasks(1)
+        if (!tasks.isEmpty()) {
+            val topActivity = tasks.get(0).topActivity
+            if (!topActivity.getPackageName().equals(mContext.getPackageName())) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+
 }

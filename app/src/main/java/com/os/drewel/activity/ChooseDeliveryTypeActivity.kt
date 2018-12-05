@@ -98,7 +98,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
             override fun onCalendarScroll(calendarView: HorizontalCalendarView?, dx: Int, dy: Int) {
                 super.onCalendarScroll(calendarView, dx, dy)
                 if (isCalled) {
-                    isCalled=false
+                    isCalled = false
 //                    horizontalCalendar.selectDate(Calendar.getInstance(), true)
                 } else {
                     Log.e("called ", "onCalendarScroll=" + horizontalCalendar.getDateAt(calendarView!!.positionOfCenterItem))

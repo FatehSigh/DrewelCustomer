@@ -298,7 +298,6 @@
                     app:backgroundTint="@color/violet_1" />
             </android.support.design.widget.TextInputLayout>
 
-
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/additionDirectionTextLayout"
                 android:layout_width="match_parent"

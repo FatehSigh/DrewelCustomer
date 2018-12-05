@@ -89,7 +89,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
                 }
             } else {
                 if (myCurrentOrderList[position].orderDeliveryStatus.equals("Pending") && !myCurrentOrderList[position].is_delivery_boy.equals("1"))
-                    if (!myCurrentOrderList[position].paymentMode.equals("Wallet") || !myCurrentOrderList[position].paymentMode.equals("Online"))
+                    if (myCurrentOrderList[position].paymentMode.equals(mContext.getString(R.string.COD)))
                         startTimer(myCurrentOrderList[position], holder)
             }
 
@@ -119,8 +119,10 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
             holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.COD)
         else if (order.paymentMode.equals("Wallet"))
             holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.wallet)
-        else if (order.paymentMode.equals("Online"))
+        else if (order.paymentMode.equals("Online")) {
             holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.credit_card)
+            holder.itemView.order_item_txt_transaction.setText(order.transaction_id)
+        }
         else
             holder.itemView.order_item_txt_payment_method.text = mContext!!.getString(R.string.thawani)
 

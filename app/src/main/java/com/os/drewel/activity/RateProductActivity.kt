@@ -139,6 +139,9 @@ class RateProductActivity : BaseActivity(), View.OnClickListener {
                         myCartChildRL.visibility = GONE
                         tv_review.visibility = VISIBLE
                         tv_review.text = getString(R.string.review_submitted)
+                        val intent = Intent()
+                        intent.putExtra("isSubmitted", productDetail!!.review_submited)
+                        setResult(Activity.RESULT_OK, intent)
                         finish()
 //                        if (isNetworkAvailable())
 //                            callProductReviewListAPi()

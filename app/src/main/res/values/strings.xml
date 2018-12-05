@@ -1,6 +1,6 @@
 <resources>
     <!--facebook account octal.team1@gmail.com / octal@123-->
-
+    <!--Firebase Account monika.bansal@octalsoftware.net/octal#123 -->
 
     <string name="facebook_app_id">2052347848309932</string>
     <string name="app_name">Drewel</string>
@@ -355,8 +355,12 @@
     <string name="add_delivery_address">Please select your delivery address to continue.</string>
     <string name="sort_by"> Sort By    </string>
     <string name="thawani">Thawani</string>
-    <string name="write_comment">WriteMessage</string>
+    <string name="write_comment">Write Message</string>
     <string name="chat_support">Chat Support</string>
     <string name="coupon_code">Coupon Code</string>
+    <string name="points">Points</string>
+    <string name="payment">Payment</string>
+    <string name="Payment_Failed_MSG">Payment transaction failed, please try again.</string>
+    <string name="_enter">Enter</string>
 
 </resources>

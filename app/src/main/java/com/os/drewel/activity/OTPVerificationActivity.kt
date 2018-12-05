@@ -13,10 +13,8 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.Utils
 import com.os.drewel.R
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
@@ -49,6 +47,7 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
         initView()
         getDataFromBundle()
     }
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(com.os.drewel.utill.Utils.getInstance().updateBaseContextLocale(newBase!!))
     }

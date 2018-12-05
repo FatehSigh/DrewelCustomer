@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -23,6 +24,7 @@ import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.model.PNModel
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.utill.BadgeIntentService
+import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.leolin.shortcutbadger.ShortcutBadger
@@ -38,12 +40,14 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
         Log.e("Remote Message=blank", "fdg")
         Log.e("Remote Message=", remoteMessage!!.data.toString())
-        var data = sendNotif(remoteMessage.data)
-        unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
-        unread += 1
-        Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
-        ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
-        generateNotification(data)
+        if (!Utils.getInstance().isAppForground(this)) {
+            var data = sendNotif(remoteMessage.data)
+            unread = Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT)
+            unread += 1
+            Prefs.getInstance(this).setPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT, unread)
+            ShortcutBadger.applyCount(this, Prefs.getInstance(this).getPreferenceIntData(Prefs.getInstance(this).UNREAD_COUNT))
+            generateNotification(data)
+        }
     }
     /*pendingCart
     orderPlaced
@@ -54,6 +58,7 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
     deliveryBoyAssigned*/
 
     object NotificationType {
+        const val chat = "chat"
         const val pendingCart = "pendingCart"
         const val orderPlaced = "orderPlaced"
         const val orderCancelled = "orderCancelled"
@@ -119,24 +124,33 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         var notificationIntent: Intent? = null
         if (data.notification_type.equals(NotificationType.pendingCart)) {
             notificationIntent = Intent(this, CartActivity::class.java)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         } else if (data.notification_type.equals(NotificationType.orderPlaced)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
             notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         } else if (data.notification_type.equals(NotificationType.orderCancelled)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
             notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
         } else if (data.notification_type.equals(NotificationType.productAvailable)) {
             notificationIntent = Intent(this, ProductDetailActivity::class.java)
             notificationIntent.putExtra(AppIntentExtraKeys.PRODUCT_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         } else if (data.notification_type.equals(NotificationType.deliveryStatusChange)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
             notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         } else if (data.notification_type.equals(NotificationType.deliveryBoyAssigned)) {
             notificationIntent = Intent(this, MyOrderDetailActivity::class.java)
             notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         } else if (data.notification_type.equals(NotificationType.general)) {
 //          notificationIntent!!.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
             notificationIntent = Intent(this, NotificationActivity::class.java)
+            notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
+        } else if (data.notification_type.equals(NotificationType.chat)) {
+            notificationIntent = Intent(this, MessageDetail_Activity::class.java)
         }
 
 //      val notificationIntent = Intent(this, ProductDetailActivity::class.java)
@@ -148,7 +162,7 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         stackBuilder.addParentStack(HomeActivity::class.java)
 //        notificationIntent.putExtra(AppIntentExtraKeys.ORDER_ID, data.item_id)
         notificationIntent.putExtra(AppIntentExtraKeys.FROM, 1)
-        notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
+//        notificationIntent.putExtra(AppIntentExtraKeys.NOTIFICATION_ID, data.notification_id)
         /* add all notification to stack*/
         stackBuilder.addNextIntent(parentIntent)
         stackBuilder.addNextIntent(notificationIntent)
@@ -156,23 +170,29 @@ class DrewelFirebaseMessagingService : FirebaseMessagingService() {
         return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT)
     }
 
+
     private fun sendNotif(data: Map<String, String>): PNModel {
         var notificationsModel = PNModel()
         notificationsModel.notification_type = data["notification_type"]
-        notificationsModel.notification_id = data["notification_id"]
-        var jsonObject = JSONObject(data["payload"])
-        notificationsModel.second_user_id = jsonObject.getString("second_user_id")
-        notificationsModel.image = jsonObject.getString("image")
-        notificationsModel.profile_image = jsonObject.getString("profile_image")
-        notificationsModel.amount = jsonObject.getString("amount")
-        notificationsModel.user_id = jsonObject.getString("user_id")
-        notificationsModel.item_id = jsonObject.getString("item_id")
-        notificationsModel.last_name = jsonObject.getString("last_name")
-        notificationsModel.title = jsonObject.getString("title")
-        notificationsModel.first_name = jsonObject.getString("first_name")
-        notificationsModel.badge = Integer.parseInt(data["badge"])
-        notificationsModel.message = data["message"]
-        Log.e("Notification==>", notificationsModel.toString())
+        if (notificationsModel.notification_type == NotificationType.chat) {
+            notificationsModel.title = data["title"]
+            notificationsModel.message = data["message"]
+        } else {
+            notificationsModel.notification_id = data["notification_id"]
+            var jsonObject = JSONObject(data["payload"])
+            notificationsModel.second_user_id = jsonObject.getString("second_user_id")
+            notificationsModel.image = jsonObject.getString("image")
+            notificationsModel.profile_image = jsonObject.getString("profile_image")
+            notificationsModel.amount = jsonObject.getString("amount")
+            notificationsModel.user_id = jsonObject.getString("user_id")
+            notificationsModel.item_id = jsonObject.getString("item_id")
+            notificationsModel.last_name = jsonObject.getString("last_name")
+            notificationsModel.title = jsonObject.getString("title")
+            notificationsModel.first_name = jsonObject.getString("first_name")
+            notificationsModel.badge = Integer.parseInt(data["badge"])
+            notificationsModel.message = data["message"]
+            Log.e("Notification==>", notificationsModel.toString())
+        }
         return notificationsModel
     }
 

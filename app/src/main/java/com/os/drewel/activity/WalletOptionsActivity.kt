@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.layout_wallet_options.*
 
 class WalletOptionsActivity : BaseActivity(), View.OnClickListener {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_wallet_options)
@@ -20,7 +19,7 @@ class WalletOptionsActivity : BaseActivity(), View.OnClickListener {
 
     /* set toolbar and back button*/
     private fun initView() {
-        toolbarTitleTv.text = getString(R.string.wallet)
+        toolbarTitleTv.text = getString(R.string.transactions)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
@@ -33,7 +32,7 @@ class WalletOptionsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-        /* finish activity if user tap on action bar back button*/
+            /* finish activity if user tap on action bar back button*/
             android.R.id.home -> {
                 onBackPressed()
                 return true

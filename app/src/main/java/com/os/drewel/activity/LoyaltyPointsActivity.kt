@@ -60,7 +60,7 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-        /* finish activity if user tap on action bar back button*/
+            /* finish activity if user tap on action bar back button*/
             android.R.id.home -> {
                 onBackPressed()
                 return true
@@ -177,31 +177,23 @@ class LoyaltyPointsActivity : BaseActivity(), View.OnClickListener {
 
     private fun callLoyaltyPointTransactionApi() {
         setProgressState(View.VISIBLE)
-
         val getLoyaltyPointTransactionRequest = HashMap<String, String>()
-
         getLoyaltyPointTransactionRequest["language"] = DrewelApplication.getInstance().getLanguage()
         getLoyaltyPointTransactionRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
-
-
         val loyaltyPointObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).getLoyaltyPointsTransaction(getLoyaltyPointTransactionRequest)
         disposable = loyaltyPointObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     setProgressState(View.GONE)
-
                     if (result.response!!.status!!) {
                         if (result.response!!.data!!.currentLoyaltyPoints != null)
-                            loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble()) + " " + getString(R.string.omr)
+                            loyaltyPointTv.text = NumberFormat.getInstance().format(result.response!!.data!!.currentLoyaltyPoints!!.toDouble()) + " " + getString(R.string.points)
                         else
-                            loyaltyPointTv.text = NumberFormat.getInstance().format(0.000) + " " + getString(R.string.omr)
+                            loyaltyPointTv.text = NumberFormat.getInstance().format(0.000) + " " + getString(R.string.points)
                         if (result.response!!.data!!.loyaltyPoints != null) {
-
                             loyaltyPointsTransaction = (result.response!!.data!!.loyaltyPoints as MutableList<LoyaltyPoint>?)!!
-
                             setAdapter()
                         }
-
                     } else {
                         Utils.getInstance().showToast(this, result.response!!.message!!)
                         noTransactionAlertTv.visibility = View.VISIBLE

@@ -71,7 +71,7 @@
                     android:drawablePadding="@dimen/_5sdp"
                     android:drawableTint="@color/colorPrimary"
                     android:gravity="center_vertical"
-                    android:hint="@string/search_product"
+                    android:hint="@string/search"
                     android:padding="@dimen/_5sdp"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"

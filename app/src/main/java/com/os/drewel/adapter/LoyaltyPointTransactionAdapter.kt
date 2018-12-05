@@ -16,7 +16,6 @@ import java.text.NumberFormat
 
 class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTransaction: List<LoyaltyPoint>) : RecyclerView.Adapter<LoyaltyPointTransactionAdapter.LoyaltyPointTransactionHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoyaltyPointTransactionHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_loyalty_point_transaction_item, parent, false)
 
@@ -26,7 +25,7 @@ class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTra
     override fun onBindViewHolder(holder: LoyaltyPointTransactionHolder, position: Int) {
 
         ImageLoader.getInstance().displayImage(loyaltyPointsTransaction[position].img, holder.itemView.userImageIv, DrewelApplication.getInstance().options)
-        holder.itemView.amountTv.text = NumberFormat.getInstance().format(loyaltyPointsTransaction[position].loyaltyPoints!!.toFloat())+" "+ mContext.getString(R.string.omr)
+        holder.itemView.amountTv.text = NumberFormat.getInstance().format(loyaltyPointsTransaction[position].loyaltyPoints!!.toFloat())+""/*+ mContext.getString(R.string.omr)*/
         val earnedStr = StringBuffer()
         when {
             loyaltyPointsTransaction[position].type.toString() == "Credit" -> {
@@ -52,7 +51,6 @@ class LoyaltyPointTransactionAdapter(val mContext: Context, var loyaltyPointsTra
         holder.itemView.loyaltyPointEarnedFromTv.text = earnedStr
 
         holder.itemView.loyaltyPointEarnedDateTv.text = Utils.getInstance().convertTimeFormatAndTimeZone(loyaltyPointsTransaction[position].createdAt!!, "yyyy-MM-dd HH:mm:ss", "dd MMM yyyy, hh:mm aa")
-
 
     }
 

@@ -28,7 +28,7 @@
             android:drawablePadding="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:padding="@dimen/_12sdp"
-            android:text="@string/wallet"
+            android:text="@string/transactions"
           />
         <ImageView
             android:layout_alignParentEnd="true"

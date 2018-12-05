@@ -242,7 +242,6 @@
                     android:id="@+id/cardRadioBt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:layoutDirection="rtl"
                     android:text="@string/cc"
                     android:textAlignment="textStart"
@@ -332,7 +331,7 @@
                 app:layout_constraintStart_toStartOf="@id/LoyaltyPointEditText"
                 app:layout_constraintTop_toBottomOf="@+id/LoyaltyPointEditText" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/CouponCodeEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -342,8 +341,7 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="center_vertical"
                 android:hint="@string/add_coupon"
-                android:inputType="number"
-                android:maxLength="10"
+                android:inputType="textEmailAddress"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_12sdp"
@@ -361,7 +359,7 @@
                 android:background="@android:color/transparent"
                 android:paddingStart="@dimen/_5sdp"
                 android:paddingEnd="@dimen/_15sdp"
-                android:text="@string/apply"
+                android:text="@string/_enter"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
@@ -374,6 +372,7 @@
                 android:id="@+id/countryCodeView"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_8sdp"

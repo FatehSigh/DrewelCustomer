@@ -2,37 +2,32 @@ package com.os.drewel.activity
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import com.blankj.utilcode.util.KeyboardUtils
-import com.os.drewel.R
-import com.os.drewel.constant.AppIntentExtraKeys
-import kotlinx.android.synthetic.main.content_delivery_details_activity.*
-import kotlinx.android.synthetic.main.delivery_details_activity.*
 import android.content.res.ColorStateList
-import android.graphics.Color
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v4.widget.ImageViewCompat
 import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.widget.Toast
+import android.view.MenuItem
+import android.view.View
+import com.blankj.utilcode.util.KeyboardUtils
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.google.android.gms.maps.model.LatLng
+import com.os.drewel.R
 import com.os.drewel.apicall.DrewelApi
-import com.os.drewel.apicall.responsemodel.deliveryaddressresponsemodel.Address
 import com.os.drewel.application.DrewelApplication
+import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.AppRequestCodes
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.content_setting_activity.view.*
+import kotlinx.android.synthetic.main.content_delivery_details_activity.*
+import kotlinx.android.synthetic.main.delivery_details_activity.*
 
 
 /**
@@ -125,17 +120,20 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
                 if (validate()) {
                     KeyboardUtils.hideSoftInput(this)
                     var delivery_type = APARTMENT
-                    if (rl_apartment.isSelected) {
-                        delivery_type = APARTMENT
-                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
-                    } else if (rl_house.isSelected) {
-                        delivery_type = VILLA
-                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " /*+ FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", "*/ + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
-                    } else {
-                        delivery_type = OFFICE
-                        addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
+                    when {
+                        rl_apartment.isSelected -> {
+                            delivery_type = APARTMENT
+                            addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
+                        }
+                        rl_house.isSelected -> {
+                            delivery_type = VILLA
+                            addressDetail = ApartmentNumEditText.text.toString().trim() + ", " /*+ FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", "*/ + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
+                        }
+                        else -> {
+                            delivery_type = OFFICE
+                            addressDetail = ApartmentNumEditText.text.toString().trim() + ", " + FloorEditText.text.toString().trim() + ", " + BuildingEditText.text.toString().trim() + ", " + StreetEditText.text.toString().trim() + ", Way No.-" + WayNumEditText.text.toString().trim() + ", " + address
+                        }
                     }
-
                     val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
                     logoutAlertDialog.setTitle(getString(R.string.app_name))
                     logoutAlertDialog.setMessage(getString(R.string.want_to_defaultaddress))
@@ -143,14 +141,11 @@ class DeliveryDetailActivity : BaseActivity(), View.OnClickListener {
                         logoutAlertDialog.dismiss()
                         if (isNetworkAvailable())
                             callAddAddressApi(name, address, latLang!!.latitude, latLang!!.longitude, postalCode, delivery_type, NameEditText.text.toString().trim(), PhoneNumberEditText.text.toString().trim(), additionDirectionEditText.text.toString().trim(), addressDetail)
-
                     })
                     logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
                         logoutAlertDialog.dismiss()
                     })
                     logoutAlertDialog.show()
-
-
                 }
             }
             R.id.fulladdressEditText -> {

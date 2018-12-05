@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -12,10 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.CompoundButton
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.LinearLayout
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.os.drewel.R
 import com.os.drewel.activity.*
@@ -24,10 +21,8 @@ import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.application.DrewelApplication.Companion.user_unread_count
 import com.os.drewel.constant.Constants
-import com.os.drewel.prefrences.Prefs
 import com.os.drewel.prefrences.Prefs.Companion.prefs
 import com.os.drewel.rxbus.NotificationRxJavaBus
-import com.os.drewel.rxbus.SampleRxJavaBus
 import com.os.drewel.rxbus.UnreadCountRxJavaBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -119,7 +114,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
         if (cartItemQuantity.length > 2) {
             tv_notifications_count.measure(0, 0)
             val width = tv_notifications_count.measuredWidth
-            val linearPram = RelativeLayout.LayoutParams(width, width)
+            val linearPram = LinearLayout.LayoutParams(width, width)
             tv_notifications_count.layoutParams = linearPram
         }
     }
@@ -159,29 +154,19 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    /* show logout confirmation popup to user*/
+    /*r show logout confirmation popup to use*/
     private fun showLogoutDialog() {
-
         val logoutAlertDialog = AlertDialog.Builder(this.context!!, R.style.DeliveryTypeTheme).create()
-
         logoutAlertDialog.setTitle(getString(R.string.app_name))
         logoutAlertDialog.setMessage(getString(R.string.want_to_logout))
-
-
         logoutAlertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
-
             logoutAlertDialog.dismiss()
             if (isNetworkAvailable())
                 callLogoutAPI()
-
         })
-
         logoutAlertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no), DialogInterface.OnClickListener { dialog, id ->
-
             logoutAlertDialog.dismiss()
-
         })
-
         logoutAlertDialog.show()
     }
 
@@ -323,6 +308,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
         }
         builder.show()
     }
+
     private fun callChatAPI() {
         setProgressState(View.VISIBLE, false)
         val logoutRequest = HashMap<String, String>()
@@ -338,7 +324,7 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
 //                    com.os.drewel.utill.Utils.getInstance().showToast(activity, result.response!!.message!!)
                     if (result.response!!.status!!) {
 
-                        startActivity(Intent(activity, MessageDetail_Activity::class.java).putExtra("admin_id",result.response!!.data!!.admin_id).putExtra("admin_img",result.response!!.data!!.img))
+                        startActivity(Intent(activity, MessageDetail_Activity::class.java).putExtra("admin_id", result.response!!.data!!.admin_id).putExtra("admin_img", result.response!!.data!!.img))
 //                        val intent = Intent(activity, WelcomeActivity::class.java)
 //                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 //                        startActivity(intent)

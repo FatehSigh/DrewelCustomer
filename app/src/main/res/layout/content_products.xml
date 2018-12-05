@@ -23,7 +23,7 @@
             android:drawableStart="@mipmap/search"
             android:drawablePadding="@dimen/_5sdp"
             android:drawableTint="@color/colorPrimary"
-            android:hint="@string/search_product"
+            android:hint="@string/search"
             android:layout_marginEnd="@dimen/_8sdp"
             android:padding="@dimen/_9sdp"
             android:fontFamily="@font/roboto_regular_0"

@@ -1,17 +1,14 @@
 package com.os.drewel.activity
 
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatTextView
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -19,7 +16,6 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
 import com.os.drewel.R
-import com.os.drewel.R.id.navigation_more
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.application.DrewelApplication.Companion.admin_unread_count
@@ -28,18 +24,15 @@ import com.os.drewel.application.DrewelApplication.Companion.user_unread_count
 import com.os.drewel.firebase.MessageDataSource
 import com.os.drewel.fragment.*
 import com.os.drewel.model.ChatModel
-import com.os.drewel.model.ChatUserModel
 import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.NotificationRxJavaBus
 import com.os.drewel.rxbus.UnreadCountRxJavaBus
-import com.os.drewel.utill.BadgeIntentService
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.action_bar_unread_icon.view.*
 import kotlinx.android.synthetic.main.home_product_activity.*
 import kotlinx.android.synthetic.main.layout_product.*
-import kotlinx.android.synthetic.main.product_list_all_child.view.*
 import me.leolin.shortcutbadger.ShortcutBadger
 
 /**
@@ -163,9 +156,16 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
             navigationView.selectedItemId = R.id.navigation_more
             isLanguageChange = false
         } else if (intent != null) {
-            if (intent.getIntExtra("FROM", 0).equals(1)) {
+            if (intent.getIntExtra("FROM", 0).equals(2)) {
                 setFragment(MyOrderFragment())
                 navigationView.selectedItemId = R.id.navigation_my_order
+            } else if (intent.getIntExtra("FROM", 0).equals(3)) {
+                setFragment(CategoryFragment())
+                showAlert(getString(R.string.app_name), intent.getStringExtra("msg"))
+            } else if (intent.getIntExtra("FROM", 0).equals(4)) {
+                setFragment(MyOrderFragment())
+                navigationView.selectedItemId = R.id.navigation_my_order
+                showAlert(getString(R.string.app_name), intent.getStringExtra("msg"))
             } else
                 setFragment(CategoryFragment())
         } else
@@ -186,6 +186,27 @@ class HomeActivity : ProductBaseActivity(), BottomNavigationView.OnNavigationIte
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit()
+    }
+
+    fun showAlert(Title: String, Message: String) {
+        try {
+            val mAlert = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
+            mAlert.setCancelable(false)
+            mAlert.setTitle(Title)
+            mAlert.setMessage(Message)
+            mAlert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok), DialogInterface.OnClickListener { dialog, id ->
+                mAlert.dismiss()
+                getString(R.string.ok)
+            })
+
+//            mAlert.setPositiveButton(
+//                    getString(R.string.ok)
+//            ) { dialog, which -> dialog.dismiss() }
+
+            mAlert.show()
+        } catch (e: Exception) {
+        }
+
     }
 
     @SuppressLint("CheckResult")

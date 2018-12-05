@@ -9,15 +9,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.os.drewel.R
 import com.os.drewel.adapter.CartItemAdapter
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.cartdetailresponsemodel.Cart
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
+import com.os.drewel.prefrences.Prefs
 import com.os.drewel.rxbus.CartRxJavaBus
-import com.os.drewel.utill.DateUtils
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -25,12 +24,10 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_my_cart.*
 import kotlinx.android.synthetic.main.content_my_cart.*
+import me.leolin.shortcutbadger.ShortcutBadger
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-import com.os.drewel.apicall.responsemodel.categoryresponsemodel.Home
-import com.os.drewel.prefrences.Prefs
-import me.leolin.shortcutbadger.ShortcutBadger
 
 
 /**
@@ -322,15 +319,12 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                             startActivity(intent)
                         }
                     }
-
 //                    if (cartResponse!=null && cartResponse!!.is_edited!!.isNotEmpty() && cartResponse!!.is_edited!!.equals("1")){
-//
 //                    }
 //                    if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
 //                        val intent = Intent(this, DeliveryDetailActivity::class.java)
 //                        startActivity(intent)
 //                    } else {
-//
 //                    }
                 }
             }

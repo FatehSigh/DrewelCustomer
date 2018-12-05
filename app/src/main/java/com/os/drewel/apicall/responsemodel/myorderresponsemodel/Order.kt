@@ -55,5 +55,8 @@ class Order {
     @SerializedName("is_delivery_boy")
     @Expose
     var is_delivery_boy: String? = null
+    @SerializedName("transaction_id")
+    @Expose
+    var transaction_id: String? = null
 
 }

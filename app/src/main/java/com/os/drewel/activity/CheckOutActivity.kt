@@ -1,8 +1,6 @@
 package com.os.drewel.activity
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -11,7 +9,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioGroup
-import android.widget.Toast
 import com.blankj.utilcode.util.KeyboardUtils
 import com.os.drewel.R
 import com.os.drewel.adapter.AppliedCouponCodeAdapter
@@ -24,8 +21,6 @@ import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.AppRequestCodes
 import com.os.drewel.constant.Constants
 import com.os.drewel.delegate.CouponCodeRemove
-import com.os.drewel.dialog.TimeSlotBottomSheetDialog
-import com.os.drewel.prefrences.Prefs.Companion.prefs
 import com.os.drewel.rxbus.CartRxJavaBus
 import com.os.drewel.utill.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,8 +29,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.content_checkout.*
-import java.text.DateFormat
-import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -205,16 +198,21 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 //                showDeliveryTypeDialog()
             }
             R.id.applyCoupanCodeTv -> {
-//                KeyboardUtils.hideSoftInput(this)
-//                val couponCode = CouponCodeEditText.text.toString().trim()
-//                if (appliedCouponCodes.contains(couponCode)) {
-//                    Toast.makeText(this, getString(R.string.coupon_already_applied), Toast.LENGTH_LONG).show()
-//                } else if (couponCode.isNotBlank()) {
-//                    if (isNetworkAvailable())
-//                        callApplyCouponCodeApi(couponCode)
-//                }
-                val intent = Intent(this, CouponCodeActivity::class.java)
-                startActivityForResult(intent, AppRequestCodes.APPLY_COUPON_CODE)
+                KeyboardUtils.hideSoftInput(this)
+                if (applyCoupanCodeTv.text.toString() == getString(R.string.remove)) {
+                    onCouponCodeRemove(0)
+                } else {
+                    val couponCode = CouponCodeEditText.text.toString().trim()
+//                    if (appliedCouponCodes.contains(couponCode)) {
+//                        Utils.getInstance().showToast(this, getString(R.string.coupon_already_applied))
+//                    } else
+                    if (couponCode.isNotBlank()) {
+                        if (isNetworkAvailable())
+                            callApplyCouponCodeApi(couponCode)
+                    }
+                }
+//                val intent = Intent(this, CouponCodeActivity::class.java)
+//                startActivityForResult(intent, AppRequestCodes.APPLY_COUPON_CODE)
             }
 
             R.id.applyLoyaltyPointTv -> {
@@ -298,7 +296,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == AppRequestCodes.APPLY_COUPON_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == AppRequestCodes.BROWSER_REQUEST) {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("FROM", 2)
+            startActivity(intent)
+        } else if (requestCode == AppRequestCodes.APPLY_COUPON_CODE && resultCode == Activity.RESULT_OK) {
             val couponCode = data?.getStringExtra(AppIntentExtraKeys.COUPON_CODE) ?: ""
             if (appliedCouponCodes.contains(couponCode)) {
                 Utils.getInstance().showToast(this, getString(R.string.coupon_already_applied))
@@ -446,7 +449,6 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             totalDiscount = 0.0
 
         previousLoyaltyPointDiscount = loyaltyPointsDiscount
-
         discountTvValue = totalDiscount.toFloat()
         discountTv.text = String.format("%.3f", DrewelApplication.getInstance().convertToEnglish(totalDiscount.toFloat()).toDouble()) + " " + getString(R.string.omr)
     }
@@ -459,8 +461,10 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
         appliedCouponCodeAdapter?.notifyItemRemoved(position)
         appliedCouponCodeAdapter?.notifyItemRangeRemoved(0, appliedCouponCodesAllInfo.size)
         setGrandTotal()
-        //setLoyaltyPointEdibility(true)
-        // CouponCodeEditText.setText("")
+        applyCoupanCodeTv.setTextColor(resources.getColor(R.color.colorPrimary))
+        applyCoupanCodeTv.isEnabled = true
+        CouponCodeEditText.isEnabled = true
+        CouponCodeEditText.setText("")
     }
 
 
@@ -485,13 +489,17 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                     applyCouponCodeTv.isEnabled = true
                     if (result.response!!.status!!) {
                         /* user can apply multiple coupon code*/
-                        CouponCodeEditText.setText("")
                         result.response!!.data!!.coupon!!.couponCode = couponCode
+                        appliedCouponCodesAllInfo = ArrayList()
                         appliedCouponCodesAllInfo.add(result.response!!.data!!.coupon!!)
+                        appliedCouponCodes = HashSet()
                         appliedCouponCodes.add(couponCode)
                         setDiscount(result.response!!.data!!.coupon!!.discountAmount.toString().toDouble())
                         setGrandTotal()
                         setAppliedCouponCodesAdapter()
+                        applyCoupanCodeTv.isEnabled = false
+                        CouponCodeEditText.isEnabled = false
+                        applyCoupanCodeTv.setTextColor(resources.getColor(R.color.grey_color_txt))
                         // setLoyaltyPointEdibility(false)
                     } else {
                         CouponCodeEditText.setText("")
@@ -508,12 +516,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
     }
 
     private fun setAppliedCouponCodesAdapter() {
-        if (appliedCouponCodeAdapter == null) {
-            couponCodeRv.layoutManager = LinearLayoutManager(this)
-            appliedCouponCodeAdapter = AppliedCouponCodeAdapter(this, appliedCouponCodesAllInfo, this)
-            couponCodeRv.adapter = appliedCouponCodeAdapter
-        } else
-            appliedCouponCodeAdapter?.notifyDataSetChanged()
+//        if (appliedCouponCodeAdapter == null) {
+        couponCodeRv.layoutManager = LinearLayoutManager(this)
+        appliedCouponCodeAdapter = AppliedCouponCodeAdapter(this, appliedCouponCodesAllInfo, this)
+        couponCodeRv.adapter = appliedCouponCodeAdapter
+//        } else
+//            appliedCouponCodeAdapter?.notifyDataSetChanged()
     }
 
 
@@ -653,11 +661,11 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 .subscribe({ result ->
                     confirmOrderBt.isEnabled = true
                     setProgressState(View.GONE, View.VISIBLE)
-                    Utils.getInstance().showToast(this, result.response!!.message!!)
-                    if (result.response!!.status!!) {
 
-                        pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME, checkoutRequest.deliverTo
-                                ?: "")
+                    if (result.response!!.status!!) {
+                        if (cardRadioBt.isChecked)
+                            pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_USERNAME, checkoutRequest.deliverTo
+                                    ?: "")
                         pref!!.setPreferenceStringData(pref!!.KEY_DELIVERY_ADDRESS_PHONE_NUMBER, checkoutRequest.deliverMobile
                                 ?: "")
                         pref!!.setPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS, checkoutRequest.deliveryAddress
@@ -666,13 +674,18 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                                 ?: "")
                         pref!!.setPreferenceStringData(pref!!.KEY_CART_ID, "")
                         CartRxJavaBus.getInstance().cartPublishSubject.onNext("0")
-
-                        val intent = Intent(this, HomeActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        intent.putExtra("FROM", 1)
-                        startActivity(intent)
-
-
+                        if (cardRadioBt.isChecked) {
+//                            AppDelegate.openURL(this, result.response!!.data!!.url!!)
+                            startActivity(Intent(this, PaymentWebViewActivity::class.java).putExtra("PAGE_SLUG", result.response!!.data!!.url!!).putExtra("msg", result.response!!.message!!))
+//                            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(result.response!!.data!!.url!!))
+//                            startActivityForResult(browserIntent, BROWSER_REQUEST);
+                        } else {
+                            Utils.getInstance().showToast(this, result.response!!.message!!)
+                            val intent = Intent(this, HomeActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.putExtra("FROM", 2)
+                            startActivity(intent)
+                        }
                     }
                 }, { error ->
                     confirmOrderBt.isEnabled = true

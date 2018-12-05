@@ -72,7 +72,6 @@
     <string name="all_products_from_this_store">جميع المنتجات في هذا المتجر</string>
     <string name="omr">ر.ع</string>
 
-
     <string name="products_details">تفاصيل المنتجات</string>
     <string name="add_to_chart">أضف الى سلة التسوق</string>
     <string name="product_details">Kerry Lnw Lne 10 cheesy slices</string>
@@ -167,7 +166,7 @@
     <string name="mobile_number">رقم الهاتف النقال</string>
     <string name="notification_setting">إعدادت الإشعار</string>
     <string name="notify_me">ارجو ابلاغي</string>
-    <string name="out_of_stock">غير متوفرة</string>
+    <string name="out_of_stock">غير متوفر</string>
     <string name="total_price">السعر الإجمالي</string>
     <string name="delivery_detail">بيانات التوصيل</string>
     <string name="enter_name">أرجو إدخال إسمك</string>
@@ -179,11 +178,11 @@
     <string name="choose_delivery_type">أرجو إختيار نوع التسليم</string>
     <string name="add_coupon">رمز القسيمة</string>
     <string name="add_loyalty_point">نقطة الولاء</string>
-    <string name="choose_payment_detail">إختار تفاصيل الدفع</string>
+    <string name="choose_payment_detail">إختر طريقة الدفع</string>
     <string name="cash">الدفع عن الإستلام</string>
     <string name="cc">بطاقة الائتمان</string>
     <string name="total_item">اجمالي المشتريات</string>
-    <string name="discount">التخفيض</string>
+    <string name="discount">العروض</string>
     <string name="delivery_charges">رسوم التوصيل</string>
     <string name="confirm_order">تأكيد الطلب</string>
     <string name="deliver_now">التوصيل الأن</string>
@@ -257,7 +256,7 @@
     <string name="transactions">المعاملات</string>
     <string name="transfer_loyalty_point">تحويل نقاط الولاء</string>
     <string name="loyalty_point_earned">نقاط الولاء المكتسبة</string>
-    <string name="loyalty_point_redeem">استبدال نقاط الولاء</string>
+    <string name="loyalty_point_redeem">نقاط الولاء المستخدمة</string>
     <string name="order">اطلب</string>
     <string name="loyalty_point_more_then_zero">نقاط الواء يجب ان تكون أكثر من 0</string>
     <string name="loyalty_point_transferred">تم تحويل نقاط الولاء</string>
@@ -358,12 +357,16 @@
     <string name="not_applicable">لا يوجد</string>
     لا يوجد
 
-    <string name="add_delivery_address">Please select your delivery address to continue.</string>
+    <string name="add_delivery_address">يرجى تحديد عنوان التسليم الخاص بك للمتابعة.</string>
     <string name="sort_by"> ترتيب حسب   </string>
     <string name="thawani">Thawani</string>
-    <string name="write_comment">WriteMessage</string>
-    <string name="chat_support">Chat Support</string>
-    <string name="coupon_code">Coupon Code</string>
+    <string name="write_comment">اكتب رسالة</string>
+    <string name="chat_support">دعم الدردشة</string>
+    <string name="coupon_code">كود القسيمة</string>
+    <string name="points">نقاط</string>
+    <string name="payment">دفع</string>
+    <string name="Payment_Failed_MSG">فشلت معاملة الدفع ، يرجى المحاولة مرة أخرى.</string>
+    <string name="_enter">ادخل</string>
 </resources>
 
 

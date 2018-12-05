@@ -9,4 +9,7 @@ class Data {
     @Expose
     var orderId: String? = null
 
+    @SerializedName("url")
+    @Expose
+    var url: String? = null
 }
