@@ -187,18 +187,13 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
                     Log.e("TAG", "{$error.message}")
                 }
                 )
-
-
     }
 
-
     private fun resendOtpVerificationAPI() {
-
         setProgressState(View.VISIBLE, false)
         val resendOTPRequest = HashMap<String, String>()
         resendOTPRequest["user_id"] = userId
         resendOTPRequest["language"] = DrewelApplication.getInstance().getLanguage()
-
         val signUpObservable = DrewelApplication.getInstance().getRequestQueue().create(DrewelApi::class.java).resendOtpVerification(resendOTPRequest)
         disposable = signUpObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -252,7 +247,6 @@ class OTPVerificationActivity : AppCompatActivity(), View.OnClickListener {
         progressBar.visibility = visibility
         verifyOTPButton.isEnabled = enableButton
         resendOTPLayout.isEnabled = enableButton
-
     }
 
 

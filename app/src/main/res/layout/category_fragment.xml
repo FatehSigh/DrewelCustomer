@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/violet"
->
+    android:background="@color/violet">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -21,31 +19,34 @@
             app:contentScrim="@android:color/white"
             app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
             app:toolbarId="@+id/toolbar">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_146sdp"
-    android:layout_marginBottom="@dimen/_48sdp">
-    <android.support.v4.view.ViewPager
-        android:id="@+id/productImagePager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <com.rd.PageIndicatorView
-        android:id="@+id/pageIndicatorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/_8sdp"
-        app:piv_radius="@dimen/_4sdp"
-        app:piv_selectedColor="@color/colorPrimary"
-        app:piv_unselectedColor="@color/violet" />
-</RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_146sdp"
+                android:layout_marginBottom="@dimen/_48sdp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/productImagePager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.rd.PageIndicatorView
+                    android:id="@+id/pageIndicatorView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/_8sdp"
+                    app:piv_radius="@dimen/_4sdp"
+                    app:piv_selectedColor="@color/colorPrimary"
+                    app:piv_unselectedColor="@color/violet" />
+            </RelativeLayout>
             <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/homeBannerRecyclerView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/_146sdp"-->
-                <!--android:layout_marginBottom="@dimen/_48sdp"-->
-               <!--/>-->
+            <!--android:id="@+id/homeBannerRecyclerView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/_146sdp"-->
+            <!--android:layout_marginBottom="@dimen/_48sdp"-->
+            <!--/>-->
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -90,18 +91,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:background="@color/violet"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-             <android.support.v7.widget.RecyclerView
+        <android.support.v7.widget.RecyclerView
 
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/violet" />
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:background="@color/violet"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.v4.widget.NestedScrollView>
 
     <include

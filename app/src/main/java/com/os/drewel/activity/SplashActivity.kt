@@ -3,22 +3,21 @@ package com.os.drewel.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.util.Base64
 import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 import com.os.drewel.R
+import com.os.drewel.prefrences.Prefs
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
-import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.util.Base64
-import com.google.firebase.iid.FirebaseInstanceId
-import com.os.drewel.application.DrewelApplication
-import com.os.drewel.prefrences.Prefs
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -52,7 +51,6 @@ class SplashActivity : BaseActivity() {
         } catch (e: NoSuchAlgorithmException) {
 
         }
-
     }
 
 
@@ -106,7 +104,7 @@ class SplashActivity : BaseActivity() {
                                 {
                                 },
                                 { error -> },
-                                {  })
+                                { })
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

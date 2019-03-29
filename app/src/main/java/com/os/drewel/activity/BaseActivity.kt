@@ -166,6 +166,18 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun disconnectFromFacebook() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            return // already logged out
+        }
+        GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, GraphRequest
+                .Callback {
+                    @Override
+                    fun onCompleted(graphResponse: GraphResponse) {
+                        LoginManager.getInstance().logOut()
+                    }
+                }).executeAsync()
+    }
 
     private fun callSocialLoginApi(fbId: String, firstNAme: String, lastName: String, semail: String, sphone: String, surl: String) {
 
@@ -183,6 +195,10 @@ open class BaseActivity : AppCompatActivity() {
                     /*  setProgressState(View.GONE, true)*/
 
                     if (result.response!!.status!!) {
+                        if (FacebookSdk.isInitialized()) {
+                            disconnectFromFacebook()
+                        }
+
                         if (result.response!!.data!!.isMobileverify.equals("0")) {
                             val intent = Intent(this, OTPVerificationActivity::class.java)
                             intent.putExtra(AppIntentExtraKeys.MOBILE_NUMBER, result.response!!.data!!.country_code + result.response!!.data!!.mobile_number)
@@ -262,7 +278,6 @@ open class BaseActivity : AppCompatActivity() {
                 }
                 )
     }
-
     override fun onDestroy() {
         super.onDestroy()
         if (baseDisposable != null)

@@ -38,7 +38,6 @@ class CategoryFragment : BaseFragment(), View.OnClickListener {
     private var homeBanneradapter: HomeBannerAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         return inflater.inflate(R.layout.category_fragment, container, false)
     }
 

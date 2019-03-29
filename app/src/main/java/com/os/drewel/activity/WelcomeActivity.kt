@@ -69,7 +69,6 @@ class WelcomeActivity : BaseActivity() , View.OnClickListener{
             }
             welcome_page_dots.addView(tvDot)
         }
-
     }
 
     private fun setAdapter() {

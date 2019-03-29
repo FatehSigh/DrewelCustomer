@@ -1,7 +1,8 @@
 <resources>
     <!--facebook account octal.team1@gmail.com / octal@123-->
     <string name="my_favorite">المفضلة</string>
-    <string name="facebook_app_id">2052347848309932</string>
+    <string name="facebook_app_id">1626921997376511</string>
+    <string name="fb_login_protocol_scheme">fb1626921997376511</string>
     <string name="app_name">Drewel</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -138,15 +139,11 @@
     <string name="save">حفظ</string>
     <string name="set_delivery_address">حدد عنوانك</string>
     <string name="set_delivery_location">حدد موقعك</string>
-
     <string name="search_address">ابحث عن عنوانك</string>
     <string name="done">تم</string>
     <string name="address_search_hint">البحث عن اسم المبنى / منطقة موقع الفيلا</string>
     <string name="enter_address_or_move_pin">يرجى ادخال العنوان أو حدد موقعك من الخريطة</string>
-
-
     <string name="error_fetching_address">مشكلة في جلب العنوان ، يرجى المحاولة مرة أخرى.</string>
-
     <string name="location_service_disabled_title">خدمة تحديد الموقع لا يعمل</string>
     <string name="location_service_disabled_text">الرجاء تفعيل  خدمة تحديد الموقع</string>
     <string name="enable">تفعيل</string>

@@ -3,20 +3,13 @@ package com.os.drewel.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.blankj.utilcode.util.KeyboardUtils
-import com.os.drewel.R
-import com.os.drewel.adapter.AppliedCouponCodeAdapter
 import com.os.drewel.adapter.TimeSlotAdapter
-import com.os.drewel.apicall.responsemodel.applycouponresponsemodel.Coupon
 import com.os.drewel.apicall.responsemodel.deliverychargesresponsemodel.Data
-import com.os.drewel.constant.AppIntentExtraKeys
-import com.os.drewel.constant.AppRequestCodes
 import com.os.drewel.constant.Constants
 import com.os.drewel.delegate.OnClick
 import com.os.drewel.model.TimeSlotModel
@@ -33,7 +26,6 @@ import devs.mulham.horizontalcalendar.HorizontalCalendarView
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.activity_choosedeliverytype.*
 import java.text.ParseException
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -51,7 +43,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
     var isCalled = true;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_choosedeliverytype)
+        setContentView(com.os.drewel.R.layout.activity_choosedeliverytype)
         initView()
     }
 
@@ -72,7 +64,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
         val endDate = Calendar.getInstance()
         endDate.add(Calendar.DATE, 6)
 
-        val horizontalCalendar = HorizontalCalendar.Builder(this, R.id.calendarView)
+        val horizontalCalendar = HorizontalCalendar.Builder(this, com.os.drewel.R.id.calendarView)
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .build()
@@ -124,9 +116,9 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.txt_submit -> {
+            com.os.drewel.R.id.txt_submit -> {
                 if (deliveryType.isEmpty() || deliveryDate.isEmpty() || deliveryTimeSlotStartTime.isEmpty() || deliveryTimeSlotEndTime.isEmpty()) {
-                    Utils.getInstance().showToast(this, getString(R.string.choose_delivery_time_slot_validation))
+                    Utils.getInstance().showToast(this, getString(com.os.drewel.R.string.choose_delivery_time_slot_validation))
                 } else {
                     val intent = Intent()
                     intent.putExtra("timeslot", selectedTimeSlot)
@@ -138,7 +130,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                     finish()
                 }
             }
-            R.id.txt_delivery_charges -> {
+            com.os.drewel.R.id.txt_delivery_charges -> {
                 val startCalendar = Calendar.getInstance()
                 if (startCalendar.get(Calendar.MINUTE) < 30) {
                     startCalendar.set(Calendar.MINUTE, 0)
@@ -173,7 +165,6 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
         try {
             timeSlotList.clear()
             val endCalendar = Calendar.getInstance()
-//          endCalendar.time = startCalendar.time
             val endtime = Calendar.getInstance()
             val startTime = Calendar.getInstance()
             val format = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
@@ -204,18 +195,31 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                 timeSlotModel.isCheck = false
                 timeSlotModel.slot = "$slotStartTime - $slotEndTime"
                 if (isToday) {
-                    timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.sameDayDeliveryCharge!!.toDouble()) + " " + getString(R.string.omr)
+                    timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.sameDayDeliveryCharge!!.toDouble()) + " " + getString(com.os.drewel.R.string.omr)
                     timeSlotModel.deliverType = Constants.SAME_DAY_DELIVERY
                 } else {
-                    timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.deliveryCharge!!.toDouble()) + " " + getString(R.string.omr)
+                    timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.deliveryCharge!!.toDouble()) + " " + getString(com.os.drewel.R.string.omr)
                     timeSlotModel.deliverType = Constants.NEXT_DAY_DELIVERY
                 }
                 if (isToday) {
-                    if (strt.after(Calendar.getInstance().time)) {
+                    val calendarToday = Calendar.getInstance()
+                    calendarToday.time = strt
+                    calendarToday.add(Calendar.HOUR, -1)
+
+                    val calendarEnd = Calendar.getInstance()
+                    calendarEnd.time = strt
+                    calendarEnd.add(Calendar.HOUR, -1)
+
+
+                    if (calendarToday.time.after(Calendar.getInstance().time)) {
+                        Log.d("StartTime1", "$slotStartTime-$slotEndTime")
                         timeSlotList.add(timeSlotModel)
                     } else {
-                        if (strt.before(Calendar.getInstance().time) && end.after(Calendar.getInstance().time)) {
-                            timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.expediteDeliveryCharges!!.toDouble()) + " " + getString(R.string.omr)
+                        if (calendarToday.time.before(Calendar.getInstance().time) && calendarEnd.time.after(Calendar.getInstance().time)) {
+
+                            Log.d("StartTime1", "$slotStartTime-$slotEndTime")
+
+                            timeSlotModel.fare = String.format("%.3f", deliveryChargesResponse!!.expediteDeliveryCharges!!.toDouble()) + " " + getString(com.os.drewel.R.string.omr)
                             timeSlotModel.deliverType = Constants.DELIVERY_NOW
                             timeSlotList.add(timeSlotModel)
                         }
@@ -247,7 +251,7 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                 if (deliverySlotSelect != null)
                     deliverySlotSelect!!.dispose()
             } else {
-                Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
+                Utils.getInstance().showToast(this, getString(com.os.drewel.R.string.no_time_slot_available_today))
 
             }
         } catch (e: Exception) {
@@ -323,11 +327,11 @@ class ChooseDeliveryTypeActivity : BaseActivity(), View.OnClickListener {
                         deliverySlotSelect!!.dispose()
 
                 } else {
-                    Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
+                    Utils.getInstance().showToast(this, getString(com.os.drewel.R.string.no_time_slot_available_today))
 //                    chooseDeliveryTypeTv.text = ""
                 }
             } else {
-                Utils.getInstance().showToast(this, getString(R.string.no_time_slot_available_today))
+                Utils.getInstance().showToast(this, getString(com.os.drewel.R.string.no_time_slot_available_today))
 //                chooseDeliveryTypeTv.text = ""
             }
         } catch (e: Exception) {

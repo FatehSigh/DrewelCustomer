@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "209881296273",
-    "firebase_url": "https://drewel-5a2d3.firebaseio.com",
-    "project_id": "drewel-5a2d3",
-    "storage_bucket": "drewel-5a2d3.appspot.com"
+    "project_number": "541144606187",
+    "firebase_url": "https://drewelapplication.firebaseio.com",
+    "project_id": "drewelapplication",
+    "storage_bucket": "drewelapplication.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:209881296273:android:76905883740ae9ca",
+        "mobilesdk_app_id": "1:541144606187:android:0b456038cf0be795",
         "android_client_info": {
-          "package_name": "com.octalsoftware.drewel"
+          "package_name": "com.drewel.drewel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "209881296273-9aim0ad9jlcrh67iqdlqav8o9dsdt82f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.octalsoftware.drewel",
-            "certificate_hash": "22f6a4048d3effdfc0ed8e275675ec5ea5a8a43d"
-          }
-        },
-        {
-          "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
+          "client_id": "541144606187-6j37903j4utik53vigipqugdirucdbb8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbWNBqFpi-wp88j0cPminqVWJ5qEuL3dw"
+          "current_key": "AIzaSyD7f-U96w7RxPTkMW9UYcPEE0odwdcpGsw"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
@@ -52,20 +39,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:209881296273:android:45ca60b1d1e0c14e",
+        "mobilesdk_app_id": "1:541144606187:android:71ccd402e0fa422d",
         "android_client_info": {
-          "package_name": "com.os.drewel"
+          "package_name": "com.drewel.driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "209881296273-lpbi871tieecf4ge3v8dde0cbk7ko6ak.apps.googleusercontent.com",
+          "client_id": "541144606187-6j37903j4utik53vigipqugdirucdbb8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbWNBqFpi-wp88j0cPminqVWJ5qEuL3dw"
+          "current_key": "AIzaSyD7f-U96w7RxPTkMW9UYcPEE0odwdcpGsw"
         }
       ],
       "services": {

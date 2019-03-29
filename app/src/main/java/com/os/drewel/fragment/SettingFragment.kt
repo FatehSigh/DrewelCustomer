@@ -66,10 +66,10 @@ class SettingFragment : BaseFragment(), View.OnClickListener {
             tv_unread_count.visibility = View.GONE
         }
         if (pref!!.getPreferenceBooleanData(pref!!.KEY_SOCIAL_LOGIN)) {
-            tv_change_password.visibility = View.GONE
+            ll_changepass.visibility = View.GONE
             changePwView.visibility = View.GONE
         } else {
-            tv_change_password.visibility = View.VISIBLE
+            ll_changepass.visibility = View.VISIBLE
             changePwView.visibility = View.VISIBLE
         }
         NotificationRxJavaBus.getInstance().notificationPublishSubject.subscribe { addToWishList ->

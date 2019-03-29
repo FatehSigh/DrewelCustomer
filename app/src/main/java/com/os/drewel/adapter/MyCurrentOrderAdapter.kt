@@ -54,7 +54,7 @@ class MyCurrentOrderAdapter(val mContext: Context?, private val myCurrentOrderLi
             return false
         if (myCurrentOrderList[position].orderDeliveryStatus.equals("Delivered", true))
             return false
-        if (myCurrentOrderList[position].cancelledBefore!!.toInt() <= Utils.getInstance().getHourDifferenceBetweenTwoDate(myCurrentOrderList[position].order_date!!))
+        if (myCurrentOrderList[position].cancelledBefore!!.toDouble().toInt() <= Utils.getInstance().getHourDifferenceBetweenTwoDate(myCurrentOrderList[position].order_date!!))
             return false
         if (myCurrentOrderList[position].is_delivery_boy.equals("1"))
             return false

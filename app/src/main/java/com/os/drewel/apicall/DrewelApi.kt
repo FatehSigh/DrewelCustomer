@@ -26,7 +26,6 @@ import com.os.drewel.apicall.responsemodel.productlistresponsemodel.ProductListR
 import com.os.drewel.apicall.responsemodel.profileresponsemodel.ProfileResponse
 import com.os.drewel.apicall.responsemodel.resendOtpresponsemodel.ResendOTPResponse
 import com.os.drewel.apicall.responsemodel.reviewResponseModel.ReviewListResponse
-import com.os.drewel.apicall.responsemodel.saveaddressresponsemodel.Response
 import com.os.drewel.apicall.responsemodel.searchproductresponsemodel.SearchProductResponse
 import com.os.drewel.apicall.responsemodel.searchsuggestionresponsemodel.SearchSuggestionResponse
 import com.os.drewel.apicall.responsemodel.unreadnotificationresponsemodel.UnreadNotificationResponse
@@ -42,13 +41,21 @@ import retrofit2.http.*
  */
 interface DrewelApi {
     companion object {
-//        const val BASE_URL = "http://192.168.1.92/drewel/web_services/";
-        const val BASE_URL = "https://56.octallabs.com/drewel/web_services/"
-        const val HOW_ITS_WORK_URL = "https://56.octallabs.com/drewel/how-it-works"
-        const val TERMS_OF_USE_URL = "https://56.octallabs.com/drewel/terms-of-use"
-        const val PRIVACY_POLICY_URL = "https://56.octallabs.com/drewel/privacy-policy"
-        const val FAQ_URL = "https://56.octallabs.com/drewel/faq"
-        const val ABOUT_US = "https://56.octallabs.com/drewel/about-us"
+        //        const val BASE_URL = "http://192.168.1.92/drewel/web_services/";
+//        const val BASE_URL = "https://56.octallabs.com/drewel/web_services/"
+//        const val HOW_ITS_WORK_URL = "https://56.octallabs.com/drewel/how-it-works"
+//        const val TERMS_OF_USE_URL = "https://56.octallabs.com/drewel/terms-of-use"
+//        const val PRIVACY_POLICY_URL = "https://56.octallabs.com/drewel/privacy-policy"
+//        const val FAQ_URL = "https://56.octallabs.com/drewel/faq"
+//        const val ABOUT_US = "https://56.octallabs.com/drewel/about-us"
+
+
+        const val BASE_URL = "http://drewel.om/web_services/"
+        const val HOW_ITS_WORK_URL = "http://drewel.om/how-it-works"
+        const val TERMS_OF_USE_URL = "http://drewel.om/terms-of-use"
+        const val PRIVACY_POLICY_URL = "http://drewel.om/privacy-policy"
+        const val FAQ_URL = "http://drewel.om/faq"
+        const val ABOUT_US = "http://drewel.om/about-us"
     }
 
     @Headers("Content-Type: application/json")

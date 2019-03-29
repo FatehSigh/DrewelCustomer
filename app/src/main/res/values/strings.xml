@@ -2,7 +2,8 @@
     <!--facebook account octal.team1@gmail.com / octal@123-->
     <!--Firebase Account monika.bansal@octalsoftware.net/octal#123 -->
 
-    <string name="facebook_app_id">2052347848309932</string>
+    <string name="facebook_app_id">1626921997376511</string>
+    <string name="fb_login_protocol_scheme">fb1626921997376511</string>
     <string name="app_name">Drewel</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

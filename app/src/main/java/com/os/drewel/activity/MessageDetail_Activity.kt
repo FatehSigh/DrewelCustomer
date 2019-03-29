@@ -45,22 +45,6 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
                 user_unread_count = 0
             }
         }
-//        if (update) {
-//            update = false
-//            val timeStamp = System.currentTimeMillis().toString() + ""
-//            var channelInfoModel: ChannelInfoModel = ChannelInfoModel()
-//            if (mylibArrayList.size > 0)
-//                channelInfoModel.message = mylibArrayList.get(mylibArrayList.size - 1).messages!!.message
-//            channelInfoModel.admin_count = admin_unread_count.toString().trim()
-//            channelInfoModel.receiver_id = admin_id
-//            channelInfoModel.receiver_name = "admin"
-//            channelInfoModel.receiver_profile_image = admin_img
-//            channelInfoModel.sender_id = prefs!!.getPreferenceStringData(prefs!!.KEY_USER_ID)
-//            channelInfoModel.user_count = "0"
-//            channelInfoModel.time = timeStamp
-//            user_unread_count = 0
-//            MessageDataSource.chatRoot.child(chat_id).child("channel_info").setValue(channelInfoModel)
-//        }
     }
 
     override fun onMessageAdded(message: ChatModel) {
@@ -73,7 +57,6 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
         }
     }
 
-    var update = true
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -115,9 +98,6 @@ class MessageDetail_Activity : BaseActivity(), View.OnClickListener, MessageData
             mListener = MessageDataSource.addMessagesListener(chat_id, this)
             setView()
         }
-//        chat_id = "a" + admin_id + "_u" + Prefs(DrewelApplication.getInstance()).getPreferenceStringData(Prefs(DrewelApplication.getInstance()).KEY_USER_ID)
-//        mListener = MessageDataSource.addMessagesListener(chat_id, this)
-//        channelListener = MessageDataSource.addChannelListener(chat_id, this)
 
     }
 

@@ -1,13 +1,12 @@
 package com.os.drewel.activity
 
+//import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutManager
@@ -26,7 +25,6 @@ import com.os.drewel.adapter.SlidingImageAdapter
 import com.os.drewel.apicall.DrewelApi
 import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetail
 import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
-//import com.os.drewel.apicall.responsemodel.productdetailresponsemodel.ProductDetailResponse
 import com.os.drewel.application.DrewelApplication
 import com.os.drewel.constant.AppIntentExtraKeys
 import com.os.drewel.constant.Constants
@@ -41,11 +39,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_product_details_activity.*
 import kotlinx.android.synthetic.main.product_detail_activity.*
-import android.support.v7.widget.ShareActionProvider;
-import com.os.drewel.utill.ShareAppConstant
-import kotlinx.android.synthetic.main.child_my_cart.view.*
 import me.leolin.shortcutbadger.ShortcutBadger
-import java.net.URI
 
 /**
  * Created by monikab on 3/20/2018.
@@ -180,13 +174,10 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     if (isNetworkAvailable())
                         saveProductImage(true)
                 }
-
             }
             R.id.addToWishList -> {
-
                 if (isNetworkAvailable())
                     callAddToWishListApi(if (productDetail.isWishlist == 0) "1" else "2")
-
             }
             R.id.notifyMeBt -> {
                 if (isNetworkAvailable())
@@ -234,9 +225,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     /*Delete Item*/
                 }
             }
-
         }
-
     }
 
 

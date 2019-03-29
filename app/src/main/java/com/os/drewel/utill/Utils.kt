@@ -256,7 +256,6 @@ class Utils private constructor() {
         } catch (e: ParseException) {
             e.printStackTrace()
         }
-
         return timea
     }
 
