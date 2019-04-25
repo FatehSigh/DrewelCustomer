@@ -450,7 +450,6 @@
                     android:background="@color/white"
                     android:drawableStart="@mipmap/signout"
                     android:drawablePadding="@dimen/_10sdp"
-
                     android:gravity="center_vertical"
                     android:padding="@dimen/_12sdp"
                     android:text="@string/sign_out" />
