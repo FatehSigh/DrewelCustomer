@@ -311,12 +311,12 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
             }
         } else if (requestCode == 1245 && resultCode == Activity.RESULT_OK) {
             deliveryDate = data!!.getStringExtra("deliveryDate")
-            checkoutRequest.deliveryType = data.getStringExtra("deliveryType")
+            checkoutRequest.deliveryType = "1"
             deliveryTimeSlotStartTime = data.getStringExtra("deliveryTimeSlotStartTime")
             deliveryTimeSlotEndTime = data.getStringExtra("deliveryTimeSlotEndTime")
             val date = SimpleDateFormat("dd MMM, yyyy").format(SimpleDateFormat("yyyy-MM-dd").parse(deliveryDate))
-            Log.e("cor deliveryType", checkoutRequest.deliveryType)
-            if (checkoutRequest.deliveryType.equals(Constants.DELIVERY_NOW)) {
+            Log.e("cor deliveryType", "1")
+         /*   if (checkoutRequest.deliveryType.equals(Constants.DELIVERY_NOW)) {
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
                     deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.expediteDeliveryCharges!!.toFloat()).toFloat()
                 deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
@@ -328,13 +328,13 @@ class CheckOutActivity : BaseActivity(), View.OnClickListener, CouponCodeRemove 
                 deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
                 chooseDeliveryTypeTv.text = date.toString() + ", " + data!!.getStringExtra("timeslot")
                 setGrandTotal()
-            } else {
+            } else {*/
                 if (deliveryChargesResponse?.deliveryCharge!!.isNotEmpty())
                     deliveryChargesValue = DrewelApplication.getInstance().convertToEnglish(deliveryChargesResponse?.deliveryCharge!!.toFloat()).toFloat()
                 deliveryChargesTv.text = String.format("%.3f", deliveryChargesValue) + " " + getString(R.string.omr)
                 chooseDeliveryTypeTv.text = date.toString() + ", " + data!!.getStringExtra("timeslot")
                 setGrandTotal()
-            }
+           // }
         }
     }
 

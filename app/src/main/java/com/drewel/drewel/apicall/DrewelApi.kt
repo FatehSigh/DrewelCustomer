@@ -104,7 +104,7 @@ interface DrewelApi {
     fun getCategory(@Body categoryRequest: Map<String, String>): Observable<CategoryListResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("product_list_by_category")
+    @POST("product_list_by_category_new")
     fun getProduct(@Body productRequest: Map<String, @JvmSuppressWildcards Any>/*, @Query("brands_id[]") brandAry:JSONArray*/): Observable<ProductListResponse>
 
     @Headers("Content-Type: application/json")

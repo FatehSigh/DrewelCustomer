@@ -4,6 +4,7 @@ import java.io.Serializable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.drewel.drewel.apicall.responsemodel.Product
+import java.util.ArrayList
 
 class Brand : Serializable {
 
@@ -21,6 +22,8 @@ class Brand : Serializable {
     var brandLogo: String? = null
     @SerializedName("Products")
     @Expose
-    var products: List<Product>? = null
+    var products: ArrayList<Product>? = null
+
+
 
 }

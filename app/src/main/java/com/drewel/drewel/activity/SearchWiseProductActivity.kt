@@ -73,7 +73,7 @@ class SearchWiseProductActivity : ProductBaseActivity() {
         val getSearchProductRequest = HashMap<String, String>()
         getSearchProductRequest["key"] = searchKey
         if(pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
-        getSearchProductRequest["user_id"] = "!"
+        getSearchProductRequest["user_id"] = "1"
         else
         getSearchProductRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         getSearchProductRequest["language"] = DrewelApplication.getInstance().getLanguage()

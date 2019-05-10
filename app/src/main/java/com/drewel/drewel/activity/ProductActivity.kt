@@ -12,7 +12,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.RatingBar
 import com.drewel.drewel.R
 import com.drewel.drewel.adapter.BrandAdapter
 import com.drewel.drewel.adapter.BrandNameAdapter
@@ -24,6 +26,7 @@ import com.drewel.drewel.apicall.responsemodel.productlistresponsemodel.Data
 import com.drewel.drewel.application.DrewelApplication
 import com.drewel.drewel.constant.AppIntentExtraKeys
 import com.drewel.drewel.constant.Constants
+import com.drewel.drewel.utill.PaginationScrollListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -40,14 +43,16 @@ import kotlin.collections.ArrayList
  */
 class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, View.OnClickListener {
 
+
+    private lateinit var layoutManager: LinearLayoutManager
     private var brandAdapter: BrandAdapter? = null
     private var subCategoryList: List<Subcategory> = ArrayList()
     private var category: Category = Category()
     private var subCategoryId = ""
     private var categoryId = ""
     private var disposable: Disposable? = null
-    private var brandList: List<Brand> = ArrayList()
-    private var brandNameList: List<Brand> = ArrayList()
+    private var brandList: ArrayList<Brand> = ArrayList()
+    private var brandNameList: ArrayList<Brand> = ArrayList()
     private var filterPopupWindow: PopupWindow? = null
 
     private lateinit var popupWindowView: View
@@ -66,9 +71,13 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     private lateinit var sortPopupWindowView: View
 
+    private var PAGE_START = 1
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
+        setAdapter()
         initView()
     }
 
@@ -130,25 +139,17 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         linearLayout.dividerDrawable = drawable
     }
 
-    private fun setAdapter() {
-        /*if (brandAdapter == null) {*/
-        brandAdapter = BrandAdapter(this, brandList, tabs.visibility)
-        brandRecyclerView.layoutManager = LinearLayoutManager(this)
-        brandRecyclerView.adapter = brandAdapter
-        /* } else {
-             brandAdapter!!.notifyDataSetChanged()
-         }*/
-    }
 
     private fun callGetProductApi() {
         setProgressState(View.VISIBLE, false)
         val getProductRequest = HashMap<String, Any>()
+        getProductRequest["page"] = "" + PAGE_START
         getProductRequest["category_id"] = categoryId
         getProductRequest["sub_category_id"] = subCategoryId
-        if(pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
+        if (pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
             getProductRequest["user_id"] = "1"
         else
-        getProductRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
+            getProductRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         getProductRequest["language"] = DrewelApplication.getInstance().getLanguage()
         getProductRequest["min_price"] = selectedMinPriceRange
         getProductRequest["max_price"] = selectedMaxPriceRange
@@ -172,24 +173,35 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                     setProgressState(View.GONE, true)
                     DrewelApplication.getInstance().logoutWhenAccountDeactivated(result.response!!.isDeactivate!!, this)
                     if (result.response!!.status!!) {
+
+                        isLoading = false;
                         brandRecyclerView.visibility = View.VISIBLE
                         /*search_product.visibility=View.VISIBLE
                         searchProductView.visibility=View.VISIBLE*/
                         productResponse = result.response!!.data!!
-                        brandList = result.response!!.data!!.brands!!
+                        brandList = result.response!!.data!!.brands!! as ArrayList<Brand>
                         if (brandNameList.isEmpty())
-                            brandNameList = result.response!!.data!!.brands!!
-                        setAdapter()
-                        /* change brands filter*/
-                        if (filterPopupWindow != null && !isFilterApplied) {
-                            setAdapterOfBrandName()
-                            setMinMaxRangeOfPrice()
-                        } else
-                            isFilterApplied = false
+                            brandNameList = result.response!!.data!!.brands!! as ArrayList<Brand>
+
+
+                        if (brandList.size > 0) {
+
+                              brandAdapter!!.addData(brandList)
+
+                            /* change brands filter*/
+                            if (filterPopupWindow != null && !isFilterApplied) {
+                                setAdapterOfBrandName()
+                                setMinMaxRangeOfPrice()
+                            } else
+                                isFilterApplied = false
+
+                        }
+
 
                     } else {
                         com.drewel.drewel.utill.Utils.getInstance().showToast(this, result.response!!.message!!)
-                        brandRecyclerView.visibility = View.GONE
+                       /* if (subCategoryList.isNotEmpty())
+                            brandRecyclerView.visibility = View.GONE*/
                         /*search_product.visibility=View.GONE
                         searchProductView.visibility=View.GONE*/
                     }
@@ -224,6 +236,10 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         Handler().postDelayed({
+
+            PAGE_START=1
+            brandList.clear()
+            brandAdapter!!.updateData()
             selectedBrandPosArray.clear()
             selectedMaxPriceRange = ""
             selectedMinPriceRange = ""
@@ -491,4 +507,34 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
         }
     }
+
+
+    var isLastPage: Boolean = false
+    var isLoading: Boolean = false
+    private fun setAdapter() {
+        brandAdapter = BrandAdapter(this, brandList, tabs.visibility)
+        layoutManager = LinearLayoutManager(this)
+        brandRecyclerView.layoutManager = layoutManager
+        brandRecyclerView.adapter = brandAdapter
+
+        brandRecyclerView?.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return isLoading
+            }
+
+            override fun loadMoreItems() {
+                Log.d("NextPage", "" + PAGE_START++)
+                isLoading = true
+                callGetProductApi()
+            }
+        })
+
+
+    }
+
+
 }

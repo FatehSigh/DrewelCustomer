@@ -286,7 +286,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                         }
                     }
                 } else {
-                    if (orderNetPrice.toDouble() < 5) {
+                /*    if (orderNetPrice.toDouble() < 5) {
                         val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
                         logoutAlertDialog.setTitle(getString(R.string.app_name))
                         Log.e("min==", getString(R.string.minimum_order_validation) + String.format("%.3f", 5.000) + " " + getString(R.string.omr))
@@ -295,7 +295,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
                             logoutAlertDialog.dismiss()
                         }
                         logoutAlertDialog.show()
-                    } else {
+                    } else {*/
                         if (pref?.getPreferenceStringData(pref!!.KEY_FULL_DELIVERY_ADDRESS).isNullOrEmpty()) {
                             val logoutAlertDialog = AlertDialog.Builder(this, R.style.DeliveryTypeTheme).create()
                             logoutAlertDialog.setTitle(getString(R.string.app_name))
@@ -326,7 +326,7 @@ class CartActivity : BaseActivity(), View.OnClickListener {
 //                        startActivity(intent)
 //                    } else {
 //                    }
-                }
+               // }
             }
         }
 

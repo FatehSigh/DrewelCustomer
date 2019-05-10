@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.drewel.drewel.R
 import com.drewel.drewel.activity.BrandWiseProductActivity
+import com.drewel.drewel.apicall.responsemodel.Product
 import com.drewel.drewel.apicall.responsemodel.productlistresponsemodel.Brand
 import com.drewel.drewel.application.DrewelApplication
 import com.drewel.drewel.constant.AppIntentExtraKeys
@@ -22,8 +23,7 @@ import kotlinx.android.synthetic.main.brand_row_selector.view.*
  * Created by monikab on 3/13/2018.
  */
 
-class BrandAdapter(val mContext: Context, private val brandList: List<Brand>, internal  var visibility: Int) : RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
-    var imageViewHeight = 0
+class BrandAdapter(val mContext: Context, private var brandList: ArrayList<Brand>, internal  var visibility: Int) : RecyclerView.Adapter<BrandAdapter.BrandHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.brand_row_selector, parent, false)
         return BrandHolder(view)
@@ -79,6 +79,31 @@ class BrandAdapter(val mContext: Context, private val brandList: List<Brand>, in
 
         }
 
+    }
+
+    fun addData(listItems: ArrayList<Brand>) {
+        val size = this.brandList.size
+        if(listItems.size>0 && this.brandList.size>0){
+           val brandId= listItems[0].brandId
+           val brandIdOld= this.brandList[size-1].brandId
+            if(brandId!!.trim().equals(brandIdOld!!.trim(),true)) {
+                val projectListnew = listItems[0].products as ArrayList<Product>
+                this.brandList[size-1].products!!.addAll(projectListnew)
+                listItems.removeAt(0)
+                notifyItemChanged(size-1)
+
+
+            }
+        }
+
+        this.brandList.addAll(listItems)
+        val sizeNew = this.brandList.size
+        notifyItemRangeChanged(size, sizeNew)
+    }
+
+    fun updateData() {
+        this.brandList.clear()
+        notifyDataSetChanged()
     }
 
 }

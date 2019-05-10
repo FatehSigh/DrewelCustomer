@@ -40,6 +40,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_product_details_activity.*
 import kotlinx.android.synthetic.main.product_detail_activity.*
 import me.leolin.shortcutbadger.ShortcutBadger
+import java.util.*
 
 /**
  * Created by monikab on 3/20/2018.
@@ -176,7 +177,12 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                 }
             }
             R.id.addToWishList -> {
-                if (isNetworkAvailable())
+                if(pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
+                {
+                    startActivity(Intent(this@ProductDetailActivity,WelcomeActivity::class.java))
+                    finish()
+                }
+               else if (isNetworkAvailable())
                     callAddToWishListApi(if (productDetail.isWishlist == 0) "1" else "2")
             }
             R.id.notifyMeBt -> {
@@ -189,6 +195,14 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
                     addToCartApi(addToCart)
             }
             R.id.txt_write_your_review -> {
+
+                if(pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
+                {
+                    startActivity(Intent(this@ProductDetailActivity,WelcomeActivity::class.java))
+                    finish()
+                    return
+                }
+
                 if (!isNetworkAvailable())
                     return
                 var intent = Intent(this@ProductDetailActivity, RateProductActivity::class.java)
@@ -319,7 +333,7 @@ class ProductDetailActivity : ProductBaseActivity(), View.OnClickListener {
         val productDetailRequest = HashMap<String, String>()
         productDetailRequest["language"] = DrewelApplication.getInstance().getLanguage()
         if(pref!!.getPreferenceStringData(pref!!.KEY_USER_ID).isEmpty())
-        productDetailRequest["user_id"] = ""
+        productDetailRequest["user_id"] = "1"
         else
         productDetailRequest["user_id"] = pref!!.getPreferenceStringData(pref!!.KEY_USER_ID)
         productDetailRequest["product_id"] = productId

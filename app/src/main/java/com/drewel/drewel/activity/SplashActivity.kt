@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Utils.getInstance().deleteCache(this)
+        //Utils.getInstance().deleteCache(this)
 
         getKeyHash()
 //        getFirebaseRefreshToken()
