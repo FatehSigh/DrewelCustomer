@@ -236,7 +236,7 @@
     <string name="sub_total_colon">Sub Total:</string>
     <string name="delivery_fee_colon">Delivery Fee:</string>
     <string name="no_of_items_colon1">Number of item:</string>
-    <string name="delivery_boy_information">Delivery boy information</string>
+    <string name="delivery_boy_information">Delivery information</string>
     <string name="cancel_order">Cancel Order</string>
     <string name="order_detail">Order Detail</string>
     <string name="from">From</string>
@@ -363,6 +363,6 @@
     <string name="payment">Payment</string>
     <string name="Payment_Failed_MSG">Payment transaction failed, please try again.</string>
     <string name="_enter">Enter</string>
-    <string name="static_msg">Dear Customer\n\nFirst let me thank you for contacting Drewel.\n\nOur working hours are from 9 am to 10 pm\nSunday to Friday.\n\nIn case we don’t respond to this message; please contact us on our WhatsApp\n92229392\n\nThanks again! \nDrewel</string>
+    <string name="static_msg">Dear Customer\n\nFirst let me thank you for contacting Drewel.\n\nOur working hours are from 9 am to 10 pm\nSunday to Friday.\n\nIn case we don’t respond to this message; please contact us on our WhatsApp\n92227392\n\nThanks again! \nDrewel</string>
 
 </resources>

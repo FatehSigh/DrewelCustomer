@@ -79,6 +79,10 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
         setContentView(R.layout.activity_product)
         setAdapter()
         initView()
+
+        if (isNetworkAvailable())
+            callGetProductApi()
+
     }
 
     private fun initView() {
@@ -125,8 +129,7 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
     override fun onStart() {
         super.onStart()
 
-        if (isNetworkAvailable())
-            callGetProductApi()
+
     }
 
     private fun setDividerForTab() {
@@ -414,6 +417,9 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
 
         when (view.id) {
             R.id.applyFilterBt -> {
+                PAGE_START=1
+                brandList.clear()
+                brandAdapter!!.updateData()
                 isFilterApplied = true
                 filterPopupWindow!!.dismiss()
                 selectedBrandPosArray.clear()
@@ -433,6 +439,9 @@ class ProductActivity : ProductBaseActivity(), TabLayout.OnTabSelectedListener, 
                     showSortPopUp(view)
             }
             R.id.clearFilterBt -> {
+                PAGE_START=1
+                brandList.clear()
+                brandAdapter!!.updateData()
                 filterPopupWindow!!.dismiss()
                 selectedBrandPosArray.clear()
                 selectedMaxPriceRange = ""
